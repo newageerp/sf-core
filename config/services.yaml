@@ -166,3 +166,8 @@ services:
     arguments: [ ]
   Newageerp\SfXlsx\Service\XlsxService:
     arguments: [ ]
+
+
+  Newageerp\SfReactTemplates\Console\InstallTemplates:
+    tags:
+      - { name: 'console.command' }
