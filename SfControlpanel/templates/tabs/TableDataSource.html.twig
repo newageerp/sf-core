@@ -1,0 +1,460 @@
+import React, { useEffect, useState, useRef, Fragment } from "react";
+import { useTranslation } from "react-i18next";
+import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
+import { functions, UI, UIConfig } from '@newageerp/nae-react-ui';
+import { PageContainer, PageContainerMarginTop } from '@newageerp/ui.paging.base.page-container'
+import { SortingItem } from '@newageerp/ui.components.list.sort-controller';
+import { useHistory } from 'react-router-dom'
+import DefaultSearchToolbar from "../DefaultSearchToolbar";
+import {TypeItemFilters} from '@newageerp/ui.components.list.filter-container'
+import { LayoutToolbar } from "@newageerp/ui.layout.base.layout-toolbar";
+import { Toolbar } from "@newageerp/ui.layout.base.toolbar";
+import { ToolbarTitle } from "@newageerp/ui.texts.base.toolbar-title";
+import { useRecoilState } from "recoil";
+import { UserSpaceWrapperToolbarState } from "../../layout/toolbar/UserSpaceWrapperToolbar";
+import {FilterListData} from "@newageerp/sfs.list-toolbar.filter.filter-list-data"
+import {FilterListOptions} from "@newageerp/sfs.list-toolbar.filter.filter-list-options"
+import {FilterDate} from "@newageerp/sfs.list-toolbar.filter.filter-date"
+import { useLocationState } from 'use-location-state'
+import {initialStateItemsFilter} from '@newageerp/ui.components.list.filter-container'
+import { ServerFilterItem } from '@newageerp/ui.components.list.filter-container'
+import { Table } from "@newageerp/ui.table.base.table";
+import TemplateLoader, { useTemplateLoader } from "../../v3/templates/TemplateLoader";
+import {FilterContainer} from '@newageerp/ui.components.list.filter-container';
+
+{% if hasStatusFilter %}
+import { {{ schemaUC }}StatusesList } from "../../statuses/badges/{{ schemaUC }}Statuses";
+{% endif %}
+
+{% if customToolbarStart %}
+import {{ tpCompName }}ToolbarStartContent from "../../_custom/tabs/tables-data-source/{{ tpCompName }}ToolbarStartContent";
+{% endif %}
+{% if customToolbarMiddle %}
+import {{ tpCompName }}ToolbarMiddleContent from "../../_custom/tabs/tables-data-source/{{ tpCompName }}ToolbarMiddleContent";
+{% endif %}
+{% if customToolbarEnd %}
+import {{ tpCompName }}ToolbarEndContent from "../../_custom/tabs/tables-data-source/{{ tpCompName }}ToolbarEndContent";
+{% endif %}
+
+interface Props {
+    navigate?: (schema: string, id: number | string, el: any) => void,
+    dataProcessing?: (data: any[]) => any[],
+    reloadState?: any,
+    extraFilter?: any,
+    disableScrollToHeader?: boolean,
+    disableCreate?: boolean,
+    disableSetTitle?: boolean,
+
+    hideSearchBar?: boolean,
+    hidePaging?: boolean,
+
+    disableVerticalMargin?: boolean
+}
+
+export default function {{ tpCompName }}(props: Props) {
+    const [extendedSearchOptions, setExtendedSearchOptions] = useState<any[]>([]);
+
+    const { data: tData } = useTemplateLoader();
+
+    const [itemsFilter, setItemsFilter] = useState<TypeItemFilters>([]);
+    const [showExtendedSearch, setShowExtendedSearch] = useState(false);
+    const addNewBlockFilter = (filter: ServerFilterItem) => {
+        const _itemsFilter: TypeItemFilters = JSON.parse(
+            JSON.stringify(itemsFilter)
+        );
+
+        _itemsFilter.push({
+            id: Date.now(),
+            filter: [
+                {
+                    filterId: Date.now(),
+                    items: [
+                        {
+                            itemId: Date.now(),
+                            filterValue: "",
+                            selectedFilter: filter,
+                        },
+                    ],
+                },
+            ],
+        });
+
+        setItemsFilter(_itemsFilter);
+    };
+
+    useEffect(() => {
+        if (itemsFilter.length > 0 && !showExtendedSearch) {
+            setShowExtendedSearch(true);
+        }
+        // if (showExtendedSearch && itemsFilter.length === 0) {
+        //     setItemsFilter(initialStateItemsFilter);
+        // }
+    }, [itemsFilter, showExtendedSearch]);
+
+    const checkIsCreatable = () => {
+        const scopes = functions.schemas.getSchemaScopes('{{ schema }}');
+        const userState: any = UIConfig.userState
+
+        if (scopes.indexOf('disable-create') >= 0) {
+            return false
+        }
+        if (scopes.indexOf('disable-' + userState.permissionGroup + '-create') >= 0) {
+            return false
+        }
+        let isAllowScope = scopes.filter((s: string) => s.indexOf('allow-create') >= 0).length > 0;
+        if (isAllowScope) {
+            if (scopes.indexOf('allow-create-' + userState.permissionGroup) >= 0) {
+            return true
+            }
+            return false;
+        }
+
+        return true
+    }
+
+    const history = useHistory()
+
+    const onAddExtraFilter = (key: string, data: any) => {
+        const _extraFilter = JSON.parse(JSON.stringify(dataState.extraFilter));
+        _extraFilter[key] = data;
+
+        if (!data && !(key in _extraFilter)) {
+            return;
+        }
+
+        if (JSON.stringify(_extraFilter) !== JSON.stringify(dataState.extraFilter)) {
+            const _state = JSON.parse(JSON.stringify(dataState));
+            _state.page = 1;
+            _state.extraFilter = _extraFilter;
+            setDateState(_state);
+        }
+    }
+
+    const otherTabs = {{ otherTabs|raw }};
+
+    const exports = {{ exports|raw }};
+
+    const totals = {{ totals|raw }};
+
+    const headerRef = useRef(null)
+    const scrollToHeader = () => {
+        if (headerRef && headerRef.current && !props.disableScrollToHeader) {
+            // @ts-ignore
+            headerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+    }
+
+    const pageSize = {{ pageSize }};
+    const sort = {{ sort|raw }};
+
+    const defaultState : any = {
+        page: 1,
+        sort: sort,
+        quickSearch: '',
+        detailedSearch: [],
+        extraFilter: {},
+    }
+
+    const isCreatable = {{ creatable }} && !props.disableCreate && checkIsCreatable();
+
+    const quickSearchFields : any = {{ quickSearch|raw }};
+    const predefinedFilter : any = {{ filter|raw }};
+
+    const [dataState, setDateState] = useLocationState("{{ tpCompName }}", defaultState);
+
+    const setActivePage = (page: number) => {
+        if (page !== dataState.page) {
+            const _state = JSON.parse(JSON.stringify(dataState));
+            _state.page = page;
+            setDateState(_state);
+        }
+    }
+
+    const setQuickSearch = (s: string) => {
+        if (s !== dataState.quickSearch) {
+            const _state = JSON.parse(JSON.stringify(dataState));
+            _state.page = 1;
+            _state.quickSearch = s;
+            setDateState(_state);
+        }
+    }
+
+    const setSort = (sort: SortingItem[]) => {
+        if (JSON.stringify(sort) !== JSON.stringify(dataState.sort)) {
+            const _state = JSON.parse(JSON.stringify(dataState));
+            _state.page = 1;
+            _state.sort = sort;
+            setDateState(_state);
+        }
+    }
+
+    const setDetailedSearch = (detailedSearch: TypeItemFilters) => {
+        if (JSON.stringify(detailedSearch) !== JSON.stringify(dataState.detailedSearch)) {
+            const _state = JSON.parse(JSON.stringify(dataState));
+            _state.page = 1;
+            _state.detailedSearch = detailedSearch;
+            setDateState(_state);
+        }
+    }
+
+    const tab = functions.tabs.getTabFromSchemaAndType('{{ schema }}', '{{ type }}');
+    const fieldsToReturn = functions.tabs.getTabFieldsToReturn(tab);
+
+    const [getData, dataResult] = OpenApi.useUList('{{ schema }}', fieldsToReturn);
+    const { t } = useTranslation();
+
+    const navigate = (schema: string, id: number | string, el: any) => {
+        if (props.navigate) {
+            props.navigate(schema, id, el);
+        } else {
+            history.push(`/u/${schema}/main/view/${id}`);
+        }
+    }
+
+    const navigateToTab = (type: string) => {
+        history.push(`/u/{{ schema }}/${type}/list`)
+    }
+
+    const onCreate = () => {
+        history.push('/u/{{ schema }}/main/edit/new')
+    }
+
+    const prepareFilter = () => {
+        let _filter: any = [{ and: [] }]
+        if (!!predefinedFilter) {
+            _filter[0]['and'].push(predefinedFilter);
+        }
+
+        if (quickSearchFields && !!dataState.quickSearch) {
+            let _or: any = quickSearchFields.map((s: any) => {
+                if (typeof s === 'string') {
+                    return [s, 'contains', dataState.quickSearch, true]
+                }
+                return [
+                    s.key,
+                    s.method ? s.method : 'contains',
+                    dataState.quickSearch,
+                    s.directSelect
+                ]
+            })
+            _filter[0]['and'].push({ or: _or })
+        }
+
+        let filter = _filter[0]['and'].length > 0 ? _filter : []
+
+        if (!!dataState.detailedSearch && dataState.detailedSearch.length > 0) {
+            dataState.detailedSearch.forEach((_f: any) => {
+                const orFilter : any = {"or": []}
+                _f.filter.forEach((_subF: any) => {
+                    const andFilter : any = {"and": []}
+                    _subF.items.forEach((itemFilter: any) => {
+                        andFilter.and.push(
+                            [itemFilter.selectedFilter.id, itemFilter.selectedComparison.value, itemFilter.filterValue]
+                        )
+                    })
+                    orFilter.or.push(andFilter);
+                })
+                filter.push(orFilter);
+            })
+        }
+
+        if (!!dataState.extraFilter) {
+            const keys = Object.keys(dataState.extraFilter);
+            keys.forEach((k) => {
+                const fV = dataState.extraFilter[k];
+                if (!!fV) {
+                    filter.push(fV);
+                }
+            })
+        }
+
+        if (!!props.extraFilter) {
+            filter.push(props.extraFilter);
+        }
+        return filter;
+    }
+
+    const loadData = () => {
+        const filter = prepareFilter();
+
+        getData(
+            filter,
+            dataState.page,
+            pageSize,
+            dataState.sort.filter((s: SortingItem) => s.key !== ''),
+            undefined,
+            undefined,
+            totals,
+        );
+    }
+    useEffect(loadData, [dataState, props.extraFilter, props.reloadState]);
+
+    useEffect(scrollToHeader, [dataResult.data.data]);
+
+    const records = dataResult.data.records;
+    const pages = Math.ceil(records / pageSize);
+    const dataTotals = dataResult.data.totals;
+
+    const dataProcessing = (data: any[]) => {
+        if (props.dataProcessing) {
+            return props.dataProcessing(data);
+        }
+        return data;
+    }
+
+    const dataToRender = dataProcessing(dataResult.data.data);
+
+    const toolbarQuickFilterContent = {% if quickFilters %}<Fragment>
+    <div className="flex items-center gap-2">
+        {% for qfilter in quickFilters %}
+        
+            {% if qfilter.type == 'date' %}
+                <FilterDate path={"{{ qfilter.path }}"} onAddExtraFilter={onAddExtraFilter} />
+            {% elseif qfilter.type == 'object' %}
+                <FilterListData path={"{{ qfilter.path }}"} onAddExtraFilter={onAddExtraFilter} schema={"{{ qfilter.property.format }}"} field={"_viewTitle"} iconName={"{% if qfilter.iconName %}{{ qfilter.iconName }}{% endif %}"} sort={ {{ qfilter.sortStr|raw }} } />
+            {% elseif qfilter.type == 'status' %}
+                <FilterListOptions options={ {{ schemaUC }}StatusesList['{{ qfilter.property.key }}'].map(s => ({ value: s.status, label: s.text }))} path={"{{ qfilter.path }}"} onAddExtraFilter={onAddExtraFilter} iconName={"{% if qfilter.iconName %}{{ qfilter.iconName }}{% else %}diagram-project{% endif %}"} />
+            {% endif %}
+        {% endfor %}
+    </div>
+    </Fragment>
+    {% else %}undefined;{% endif %};
+
+    return (
+<Fragment>
+
+        <div ref={headerRef} className={props.disableVerticalMargin?"":"py-8"}>
+        {!props.hideSearchBar &&
+        <Fragment>
+            {# <DefaultSearchToolbar
+                    toolbarQuickFilterContent={toolbarQuickFilterContent}
+                    onCreate={isCreatable?onCreate:undefined}
+                    export={!!exports?{
+                        schema: '{{ schema }}',
+                        requestFunc: OpenApi.useURequest,
+                        exports: exports,
+                        exportOptions: {filter: prepareFilter()}
+                        }: undefined
+                    }
+                    search={
+                        !!quickSearchFields?
+                        {
+                            searchValue: dataState.quickSearch,
+                            onSearch: setQuickSearch
+                        }:
+                        undefined
+                    }
+                    sort={
+                        !!sort?
+                        {
+                            onSort: setSort,
+                            sort: dataState.sort,
+                            defaultSort: sort,
+                            schema: '{{ schema }}',
+                        }
+                        :
+                        undefined
+                    }
+                    extendedSearch={
+                        1 === 1?
+                        {
+                            itemsFilter: itemsFilter,
+                            setItemsFilter: setItemsFilter,
+                            onSearch: setDetailedSearch,
+                            schema: '{{ schema }}',
+                            showExtendedSearch: showExtendedSearch,
+                            setShowExtendedSearch: setShowExtendedSearch,
+                        }:undefined
+                    }
+                    tabSwitch={
+                        otherTabs?
+                        {
+                            options: otherTabs,
+                            currentTab: '{{ type }}',
+                            onTabSwitch: navigateToTab
+                        }:
+                        undefined
+                    }
+                    {% if customToolbarStart %}
+                    toolbarStartContent={<{{ tpCompName }}ToolbarStartContent onAddExtraFilter={onAddExtraFilter} loadData={loadData}  prepareFilter={prepareFilter} />}
+                    {% endif %}
+                    {% if customToolbarEnd %}
+                    toolbarEndContent={<{{ tpCompName }}ToolbarEndContent onAddExtraFilter={onAddExtraFilter} loadData={loadData}  prepareFilter={prepareFilter}/>}
+                    {% endif %}
+                    {% if customToolbarMiddle %}
+                    toolbarMiddleContent={<{{ tpCompName }}ToolbarMiddleContent onAddExtraFilter={onAddExtraFilter} loadData={loadData} prepareFilter={prepareFilter} />}
+                    {% endif %}
+                /> #}
+                <TemplateLoader
+                    templates={[tData.toolbar]}
+                    templateData={
+                        {
+                            defaults: {
+                                quickSearch: dataState?.extraFilter?.__qs?._,
+                            },
+                            onAddExtraFilter,
+                            sort: {
+                                value: dataState?.sort,
+                                onChange: setSort,
+                            },
+                            filter: {
+                                prepareFilter,
+                            },
+                            extendedSearch: {
+                                value: showExtendedSearch,
+                                onChange: setShowExtendedSearch,
+                                properties: {
+                                    value: extendedSearchOptions,
+                                    onChange: setExtendedSearchOptions,
+                                }
+
+                            },
+                        }
+                    }
+                />
+                {showExtendedSearch && extendedSearchOptions.length > 0 && (
+                    <FilterContainer
+                        onCloseFilter={() => setShowExtendedSearch(false)}
+                        modalProperties={extendedSearchOptions}
+                        onFilter={setDetailedSearch}
+                        itemsFilter={itemsFilter}
+                        setItemsFilter={setItemsFilter}
+                    />
+                )}
+                </Fragment>
+        }
+            <Table
+                className={`${dataResult.loading ? 'tw3-animate-pulse' : ''}`}
+                thead={
+                    <thead>
+                        <TemplateLoader templates={tData.tableHeader} templateData={ { addNewBlockFilter } } />
+                    </thead>
+                }
+                tbody={
+                    <tbody>
+                        {dataToRender.map((item: any) => {
+                            return (
+                                <TemplateLoader key={`row-${item?.id}`} templates={tData.tableRow} templateData={ { element: item, doReload: loadData } } />
+                            )
+                        })}
+                    </tbody>
+                }
+            />
+
+            {% for total in totalsA %}
+                <div className="flex items-center justify-end">
+                    <label className="text-sm font-semibold text-right w-36 p-2 bg-white">{{ total.title }}</label>
+                    {!!dataTotals && !!dataTotals['{{ total.field }}'] && 
+                    <span className="w-36 text-right text-sm p-2 bg-white">{dataTotals['{{ total.field }}'].toFixed(2)}</span>
+                    }
+                </div>
+            {% endfor %}
+
+            {!props.hidePaging && pages > 1 &&
+            <PageContainer pages={pages} activePage={dataState.page} setActivePage={setActivePage} marginTop={PageContainerMarginTop['42px']} />
+            }
+        </div>
+
+</Fragment>
+    )
+}

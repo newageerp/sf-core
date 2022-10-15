@@ -1,0 +1,117 @@
+import React, { Fragment } from "react";
+import { UI } from '@newageerp/nae-react-ui';
+import { useTranslation } from "react-i18next";
+import classNames from 'classnames'
+import {StatusChangeButton} from '@newageerp/v2.element.status-change-button'
+import { use{{ schemaUc }}HookNae } from "../../../Components/Hooks/use{{ schemaUc }}HookNae";
+import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
+import { PropsId } from "../../../UserComponents/ModelsCacheData/types";
+import { ContentWidgetProps } from "@newageerp/nae-react-ui/dist/UI/Widget/NEWidgets";
+import {Short} from '@newageerp/v2.element.status-badge.short';
+import {Base} from '@newageerp/v2.element.status-badge.base';
+
+interface StatusProps {
+    short?: boolean,
+    table?: boolean,
+    className?: string,
+    size?: string
+}
+
+interface StatusElementProps extends StatusProps {
+    id: number
+}
+
+interface StatusPropsWithStatus extends StatusProps {
+    status: number,
+}
+
+{% for status in statusData %}
+    export const {{ status.statusName }} = (props: StatusProps) => {
+        const { t } = useTranslation();
+
+        {% if status.bgColor %}
+        const Comp = props.short?Short:Base;
+        return (
+            <Comp 
+                variant={"{{ status.bgColor }}"} 
+            >
+              {props.short?t('{{ status.text }}').substr(0, 1):t('{{ status.text }}')}
+            </Comp>
+        )
+        {% else %}
+        return (
+            <UI.Badges.Badge
+              bgColor={'{{ status.color }}'}
+              brightness={ {{status.brightness}} }
+              size={'sm'}
+              className={props.short?'w-8':(props.table?'inline-block':'w-56 float-right')}
+              title={t('{{ status.text }}')}
+            >
+              {props.short?t('{{ status.text }}').substr(0, 1):t('{{ status.text }}')}
+            </UI.Badges.Badge>
+        )
+        {% endif %}
+    };
+{% endfor %}
+
+export const {{ TP_COMP_NAME }} = (status: number, type: string, short?: boolean, table?: boolean) => {
+{% for status in statusData %}
+    if (status === {{ status.status }} && type === "{{ status.type }}") {
+        return <{{ status.statusName }} short={short} table={table} />;
+    }
+{% endfor %}
+}
+
+export const {{ TP_COMP_NAME }}List = {{ statusJson|raw }};
+
+export const {{ TP_COMP_NAME }}Map : any = {
+    {% for status in statusData %}
+        '{{ status.type }}-{{ status.status }}': {{ status.statusName }},
+    {% endfor %}
+};
+
+{% for k,c in statusCompJson %}
+
+export const {{ TP_COMP_NAME }}{{ k }}Widget = (props: ContentWidgetProps) => {
+    const element = use{{ schemaUc }}HookNae(props.element.id);
+
+    const [doSave] = OpenApi.useUSave('{{ schema }}');
+    const changeStatus = (s: number) => {
+        doSave({'{{ c.type }}': s}, props.element.id);
+    }
+
+    if (!element) {
+        return <Fragment/>
+    }
+
+    return (
+        <StatusChangeButton
+            schema={"{{ schema }}"}
+            type={"{{ c.type }}"}
+            id={props.element.id}
+
+            onStatusChange={changeStatus}
+            reloadState={element.{{ c.type }}}
+
+            showOnlyActive={props.options.showOnlyActive}
+        />
+    )
+};
+
+export const {{ TP_COMP_NAME }}{{ k }}ElementStatus = (props: StatusElementProps) => {
+    const element = use{{ schemaUc }}HookNae(props.id);
+    if (!element) {
+        return <Fragment/>
+    }
+
+    const key = `{{ c.type }}-${element['{{ c.type }}']}`;
+    const CompName = {{ TP_COMP_NAME }}Map[key];
+
+    if (!CompName) {
+        return <Fragment/>
+    }
+
+    return <CompName {...props}/>
+}
+
+{% endfor %}

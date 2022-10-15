@@ -1,0 +1,36 @@
+import React from "react";
+import { MultipleFilesWidget } from "@newageerp/ui.widgets.files.multiple-files-widget";
+
+interface Props {
+    element: {
+        id: number;
+    };
+    options?: any,
+}
+
+export default function {{ compName }}(props: Props) {
+    const schema = "{{ schema }}";
+    const items = [];
+
+    const options = props.options ? props.options : {};
+
+    {% for file in files %}
+    const options{{ file.type }} = options['{{file.type}}']?options['{{file.type}}']:{};
+    const isHide{{file.type}} = !!options{{file.type}}.hide;
+    const disableUpload{{file.type}} = !!options{{file.type}}.disableUpload;
+    const hint{{file.type}} = !!options{{file.type}}.hint?options{{file.type}}.hint:"{{ file.hint }}";
+
+    if (!isHide{{file.type}}) {
+        items.push(
+            {
+                title: "{{ file.title }}",
+                folder: `${schema}/${props.element.id}/{{ file.type }}`,
+                disableUpload: disableUpload{{file.type}},
+                hint: hint{{file.type}},
+            }
+        );
+    }
+    {% endfor %}
+
+    return <MultipleFilesWidget items={items} />;
+}

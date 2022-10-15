@@ -1,0 +1,92 @@
+import { UI } from "@newageerp/nae-react-ui";
+import { SelectAdvData } from "@newageerp/ui.form.base.form-pack";
+import React, { Fragment, useState } from 'react'
+import { IconType } from "@newageerp/ui.icons.base.icon";
+import { TwTextColors, TwBackgroundColors } from "@newageerp/ui.styles.tailwind";
+import { Popup } from "@newageerp/ui.popups.base.popup";
+import {{ popupSelectRelType }} from "../../../../tabs/tables-data-source/{{ popupSelectRelType }}";
+import { SquareButton } from "@newageerp/ui.buttons.base.square-button";
+import {Icon} from '@newageerp/ui.icons.base.icon'
+import classNames from "classnames";
+import { useTranslation } from "react-i18next";
+
+interface Props {
+    selectedId: any,
+    onSelectId: (e: any) => void,
+    parentElement: any,
+}
+
+export const {{ compName }} = (props: Props) => {
+    const {t} = useTranslation();
+
+    const [showPopup, setShowPopup] = useState(false);
+
+{% if allowCreateRel %}
+    const { showEditPopup } = UI.Window.useNaeWindow();
+    const onNew = () => {
+        showEditPopup({
+            newStateOptions: { 
+                createOptions: {
+                    convert: {
+                        schema: "{{ schema }}",
+                        element: props.parentElement,
+                    }
+                } 
+            },
+            id: 'new',
+            schema: "{{ objectSchema }}",
+            onSaveCallback: (el, backFunc) => {
+                backFunc();
+                props.onSelectId({id: el.id, {{ viewKey }}: el.{{ viewKey }}});
+            },
+            fieldsToReturnOnSave: ["{{ viewKey }}"]
+        })
+    }
+{% endif %}
+    return (
+        <Fragment>
+            <div className="flex items-center gap-2 tw3-border tw3-border-slate-300 tw3-rounded tw3-px-3 tw3-py-2 tw3-cursor-pointer tw3-relative">
+                <div className={`tw3-absolute tw3-z-10 tw3-pointer-events-none tw3-top-[6px] tw3-left-[9px]`} onClick={() => setShowPopup(true)}>
+                    <Icon
+                        type={IconType.Light}
+                        icon={"search"}
+                        className={
+                            classNames("", TwTextColors.slate500, 'tw3-text-xl')
+                        }
+                        style={ { lineHeight: '28px' } }
+                    />
+                </div>
+                <p style={ {marginLeft: 32, lineHeight: '21px', minHeight: 21} } className={"flex-grow tw3-text-slate-800 tw3-text-sm "} onClick={() => setShowPopup(true)}>{props.selectedId?.{{ viewKey }}}{" "}</p>
+                <button className="flex items-center" title={t('Ieškoti')} onClick={() => setShowPopup(true)}>
+                    <Icon type={IconType.Solid} icon={"binoculars"} className={classNames("", TwTextColors.slate500, TwTextColors.sky600Hover)} />
+                </button>
+
+{% if allowCreateRel %}
+                <button onClick={onNew} className="flex items-center" title={t('Sukurti')}>
+                    <Icon type={IconType.Solid} icon={"plus"} className={classNames("text-sm", TwTextColors.slate500, TwTextColors.sky600Hover)}/>
+                </button>
+{% endif %}
+
+                <button onClick={() => props.onSelectId(undefined)} className="flex items-center" title={t('Ištrinti')}>
+                    <Icon type={IconType.Solid} icon={"xmark"} className={classNames("text-sm", TwTextColors.slate500, TwTextColors.sky600Hover)}/>
+                </button>
+
+            </div>
+
+            {!!showPopup && <Popup onClose={() => setShowPopup(false)}>
+                <{{ popupSelectRelType }} 
+                    disableVerticalMargin={true} 
+                    navigate={(schema: string, id: number | string, el: any) => {
+                        setShowPopup(false);
+                        props.onSelectId({id: el.id, {{ viewKey }}: el.{{ viewKey }}});
+                    }}
+                    disableCreate={true}
+                    disableScrollToHeader={true}
+                    disableSetTitle={true}
+                    {{ extraFilterSearch|raw }}
+                    />
+                </Popup>
+                }
+        </Fragment>
+    )
+}

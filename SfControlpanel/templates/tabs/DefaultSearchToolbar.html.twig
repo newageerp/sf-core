@@ -1,0 +1,34 @@
+import React, {ReactNode} from 'react'
+import { SearchToolbar, SearchToolbarExportProps, SearchToolbarMarginBottom, SearchToolbarQuickSearchProps, SearchToolbarSortProps, SearchToolbarTabSwitchProps, SearchToolbarExtendedSearchProps } from '@newageerp/ui.components.list.search-toolbar'
+
+interface Props {
+    onCreate?: () => void,
+    search?: SearchToolbarQuickSearchProps,
+    sort?: SearchToolbarSortProps,
+    tabSwitch?: SearchToolbarTabSwitchProps,
+    toolbarStartContent?: ReactNode,
+    toolbarEndContent?: ReactNode,
+    toolbarMiddleContent?: ReactNode,
+    toolbarQuickFilterContent?: ReactNode,
+    extendedSearch?: SearchToolbarExtendedSearchProps,
+    export?: SearchToolbarExportProps,
+}
+
+export default function DefaultSearchToolbar(props: Props) {
+    return (
+        <SearchToolbar
+            onCreate={props.onCreate}
+            search={props.search}
+            sort={props.sort}
+            marginBottom={SearchToolbarMarginBottom['40px']}
+            tabSwitch={props.tabSwitch}
+            toolbarStartContent={props.toolbarStartContent}
+            toolbarEndContent={props.toolbarEndContent}
+            toolbarQuickFilterContent={props.toolbarQuickFilterContent}
+            extendedSearch={props.extendedSearch}
+            export={props.export}
+        >
+            {props.toolbarMiddleContent}
+        </SearchToolbar>
+    )
+}

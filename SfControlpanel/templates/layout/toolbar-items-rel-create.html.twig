@@ -1,0 +1,70 @@
+import React, { Fragment } from 'react'
+import { IconList } from '@newageerp/ui.icons.base.icon-list'
+import { MenuItem } from '@newageerp/sfs.modal.menu'
+import { UI, UIConfig } from '@newageerp/nae-react-ui'
+import { use{{ slugUc }}HookNae } from '../../../../Components/Hooks/use{{ slugUc }}HookNae'
+import {ToolbarButtonWithMenu} from '@newageerp/v2.element.toolbar-button-with-menu'
+import { useTranslation } from 'react-i18next'
+
+interface Props {
+    element: any,
+}
+
+export default function {{ compName }}(props: Props) {
+    const element = use{{ slugUc }}HookNae(props.element.id);
+    const {t} = useTranslation();
+
+    const { isPopup } = UI.Popup.useNaePopup();
+    const { showEditPopup } = UI.Window.useNaeWindow();
+
+    const createOptions: any = {};
+
+    {% for item in items %}
+        createOptions["{{ item.target }}"] = {
+            options: {
+                convert: {
+                    schema: "{{ schema }}",
+                    element: { id: props.element.id },
+                }
+            },
+            type: "{{ item.type }}",
+            inPopup: {% if item.forcePopup %}true{% else %}false{% endif %}
+        }
+    {% endfor %}
+
+    const openLink = (target: string) => {
+        const targetOptions = createOptions[target];
+
+        if (isPopup || targetOptions.inPopup) {
+            showEditPopup({
+                id: "new",
+                schema: target,
+                newStateOptions: { createOptions: targetOptions.options },
+                type: targetOptions.type,
+            });
+        } else {
+            UIConfig.router({
+                path: "/u/"+ target +"/" + targetOptions.type + "/edit/new",
+                options: { createOptions: targetOptions.options }
+            });
+        }
+    }
+
+    if (!element) {
+        return <Fragment/>
+    }
+
+    return (
+        <ToolbarButtonWithMenu icon={IconList.plus} title={t("Sukurti")}>
+        {% for item in items %}
+            <MenuItem 
+                {% if item.tooltip %}tooltipContent={"{{ item.tooltip }}"} {% endif %}
+                onClick={() => openLink("{{ item.target }}")}
+                disabled={ {% if item.disableOnScope %}element.scopes.indexOf("{{ item.disableOnScope }}") >= 0{% else %}false{% endif %} }
+            >
+                {{  item.targetTitle }}
+            </MenuItem>
+        {% endfor %}
+        </ToolbarButtonWithMenu>
+    )
+}

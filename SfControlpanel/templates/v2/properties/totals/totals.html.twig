@@ -1,0 +1,69 @@
+import React, {Fragment} from 'react'
+import { NumberCardWidget, NumberWidgetVariant } from '@newageerp/v2.widgets.number-card-widget'
+import { use{{ slugUc }}HookNae, I{{ slugUc }}ModelNae } from '../../../../Components/Hooks/use{{ slugUc }}HookNae'
+import { PropsId } from '../../../../UserComponents/ModelsCacheData/types'
+
+interface Props {
+    id: number,
+    totals: ({% for totalIndex, total in totals %}{% if totalIndex != 0 %} | {% endif %}"{{ total.key }}"{% endfor %})[]
+}
+
+export function {{ compName }}(props: Props) {
+    return (
+        <Fragment>
+            {props.totals.map((totalKey: string, totalIndex: number) => {
+                const Comp : any = {{ compName }}Map[totalKey];
+
+                return <Comp id={props.id} key={`total-${totalKey}`}/>
+            })}
+        </Fragment>
+    )
+}
+
+interface WidgetProps {
+    element : {
+        id: number,
+    },
+    options: {
+        totals: ({% for totalIndex, total in totals %}{% if totalIndex != 0 %} | {% endif %}"{{ total.key }}"{% endfor %})[]
+    }
+}
+
+export function {{ compName }}Widget(props: WidgetProps) {
+    return (
+        <{{ compName }} id={props.element.id} totals={props.options.totals} />
+    )
+}
+
+interface TotalProps {
+    id: number,
+    customTitle?: string,
+    customVariant?: NumberWidgetVariant,
+    onClick?: () => void,
+    onEdit?: () => void,
+}
+
+{% for total in totals %}
+export function {{ total.compName }}(props: TotalProps) {
+    const element : I{{ slugUc }}ModelNae = use{{ slugUc }}HookNae(props.id);
+    if (!element) {
+        return <Fragment/>
+    }
+    return (
+        <NumberCardWidget
+            title={props.customTitle?props.customTitle:"{{ total.title }}"}
+            number={element['{{total.key}}']}
+            variant={props.customVariant ? props.customVariant : NumberWidgetVariant.white}
+            asFloat={ {% if total.typeFormat == 'float' %}true{% else %}false{% endif %} }
+            onClick={props.onClick}
+            onEdit={props.onEdit}
+        />
+    )
+}
+{% endfor %}
+
+export const {{ compName }}Map : any = {
+    {% for total in totals %}
+    '{{total.key}}': {{ total.compName }},
+    {% endfor %}
+}

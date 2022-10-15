@@ -1,0 +1,18 @@
+import React from "react";
+import { LayoutLeftMenuToolbar } from "@newageerp/ui.layout.base.layout-left-menu-toolbar";
+import LeftMenu from "../../_custom/menu/LeftMenu";
+import UserSpaceWrapperToolbar from "../../layout/toolbar/UserSpaceWrapperToolbar";
+
+interface Props {
+        children?: any
+}
+
+function UserSpaceWrapper(props: Props) {
+        return (
+        <LayoutLeftMenuToolbar leftSideContent={<LeftMenu />} toolbar={<UserSpaceWrapperToolbar/>}>
+                {props.children}
+        </LayoutLeftMenuToolbar>
+        );
+}
+
+export default UserSpaceWrapper;

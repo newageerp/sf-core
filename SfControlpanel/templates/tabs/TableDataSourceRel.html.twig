@@ -1,0 +1,261 @@
+import React, { useEffect, useState, useRef } from "react";
+import { useTranslation } from "react-i18next";
+import {{ tpTableCompName }} from "../tables/{{ tpTableCompName }}"
+import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
+import { functions, UI } from '@newageerp/nae-react-ui';
+import { PageContainer, PageContainerMarginTop } from '@newageerp/ui.paging.base.page-container'
+import { SearchToolbar, SearchToolbarMarginBottom } from '@newageerp/ui.components.list.search-toolbar'
+import { SortingItem } from '@newageerp/ui.components.list.sort-controller';
+import { useHistory } from 'react-router-dom'
+import { v4 as uuidv4 } from 'uuid'
+import { ContentWidgetProps } from "@newageerp/nae-react-ui/dist/UI/Widget/NEWidgets";
+import { WhiteCardWithTitle } from '@newageerp/ui.cards.base.white-card-with-title'
+
+interface Props {
+    navigate?: (schema: string, id: number | string, el: any) => void,
+    dataProcessing?: (data: any[]) => any[],
+    relId?: number,
+    hideSearchBar?: boolean,
+    hidePaging?: boolean,
+    onCustomCreate?: () => void,
+    searchToolbarClassName?: string,
+}
+
+export function {{ tpCompName }}Widget(props: ContentWidgetProps) {
+    return (
+        <WhiteCardWithTitle title={"{{ schemaTitle }}"} compact={true}>
+            <{{ tpCompName }}
+                relId={props.element.id}
+                hideSearchBar={props.options.hideSearchBar}
+                hidePaging={props.options.hidePaging}
+                dataProcessing={props.options.dataProcessing}
+                navigate={props.options.navigate}
+                onCustomCreate={props.options.onCustomCreate}
+                searchToolbarClassName={"tw3-px-2"}
+            />
+        </WhiteCardWithTitle>
+    )
+}
+
+export default function {{ tpCompName }}(props: Props) {
+    const history = useHistory()
+
+    const [socketId, setSocketId] = useState('')
+
+    const otherTabs = {{ otherTabs|raw }};
+
+    const headerRef = useRef(null)
+    const scrollToHeader = () => {
+        if (headerRef && headerRef.current) {
+            // @ts-ignore
+            headerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+    }
+
+    const pageSize = {{ pageSize }};
+
+    const sort = {{ sort|raw }};
+
+    const defaultState = {
+        page: 1,
+        sort: sort,
+        quickSearch: '',
+    }
+
+    const isCreatable = !!props.onCustomCreate || {{ creatable }};
+
+    const quickSearchFields : any = {{ quickSearch|raw }};
+    const predefinedFilter : any = {{ filter|raw }};
+    const relFilter : any = {{ relFilter|raw }};
+
+    const [dataState, setDateState] = useState(defaultState);
+
+    const setActivePage = (page: number) => {
+        if (page !== dataState.page) {
+            const _state = JSON.parse(JSON.stringify(dataState));
+            _state.page = page;
+            setDateState(_state);
+        }
+    }
+
+    const setQuickSearch = (s: string) => {
+        if (s !== dataState.quickSearch) {
+            const _state = JSON.parse(JSON.stringify(dataState));
+            _state.page = 1;
+            _state.quickSearch = s;
+            setDateState(_state);
+        }
+    }
+
+    const setSort = (sort: SortingItem[]) => {
+        if (sort !== dataState.sort) {
+            const _state = JSON.parse(JSON.stringify(dataState));
+            _state.page = 1;
+            _state.sort = sort;
+            setDateState(_state);
+        }
+    }
+
+    const tab = functions.tabs.getTabFromSchemaAndType('{{ schema }}', '{{ type }}');
+    const fieldsToReturn = functions.tabs.getTabFieldsToReturn(tab);
+
+    const [getData, dataResult] = OpenApi.useUList('{{ schema }}', fieldsToReturn);
+    const { t } = useTranslation();
+
+    const navigate = (schema: string, id: number | string, el: any) => {
+        if (props.navigate) {
+            props.navigate(schema, id, el);
+        } else {
+            history.push(`/u/${schema}/main/view/${id}`);
+        }
+    }
+
+    const navigateToTab = (type: string) => {
+        history.push(`/u/{{ schema }}/${type}/list`)
+    }
+
+    const onCreate = () => {
+        if (props.onCustomCreate) {
+            props.onCustomCreate();
+        } else {
+            history.push('/u/{{ schema }}/main/edit/new');
+        }
+    }
+
+    const loadData = () => {
+
+        let _filter: any = [{ and: [] }]
+        if (!!predefinedFilter) {
+            _filter[0]['and'].push(predefinedFilter);
+        }
+        if (!!relFilter) {
+            _filter[0]['and'].push(relFilter);
+        }
+
+        if (quickSearchFields && !!dataState.quickSearch) {
+            let _or: any = quickSearchFields.map((s: any) => {
+                if (typeof s === 'string') {
+                    return [s, 'contains', dataState.quickSearch, true]
+                }
+                return [
+                    s.key,
+                    s.method ? s.method : 'contains',
+                    dataState.quickSearch,
+                    s.directSelect
+                ]
+            })
+            _filter[0]['and'].push({ or: _or })
+        }
+
+        let filter = _filter[0]['and'].length > 0 ? _filter : []
+
+        getData(
+            filter,
+            dataState.page,
+            pageSize,
+            dataState.sort.filter((s: SortingItem) => s.key !== ''),
+        );
+    }
+    useEffect(loadData, [dataState]);
+
+{#    useEffect(scrollToHeader, [dataResult.data.data]);#}
+
+    const records = dataResult.data.records;
+    const pages = Math.ceil(records / pageSize);
+
+    const dataProcessing = (data: any[]) => {
+        if (props.dataProcessing) {
+            return props.dataProcessing(data);
+        }
+        return data;
+    }
+
+    const dataToRender = dataProcessing(dataResult.data.data);
+
+    useEffect(() => {
+        if (!!props.relId && props.relId > 0) {
+            setSocketId(props.relId + '-' + uuidv4())
+        }
+    }, [props.relId])
+
+    useEffect(() => {
+        if (socketId) {
+            UI.Socket.Service.subscribeToList(
+                {
+                    key: socketId,
+                    data: {
+                        "{{ schema }}.{{ mappedField }}.id": props.relId
+                    }
+                },
+                loadData
+            )
+        }
+
+        return () => {
+            if (socketId) {
+                UI.Socket.Service.unSubscribeFromList({ key: socketId })
+            }
+        }
+    }, [socketId])
+
+    const showSearch = !props.hideSearchBar;
+    const showSort = !props.hideSearchBar;
+    const showTabs = !!otherTabs;
+    const showCreate = !!isCreatable;
+
+    return (
+        <div ref={headerRef}>
+            {(showSearch || showSort || showTabs || showCreate) &&
+                <SearchToolbar
+                    onCreate={isCreatable?onCreate:undefined}
+                    search={
+                        showSearch?
+                        {
+                            searchValue: dataState.quickSearch,
+                            onSearch: setQuickSearch
+                        }:
+                        undefined
+                    }
+                    sort={
+                        showSort?{
+                            onSort: setSort,
+                            sort: dataState.sort,
+                            defaultSort: sort,
+                            schema: '{{ schema }}'
+                        }:
+                        undefined
+                    }
+                    marginBottom={SearchToolbarMarginBottom['10px']}
+                    tabSwitch={
+                        showTabs?
+                        {
+                            options: otherTabs,
+                            currentTab: '{{ type }}',
+                            onTabSwitch: navigateToTab
+                        }:
+                        undefined
+                    }
+                    className={props.searchToolbarClassName}
+                />
+            }
+            <div className="overflow-x-auto">
+                <{{ tpTableCompName }}
+                        data={dataToRender}
+                        doReload={loadData}
+                        className={`${dataResult.loading?'tw3-animate-pulse':''}`}
+                        navigate={props.navigate}
+                        customComponentOptions={ {{ customComponentOptions|raw }} }
+                />
+            </div>
+            {!props.hidePaging && pages > 1 &&
+                <PageContainer
+                            pages={pages}
+                            activePage={dataState.page}
+                            setActivePage={setActivePage}
+                            marginTop={PageContainerMarginTop['20px']}
+                            hidePageSelectionSelect={true}
+                />
+            }
+        </div>
+    )
+}

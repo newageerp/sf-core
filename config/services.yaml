@@ -1,0 +1,168 @@
+services:
+  # default configuration for services in *this* file
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+  Newageerp\SfAuth\Controller\AuthController:
+    arguments: [ ]
+  Newageerp\SfAuth\Service\AuthService:
+    arguments: [ ]
+  Newageerp\SfBookmarks\Controller\BookmarksController:
+    arguments: [ ]
+  
+
+  Newageerp\SfControlpanel\Controller\:
+    resource: '../Controller/*'
+    arguments: [ ]
+  Newageerp\SfControlpanel\Service\:
+    resource: '../Service/*'
+    arguments: [ ]
+  Newageerp\SfControlpanel\Console\PropertiesUtils:
+    arguments: [ ]
+  Newageerp\SfControlpanel\Console\EntitiesUtils:
+    arguments: [ ]
+  Newageerp\SfControlpanel\Console\PropertiesUtilsV3:
+    arguments: [ ]
+  Newageerp\SfControlpanel\Console\EntitiesUtilsV3:
+    arguments: [ ]
+  Newageerp\SfControlpanel\Console\TabsUtilsV3:
+    arguments: [ ]
+  Newageerp\SfControlpanel\Console\EditFormsUtilsV3:
+    arguments: [ ]
+  Newageerp\SfControlpanel\Console\ViewFormsUtilsV3:
+    arguments: [ ]
+  Newageerp\SfControlpanel\Console\PdfsUtilsV3:
+    arguments: [ ]
+
+  Newageerp\SfControlpanel\Console\Maker\MakePluginWithServiceAndMessageHandler:
+    tags:
+      - { name: 'console.command' }
+
+  Newageerp\SfControlpanel\Console\In\:
+    resource: '../Console/In/*'
+    tags:
+      - { name: 'console.command' }
+  Newageerp\SfControlpanel\Console\V3\:
+    resource: '../Console/V3/*'
+    tags:
+      - { name: 'console.command' }
+
+  Newageerp\SfControlpanel\Console\Out\:
+    resource: '../Console/Out/*'
+    tags:
+      - { name: 'console.command' }
+
+  Newageerp\SfCrud\Service\ConvertService:
+    arguments: [ ]
+  Newageerp\SfCrud\Service\OnSaveService:
+    arguments: [ ]
+
+  Newageerp\SfCurrency\Service\CurrencyService:
+    arguments: [ ]
+  Newageerp\SfCurrency\Controller\CurrencyController:
+    arguments: [ ]
+
+  Newageerp\SfEventListener\EventListener\OnFlushEventListener:
+    arguments: [ ]
+    tags:
+      - name: "doctrine.event_listener"
+        event: "onFlush"
+        priority: 900
+        connection: "default"
+      - name: "doctrine.event_listener"
+        event: "postFlush"
+        priority: 900
+        connection: "default"
+  Newageerp\SfEventListener\Controller\EventListenerController:
+    arguments: [ ]
+
+  Newageerp\SfExport\Controller\ExportController:
+    arguments: [ ]
+
+  Newageerp\SfFiles\Controller\FilesController:
+    arguments: [ ]
+  Newageerp\SfFiles\Service\FileService:
+    arguments: [ ]
+
+  Newageerp\SfFollowUp\Controller\FollowUpController:
+    arguments: [ ]
+
+  Newageerp\SfImport\Controller\ImportController:
+    arguments: [ ]
+
+  Newageerp\SfMailSmtp\Service\SmtpSendMailService:
+    arguments: [ ]
+
+  Newageerp\SfMailjet\Service\MailjetSendMailService:
+    arguments: [ ]
+  Newageerp\SfMailjet\Service\MailjetService:
+    arguments: [ ]
+
+  Newageerp\SfMail\Controller\MailController:
+    arguments: [ ]
+
+  Newageerp\SfNotes\Controller\NotesController:
+    arguments: [ ]
+  Newageerp\SfNotes\Messenger\NotesReadAllMessageHandler:
+    tags: [ messenger.message_handler ]
+
+  Newageerp\SfPdf\Controller\PdfController:
+    arguments: [ ]
+
+  Newageerp\SfPermissions\Service\PermissionServiceInterface:
+    arguments: [ ]
+
+
+  Newageerp\SfPushMessages\Service\FirebasePushService:
+    arguments: []
+
+
+
+  Newageerp\SfReactTemplates\CoreTemplates\:
+    resource: '../CoreTemplates/*'
+    arguments: [ ]
+  Newageerp\SfReactTemplates\Template\:
+    resource: '../Template/*'
+    arguments: [ ]
+  Newageerp\SfReactTemplates\Controller\:
+    resource: '../Controller/*'
+    arguments: [ ]
+
+  Newageerp\SfSepa\Service\SepaService:
+    arguments: [ ]
+
+  Newageerp\SfSerialNumber\Service\SerialNumberService:
+    arguments: [ ]
+
+
+  Newageerp\SfSocket\Service\SocketService:
+    arguments: [ ]
+  Newageerp\SfSocket\Service\WsUpdateService:
+    arguments: [ ]
+
+  Newageerp\SfStatus\Controller\StatusController:
+    arguments: [ ]
+
+
+  Newageerp\SfUservice\Service\UService:
+    arguments: [ ]
+  Newageerp\SfUservice\Controller\UController:
+    arguments: [ ]
+  Newageerp\SfUservice\EventListener\OnFlushEventListener:
+    arguments: [ ]
+    tags:
+      - name: "doctrine.event_listener"
+        event: "onFlush"
+        priority: 900
+        connection: "default"
+      - name: "doctrine.event_listener"
+        event: "postFlush"
+        priority: 900
+        connection: "default"
+
+
+  Newageerp\SfXlsx\Controller\XlsxController:
+    arguments: [ ]
+  Newageerp\SfXlsx\Service\XlsxService:
+    arguments: [ ]

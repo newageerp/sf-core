@@ -1,0 +1,22 @@
+import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
+import { UI } from '@newageerp/nae-react-ui';
+import React, { Fragment } from 'react'
+import { useTranslation } from 'react-i18next';
+import { useRecoilValue } from 'recoil';
+
+export default function LeftMenu() {
+        const userState: any = useRecoilValue(OpenApi.naeUserState);
+
+        const { t } = useTranslation();
+
+        const logout = () => {
+                window.localStorage.setItem("token", "");
+                window.location.href = "/";
+        };
+
+        return (
+        <Fragment>
+
+        </Fragment>
+        );
+}

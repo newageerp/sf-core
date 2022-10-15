@@ -1,0 +1,115 @@
+import { OpenApi } from '@newageerp/nae-react-auth-wrapper'
+import { UI, functions } from '@newageerp/nae-react-ui'
+import React, { useState, useEffect, Fragment } from 'react'
+import { useTranslation } from 'react-i18next'
+import { TitleOverTable } from '@newageerp/ui.texts.base.title-over-table'
+import { useRecoilState } from 'recoil'
+import { UserSpaceWrapperToolbarState } from '../../layout/toolbar/UserSpaceWrapperToolbar'
+import TemplateLoader from '../../v3/templates/TemplateLoader';
+
+interface IFollow {
+    id: number
+    parentId: number
+    parentSchema: string
+}
+
+const defElement: IFollow = {
+    id: 0,
+    parentId: 0,
+    parentSchema: ''
+}
+
+export default function BookmarksPage() {
+    const [activeSchema, setActiveSchema] = useState('');
+
+    const { t } = useTranslation()
+    const [, setToolbarTitle] = useRecoilState(UserSpaceWrapperToolbarState)
+
+    const { showViewPopup } = UI.Window.useNaeWindow()
+
+    const [getData, getDataParams] = OpenApi.useUList<IFollow>(
+        'bookmark',
+        functions.properties.getKeysFromObject(defElement)
+    )
+    const [listSchema, setListSchema] = useState<any>()
+
+    const loadData = () => {
+        getData(
+            [
+                {
+                    and: [['i.creator', '=', 'CURRENT_USER', true]]
+                }
+            ],
+            1,
+            100000,
+            [
+                {
+                    key: 'i.id',
+                    value: 'ASC'
+                }
+            ]
+        )
+    }
+    useEffect(loadData, [])
+
+    useEffect(() => {
+        let _listSchema: any = {}
+
+        getDataParams.data.data.forEach((follow: IFollow) => {
+            if (!(follow.parentSchema in _listSchema)) {
+                _listSchema[follow.parentSchema] = []
+            }
+            _listSchema[follow.parentSchema].push(follow.parentId)
+        })
+
+        setListSchema(_listSchema)
+    }, [getDataParams.data])
+
+    const schemas = listSchema ? Object.keys(listSchema) : []
+
+    const schemaComponents = schemas.map(s => {
+        const els: any = listSchema[s]
+        const idsMap = els.filter((f: number) => f > 0)
+        const extraFilter = {
+            and: [['i.id', 'in', idsMap, true]]
+        }
+
+        return (
+            {
+                schema: s,
+                extraFilter: extraFilter,
+                title: functions.schemas.getSchemaTitle(s, true)
+            }
+        )
+    })
+
+    useEffect(() => {
+        setToolbarTitle(t('Sekami'));
+    }, []);
+
+    return (
+        <Fragment>
+
+            {schemaComponents.map((comp: any, idX: number) => {
+                return (
+                    <Fragment key={`bookmark-${idX}-${comp.schema}`}>
+                        <TitleOverTable>{comp.title}</TitleOverTable>
+
+                        <TemplateLoader
+                            templateName="PageInlineList"
+                            data={
+                                {
+                                        schema: comp.schema,
+                                        type: "main",
+                                        extraFilters: [comp.extraFilter]
+                                }
+                            }
+                        />
+
+                    </Fragment>
+                )
+            })}
+
+        </Fragment>
+    )
+}

@@ -1,0 +1,86 @@
+import React, { Fragment } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import DefaultEditRouteWrapper from "./wrappers/DefaultEditRouteWrapper";
+{% for import in imports %}
+{{ import|raw }}
+{% endfor %}
+import { UI } from "@newageerp/nae-react-ui";
+import MainList from "../v3/pages/MainList";
+import TemplateRoute from "../v3/templates/TemplateRoute";
+import MainEdit from "../v3/pages/MainEdit";
+
+export function AppsRoutes() {
+    return (
+        <Fragment>
+            {% for component in appsComponents %}
+                <Route path={"/c/apps/{{ component.name}}"}>
+                    <{{ component.compName }} />
+                </Route>
+            {% endfor %}
+        </Fragment>
+    )
+}
+
+export function ListRoutes() {
+    return (
+        <Fragment>
+            <Route path={"/u/:schema/:type/list/"}>
+                <MainList />
+            </Route>
+            <Route path={"/tpl/:templateName"}>
+                <TemplateRoute />
+            </Route>
+            {# {% for component in listComponents %}
+                <Route path={"/u/{{ component.schema }}/{{ component.type }}/list/"}>
+                    <{{ component.compName }} />
+                </Route>
+            {% endfor %} #}
+        </Fragment>
+    )
+}
+
+export function EditRoutes() {
+    return (
+        <Fragment>
+            <Route path={"/u/:schema/:type/edit/"}>
+                <MainEdit />
+            </Route>
+            {# {% for component in editComponents %}
+                <Route path={"/u/{{ component.schema }}/{{ component.type }}/edit/:id"}>
+                    <DefaultEditRouteWrapper
+                            render={
+                            (
+                            id: string,
+                            onSave: (element: any, isNew: boolean, schema: string) => void,
+                        onCancel: () => void,
+                        ) => <{{ component.compName }} id={id} onSave={onSave} onCancel={onCancel} wrapWithCard={true} />
+                        }
+                        />
+                </Route>
+            {% endfor %} #}
+        </Fragment>
+    )
+}
+
+export function ViewRoutes() {
+    return (
+        <Fragment>
+            {% for component in viewComponents %}
+                <Route path={"/u/{{ component.schema }}/{{ component.type }}/view/:id"}>
+                    <UI.RoutePoints.ViewEntry key={"{{ component.schema }}-{{ component.type }}"} schema="{{ component.schema }}" type="{{ component.type }}"/>
+                </Route>
+            {% endfor %}
+        </Fragment>
+    )
+}
+
+export default function AppRoutes() {
+    return (
+        <Fragment>
+            <ListRoutes/>
+            <EditRoutes/>
+            <ViewRoutes/>
+            <AppsRoutes/>
+        </Fragment>
+    )
+}

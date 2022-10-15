@@ -1,0 +1,10 @@
+import React, { Fragment } from 'react'
+import { MenuTitle } from '@newageerp/ui.menu.base.menu'
+
+export default function TP_COMP_NAME() {
+    return (
+        <Fragment>
+            <MenuTitle>{'TP_TITLE'}</MenuTitle>
+        </Fragment>
+    )
+}

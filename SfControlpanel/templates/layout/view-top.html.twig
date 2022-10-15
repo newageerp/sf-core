@@ -1,0 +1,78 @@
+import React from 'react'
+import { ElementToolbar } from '@newageerp/ui.components.element.element-toolbar';
+import { UI } from '@newageerp/nae-react-ui';
+import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
+import { useRecoilValue } from 'recoil';
+import TasksWidget from '../../apps/tasks/TasksWidget';
+import TemplateLoader, { useTemplateLoader } from '../../v3/templates/TemplateLoader';
+
+interface Props {
+    extraOptions: any,
+    element: any,
+    schema: string,
+}
+
+export default function ViewTop(props: Props) {
+    const userState = useRecoilValue(OpenApi.naeUserState);
+    const { data: tData } = useTemplateLoader();
+
+    return (
+        <ElementToolbar
+            parentId={props.element.id}
+            parentSchema={props.schema}
+
+            onBack={props.extraOptions.onBack}
+            element={props.element}
+            onEdit={props.extraOptions.onEdit}
+            onRemove={props.extraOptions.onRemove}
+{% if showTasks %}
+            tasksContent={
+                <TasksWidget
+                    element={props.element}
+                    options={
+                        {
+                        }
+                    }
+                    schema={props.schema}
+                    userState={userState}
+                />
+            }
+{% endif %}
+            showRemind={ {% if showRemind %}true{% else %}false{% endif %} }
+            showBookmark={ {% if showBookmark %}true{% else %}false{% endif %} }
+
+            contentBefore1Line={
+                <UI.Widget.Widget
+                    type={UI.Widget.WidgetType.viewMainTop1LineBefore}
+                    schema={props.schema}
+                    element={props.element}
+                />
+            }
+            contentBefore2Line={
+                <UI.Widget.Widget
+                    type={UI.Widget.WidgetType.viewMainTop2LineBefore}
+                    schema={props.schema}
+                    element={props.element}
+                />
+            }
+
+            contentAfter1Line={
+                <UI.Widget.Widget
+                    type={UI.Widget.WidgetType.viewMainTop1LineAfter}
+                    schema={props.schema}
+                    element={props.element}
+                />
+            }
+            contentAfter2Line={
+                <UI.Widget.Widget
+                    type={UI.Widget.WidgetType.viewMainTop2LineAfter}
+                    schema={props.schema}
+                    element={props.element}
+                />
+            }
+            contentAfterFields2Line={
+                <TemplateLoader templates={tData.elementToolbarAfterFieldsContent} templateData={ {element: props.element} } />
+            }
+        />
+    )
+}
