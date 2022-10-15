@@ -13,10 +13,10 @@ services:
   
 
   Newageerp\SfControlpanel\Controller\:
-    resource: '../Controller/*'
+    resource: '../SfControlpanel/Controller/*'
     arguments: [ ]
   Newageerp\SfControlpanel\Service\:
-    resource: '../Service/*'
+    resource: '../SfControlpanel/Service/*'
     arguments: [ ]
   Newageerp\SfControlpanel\Console\PropertiesUtils:
     arguments: [ ]
@@ -40,16 +40,16 @@ services:
       - { name: 'console.command' }
 
   Newageerp\SfControlpanel\Console\In\:
-    resource: '../Console/In/*'
+    resource: '../SfControlpanel/Console/In/*'
     tags:
       - { name: 'console.command' }
   Newageerp\SfControlpanel\Console\V3\:
-    resource: '../Console/V3/*'
+    resource: '../SfControlpanel/Console/V3/*'
     tags:
       - { name: 'console.command' }
 
   Newageerp\SfControlpanel\Console\Out\:
-    resource: '../Console/Out/*'
+    resource: '../SfControlpanel/Console/Out/*'
     tags:
       - { name: 'console.command' }
 
@@ -120,13 +120,13 @@ services:
 
 
   Newageerp\SfReactTemplates\CoreTemplates\:
-    resource: '../CoreTemplates/*'
+    resource: '../SfReactTemplates/CoreTemplates/*'
     arguments: [ ]
   Newageerp\SfReactTemplates\Template\:
-    resource: '../Template/*'
+    resource: '../SfReactTemplates/Template/*'
     arguments: [ ]
   Newageerp\SfReactTemplates\Controller\:
-    resource: '../Controller/*'
+    resource: '../SfReactTemplates/Controller/*'
     arguments: [ ]
 
   Newageerp\SfSepa\Service\SepaService:
