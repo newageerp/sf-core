@@ -1,5 +1,5 @@
 {
-  "name": "newageerp/sf-newageerp",
+  "name": "newageerp/sf-core",
   "description": "all newageerp packages",
   "type": "symfony-bundle",
   "autoload": {
