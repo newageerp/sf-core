@@ -20,7 +20,9 @@ class InstallTemplates extends Command
     {
 
         $source = dirname(__DIR__) . '/assets/v3';
-        $dst = LocalConfigUtils::getFrontendGeneratedPath() . '/v3.new';
+        $dst = LocalConfigUtils::getFrontendGeneratedPath() . '/v3';
+
+        $this->recurseCopy($source, $dst);
 
         return Command::SUCCESS;
     }
