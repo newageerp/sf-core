@@ -8,6 +8,7 @@ import { UI } from "@newageerp/nae-react-ui";
 import MainList from "../v3/pages/MainList";
 import TemplateRoute from "../v3/templates/TemplateRoute";
 import MainEdit from "../v3/pages/MainEdit";
+import MainView from "../v3/pages/MainView";
 
 export function AppsRoutes() {
     return (
@@ -42,7 +43,7 @@ export function ListRoutes() {
 export function EditRoutes() {
     return (
         <Fragment>
-            <Route path={"/u/:schema/:type/edit/"}>
+            <Route path={"/u/:schema/:type/edit/:id"}>
                 <MainEdit />
             </Route>
             {# {% for component in editComponents %}
@@ -65,11 +66,14 @@ export function EditRoutes() {
 export function ViewRoutes() {
     return (
         <Fragment>
-            {% for component in viewComponents %}
+            <Route path={"/u/:schema/:type/edit/:id"}>
+                <MainView />
+            </Route>
+            {# {% for component in viewComponents %}
                 <Route path={"/u/{{ component.schema }}/{{ component.type }}/view/:id"}>
                     <UI.RoutePoints.ViewEntry key={"{{ component.schema }}-{{ component.type }}"} schema="{{ component.schema }}" type="{{ component.type }}"/>
                 </Route>
-            {% endfor %}
+            {% endfor %} #}
         </Fragment>
     )
 }
