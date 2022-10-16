@@ -58,6 +58,7 @@ class InGeneratorFileWidgets extends Command
                 $widgetItems[] = [
                     'title' => $item['config']['title'],
                     'type' => $item['config']['type'],
+                    'typeUc' => Utils::fixComponentName($item['config']['type']),
                     'hint' => isset($item['config']['hint'])?$item['config']['hint']:'',
                 ];
             }
