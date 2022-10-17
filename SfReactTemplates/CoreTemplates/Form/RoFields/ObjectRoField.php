@@ -30,6 +30,7 @@ class ObjectRoField extends FormBaseField
         $props['relKey'] = $this->getRelKey();
         $props['relSchema'] = $this->getRelSchema();
         $props['as'] = $this->getAs();
+        $props['disableLink'] = $this->getDisableLink();
 
         return $props;
     }
