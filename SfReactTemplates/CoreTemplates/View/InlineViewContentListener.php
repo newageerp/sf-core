@@ -52,6 +52,7 @@ class InlineViewContentListener implements EventSubscriberInterface
                 $event->getData()['type'],
             );
             $requestRecordProvider->getChildren()->addTemplate($formContent);
+            $requestRecordProvider->setShowOnEmpty(false);
 
             $this->viewContentService->fillFormContent(
                 $event->getData()['schema'],

@@ -31,6 +31,7 @@ export default function WideRow(props: Props) {
     const fData = props.fieldVisibilityData;
 
     const fVisibility =
+    !!fieldVisibility &&
       !!fieldVisibility[fData.fieldSchema] &&
         !!fieldVisibility[fData.fieldSchema][fData.fieldKey]
         ? fieldVisibility[fData.fieldSchema][fData.fieldKey]
