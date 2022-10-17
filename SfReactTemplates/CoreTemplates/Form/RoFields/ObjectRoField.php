@@ -12,6 +12,7 @@ class ObjectRoField extends FormBaseField
     protected string $relKey = '';
     protected string $relSchema = '';
     protected ?string $as = null;
+    protected bool $disableLink = false;
 
     public function __construct(string $key, string $fieldSchema, string $relKey, string $relSchema)
     {
@@ -134,4 +135,28 @@ class ObjectRoField extends FormBaseField
         return $this;
     }
 
+
+    /**
+     * Get the value of disableLink
+     *
+     * @return bool
+     */
+    public function getDisableLink(): bool
+    {
+        return $this->disableLink;
+    }
+
+    /**
+     * Set the value of disableLink
+     *
+     * @param bool $disableLink
+     *
+     * @return self
+     */
+    public function setDisableLink(bool $disableLink): self
+    {
+        $this->disableLink = $disableLink;
+
+        return $this;
+    }
 }

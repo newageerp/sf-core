@@ -259,6 +259,10 @@ class ViewContentService
                                 );
                                 $objectField->setAs($prop['as']);
 
+                                if (isset($field['disableLink'])) {
+                                    $objectField->setDisableLink($field['disableLink']);
+                                }
+
                                 $wideRow->getControlContent()->addTemplate($objectField);
                             }
                             if ($naeType === 'status') {

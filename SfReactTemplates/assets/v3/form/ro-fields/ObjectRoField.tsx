@@ -11,6 +11,8 @@ interface Props {
   relSchema: string;
 
   as?: string;
+
+  disableLink?: boolean;
 }
 
 export default function ObjectRoField(props: Props) {
@@ -28,7 +30,7 @@ export default function ObjectRoField(props: Props) {
     return <Fragment />
   }
 
-  if (props.as === 'select') {
+  if (props.as === 'select' || props.disableLink) {
     return <String value={value} />
   }
 
