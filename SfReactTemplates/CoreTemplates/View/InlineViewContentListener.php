@@ -4,6 +4,7 @@ namespace Newageerp\SfReactTemplates\CoreTemplates\View;
 
 use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 use Newageerp\SfReactTemplates\CoreTemplates\Db\RequestRecordProvider;
+use Newageerp\SfReactTemplates\CoreTemplates\Db\RequestRecordProviderInner;
 use Newageerp\SfReactTemplates\CoreTemplates\MainToolbar\MainToolbarTitle;
 use Newageerp\SfReactTemplates\CoreTemplates\Popup\PopupWindow;
 use Newageerp\SfReactTemplates\CoreTemplates\Toolbar\ToolbarTitle;
@@ -51,8 +52,13 @@ class InlineViewContentListener implements EventSubscriberInterface
                 $event->getData()['schema'],
                 $event->getData()['type'],
             );
-            $requestRecordProvider->getChildren()->addTemplate($formContent);
+            $requestRecordProviderInner = new RequestRecordProviderInner();
+            $requestRecordProviderInner->getChildren()->addTemplate($formContent);
+
+            $requestRecordProvider->getChildren()->addTemplate($requestRecordProviderInner);
             $requestRecordProvider->setShowOnEmpty(false);
+
+            
 
             $this->viewContentService->fillFormContent(
                 $event->getData()['schema'],

@@ -73,6 +73,7 @@ import { CustomEditComponentsMap } from "../../_custom/edit/CustomEditComponents
 import EditFormContent from "../edit/EditFormContent";
 import ViewFormContent from "../view/ViewFormContent";
 import RequestRecordProvider from "../db/RequestRecordProvider";
+import RequestRecordProviderInner from "../db/RequestRecordProviderInner";
 import ArrayDfRoField from "../form/df-ro-fields/ArrayDfRoField";
 import AudioDfRoField from "../form/df-ro-fields/AudioDfRoField";
 import BoolDfRoField from "../form/df-ro-fields/BoolDfRoField";
@@ -378,6 +379,7 @@ const componentsMap: any = {
   "list.editable.largetextcolumn": LargeTextEditableColumn,
 
   "db.request.recordprovider": RequestRecordProvider,
+  "db.request.recordprovider.inner": RequestRecordProviderInner,
 
   "cards.whitecard": WhiteCard,
 
