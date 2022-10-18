@@ -171,3 +171,15 @@ services:
   Newageerp\SfReactTemplates\Console\InstallTemplates:
     tags:
       - { name: 'console.command' }
+
+
+  plugins_evt_service:
+    namespace: App\Plugins\
+    resource: "%kernel.project_dir%/src/Plugins/**/*ListenerEvt"
+    tags:
+      - {name: "kernel.event_listener"}
+  template_evt_service:
+    namespace: App\Template\
+    resource: "%kernel.project_dir%/src/Templates/**/*TemplateEvt"
+    tags:
+      - {name: "kernel.event_listener"}
