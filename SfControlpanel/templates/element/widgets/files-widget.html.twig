@@ -27,6 +27,7 @@ export default function {{ compName }}(props: Props) {
                 folder: `${schema}/${props.element.id}/{{ file.typeUc }}`,
                 disableUpload: disableUpload{{file.typeUc}},
                 hint: hint{{file.typeUc}},
+                actions: ['view', 'download', 'remove', 'send']
             }
         );
     }
