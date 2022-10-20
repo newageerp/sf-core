@@ -218,6 +218,7 @@ export default function ListDataSource(props: Props) {
 
   const records = dataResult.data.records;
   const pages = Math.ceil(records / props.pageSize);
+  const dataTotals = dataResult.data.totals;
 
   const dataToRender = dataResult.data.data;
 
@@ -272,6 +273,19 @@ export default function ListDataSource(props: Props) {
               onAddSelectButton: tData.onAddSelectButton,
             }}
           />
+          {!!props.totals && props.totals && <Fragment>
+            {props.totals.map((total: any) => {
+              return (
+                <div className="flex items-center justify-end">
+                    <label className="text-sm font-semibold text-right w-36 p-2 bg-white">{ total.title }</label>
+                    {!!dataTotals && !!dataTotals[total.field] &&
+                      <span className="w-36 text-right text-sm p-2 bg-white">{dataTotals[total.field].toFixed(2)}</span>
+                    }
+                  </div>
+              )
+            })}
+            </Fragment>}
+          
         </div>
       </div>
 

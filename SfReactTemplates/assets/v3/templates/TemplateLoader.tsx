@@ -176,6 +176,7 @@ export const getTemplateLoaderData = (templateName: string, data: any) => {
       { data: data },
       {
         headers: {
+          // @ts-ignore
           Authorization: window.localStorage.getItem("token"),
           "Content-Type": "application/json",
         },
