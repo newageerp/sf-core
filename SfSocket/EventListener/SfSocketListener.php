@@ -1,6 +1,7 @@
 <?php
 
 namespace Newageerp\SfSocket\EventListener;
+
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Newageerp\SfSocket\Service\SocketService;
 use Psr\Log\LoggerInterface;
