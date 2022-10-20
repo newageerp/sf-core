@@ -185,7 +185,7 @@ services:
       - {name: "kernel.event_listener"}
 
 
-  Newageerp\SfSocket\EventListener\SocketListener:
+  Newageerp\SfSocket\EventListener\SfSocketListener:
     tags:
       - name: "doctrine.event_listener"
         event: "postPersist"

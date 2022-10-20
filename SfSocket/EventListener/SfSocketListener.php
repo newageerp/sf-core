@@ -6,7 +6,7 @@ use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Newageerp\SfSocket\Service\SocketService;
 use Psr\Log\LoggerInterface;
 
-class SocketListener
+class SfSocketListener
 {
     protected SocketService $socketService;
 
