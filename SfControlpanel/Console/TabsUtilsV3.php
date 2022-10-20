@@ -76,6 +76,18 @@ class TabsUtilsV3
         return null;
     }
 
+    public function getTabTotals(string $schema, string $type)
+    {
+        $tab = $this->getTabBySchemaAndType($schema, $type);
+        if (!$tab) {
+            return [];
+        }
+        if (isset($tab['totals']) && $tab['totals']) {
+            return $tab['totals'];
+        }
+        return [];
+    }
+
     public function getTabsSwitchOptions(string $schema, string $type): array
     {
         $tab = $this->getTabBySchemaAndType($schema, $type);

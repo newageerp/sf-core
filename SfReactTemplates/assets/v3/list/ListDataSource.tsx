@@ -15,6 +15,7 @@ interface Props {
   children: Template[];
   hidePaging?: boolean;
   sort: SortingItem[];
+  totals: any;
   schema: string;
   type: string;
   extraFilters?: any;
@@ -87,7 +88,6 @@ export default function ListDataSource(props: Props) {
   //   }
   // }, [itemsFilter, showExtendedSearch]);
 
-  const totals = null;
 
   const headerRef = useRef(null);
   const scrollToHeader = () => {
@@ -191,10 +191,10 @@ export default function ListDataSource(props: Props) {
       dataState.sort.filter((s: SortingItem) => s.key !== ""),
       undefined,
       undefined,
-      totals
+      props.totals
     );
   };
-  useEffect(loadData, [dataState, props.extraFilters]);
+  useEffect(loadData, [dataState, props.extraFilters, props.totals]);
 
   useEffect(() => {
     if (props.socketData) {

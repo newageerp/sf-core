@@ -217,9 +217,11 @@ class TableService
     {
         $tab = $this->tabsUtilsV3->getTabBySchemaAndType($schema, $type);
         $tabSort = $this->tabsUtilsV3->getTabSort($schema, $type);
+        $totals = $this->tabsUtilsV3->getTabTotals($schema, $type);
 
         $listDataSource = new ListDataSource($schema, $type);
         $listDataSource->setSort($tabSort);
+        $listDataSource->setTotals($totals);
         if (isset($tab['pageSize']) && $tab['pageSize']) {
             $listDataSource->setPageSize($tab['pageSize']);
         }
