@@ -183,3 +183,19 @@ services:
     resource: "%kernel.project_dir%/src/Templates/**/*TemplateEvt"
     tags:
       - {name: "kernel.event_listener"}
+
+
+  Newageerp\SfSocket\EventListener\SocketListener:
+    tags:
+      - name: "doctrine.event_listener"
+        event: "postPersist"
+        priority: 600
+        connection: "default"
+      - name: "doctrine.event_listener"
+        event: "postUpdate"
+        priority: 600
+        connection: "default"
+      - name: "doctrine.event_listener"
+        event: "postRemove"
+        priority: 600
+        connection: "default"
