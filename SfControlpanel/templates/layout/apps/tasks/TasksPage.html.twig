@@ -231,6 +231,9 @@ export default function TaskContent() {
                                 task.taskCategory ? task.taskCategory.color : 'blue-500'
                             ).split('-')
 
+                            const isOverdue = moment().format("YYYYMMDD") > moment(task.dueDate).format("YYYYMMDD");
+                            const isToday = moment().format("YYYYMMDD") === moment(task.dueDate).format("YYYYMMDD");
+
                             return (
                                 <tr key={`task-${task.id}`}>
                                     <Td>
@@ -253,7 +256,13 @@ export default function TaskContent() {
                                             'tw3-text-red-600': moment().format("YYYYMMDD") >= moment(task.dueDate).format("YYYYMMDD"),
                                         }
                                     )
-                                    }>{moment(task.dueDate).format("YYYY-MM-DD")}</Td>
+                                    }>
+                                    <span className={classNames({
+                                            'tw3-text-red-600': isOverdue,
+                                            'tw3-text-amber-600': isToday,
+                                            'tw3-text-slate-400': !isOverdue && !isToday,
+                                        })}>{moment(task.dueDate).format("YYYY-MM-DD")}</span>
+                                    </Td>
                                     <Td>
                                         <Badge size='sm' variant={getTaskEnumsColors('longTerm', task.longTerm)}>{getTaskEnums('longTerm', task.longTerm)}</Badge>
                                     </Td>

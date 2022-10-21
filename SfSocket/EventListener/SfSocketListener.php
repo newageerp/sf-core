@@ -30,8 +30,6 @@ class SfSocketListener
         $class = str_replace('\\', '', $entity::class);
         $class = str_replace(['AppEntity', 'Proxies__CG__'], '', $class);
 
-        $this->ajLogger->warning('Post persist ' . $class);
-
         if ($class === 'Note') {
             if ($entity->getNotify()) {
                 foreach ($entity->getNotify() as $notify) {
@@ -42,7 +40,6 @@ class SfSocketListener
                             'body' => ['id' => $entity->getId(), 'schema' => 'Note']
                         ]
                     );
-                    $this->ajLogger->warning('Post persist addToPool ' . $class . ' notes-' . $notify);
                 }
             }
         }
