@@ -31,6 +31,8 @@ interface Props {
   pageSize: number,
 
   toolbar: Template[],
+
+  hidePageSelectionSelect?: boolean,
 }
 
 export default function ListDataSource(props: Props) {
@@ -294,6 +296,7 @@ export default function ListDataSource(props: Props) {
           pages={pages}
           activePage={dataState.page}
           setActivePage={setActivePage}
+          hidePageSelectionSelect={props.hidePageSelectionSelect}
         // marginTop={PageContainerMarginTop[]}
         />
       )}

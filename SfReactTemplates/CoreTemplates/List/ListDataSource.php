@@ -25,6 +25,8 @@ class ListDataSource extends Template
 
     protected int $pageSize = 20;
 
+    protected bool $hidePageSelectionSelect = false;
+
     public function __construct(string $schema, string $type)
     {
         $this->schema = $schema;
@@ -52,6 +54,8 @@ class ListDataSource extends Template
             'toolbar' => [$this->getToolbar()->toArray()],
 
             'totals' => $this->getTotals(),
+
+            'hidePageSelectionSelect' => $this->getHidePageSelectionSelect(),
         ];
     }
 
@@ -320,6 +324,30 @@ class ListDataSource extends Template
     public function setTotals(array $totals): self
     {
         $this->totals = $totals;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of hidePageSelectionSelect
+     *
+     * @return bool
+     */
+    public function getHidePageSelectionSelect(): bool
+    {
+        return $this->hidePageSelectionSelect;
+    }
+
+    /**
+     * Set the value of hidePageSelectionSelect
+     *
+     * @param bool $hidePageSelectionSelect
+     *
+     * @return self
+     */
+    public function setHidePageSelectionSelect(bool $hidePageSelectionSelect): self
+    {
+        $this->hidePageSelectionSelect = $hidePageSelectionSelect;
 
         return $this;
     }

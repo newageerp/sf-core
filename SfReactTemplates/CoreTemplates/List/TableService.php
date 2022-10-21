@@ -176,6 +176,7 @@ class TableService
             $schema,
             $type,
         );
+        $listDataSource->setHidePageSelectionSelect(true);
         $filters = $listDataSource->getExtraFilters();
         $filters[] = [
             'and' => [
