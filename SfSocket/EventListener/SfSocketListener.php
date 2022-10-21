@@ -32,7 +32,7 @@ class SfSocketListener
 
         $this->ajLogger->warning('Post persist ' . $class);
 
-        if ($class === 'App\Entity\Note') {
+        if ($class === 'Note') {
             if ($entity->getNotify()) {
                 foreach ($entity->getNotify() as $notify) {
                     $this->socketService->addToPool(
@@ -83,7 +83,7 @@ class SfSocketListener
             ]
         );
 
-        if ($class === 'App\Entity\Note') {
+        if ($class === 'Note') {
             $this->socketService->addToPool(
                 [
                     'room' => 'all',
