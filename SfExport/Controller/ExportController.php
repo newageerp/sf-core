@@ -20,6 +20,7 @@ use OpenApi\Annotations as OA;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Newageerp\SfSocket\Service\SocketService;
+use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
 
 /**
  * @Route(path="/app/nae-core/export")
@@ -57,7 +58,7 @@ class ExportController extends UControllerBase
      * @Route(path="/doExport")
      * @OA\Post (operationId="NAEUExport")
      */
-    public function doExport(Request $request, UService $uService): JsonResponse
+    public function doExport(Request $request, UService $uService, PropertiesUtilsV3 $propertiesUtilsV3): JsonResponse
     {
         try {
             $storageDir = $_ENV['NAE_SFS_PUBLIC_DOC_DIR'];
@@ -91,7 +92,7 @@ class ExportController extends UControllerBase
             )['data'];
             $recordsCount = count($data);
 
-            $properties = $this->getPropertiesForSchema($schema);
+            // $properties = $this->getPropertyForSchema($schema);
 
             $spreadsheet = new Spreadsheet();
             $sheet = $spreadsheet->getActiveSheet();
@@ -110,7 +111,7 @@ class ExportController extends UControllerBase
                 return $field;
             }, $fields);
 
-            $parseColumns = array_map(function ($field) use ($properties) {
+            $parseColumns = array_map(function ($field) use ($propertiesUtilsV3) {
                 $pathArray = explode(".", $field['path']);
                 $relName = null;
                 if (count($pathArray) === 3) {
@@ -119,9 +120,11 @@ class ExportController extends UControllerBase
                     [$schema, $fieldKey] = $pathArray;
                 }
 
+                $property = $propertiesUtilsV3->getPropertyForSchema($schema, $fieldKey);
+
                 $field['schema'] = $schema;
                 $field['fieldKey'] = $fieldKey;
-                $field['title'] = isset($field['customTitle']) && $field['customTitle'] ? $field['customTitle'] : $properties[$fieldKey]['title'];
+                $field['title'] = isset($field['customTitle']) && $field['customTitle'] ? $field['customTitle'] : $property['title'];
                 $field['pivotTitle'] = isset($field['pivotCustomTitle']) ? $field['pivotCustomTitle'] : $field['title'];
                 return $field;
             }, $parseColumns);
@@ -178,13 +181,9 @@ class ExportController extends UControllerBase
                         $item[$fieldKey][$relName] :
                         $item[$fieldKey];
 
-                    if (isset($properties[$fieldKey]['enum']) && $properties[$fieldKey]['enum']) {
-                        foreach ($properties[$fieldKey]['enum'] as $p) {
-                            if ($p['value'] === $val) {
-                                $val = $p['label'];
-                                break;
-                            }
-                        }
+                    $prop = $propertiesUtilsV3->getPropertyForSchema($schema, $fieldKey);
+                    if ($propertiesUtilsV3->propertyHasEnum($prop)) {
+                        $val = $propertiesUtilsV3->getPropertyEnumValue($schema, $fieldKey, $val);
                     }
 
                     $sheet->getCellByColumnAndRow($col, $row)->setValue($val);

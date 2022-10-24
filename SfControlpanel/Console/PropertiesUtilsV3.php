@@ -100,6 +100,19 @@ class PropertiesUtilsV3
         return count($enumsList) > 0;
     }
 
+    public function getPropertyEnumValue($schema, $key, $val) {
+        $prop = $this->getPropertyForSchema($schema, $key);
+        $enumsList = $this->getPropertyEnumsList($prop);
+        $val = "";
+        foreach ($enumsList as $p) {
+            if ($p['value'] === $val) {
+                $val = $p['label'];
+                break;
+            }
+        }
+        return $val;
+    }
+
     public function getPropertyEnumsList(array $prop, ?bool $addEmpty = false)
     {
         $enumsList = array_filter(
