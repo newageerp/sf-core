@@ -44,9 +44,6 @@ class UService
         $this->onSaveService = $onSaveService;
         $this->em = $em;
         $this->eventDispatcher = $eventDispatcher;
-
-        $schemaFilePath = $_ENV['NAE_SFS_SCHEMAS_FILE_PATH'];
-        $this->schemas = json_decode(file_get_contents($schemaFilePath), true);
     }
 
     public function getEntityFromSchemaAndId(string $schema, int $id)
@@ -456,7 +453,13 @@ class UService
     /**
      * @throws \Exception
      */
-    public function updateElement($element, array $data, string $schema, PropertiesUtilsV3 $propertiesUtilsV3)
+    public function updateElement(
+        $element, 
+        array $data, 
+        string $schema, 
+        PropertiesUtilsV3 $propertiesUtilsV3,
+        EntitiesUtilsV3 $entitiesUtilsV3
+        )
     {
         $isNew = false;
         if (!$element->getId()) {
@@ -633,14 +636,7 @@ class UService
 
         $requiredError = [];
         if (!(isset($data['skipRequiredCheck']) && $data['skipRequiredCheck'])) {
-            $requiredFields = [];
-            foreach ($this->getSchemas() as $schemaEl) {
-                if ($schemaEl['schema'] === $schema) {
-                    if (isset($schemaEl['required'])) {
-                        $requiredFields = $schemaEl['required'];
-                    }
-                }
-            }
+            $requiredFields = $entitiesUtilsV3->getRequiredBySlug($schema);
 
             foreach ($requiredFields as $requiredField) {
                 $method = 'get' . lcfirst($requiredField);
@@ -656,10 +652,5 @@ class UService
         }
 
         $this->em->persist($element);
-    }
-
-    public function getSchemas(): array
-    {
-        return $this->schemas;
     }
 }

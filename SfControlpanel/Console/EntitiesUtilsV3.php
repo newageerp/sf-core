@@ -21,7 +21,7 @@ class EntitiesUtilsV3
         if ($entity) {
             return isset($entity['config']['required']) && $entity['config']['required'] ? json_decode($entity['config']['required'], true) : [];
         }
-        return $slug;
+        return [];
     }
 
     public function getEntityBySlug(string $slug)
