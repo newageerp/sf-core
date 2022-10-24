@@ -23,17 +23,6 @@ class UControllerBase extends OaBaseController
         $this->schemas = json_decode(file_get_contents($schemaFilePath), true);
     }
 
-    protected function getPropertiesForSchema(string $schema)
-    {
-        $properties = [];
-        foreach ($this->properties as $property) {
-            if ($property['schema'] === $schema) {
-                $properties[$property['key']] = $property;
-            }
-        }
-        return $properties;
-    }
-
     public function getSchemas() : array {
         return $this->schemas;
     }

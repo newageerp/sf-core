@@ -92,8 +92,6 @@ class ExportController extends UControllerBase
             )['data'];
             $recordsCount = count($data);
 
-            // $properties = $this->getPropertyForSchema($schema);
-
             $spreadsheet = new Spreadsheet();
             $sheet = $spreadsheet->getActiveSheet();
             $sheet->setCellValue('A1', $title);

@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use OpenApi\Annotations as OA;
 use Newageerp\SfSocket\Service\SocketService;
+use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
 
 /**
  * @Route(path="/app/nae-core/import")
@@ -37,7 +38,7 @@ class ImportController extends UControllerBase
      * @OA\Post (operationId="NAEUImport")
      * @throws Exception
      */
-    public function mainImport(Request $request, EntityManagerInterface $entityManager): JsonResponse
+    public function mainImport(Request $request, EntityManagerInterface $entityManager, PropertiesUtilsV3 $propertiesUtilsV3): JsonResponse
     {
         $request = $this->transformJsonBody($request);
 
@@ -48,7 +49,6 @@ class ImportController extends UControllerBase
         AuthService::getInstance()->setUser($user);
 
         $schema = $request->get('schema');
-        $properties = $this->getPropertiesForSchema($schema);
 
         $className = $this->convertSchemaToEntity($schema);
 
@@ -89,11 +89,14 @@ class ImportController extends UControllerBase
                         if ($fieldKey) {
                             $type = null;
                             $format = null;
-                            if (isset($properties[$fieldKey], $properties[$fieldKey]['type']) && $properties[$fieldKey]['type']) {
-                                $type = $properties[$fieldKey]['type'];
+
+                            $prop = $propertiesUtilsV3->getPropertyForSchema($schema, $fieldKey);
+
+                            if ($prop) {
+                                $type = $prop['type'];
                             }
-                            if (isset($properties[$fieldKey], $properties[$fieldKey]['format']) && $properties[$fieldKey]['format']) {
-                                $format = $properties[$fieldKey]['format'];
+                            if ($prop && $prop['typeFormat']) {
+                                $format = $prop['typeFormat'];
                             }
 
                             $types[$fieldKey] = [
