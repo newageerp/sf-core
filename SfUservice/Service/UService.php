@@ -16,6 +16,7 @@ use Newageerp\SfUservice\Events\UBeforeCreateEvent;
 use Newageerp\SfUservice\Events\UBeforeUpdateAfterSetEvent;
 use Newageerp\SfUservice\Events\UBeforeUpdateEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
 
 class UService
 {
@@ -28,8 +29,6 @@ class UService
     protected EntityManagerInterface $em;
 
     protected EventDispatcherInterface $eventDispatcher;
-
-    protected array $properties = [];
 
     protected array $schemas = [];
 
@@ -45,9 +44,6 @@ class UService
         $this->onSaveService = $onSaveService;
         $this->em = $em;
         $this->eventDispatcher = $eventDispatcher;
-
-        $filePath = $_ENV['NAE_SFS_PROPERTIES_FILE_PATH'];
-        $this->properties = json_decode(file_get_contents($filePath), true);
 
         $schemaFilePath = $_ENV['NAE_SFS_SCHEMAS_FILE_PATH'];
         $this->schemas = json_decode(file_get_contents($schemaFilePath), true);
@@ -460,7 +456,7 @@ class UService
     /**
      * @throws \Exception
      */
-    public function updateElement($element, array $data, string $schema)
+    public function updateElement($element, array $data, string $schema, PropertiesUtilsV3 $propertiesUtilsV3)
     {
         $isNew = false;
         if (!$element->getId()) {
@@ -472,23 +468,24 @@ class UService
             $this->eventDispatcher->dispatch($ev, UBeforeUpdateEvent::NAME);
         }
 
-        $properties = $this->getPropertiesForSchema($schema);
-
         foreach ($data as $key => $val) {
             if ($key === 'createdAt' || $key === 'updatedAt') {
                 continue;
             }
+
+            $prop = $propertiesUtilsV3->getPropertyForSchema($schema, $key);
+
             $type = null;
             $format = null;
             $as = null;
-            if (isset($properties[$key], $properties[$key]['type']) && $properties[$key]['type']) {
-                $type = $properties[$key]['type'];
+            if ($prop && $prop['type']) {
+                $type = $prop['type'];
             }
-            if (isset($properties[$key], $properties[$key]['format']) && $properties[$key]['format']) {
-                $format = $properties[$key]['format'];
+            if ($prop && $prop['typeFormat']) {
+                $format = $prop['typeFormat'];
             }
-            if (isset($properties[$key], $properties[$key]['as']) && $properties[$key]['as']) {
-                $as = $properties[$key]['as'];
+            if ($prop && $prop['as']) {
+                $as = $prop['as'];
             }
 
             if ($type === 'string') {
@@ -514,10 +511,11 @@ class UService
 
 
                 $mapped = null;
-                if (isset($properties[$key]['additionalProperties'])) {
-                    foreach ($properties[$key]['additionalProperties'] as $prop) {
-                        if (isset($prop['mapped'])) {
-                            $mapped = $prop['mapped'];
+                if (isset($prop['additionalProperties'])) {
+                    $additionalProperties = json_decode($prop['additionalProperties'], true);
+                    foreach ($additionalProperties as $propAd) {
+                        if (isset($propAd['mapped'])) {
+                            $mapped = $propAd['mapped'];
                         }
                     }
                 }
@@ -536,11 +534,11 @@ class UService
             }
 
             if ($type === 'array' && $format !== 'string') {
-                $mapped = null;
-                if (isset($properties[$key]['additionalProperties'])) {
-                    foreach ($properties[$key]['additionalProperties'] as $prop) {
-                        if (isset($prop['mapped'])) {
-                            $mapped = $prop['mapped'];
+                if (isset($prop['additionalProperties'])) {
+                    $additionalProperties = json_decode($prop['additionalProperties'], true);
+                    foreach ($additionalProperties as $propAd) {
+                        if (isset($propAd['mapped'])) {
+                            $mapped = $propAd['mapped'];
                         }
                     }
                 }
@@ -658,17 +656,6 @@ class UService
         }
 
         $this->em->persist($element);
-    }
-
-    protected function getPropertiesForSchema(string $schema)
-    {
-        $properties = [];
-        foreach ($this->properties as $property) {
-            if ($property['schema'] === $schema) {
-                $properties[$property['key']] = $property;
-            }
-        }
-        return $properties;
     }
 
     public function getSchemas(): array
