@@ -16,22 +16,22 @@ class PropertiesTemplatesConsole extends Command
 
     protected PropertiesUtilsV3 $propertiesUtils;
 
-    protected EntitiesUtilsV3 $entitiesUtils;
+    protected EntitiesUtilsV3 $entitiesUtilsV3;
 
     public function __construct(
         PropertiesUtilsV3 $propertiesUtils,
-        EntitiesUtilsV3   $entitiesUtils,
+        EntitiesUtilsV3   $entitiesUtilsV3,
     ) {
         parent::__construct();
         $this->propertiesUtils = $propertiesUtils;
-        $this->entitiesUtils = $entitiesUtils;
+        $this->entitiesUtilsV3 = $entitiesUtilsV3;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $propertiesMap = [];
 
-        $entities = $this->entitiesUtils->getEntities();
+        $entities = $this->entitiesUtilsV3->getEntities();
 
         foreach ($entities as $key => $entity) {
             // if (!isset($entity['config']['enableForGen'])) {

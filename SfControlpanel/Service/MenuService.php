@@ -2,24 +2,15 @@
 
 namespace Newageerp\SfControlpanel\Service;
 
-use Newageerp\SfControlpanel\Console\LocalConfigUtils;
+use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 
 class MenuService
 {
-    protected array $entities;
+    protected EntitiesUtilsV3 $entitiesUtilsV3;
 
-    public function __construct()
+    public function __construct(EntitiesUtilsV3 $entitiesUtilsV3)
     {
-        $schemaFile = LocalConfigUtils::getPhpCachePath() . '/NaeSSchema.json';
-        $this->entities = [];
-        if (file_exists($schemaFile)) {
-            $this->entities = json_decode(
-                file_get_contents(
-                    $schemaFile
-                ),
-                true
-            );
-        }
+        $this->entitiesUtilsV3 = $entitiesUtilsV3;
     }
 
     public function menuTitleForMenu(array $menuItem): string
@@ -28,11 +19,7 @@ class MenuService
         if (isset($menuItem['config']['customTitle']) && $menuItem['config']['customTitle']) {
             $menuTitle = $menuItem['config']['customTitle'];
         } else {
-            foreach ($this->entities as $entity) {
-                if ($entity['schema'] === $menuItem['config']['schema']) {
-                    $menuTitle = $entity['titlePlural'];
-                }
-            }
+            $menuTitle = $this->entitiesUtilsV3->getTitlePluralBySlug($menuItem['config']['schema']);
         }
         return $menuTitle;
     }

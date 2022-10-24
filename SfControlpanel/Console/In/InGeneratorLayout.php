@@ -2,11 +2,10 @@
 
 namespace Newageerp\SfControlpanel\Console\In;
 
-use Newageerp\SfControlpanel\Console\EntitiesUtils;
+use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 use Newageerp\SfControlpanel\Console\LocalConfigUtils;
 use Newageerp\SfControlpanel\Console\PropertiesUtils;
 use Newageerp\SfControlpanel\Console\Utils;
-use Newageerp\SfControlpanel\Service\EditForms\EditFormsRelSelectService;
 use Newageerp\SfControlpanel\Service\Entities\EntitiesService;
 use Newageerp\SfControlpanel\Service\MenuService;
 use Newageerp\SfControlpanel\Service\Properties\PropertyDateService;
@@ -22,24 +21,21 @@ class InGeneratorLayout extends Command
     protected static $defaultName = 'nae:localconfig:InGeneratorLayout';
 
     protected PropertiesUtils $propertiesUtils;
-    protected EntitiesUtils $entitiesUtils;
+    protected EntitiesUtilsV3 $entitiesUtilsV3;
     protected TabsQuickSearchService $tabsQsService;
-    protected EditFormsRelSelectService $editFormsRelSelectService;
     protected PropertyDateService $propertyDateService;
 
     public function __construct(
         PropertiesUtils $propertiesUtils,
-        EntitiesUtils $entitiesUtils,
+        EntitiesUtilsV3 $entitiesUtilsV3,
         TabsQuickSearchService $tabsQsService,
-        EditFormsRelSelectService $editFormsRelSelectService,
         PropertyDateService $propertyDateService,
     ) {
         parent::__construct();
 
         $this->propertiesUtils = $propertiesUtils;
-        $this->entitiesUtils = $entitiesUtils;
+        $this->entitiesUtilsV3 = $entitiesUtilsV3;
         $this->tabsQsService = $tabsQsService;
-        $this->editFormsRelSelectService = $editFormsRelSelectService;
         $this->propertyDateService = $propertyDateService;
     }
 
@@ -63,50 +59,6 @@ class InGeneratorLayout extends Command
         $fileName = Utils::generatedPath('layout/view') . '/ViewTop.tsx';
         Utils::writeOnChanges($fileName, $generatedContent);
 
-        // toolbar layout rels create
-        // $relsCreateFile = $_ENV['NAE_SFS_CP_STORAGE_PATH'] . '/rels-create.json';
-        // if (file_exists($relsCreateFile)) {
-        //     $relsList = json_decode(file_get_contents($relsCreateFile), true);
-        //     $rels = [];
-        //     foreach ($relsList as $relItem) {
-        //         if (!isset($rels[$relItem['source']])) {
-        //             $rels[$relItem['source']] = [];
-        //         }
-        //         if (!isset($relItem['targetTitle'])) {
-        //             $relItem['targetTitle'] = $this->entitiesUtils->getTitleBySlug($relItem['target']);
-        //         }
-        //         if (!isset($relItem['type'])) {
-        //             $relItem['type'] = 'main';
-        //         }
-        //         if (!isset($relItem['forcePopup'])) {
-        //             $relItem['forcePopup'] = false;
-        //         }
-        //         if (!isset($relItem['disableOnScope'])) {
-        //             $relItem['disableOnScope'] = "";
-        //         }
-        //         $rels[$relItem['source']][] = $relItem;
-        //     }
-
-        //     $toolbarItemTemplate = $twig->load('layout/toolbar-items-rel-create.html.twig');
-        //     foreach ($rels as $source => $items) {
-        //         $slugUc = Utils::fixComponentName($source);
-        //         $compName = $slugUc . 'RelCreate';
-        //         $fileName = Utils::generatedPath('layout/view/toolbar-items') . '/' . $compName . '.tsx';
-
-        //         $widgetComponents[$source] = $compName;
-
-        //         $generatedContent = $toolbarItemTemplate->render(
-        //             [
-        //                 'compName' => $compName, 
-        //                 'items' => $items, 
-        //                 'schema' => $source,
-        //                 'slugUc' => $slugUc,
-        //             ]
-        //         );
-        //         Utils::writeOnChanges($fileName, $generatedContent);
-        //     }
-        // }
-
         // toolbar layout rels copy
         $relsCreateFile = $_ENV['NAE_SFS_CP_STORAGE_PATH'] . '/rels-copy.json';
         if (file_exists($relsCreateFile)) {
@@ -117,7 +69,7 @@ class InGeneratorLayout extends Command
                     $rels[$relItem['source']] = [];
                 }
                 if (!isset($relItem['targetTitle'])) {
-                    $relItem['targetTitle'] = $this->entitiesUtils->getTitleBySlug($relItem['target']);
+                    $relItem['targetTitle'] = $this->entitiesUtilsV3->getTitleBySlug($relItem['target']);
                 }
                 if (!isset($relItem['type'])) {
                     $relItem['type'] = 'main';
@@ -241,9 +193,6 @@ class InGeneratorLayout extends Command
         // UTILS
         $utilsService = new UtilsService();
         $utilsService->generate();
-
-        // EDIT FORMS
-        $this->editFormsRelSelectService->generate();
 
         return Command::SUCCESS;
     }

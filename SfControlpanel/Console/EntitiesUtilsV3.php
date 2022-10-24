@@ -34,6 +34,35 @@ class EntitiesUtilsV3
         return null;
     }
 
+    public function getEntityByClassName(string $slug)
+    {
+        foreach ($this->entities as $entity) {
+            if ($entity['config']['className'] === $slug) {
+                return $entity;
+            }
+        }
+        return null;
+    }
+
+    public function getClassNameBySlug(string $slug)
+    {
+        $entity = $this->getEntityBySlug($slug);
+        if ($entity) {
+            return $entity['config']['className'];
+        }
+
+        return '';
+    }
+    public function getSlugByClassName(string $slug)
+    {
+        $entity = $this->getEntityByClassName($slug);
+        if ($entity) {
+            return $entity['config']['slug'];
+        }
+
+        return '';
+    }
+
     public function getTitleBySlug(string $slug)
     {
         $entity = $this->getEntityBySlug($slug);
@@ -126,5 +155,10 @@ class EntitiesUtilsV3
             return true;
         }
         return false;
+    }
+
+    public static function elementHook(string $slug)
+    {
+        return 'use' . implode("", array_map('ucfirst', explode("-", $slug))) . 'HookNae';
     }
 }

@@ -32,7 +32,6 @@ class InRunAll extends Command
             'nae:localconfig:InGeneratorEnums',
             'nae:localconfig:InGeneratorBadges',
             'nae:localconfig:InGeneratorEditForms',
-            'nae:localconfig:InGeneratorViewForms',
             'nae:localconfig:InFillModels',
             'nae:localconfig:InGeneratorRoutes',
             'nae:localconfig:InGeneratorFileWidgets',

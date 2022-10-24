@@ -2,10 +2,9 @@
 
 namespace Newageerp\SfControlpanel\Console\In;
 
-use Newageerp\SfControlpanel\Console\EntitiesUtils;
+use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 use Newageerp\SfControlpanel\Console\PropertiesUtils;
 use Newageerp\SfControlpanel\Console\Utils;
-use Newageerp\SfControlpanel\Service\MenuService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -49,7 +48,7 @@ class InGeneratorBadges extends Command
 
             $fileName = $generatedPath . '/' . $compName . '.tsx';
 
-            $hookName = EntitiesUtils::elementHook($badgeItem['config']['schema']);
+            $hookName = EntitiesUtilsV3::elementHook($badgeItem['config']['schema']);
 
             $badgeContent = '';
             $badgeVariant = '';

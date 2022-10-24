@@ -20,8 +20,6 @@ services:
     arguments: [ ]
   Newageerp\SfControlpanel\Console\PropertiesUtils:
     arguments: [ ]
-  Newageerp\SfControlpanel\Console\EntitiesUtils:
-    arguments: [ ]
   Newageerp\SfControlpanel\Console\PropertiesUtilsV3:
     arguments: [ ]
   Newageerp\SfControlpanel\Console\EntitiesUtilsV3:

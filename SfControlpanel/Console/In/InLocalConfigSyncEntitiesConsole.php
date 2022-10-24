@@ -70,7 +70,6 @@ class InLocalConfigSyncEntitiesConsole extends Command
         // TMP OLD SYNC OFF
 
         $configJsonPath = LocalConfigUtils::getStrapiCachePath() . '/NaeSSchema.json';
-        $phpPropertiesFile = LocalConfigUtils::getPhpCachePath() . '/NaeSSchema.json';
         $configPath = LocalConfigUtils::getFrontendConfigPath() . '/NaeSSchema.tsx';
 
         $fileContent = 'import { INaeSchema } from "@newageerp/nae-react-ui/dist/interfaces";
@@ -130,10 +129,6 @@ class InLocalConfigSyncEntitiesConsole extends Command
         );
         file_put_contents(
             $configJsonPath,
-            json_encode($entities, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)
-        );
-        file_put_contents(
-            $phpPropertiesFile,
             json_encode($entities, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)
         );
 

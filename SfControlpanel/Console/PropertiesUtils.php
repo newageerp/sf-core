@@ -6,9 +6,9 @@ class PropertiesUtils
 {
     protected array $properties = [];
 
-    protected EntitiesUtils $entitiesUtils;
+    protected EntitiesUtilsV3 $entitiesUtilsV3;
 
-    public function __construct(EntitiesUtils $entitiesUtils)
+    public function __construct(EntitiesUtilsV3 $entitiesUtilsV3)
     {
         $propertiesFile = LocalConfigUtils::getPhpCachePath() . '/properties.json';
         $this->properties = [];
@@ -18,7 +18,7 @@ class PropertiesUtils
                 true
             );
         }
-        $this->entitiesUtils = $entitiesUtils;
+        $this->entitiesUtilsV3 = $entitiesUtilsV3;
     }
 
     /**
@@ -54,7 +54,7 @@ class PropertiesUtils
         $className = "";
         $property = $this->getPropertyForPath($path);
         if ($property) {
-            $className = $this->entitiesUtils->getClassNameBySlug($property['format']);
+            $className = $this->entitiesUtilsV3->getClassNameBySlug($property['format']);
         }
         return $className;
     }

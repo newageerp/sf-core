@@ -2,7 +2,7 @@
 
 namespace Newageerp\SfControlpanel\Console\In;
 
-use Newageerp\SfControlpanel\Console\EntitiesUtils;
+use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 use Newageerp\SfControlpanel\Console\LocalConfigUtils;
 use Newageerp\SfControlpanel\Console\PropertiesUtils;
 use Newageerp\SfControlpanel\Console\Utils;
@@ -18,15 +18,15 @@ class InFillModels extends Command
 
     protected PropertiesUtils $propertiesUtils;
 
-    protected EntitiesUtils $entitiesUtils;
+    protected EntitiesUtilsV3 $entitiesUtilsV3;
 
     public function __construct(
         PropertiesUtils $propertiesUtils,
-        EntitiesUtils   $entitiesUtils,
+        EntitiesUtilsV3   $entitiesUtilsV3,
     ) {
         parent::__construct();
         $this->propertiesUtils = $propertiesUtils;
-        $this->entitiesUtils = $entitiesUtils;
+        $this->entitiesUtilsV3 = $entitiesUtilsV3;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -98,7 +98,7 @@ class InFillModels extends Command
             $modelClasses[] = str_replace('Model.js', '', $file->getFilename());
         }
         foreach ($defaultItems as $defaultItem) {
-            $schema = $this->entitiesUtils->getClassNameBySlug($defaultItem['config']['schema']);
+            $schema = $this->entitiesUtilsV3->getClassNameBySlug($defaultItem['config']['schema']);
             if (!in_array($schema, $modelClasses)) {
                 $writeTo = $modelsDir . '/' . ucfirst($schema) . 'Model.js';
                 file_put_contents(
@@ -165,7 +165,7 @@ class InFillModels extends Command
                     function ($m) {
                         return [
                             'cl' => $m,
-                            'slug' => $this->entitiesUtils->getSlugByClassName($m)
+                            'slug' => $this->entitiesUtilsV3->getSlugByClassName($m)
                         ];
                     },
                     $modelClasses
@@ -182,7 +182,7 @@ class InFillModels extends Command
             }
             $defaultItem = null;
             foreach ($defaultItems as $_defaultItem) {
-                $schema = $this->entitiesUtils->getClassNameBySlug($_defaultItem['config']['schema']);
+                $schema = $this->entitiesUtilsV3->getClassNameBySlug($_defaultItem['config']['schema']);
                 if ($schema === $m) {
                     $defaultItem = $_defaultItem;
                 }
@@ -363,7 +363,7 @@ class InFillModels extends Command
                 ]
             );
 
-            $modelsFieldsCache[$this->entitiesUtils->getSlugByClassName($m)] = $oFields;
+            $modelsFieldsCache[$this->entitiesUtilsV3->getSlugByClassName($m)] = $oFields;
         }
         file_put_contents(
             '/var/www/symfony/assets/model-fields.json',
@@ -410,7 +410,7 @@ import { " . $selectorsJoin . " } from '../../Components/Models/ormSelectors';
   let selector : any = useEmptyHook;';
 
         foreach ($models as $m) {
-            $s = $this->entitiesUtils->getSlugByClassName($m);
+            $s = $this->entitiesUtilsV3->getSlugByClassName($m);
             $componentsContent .= '
   if (schema === \'' . $s . '\') {
     return use' . $m . 'HookNae;
@@ -425,7 +425,7 @@ import { " . $selectorsJoin . " } from '../../Components/Models/ormSelectors';
 //         $componentsContent .= 'export const getSelectorForSchema = (schema: string) => {
 //   let selector : any;';
 //         foreach ($models as $m) {
-//             $s = $this->entitiesUtils->getSlugByClassName($m);
+//             $s = $this->entitiesUtilsV3->getSlugByClassName($m);
 //             $componentsContent .= "
 //   if (schema === '" . $s . "') {
 //     return Selector" . $m . "Nae;
@@ -442,7 +442,7 @@ import { " . $selectorsJoin . " } from '../../Components/Models/ormSelectors';
         foreach ($models as $m) {
             $fields = $modelProperties[$m];
 
-            $slug = $this->entitiesUtils->getSlugByClassName($m);
+            $slug = $this->entitiesUtilsV3->getSlugByClassName($m);
 
             // if ($m === 'Cargo') {
             //     var_dump($fields);

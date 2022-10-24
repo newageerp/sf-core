@@ -2,14 +2,13 @@
 
 namespace Newageerp\SfControlpanel\Console\In;
 
-use Newageerp\SfControlpanel\Console\EntitiesUtils;
+use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 use Newageerp\SfControlpanel\Console\LocalConfigUtils;
 use Doctrine\ORM\EntityManagerInterface;
 use Newageerp\SfControlpanel\Console\PropertiesUtils;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Finder\Finder;
 
 class InLocalConfigSyncFieldsConsole extends Command
 {
@@ -19,18 +18,17 @@ class InLocalConfigSyncFieldsConsole extends Command
 
     protected PropertiesUtils $propertiesUtils;
 
-    protected EntitiesUtils $entitiesUtils;
+    protected EntitiesUtilsV3 $entitiesUtilsV3;
 
     public function __construct(
         EntityManagerInterface $em,
         PropertiesUtils        $propertiesUtils,
-        EntitiesUtils          $entitiesUtils,
-    )
-    {
+        EntitiesUtilsV3          $entitiesUtilsV3,
+    ) {
         parent::__construct();
         $this->em = $em;
         $this->propertiesUtils = $propertiesUtils;
-        $this->entitiesUtils = $entitiesUtils;
+        $this->entitiesUtilsV3 = $entitiesUtilsV3;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -146,14 +144,12 @@ class InLocalConfigSyncFieldsConsole extends Command
         // TMP OLD SYNC OFF
 
 
-//        $configJsonPath = LocalConfigUtils::getStrapiCachePath() . '/NaeSProperties.json';
-//        $configJsonPathDbKeys = LocalConfigUtils::getStrapiCachePath() . '/NaeSDbKeys.json';
+        //        $configJsonPath = LocalConfigUtils::getStrapiCachePath() . '/NaeSProperties.json';
+        //        $configJsonPathDbKeys = LocalConfigUtils::getStrapiCachePath() . '/NaeSDbKeys.json';
 
         $configPath = LocalConfigUtils::getFrontendConfigPath() . '/NaeSProperties.tsx';
         $configPathDbKeys = LocalConfigUtils::getFrontendConfigPath() . '/NaeSDbKeys.tsx';
         $configPathKeys = LocalConfigUtils::getFrontendConfigPath() . '/NaeSPropertiesKeys.tsx';
-
-        $phpPropertiesFile = LocalConfigUtils::getPhpCachePath() . '/properties.json';
 
         $fileContent = 'import { INaeProperty, INaePropertyEnum } from "@newageerp/nae-react-ui/dist/interfaces";
 ';
@@ -217,7 +213,7 @@ class InLocalConfigSyncFieldsConsole extends Command
                 'title' => $prop['config']['title'],
                 'additionalProperties' => json_decode($prop['config']['additionalProperties'], true),
                 'description' => $description,
-                'className' => $this->entitiesUtils->getClassNameBySlug($prop['config']['entity']),
+                'className' => $this->entitiesUtilsV3->getClassNameBySlug($prop['config']['entity']),
                 'isDb' => $prop['config']['isDb'] === 1 || $prop['config']['isDb'] === true,
                 'dbType' => $prop['config']['dbType']
             ];
@@ -333,23 +329,18 @@ export const NaeSDbKeys = ' . json_encode($dbFieldsAll, JSON_PRETTY_PRINT | JSON
             $configPathKeys,
             $fileKeysContent
         );
-//        file_put_contents(
-//            $configJsonPath,
-//            json_encode($properties, JSON_PRETTY_PRINT)
-//        );
+        //        file_put_contents(
+        //            $configJsonPath,
+        //            json_encode($properties, JSON_PRETTY_PRINT)
+        //        );
         // file_put_contents(
         //     $configPathDbKeys,
         //     $fileDbKeysContent
         // );
-//        file_put_contents(
-//            $configJsonPathDbKeys,
-//            json_encode($dbFieldsAll, JSON_PRETTY_PRINT)
-//        );
-
-        file_put_contents(
-            $phpPropertiesFile,
-            json_encode($phpProperties, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_UNICODE)
-        );
+        //        file_put_contents(
+        //            $configJsonPathDbKeys,
+        //            json_encode($dbFieldsAll, JSON_PRETTY_PRINT)
+        //        );
 
         return Command::SUCCESS;
     }

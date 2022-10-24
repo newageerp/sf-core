@@ -3,7 +3,6 @@
 namespace Newageerp\SfReactTemplates\CoreTemplates\Edit;
 
 use Newageerp\SfControlpanel\Console\EditFormsUtilsV3;
-use Newageerp\SfControlpanel\Console\EntitiesUtils;
 use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
 use Newageerp\SfReactTemplates\CoreTemplates\Form\EditableFields\ArrayEditableField;
