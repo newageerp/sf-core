@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import { UI } from '@newageerp/nae-react-ui';
 import { useTranslation } from "react-i18next";
 import classNames from 'classnames'
 import {StatusChangeButton} from '@newageerp/v2.element.status-change-button'
@@ -29,7 +28,6 @@ interface StatusPropsWithStatus extends StatusProps {
     export const {{ status.statusName }} = (props: StatusProps) => {
         const { t } = useTranslation();
 
-        {% if status.bgColor %}
         const Comp = props.short?Short:Base;
         return (
             <Comp 
@@ -38,19 +36,7 @@ interface StatusPropsWithStatus extends StatusProps {
               {props.short?t('{{ status.text }}').substr(0, 1):t('{{ status.text }}')}
             </Comp>
         )
-        {% else %}
-        return (
-            <UI.Badges.Badge
-              bgColor={'{{ status.color }}'}
-              brightness={ {{status.brightness}} }
-              size={'sm'}
-              className={props.short?'w-8':(props.table?'inline-block':'w-56 float-right')}
-              title={t('{{ status.text }}')}
-            >
-              {props.short?t('{{ status.text }}').substr(0, 1):t('{{ status.text }}')}
-            </UI.Badges.Badge>
-        )
-        {% endif %}
+       
     };
 {% endfor %}
 
