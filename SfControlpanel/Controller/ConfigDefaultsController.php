@@ -25,7 +25,7 @@ class ConfigDefaultsController extends ConfigBaseController
     protected function saveBuilder($data) {
         file_put_contents(
             $this->getLocalStorageFile(),
-            json_encode($data)
+            json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT)
         );
     }
 

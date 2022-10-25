@@ -2,11 +2,12 @@
 
 namespace Newageerp\SfControlpanel\Controller;
 
+use Newageerp\SfControlpanel\Console\EntitiesUtils;
 use Newageerp\SfControlpanel\Console\PropertiesUtils;
 use Symfony\Component\Routing\Annotation\Route;
+use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Ramsey\Uuid\Uuid;
-use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 
 /**
  * @Route(path="/app/nae-core/config-properties")
@@ -26,7 +27,7 @@ class ConfigPropertiesController extends ConfigBaseController
     {
         file_put_contents(
             $this->getLocalStorageFile(),
-            json_encode($data)
+            json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT)
         );
     }
 
@@ -176,12 +177,12 @@ class ConfigPropertiesController extends ConfigBaseController
     /**
      * @Route(path="/for-filter", methods={"POST"})
      */
-    public function getPropertiesForFilter(Request $request, PropertiesUtils $propertiesUtils, EntitiesUtilsV3 $entitiesUtilsV3)
+    public function getPropertiesForFilter(Request $request, PropertiesUtils $propertiesUtils, EntitiesUtils $entitiesUtils)
     {
         $request = $this->transformJsonBody($request);
 
         $schema = $request->get('schema');
-        $title = $entitiesUtilsV3->getTitleBySlug($schema);
+        $title = $entitiesUtils->getTitleBySlug($schema);
 
         $output = [];
 

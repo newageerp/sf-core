@@ -3,21 +3,18 @@
 namespace Newageerp\SfControlpanel\Service\Tabs;
 
 use Newageerp\SfControlpanel\Console\LocalConfigUtils;
-use Newageerp\SfControlpanel\Console\PropertiesUtils;
-use Newageerp\SfControlpanel\Console\Utils;
-use Newageerp\SfControlpanel\Service\Defaults\DefaultsService;
-use Newageerp\SfControlpanel\Service\TemplateService;
+use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
 
 class TabsService
 {
     protected array $tabs = [];
 
-    protected PropertiesUtils $propertiesUtils;
+    protected PropertiesUtilsV3 $propertiesUtils;
 
-    public function __construct(PropertiesUtils $propertiesUtils)
+    public function __construct(PropertiesUtilsV3 $propertiesUtilV3)
     {
         $this->tabs = LocalConfigUtils::getCpConfigFileData('tabs');
-        $this->propertiesUtils = $propertiesUtils;
+        $this->propertiesUtilV3 = $propertiesUtilV3;
     }
 
     public function getTabForSchemaAndType(string $schema, string $type)
@@ -37,7 +34,7 @@ class TabsService
             if (isset($field['path']) && $field['path']) {
                 $pathA = explode(".", $field['path']);
                 $path = $pathA[0] . '.' . $pathA[1];
-                $fieldProperty = $this->propertiesUtils->getPropertyForPath($path);
+                $fieldProperty = $this->propertiesUtilV3->getPropertyForPath($path);
                 $fieldObjectProperty = null;
 
                 if ($fieldProperty) {
