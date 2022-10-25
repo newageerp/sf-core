@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, Fragment } from "react";
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
-import { functions, UI } from "@newageerp/nae-react-ui";
+import { UI } from "@newageerp/nae-react-ui";
 import {
   PageContainer,
 } from "@newageerp/ui.paging.base.page-container";
@@ -11,6 +11,7 @@ import { ServerFilterItem } from "@newageerp/ui.components.list.filter-container
 import TemplateLoader, { Template } from "../templates/TemplateLoader";
 import { FilterContainer } from '@newageerp/ui.components.list.filter-container';
 import { useTemplateLoader } from '../templates/TemplateLoader';
+import { getTabFieldsToReturn, getTabFromSchemaAndType } from "../utils";
 interface Props {
   children: Template[];
   hidePaging?: boolean;
@@ -136,8 +137,8 @@ export default function ListDataSource(props: Props) {
     }
   }
 
-  const tab = functions.tabs.getTabFromSchemaAndType(props.schema, props.type);
-  const fieldsToReturn = functions.tabs.getTabFieldsToReturn(tab);
+  const tab = getTabFromSchemaAndType(props.schema, props.type);
+  const fieldsToReturn = getTabFieldsToReturn(tab);
 
   const [getData, dataResult] = OpenApi.useUList(props.schema, fieldsToReturn);
 

@@ -5,7 +5,7 @@ import { TwBackgroundColors } from '@newageerp/ui.styles.tailwind'
 import { ContentWidgetProps } from '@newageerp/nae-react-ui/dist/UI/Widget/NEWidgets'
 import { UI, functions } from '@newageerp/nae-react-ui'
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper'
-import { SFSOpenEditModalWindowProps } from '@newageerp/v3.popups.mvc-popup'
+import { SFSOpenEditModalWindowProps, SFSOpenViewModalWindowProps } from '@newageerp/v3.popups.mvc-popup'
 
 interface IData {
   id: number
@@ -53,7 +53,7 @@ export default function TasksWidget(props: ContentWidgetProps) {
   const { t } = useTranslation()
   const userState = props.userState
 
-  const { showViewPopup, closeEditPopup } = UI.Window.useNaeWindow()
+  const { closeEditPopup } = UI.Window.useNaeWindow()
 
   const [getData, getDataParams] = OpenApi.useUList<IData>(
     moduleName,
@@ -145,7 +145,7 @@ export default function TasksWidget(props: ContentWidgetProps) {
                 text: task.taskCategory.name
               } : undefined,
               title: task.description,
-              onClick: () => showViewPopup({ id: task.id, schema: moduleName })
+              onClick: () => SFSOpenViewModalWindowProps({ id: task.id, schema: moduleName })
             }
           })
         }

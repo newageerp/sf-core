@@ -11,6 +11,7 @@ import { useRecoilValue } from "recoil";
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import { ToolbarButtonWithMenu } from "@newageerp/v3.buttons.toolbar-button-with-menu";
 import { WhiteCard } from "@newageerp/v3.widgets.white-card";
+import { SFSOpenEditModalWindowProps } from "@newageerp/v3.popups.mvc-popup";
 
 interface Props {
   onBack?: () => void;
@@ -50,7 +51,6 @@ export default function ViewContentChild(props: Props) {
   } = props;
 
   const { isPopup } = UI.Popup.useNaePopup();
-  const { showEditPopup } = UI.Window.useNaeWindow();
   const [viewKey, setViewKey] = useState(0);
 
   const isEditInPopup = props.forceEditInPopup
@@ -67,10 +67,10 @@ export default function ViewContentChild(props: Props) {
           props.onEdit();
         } else {
           if (isEditInPopup) {
-            showEditPopup({
+            SFSOpenEditModalWindowProps({
               id: props.id,
               schema: props.schema,
-              onSaveCallback: (_el, backFunc) => {
+              onSaveCallback: (_el: any, backFunc: any) => {
                 reloadData().then(() => {
                   setViewKey(viewKey + 1);
                   backFunc();

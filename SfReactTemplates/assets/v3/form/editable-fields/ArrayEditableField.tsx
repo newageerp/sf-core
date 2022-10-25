@@ -1,6 +1,7 @@
-import { functions, UI } from '@newageerp/nae-react-ui';
+import { UI } from '@newageerp/nae-react-ui';
 import React, { Fragment } from 'react'
 import { useTemplateLoader } from '../../templates/TemplateLoader';
+import { getTabFromSchemaAndType } from '../../utils';
 
 interface Props {
   fieldKey: string;
@@ -30,7 +31,7 @@ export default function ArrayEditableField(props: Props) {
       title=""
       value={value}
       onChange={updateValue}
-      tab={functions.tabs.getTabFromSchemaAndType(props.tabSchema, props.tabType)}
+      tab={getTabFromSchemaAndType(props.tabSchema, props.tabType)}
       parentElement={element}
     />
   )

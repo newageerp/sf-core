@@ -17,8 +17,6 @@ export default function FollowUpPage() {
     const [getFollowUps, getFollowUpsData] = OpenApi.useUList("follow-up", ['parentId', 'onDate', 'parentSchema']);
     const [listSchema, setListSchema] = useState<any>()
 
-    const { showViewPopup } = UI.Window.useNaeWindow()
-
     const loadFollowUps = () => {
         let datesFilter = {};
         if (period === 0) {

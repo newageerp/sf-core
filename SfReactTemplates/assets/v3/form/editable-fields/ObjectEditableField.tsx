@@ -1,10 +1,11 @@
-import { functions, UI } from '@newageerp/nae-react-ui';
+import { UI } from '@newageerp/nae-react-ui';
 import React, { Fragment, useState } from 'react'
 import TemplateLoader, { useTemplateLoader } from '../../templates/TemplateLoader';
 import { ToolbarButton } from '@newageerp/v3.buttons.toolbar-button';
 import { useTranslation } from 'react-i18next';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 import { SFSOpenEditModalWindowProps } from '@newageerp/v3.popups.mvc-popup';
+import { getTabFromSchemaAndType } from '../../utils';
 
 
 interface Props {
@@ -105,7 +106,7 @@ export default function ObjectEditableField(props: Props) {
     }
   }
 
-  const tab = functions.tabs.getTabFromSchemaAndType(
+  const tab = getTabFromSchemaAndType(
     props.relSchema,
     'main'
   )

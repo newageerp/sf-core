@@ -23,6 +23,7 @@ import { NotesEditForm } from '@newageerp/sfs.notes.notes-edit-form';
 import { NotesAnswerForm } from '@newageerp/sfs.notes.notes-answer-form'
 import { NotesQuoteTextSelector } from '@newageerp/sfs.notes.notes-quote-text-selector'
 import { useNoteHookNae } from '../../../Components/Hooks/useNoteHookNae';
+import { SFSOpenViewModalWindowProps } from '@newageerp/v3.popups.mvc-popup'
 
 interface IData {
   id: number;
@@ -54,8 +55,6 @@ export default function NoteLine(props: Props) {
   const toggleComponentVisible = () =>
     setIsComponentVisible(!isComponentVisible);
 
-  const { showViewPopup } = UI.Window.useNaeWindow();
-
   const usersSelector = selectorBySchemaSlug("user");
   // @ts-ignore
   const users = useSelector((state) => usersSelector(state));
@@ -67,7 +66,7 @@ export default function NoteLine(props: Props) {
   const [showEditForm, setShowEditForm] = useState(false);
 
   const toggleShowPopup = () =>
-    showViewPopup({
+    SFSOpenViewModalWindowProps({
       id: note.parentId,
       schema: note.parentSchema,
     });

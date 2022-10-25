@@ -25,8 +25,6 @@ export default function BookmarksPage() {
     const { t } = useTranslation()
     const [, setToolbarTitle] = useRecoilState(UserSpaceWrapperToolbarState)
 
-    const { showViewPopup } = UI.Window.useNaeWindow()
-
     const [getData, getDataParams] = OpenApi.useUList<IFollow>(
         'bookmark',
         functions.properties.getKeysFromObject(defElement)
