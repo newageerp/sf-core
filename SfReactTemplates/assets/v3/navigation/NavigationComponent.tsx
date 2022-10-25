@@ -81,7 +81,9 @@ export default function NavigationComponent() {
                 id: e.detail.id,
                 schema: e.detail.schema,
                 type: e.detail.type ? e.detail.type : 'main',
-                newStateOptions: e.detail.options
+                newStateOptions: e.detail.options,
+                onSaveCallback: e.detail.onSaveCallback,
+                fieldsToReturnOnSave: e.detail.fieldsToReturnOnSave,
             })
         };
         window.addEventListener('SFSOpenEditModalWindow', eventListener);

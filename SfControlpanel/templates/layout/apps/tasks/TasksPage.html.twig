@@ -14,6 +14,7 @@ import { Badge } from '@newageerp/ui.badges.base.badge'
 import { getTaskEnums, getTaskEnumsColors } from '../../enums/view/TaskEnums';
 {% endif %}
 import { IconType, Icon } from '@newageerp/ui.icons.base.icon';
+import { SFSOpenEditModalWindowProps } from '@newageerp/v3.popups.mvc-popup';
 
 const moduleSchema = 'task'
 
@@ -96,7 +97,7 @@ export default function TaskContent() {
     const [delegated, setDelegated] = useState(false);
     const [completed, setCompleted] = useState(0);
 
-    const { showEditPopup, closeEditPopup, showViewPopup } = UI.Window.useNaeWindow()
+    const { closeEditPopup, showViewPopup } = UI.Window.useNaeWindow()
 
     useEffect(() => {
         setToolbarTitle(t('Užduotys'));
@@ -174,7 +175,7 @@ export default function TaskContent() {
     useEffect(loadData, [activeState, completed, delegated]);
 
     const createNewTask = () => {
-        showEditPopup({
+        SFSOpenEditModalWindowProps({
             id: 'new',
             schema: moduleSchema,
             onSaveCallback: () => {

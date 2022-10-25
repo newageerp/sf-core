@@ -5,6 +5,7 @@ import { TwBackgroundColors } from '@newageerp/ui.styles.tailwind'
 import { ContentWidgetProps } from '@newageerp/nae-react-ui/dist/UI/Widget/NEWidgets'
 import { UI, functions } from '@newageerp/nae-react-ui'
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper'
+import { SFSOpenEditModalWindowProps } from '@newageerp/v3.popups.mvc-popup'
 
 interface IData {
   id: number
@@ -52,7 +53,7 @@ export default function TasksWidget(props: ContentWidgetProps) {
   const { t } = useTranslation()
   const userState = props.userState
 
-  const { showViewPopup, showEditPopup, closeEditPopup } = UI.Window.useNaeWindow()
+  const { showViewPopup, closeEditPopup } = UI.Window.useNaeWindow()
 
   const [getData, getDataParams] = OpenApi.useUList<IData>(
     moduleName,
@@ -101,14 +102,14 @@ export default function TasksWidget(props: ContentWidgetProps) {
   const data: IData[] = isData ? getDataParams.data.data : []
 
   const createNew = () => {
-    showEditPopup({
+    SFSOpenEditModalWindowProps({
       id: 'new',
       schema: moduleName,
       onSaveCallback: () => {
         loadData()
         closeEditPopup()
       },
-      newStateOptions: {
+      options: {
         createOptions: {
           convert: {
             parentId: props.element.id,

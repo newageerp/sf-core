@@ -1,5 +1,6 @@
 import { UI, UIConfig } from "@newageerp/nae-react-ui";
 import React from "react";
+import { SFSOpenEditModalWindowProps } from '@newageerp/v3.popups.mvc-popup';
 
 interface Props {
   from: string;
@@ -12,7 +13,6 @@ interface Props {
 
 export default function useConvert(props: Props) {
   const { isPopup } = UI.Popup.useNaePopup();
-  const { showEditPopup } = UI.Window.useNaeWindow();
 
   const createOptions: any = {
     options: {
@@ -29,10 +29,10 @@ export default function useConvert(props: Props) {
   const openLink = () => {
 
     if (isPopup || createOptions.inPopup) {
-      showEditPopup({
+      SFSOpenEditModalWindowProps({
         id: "new",
         schema: props.to,
-        newStateOptions: { createOptions: createOptions.options },
+        options: { createOptions: createOptions.options },
         type: createOptions.type,
         onSaveCallback: createOptions.onSaveCallback,
       });

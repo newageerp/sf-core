@@ -7,6 +7,7 @@ import { useComponentVisible } from '@newageerp/hooks.use-component-visible'
 import { Menu, MenuItem } from '@newageerp/sfs.modal.menu'
 import { UI, UIConfig } from '@newageerp/nae-react-ui'
 import { useTranslation } from 'react-i18next';
+import { SFSOpenEditModalWindowProps } from '@newageerp/v3.popups.mvc-popup'
 
 interface Props {
     element: any,
@@ -19,7 +20,6 @@ export default function {{ compName }}(props: Props) {
     const toggleComponentVisible = () => setIsComponentVisible(!isComponentVisible);
 
     const { isPopup } = UI.Popup.useNaePopup();
-    const { showEditPopup } = UI.Window.useNaeWindow();
 
     const createOptions: any = {};
 
@@ -41,10 +41,10 @@ export default function {{ compName }}(props: Props) {
         const targetOptions = createOptions[target];
 
         if (isPopup || targetOptions.inPopup) {
-            showEditPopup({
+            SFSOpenEditModalWindowProps({
                 id: "new",
                 schema: target,
-                newStateOptions: { createOptions: targetOptions.options },
+                options: { createOptions: targetOptions.options },
                 type: targetOptions.type,
             });
         } else {

@@ -1,11 +1,10 @@
 import { functions, UI } from '@newageerp/nae-react-ui';
 import React, { Fragment, useState } from 'react'
 import TemplateLoader, { useTemplateLoader } from '../../templates/TemplateLoader';
-import { Popup } from '@newageerp/v3.popups.popup'
 import { ToolbarButton } from '@newageerp/v3.buttons.toolbar-button';
 import { useTranslation } from 'react-i18next';
-import MainList from '../../pages/MainList';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
+import { SFSOpenEditModalWindowProps } from '@newageerp/v3.popups.mvc-popup';
 
 
 interface Props {
@@ -50,11 +49,10 @@ export default function ObjectEditableField(props: Props) {
 
   }
 
-  const { showEditPopup } = UI.Window.useNaeWindow();
   const canCreate = !!props.allowCreateRel;
   const onNew = () => {
-    showEditPopup({
-      newStateOptions: {
+    SFSOpenEditModalWindowProps({
+      options: {
         createOptions: {
           convert: {
             schema: props.fieldSchema,
@@ -64,7 +62,7 @@ export default function ObjectEditableField(props: Props) {
       },
       id: 'new',
       schema: props.relSchema,
-      onSaveCallback: (el, backFunc) => {
+      onSaveCallback: (el: any, backFunc: any) => {
         backFunc();
         onSelect(el.id);
       }
