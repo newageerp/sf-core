@@ -17,6 +17,7 @@ use Newageerp\SfUservice\Events\UBeforeUpdateAfterSetEvent;
 use Newageerp\SfUservice\Events\UBeforeUpdateEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
+use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 
 class UService
 {
