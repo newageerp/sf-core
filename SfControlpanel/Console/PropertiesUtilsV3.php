@@ -8,11 +8,15 @@ class PropertiesUtilsV3
     protected array $enumsList = [];
     protected array $statuses = [];
 
-    public function __construct()
+    protected EntitiesUtilsV3 $entitiesUtilsV3;
+
+    public function __construct(EntitiesUtilsV3 $entitiesUtilsV3)
     {
         $this->properties = LocalConfigUtils::getCpConfigFileData('properties');
         $this->enumsList = LocalConfigUtils::getCpConfigFileData('enums');
         $this->statuses = LocalConfigUtils::getCpConfigFileData('statuses');
+
+        $this->entitiesUtilsV3 = $entitiesUtilsV3;
     }
 
     public static function swapSchemaToI($path)
@@ -355,5 +359,15 @@ class PropertiesUtilsV3
             default:
                 return [];
         }
+    }
+
+    public function getClassNameForPath(string $path): string
+    {
+        $className = "";
+        $property = $this->getPropertyForPath($path);
+        if ($property) {
+            $className = $this->entitiesUtilsV3->getClassNameBySlug($property['typeFormat']);
+        }
+        return $className;
     }
 }

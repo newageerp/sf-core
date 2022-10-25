@@ -4,7 +4,7 @@ namespace Newageerp\SfControlpanel\Console\In;
 
 use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 use Newageerp\SfControlpanel\Console\LocalConfigUtils;
-use Newageerp\SfControlpanel\Console\PropertiesUtils;
+use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
 use Newageerp\SfControlpanel\Console\Utils;
 use Newageerp\SfControlpanel\Service\TemplateService;
 use Symfony\Component\Console\Command\Command;
@@ -16,16 +16,16 @@ class InFillModels extends Command
 {
     protected static $defaultName = 'nae:localconfig:InFillModels';
 
-    protected PropertiesUtils $propertiesUtils;
+    protected PropertiesUtilsV3 $propertiesUtilsV3;
 
     protected EntitiesUtilsV3 $entitiesUtilsV3;
 
     public function __construct(
-        PropertiesUtils $propertiesUtils,
+        PropertiesUtilsV3 $propertiesUtilsV3,
         EntitiesUtilsV3   $entitiesUtilsV3,
     ) {
         parent::__construct();
-        $this->propertiesUtils = $propertiesUtils;
+        $this->propertiesUtilsV3 = $propertiesUtilsV3;
         $this->entitiesUtilsV3 = $entitiesUtilsV3;
     }
 
@@ -216,7 +216,7 @@ class InFillModels extends Command
                         $pathAB = array_slice($pathA, 1);
                         if (count($pathAB) === 1) {
                             $path = implode(".", $pathAB);
-                            $className = $this->propertiesUtils->getClassNameForPath(
+                            $className = $this->propertiesUtilsV3->getClassNameForPath(
                                 implode(".", array_slice($pathSplit, 0, 2)),
                             );
                             $o = $this->checkForExistingObjectKey(
@@ -234,7 +234,7 @@ class InFillModels extends Command
                             $pathABC = array_slice($pathAB, 1);
 
                             if (count($pathABC) === 1) {
-                                $classNameA = $this->propertiesUtils->getClassNameForPath(
+                                $classNameA = $this->propertiesUtilsV3->getClassNameForPath(
                                     implode(".", array_slice($pathSplit, 0, 2)),
                                 );
                                 $o = $this->checkForExistingObjectKey(
@@ -247,7 +247,7 @@ class InFillModels extends Command
 
                                 foreach ($o as &$oB) {
                                     if ($oB['key'] === $pathA[0]) {
-                                        $classNameB = $this->propertiesUtils->getClassNameForPath(
+                                        $classNameB = $this->propertiesUtilsV3->getClassNameForPath(
                                             implode(".", array_slice($pathSplit, 0, 3))
                                         );
                                         $path = implode(".", $pathABC);
@@ -628,7 +628,7 @@ import { " . $selectorsJoin . " } from '../../Components/Models/ormSelectors';
 
     public function getTypeForProperty(string $path)
     {
-        $property = $this->propertiesUtils->getPropertyForPath($path);
+        $property = $this->propertiesUtilsV3->getPropertyForPath($path);
         if (!$property) {
             return "any";
         }
@@ -680,7 +680,7 @@ import { " . $selectorsJoin . " } from '../../Components/Models/ormSelectors';
                 );
             }
         } else {
-            $property = $this->propertiesUtils->getPropertyForPath($propertyPath);
+            $property = $this->propertiesUtilsV3->getPropertyForPath($propertyPath);
 
             $_f = [
                 "schema" => $className,
