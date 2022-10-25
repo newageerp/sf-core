@@ -93,6 +93,21 @@ class PropertiesUtilsV3
         );
     }
 
+    public function getPropertiesForEntitySlugValues(string $slug)
+    {
+        return array_map(
+            function ($item) {
+                return $item['config'];
+            },
+            array_filter(
+                $this->properties,
+                function ($item) use ($slug) {
+                    return $item['config']['entity'] === $slug;
+                }
+            )
+        );
+    }
+
     public function propertyHasEnum(array $prop)
     {
         $enumsList = array_filter(
@@ -104,7 +119,8 @@ class PropertiesUtilsV3
         return count($enumsList) > 0;
     }
 
-    public function getPropertyEnumValue($schema, $key, $val) {
+    public function getPropertyEnumValue($schema, $key, $val)
+    {
         $prop = $this->getPropertyForSchema($schema, $key);
         $enumsList = $this->getPropertyEnumsList($prop);
         $val = "";
@@ -273,7 +289,7 @@ class PropertiesUtilsV3
                 break;
             case 'fileMultiple':
             case 'file':
-            
+
             case 'string_array':
             case 'array':
                 return 'no';

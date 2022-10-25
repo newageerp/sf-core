@@ -2,8 +2,8 @@
 
 namespace Newageerp\SfControlpanel\Controller;
 
-use Newageerp\SfControlpanel\Console\EntitiesUtils;
-use Newageerp\SfControlpanel\Console\PropertiesUtils;
+use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
+use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
 use Symfony\Component\Routing\Annotation\Route;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
@@ -177,16 +177,16 @@ class ConfigPropertiesController extends ConfigBaseController
     /**
      * @Route(path="/for-filter", methods={"POST"})
      */
-    public function getPropertiesForFilter(Request $request, PropertiesUtils $propertiesUtils, EntitiesUtils $entitiesUtils)
+    public function getPropertiesForFilter(Request $request, PropertiesUtilsV3 $propertiesUtilsV3, EntitiesUtilsV3 $entitiesUtilsV3)
     {
         $request = $this->transformJsonBody($request);
 
         $schema = $request->get('schema');
-        $title = $entitiesUtils->getTitleBySlug($schema);
+        $title = $entitiesUtilsV3->getTitleBySlug($schema);
 
         $output = [];
 
-        $mainProperties = $this->schemaPropertiesForFilter($schema, $propertiesUtils);
+        $mainProperties = $this->schemaPropertiesForFilter($schema, $propertiesUtilsV3);
         $output[] = [
             'id' => 'main',
             'title' => $title,
@@ -195,9 +195,9 @@ class ConfigPropertiesController extends ConfigBaseController
         ];
 
 
-        $rels = $this->relPropertiesForFilter($schema, $propertiesUtils);
+        $rels = $this->relPropertiesForFilter($schema, $propertiesUtilsV3);
         foreach ($rels as $relProperty) {
-            $relSchemaProperties = $this->schemaPropertiesForFilter($relProperty['format'], $propertiesUtils);
+            $relSchemaProperties = $this->schemaPropertiesForFilter($relProperty['typeFormat'], $propertiesUtilsV3);
 
             $relProperties = [];
             foreach ($relSchemaProperties as $relSchemaProperty) {
@@ -211,7 +211,7 @@ class ConfigPropertiesController extends ConfigBaseController
 
             if ($relProperty['title']) {
                 $output[] = [
-                    'id' => 'rel-' . $relProperty['format'],
+                    'id' => 'rel-' . $relProperty['typeFormat'],
                     'title' => $relProperty['title'],
                     'isActive' => false,
                     'items' => array_values($relProperties)
@@ -225,17 +225,17 @@ class ConfigPropertiesController extends ConfigBaseController
     /**
      * @Route(path="/for-sort", methods={"POST"})
      */
-    public function getPropertiesForSort(Request $request, PropertiesUtils $propertiesUtils)
+    public function getPropertiesForSort(Request $request, PropertiesUtilsV3 $propertiesUtilsV3)
     {
         $request = $this->transformJsonBody($request);
 
         $schema = $request->get('schema');
 
-        $schemaProperties = $this->schemaPropertiesForSort($schema, $propertiesUtils);
+        $schemaProperties = $this->schemaPropertiesForSort($schema, $propertiesUtilsV3);
 
-        $rels = $this->relPropertiesForSort($schema, $propertiesUtils);
+        $rels = $this->relPropertiesForSort($schema, $propertiesUtilsV3);
         foreach ($rels as $relProperty) {
-            $relSchemaProperties = $this->schemaPropertiesForSort($relProperty['format'], $propertiesUtils);
+            $relSchemaProperties = $this->schemaPropertiesForSort($relProperty['typeFormat'], $propertiesUtilsV3);
             foreach ($relSchemaProperties as $relSchemaProperty) {
                 $key = explode(".", $relSchemaProperty['value']);
                 $title = $relProperty['title'] . ' -> ' . $relSchemaProperty['label'];
@@ -250,13 +250,12 @@ class ConfigPropertiesController extends ConfigBaseController
         return $this->json(['data' => array_values($schemaProperties)]);
     }
 
-    protected function schemaPropertiesForSort(string $schema, PropertiesUtils $propertiesUtils)
+    protected function schemaPropertiesForSort(string $schema, PropertiesUtilsV3 $propertiesUtilsV3)
     {
         $schemaProperties = array_filter(
-            $propertiesUtils->getProperties(),
-            function ($property) use ($schema) {
-                return ($property['schema'] === $schema &&
-                    $property['key'] !== 'id' &&
+            $propertiesUtilsV3->getPropertiesForEntitySlugValues($schema),
+            function ($property) {
+                return ($property['key'] !== 'id' &&
                     isset($property['isDb']) &&
                     $property['isDb'] &&
                     isset($property['title']) &&
@@ -297,13 +296,12 @@ class ConfigPropertiesController extends ConfigBaseController
         return $schemaProperties;
     }
 
-    protected function schemaPropertiesForFilter(string $schema, PropertiesUtils $propertiesUtils)
+    protected function schemaPropertiesForFilter(string $schema, PropertiesUtilsV3 $propertiesUtilsV3)
     {
         $schemaProperties = array_filter(
-            $propertiesUtils->getProperties(),
-            function ($property) use ($schema) {
-                return ($property['schema'] === $schema &&
-                    $property['key'] !== 'id' &&
+            $propertiesUtilsV3->getPropertiesForEntitySlugValues($schema),
+            function ($property) {
+                return ($property['key'] !== 'id' &&
                     isset($property['isDb']) &&
                     $property['isDb'] &&
                     // isset($property['available']) &&
@@ -315,13 +313,13 @@ class ConfigPropertiesController extends ConfigBaseController
         );
 
         $schemaProperties = array_map(
-            function ($property) use ($propertiesUtils) {
-                $type = $propertiesUtils->getDefaultPropertySearchComparison($property, []);
+            function ($property) use ($propertiesUtilsV3) {
+                $type = $propertiesUtilsV3->getDefaultPropertySearchComparison($property, []);
                 return [
                     'id' => 'i.' . $property['key'],
                     'title' => $property['title'],
                     'type' => $type,
-                    'options' => $propertiesUtils->getDefaultPropertySearchOptions($property, [])
+                    'options' => $propertiesUtilsV3->getDefaultPropertySearchOptions($property, [])
                 ];
             },
             $schemaProperties
@@ -329,32 +327,24 @@ class ConfigPropertiesController extends ConfigBaseController
         return $schemaProperties;
     }
 
-    protected function relPropertiesForSort(string $schema, PropertiesUtils $propertiesUtils)
+    protected function relPropertiesForSort(string $schema, PropertiesUtilsV3 $propertiesUtilsV3)
     {
         $schemaProperties = array_filter(
-            $propertiesUtils->getProperties(),
-            function ($property) use ($schema) {
-                return ($property['schema'] === $schema &&
-                    // isset($property['available']) &&
-                    // $property['available']['sort'] &&
-                    $property['type'] == 'rel'
-                );
+            $propertiesUtilsV3->getPropertiesForEntitySlugValues($schema),
+            function ($property) {
+                return $property['type'] == 'rel';
             }
         );
 
         return $schemaProperties;
     }
 
-    protected function relPropertiesForFilter(string $schema, PropertiesUtils $propertiesUtils)
+    protected function relPropertiesForFilter(string $schema, PropertiesUtilsV3 $propertiesUtilsV3)
     {
         $schemaProperties = array_filter(
-            $propertiesUtils->getProperties(),
-            function ($property) use ($schema) {
-                return ($property['schema'] === $schema &&
-                    // isset($property['available']) &&
-                    // $property['available']['filter'] &&
-                    $property['type'] == 'rel'
-                );
+            $propertiesUtilsV3->getPropertiesForEntitySlugValues($schema),
+            function ($property) {
+                return $property['type'] == 'rel';
             }
         );
 
