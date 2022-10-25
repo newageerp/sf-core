@@ -3,7 +3,7 @@
 namespace Newageerp\SfControlpanel\Console\In;
 
 use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
-use Newageerp\SfControlpanel\Console\PropertiesUtils;
+use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
 use Newageerp\SfControlpanel\Console\Utils;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -13,12 +13,12 @@ class InGeneratorBadges extends Command
 {
     protected static $defaultName = 'nae:localconfig:InGeneratorBadges';
 
-    protected PropertiesUtils $propertiesUtils;
+    protected PropertiesUtilsV3 $propertiesUtilsV3;
 
-    public function __construct(PropertiesUtils $propertiesUtils)
+    public function __construct(PropertiesUtilsV3 $propertiesUtilsV3)
     {
         parent::__construct();
-        $this->propertiesUtils = $propertiesUtils;
+        $this->propertiesUtilsV3 = $propertiesUtilsV3;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -60,12 +60,14 @@ class InGeneratorBadges extends Command
 
             if (isset($badgeItem['config']['path']) && $badgeItem['config']['path']) {
                 $badgeContent = '<DfValueView path="' . $badgeItem['config']['path'] . '" id={element.id} />';
-                $property = $this->propertiesUtils->getPropertyForPath($badgeItem['config']['path']);
-                if (isset($property['enum']) && $property['enum']) {
+                $property = $this->propertiesUtilsV3->getPropertyForPath($badgeItem['config']['path']);
+                $enums = $this->propertiesUtilsV3->getPropertyEnumsList($property);
+
+                if (count($enums)) {
                     $pathA = explode(".", $badgeItem['config']['path']);
                     $lastPath = $pathA[count($pathA) - 1];
 
-                    $enumCompName = Utils::fixComponentName(ucfirst($property['schema']) . 'Enums');
+                    $enumCompName = Utils::fixComponentName(ucfirst($property['entity']) . 'Enums');
                     $funcName = 'get' . $enumCompName;
                     $funcNameColors = 'get' . $enumCompName . 'Colors';
 
