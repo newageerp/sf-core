@@ -1,10 +1,11 @@
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import React, { useEffect, Fragment } from "react";
-import { UI, functions } from "@newageerp/nae-react-ui";
+import { UI } from "@newageerp/nae-react-ui";
 import { ContentWidgetProps } from "@newageerp/nae-react-ui/dist/UI/Widget/NEWidgets";
 import { useRecoilValue } from "recoil";
 import NoteContentForm from "./NoteContentForm";
 import NoteLine from "./NoteLine";
+import { getKeysFromObject } from "../../v3/utils";
 
 const moduleName = "note";
 
@@ -47,7 +48,7 @@ export default function NotesContent(props: Props) {
 
   const [getData, getDataParams] = OpenApi.useUList<INote>(
     moduleName,
-    functions.properties.getKeysFromObject(defObject)
+    getKeysFromObject(defObject)
   );
 
   const loadData = () => {

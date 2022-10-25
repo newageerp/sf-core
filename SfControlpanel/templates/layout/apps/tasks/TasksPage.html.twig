@@ -1,7 +1,7 @@
 import React, { useState, Fragment, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TasksPageToolbar } from '@newageerp/sfs.apps.tasks.tasks-page-toolbar'
-import { UI, functions, UIConfig } from '@newageerp/nae-react-ui';
+import { UI, UIConfig } from '@newageerp/nae-react-ui';
 import { useRecoilState } from 'recoil';
 import { UserSpaceWrapperToolbarState } from '../../layout/toolbar/UserSpaceWrapperToolbar';
 import moment from 'moment';
@@ -15,6 +15,7 @@ import { getTaskEnums, getTaskEnumsColors } from '../../enums/view/TaskEnums';
 {% endif %}
 import { IconType, Icon } from '@newageerp/ui.icons.base.icon';
 import { SFSOpenEditModalWindowProps, SFSOpenViewModalWindowProps } from '@newageerp/v3.popups.mvc-popup';
+import { getKeysFromObject } from '../../v3/utils';
 
 const moduleSchema = 'task'
 

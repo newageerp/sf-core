@@ -3,9 +3,10 @@ import { useTranslation } from 'react-i18next'
 import { TaskContainer } from '@newageerp/sfs.apps.tasks.task-container'
 import { TwBackgroundColors } from '@newageerp/ui.styles.tailwind'
 import { ContentWidgetProps } from '@newageerp/nae-react-ui/dist/UI/Widget/NEWidgets'
-import { UI, functions } from '@newageerp/nae-react-ui'
+import { UI } from '@newageerp/nae-react-ui'
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper'
 import { SFSOpenEditModalWindowProps, SFSOpenViewModalWindowProps } from '@newageerp/v3.popups.mvc-popup'
+import { getKeysFromObject } from '../../v3/utils'
 
 interface IData {
   id: number
@@ -57,7 +58,7 @@ export default function TasksWidget(props: ContentWidgetProps) {
 
   const [getData, getDataParams] = OpenApi.useUList<IData>(
     moduleName,
-    functions.properties.getKeysFromObject(defObject)
+    getKeysFromObject(defObject)
   )
   const [saveData, saveDataParams] = OpenApi.useUSave(moduleName)
   const [completed, setCompleted] = useState(false)

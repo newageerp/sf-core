@@ -72,3 +72,34 @@ export const getTabFieldsToReturn = (tab: INaeTab | null) => {
   }
   return fieldsToReturn;
 };
+
+export const getKeysFromObject = (defObject: any, prefix = '') => {
+  let makeKeys: string[] = []
+  Object.keys(defObject).forEach((key) => {
+    // @ts-ignore
+    const val = defObject[key]
+    if (Array.isArray(val) && val.length > 0) {
+      let makeKeysAr: string[] = []
+
+      Object.keys(val[0]).forEach((keyArr) => {
+        // @ts-ignore
+        const valRel = val[0][keyArr]
+
+        if (typeof valRel === 'object' && valRel) {
+          const _keys = getKeysFromObject(valRel, prefix + keyArr + '.')
+          makeKeysAr = [...makeKeysAr, ..._keys]
+        } else {
+          makeKeysAr.push(keyArr)
+        }
+      })
+      makeKeys.push(key + ':' + makeKeysAr.join(','))
+    } else if (typeof val === 'object' && val) {
+      const _keys = getKeysFromObject(val, prefix + key + '.')
+
+      makeKeys = [...makeKeys, ..._keys]
+    } else {
+      makeKeys.push(prefix + key)
+    }
+  })
+  return makeKeys
+}

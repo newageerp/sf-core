@@ -1,4 +1,4 @@
-import { UIConfig, functions, UI } from "@newageerp/nae-react-ui";
+import { UIConfig } from "@newageerp/nae-react-ui";
 import React, { Fragment, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { NotesPageToolbar } from '@newageerp/sfs.apps.notes.notes-page-toolbar'
@@ -9,6 +9,7 @@ import { LogoLoader } from "@newageerp/ui.loaders.logo-loader";
 import NotesNameResolver from "../../../UserComponents/ModelsCacheData/NotesNameResolver";
 import { PageContainer } from '@newageerp/ui.paging.base.page-container'
 import NoteLine from "./NoteLine";
+import { getKeysFromObject } from "../../v3/utils";
 
 const pageSize = 20;
 
