@@ -30,6 +30,10 @@ class UService
 
     protected EventDispatcherInterface $eventDispatcher;
 
+     
+    protected PropertiesUtilsV3 $propertiesUtilsV3;
+    protected EntitiesUtilsV3 $entitiesUtilsV3;
+
     protected array $schemas = [];
 
     public function __construct(
@@ -38,12 +42,16 @@ class UService
         IOnSaveService             $onSaveService,
         EntityManagerInterface     $em,
         EventDispatcherInterface $eventDispatcher,
+        PropertiesUtilsV3 $propertiesUtilsV3,
+        EntitiesUtilsV3 $entitiesUtilsV3,
     ) {
         $this->permissionService = $permissionService;
         $this->convertService = $convertService;
         $this->onSaveService = $onSaveService;
         $this->em = $em;
         $this->eventDispatcher = $eventDispatcher;
+        $this->propertiesUtilsV3 = $propertiesUtilsV3;
+        $this->entitiesUtilsV3 = $entitiesUtilsV3;
     }
 
     public function getEntityFromSchemaAndId(string $schema, int $id)
@@ -456,9 +464,7 @@ class UService
     public function updateElement(
         $element, 
         array $data, 
-        string $schema, 
-        PropertiesUtilsV3 $propertiesUtilsV3,
-        EntitiesUtilsV3 $entitiesUtilsV3
+        string $schema
         )
     {
         $isNew = false;
@@ -476,7 +482,7 @@ class UService
                 continue;
             }
 
-            $prop = $propertiesUtilsV3->getPropertyForSchema($schema, $key);
+            $prop = $this->propertiesUtilsV3->getPropertyForSchema($schema, $key);
 
             $type = null;
             $format = null;
@@ -636,7 +642,7 @@ class UService
 
         $requiredError = [];
         if (!(isset($data['skipRequiredCheck']) && $data['skipRequiredCheck'])) {
-            $requiredFields = $entitiesUtilsV3->getRequiredBySlug($schema);
+            $requiredFields = $this->entitiesUtilsV3->getRequiredBySlug($schema);
 
             foreach ($requiredFields as $requiredField) {
                 $method = 'get' . lcfirst($requiredField);
