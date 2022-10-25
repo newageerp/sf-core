@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Finder\Finder;
 use Doctrine\ORM\EntityManagerInterface;
+use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Newageerp\SfSocket\Service\SocketService;
 
@@ -17,12 +18,12 @@ use Newageerp\SfSocket\Service\SocketService;
  */
 class ConfigEditController extends ConfigBaseController
 {
-    protected PropertiesUtils $propertiesUtils;
+    protected PropertiesUtilsV3 $propertiesUtilsV3;
 
-    public function __construct(EntityManagerInterface $em, EventDispatcherInterface $eventDispatcher, PropertiesUtils $propertiesUtils, SocketService $socketService)
+    public function __construct(EntityManagerInterface $em, EventDispatcherInterface $eventDispatcher, PropertiesUtilsV3 $propertiesUtilsV3, SocketService $socketService)
     {
         parent::__construct($em, $eventDispatcher, $socketService);
-        $this->propertiesUtils = $propertiesUtils;
+        $this->propertiesUtilsV3 = $propertiesUtilsV3;
     }
 
     protected function getLocalStorageFile()
@@ -114,9 +115,9 @@ class ConfigEditController extends ConfigBaseController
                 if (isset($el['config']['fields'])) {
                     foreach ($el['config']['fields'] as &$field) {
                         $naeType = '';
-                        $prop = $this->propertiesUtils->getPropertyForPath($field['path'], $field);
+                        $prop = $this->propertiesUtilsV3->getPropertyForPath($field['path'], $field);
                         if ($prop) {
-                            $naeType = $this->propertiesUtils->getPropertyNaeType($prop, $field);
+                            $naeType = $this->propertiesUtilsV3->getPropertyNaeType($prop, $field);
                         }
                         $field['_naeType'] = $naeType;
                     }

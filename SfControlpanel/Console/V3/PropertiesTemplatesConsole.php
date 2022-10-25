@@ -14,16 +14,16 @@ class PropertiesTemplatesConsole extends Command
 {
     protected static $defaultName = 'nae:localconfig:V3PropertiesTemplates';
 
-    protected PropertiesUtilsV3 $propertiesUtils;
+    protected PropertiesUtilsV3 $propertiesUtilsV3;
 
     protected EntitiesUtilsV3 $entitiesUtilsV3;
 
     public function __construct(
-        PropertiesUtilsV3 $propertiesUtils,
+        PropertiesUtilsV3 $propertiesUtilsV3,
         EntitiesUtilsV3   $entitiesUtilsV3,
     ) {
         parent::__construct();
-        $this->propertiesUtils = $propertiesUtils;
+        $this->propertiesUtilsV3 = $propertiesUtilsV3;
         $this->entitiesUtilsV3 = $entitiesUtilsV3;
     }
 
@@ -40,11 +40,11 @@ class PropertiesTemplatesConsole extends Command
             $slug = $entity['config']['slug'];
             $className = $entity['config']['className'];
 
-            $properties = $this->propertiesUtils->getPropertiesForEntitySlug($slug);
+            $properties = $this->propertiesUtilsV3->getPropertiesForEntitySlug($slug);
 
             foreach ($properties as $property) {
 
-                $naeType = $this->propertiesUtils->getPropertyNaeType($property);
+                $naeType = $this->propertiesUtilsV3->getPropertyNaeType($property);
 
                 $components = [
                     'table-title',

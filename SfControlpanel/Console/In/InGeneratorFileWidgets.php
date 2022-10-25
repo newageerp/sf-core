@@ -2,7 +2,7 @@
 
 namespace Newageerp\SfControlpanel\Console\In;
 
-use Newageerp\SfControlpanel\Console\PropertiesUtils;
+use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
 use Newageerp\SfControlpanel\Console\Utils;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,12 +12,12 @@ class InGeneratorFileWidgets extends Command
 {
     protected static $defaultName = 'nae:localconfig:InGeneratorFileWidgets';
 
-    protected PropertiesUtils $propertiesUtils;
+    protected PropertiesUtilsV3 $propertiesUtilsV3;
 
-    public function __construct(PropertiesUtils $propertiesUtils)
+    public function __construct(PropertiesUtilsV3 $propertiesUtilsV3)
     {
         parent::__construct();
-        $this->propertiesUtils = $propertiesUtils;
+        $this->propertiesUtilsV3 = $propertiesUtilsV3;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

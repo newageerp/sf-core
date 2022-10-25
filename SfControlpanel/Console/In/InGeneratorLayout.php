@@ -4,7 +4,7 @@ namespace Newageerp\SfControlpanel\Console\In;
 
 use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 use Newageerp\SfControlpanel\Console\LocalConfigUtils;
-use Newageerp\SfControlpanel\Console\PropertiesUtils;
+use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
 use Newageerp\SfControlpanel\Console\Utils;
 use Newageerp\SfControlpanel\Service\Entities\EntitiesService;
 use Newageerp\SfControlpanel\Service\MenuService;
@@ -20,20 +20,20 @@ class InGeneratorLayout extends Command
 {
     protected static $defaultName = 'nae:localconfig:InGeneratorLayout';
 
-    protected PropertiesUtils $propertiesUtils;
+    protected PropertiesUtilsV3 $propertiesUtilsV3;
     protected EntitiesUtilsV3 $entitiesUtilsV3;
     protected TabsQuickSearchService $tabsQsService;
     protected PropertyDateService $propertyDateService;
 
     public function __construct(
-        PropertiesUtils $propertiesUtils,
+        PropertiesUtilsV3 $propertiesUtilsV3,
         EntitiesUtilsV3 $entitiesUtilsV3,
         TabsQuickSearchService $tabsQsService,
         PropertyDateService $propertyDateService,
     ) {
         parent::__construct();
 
-        $this->propertiesUtils = $propertiesUtils;
+        $this->propertiesUtilsV3 = $propertiesUtilsV3;
         $this->entitiesUtilsV3 = $entitiesUtilsV3;
         $this->tabsQsService = $tabsQsService;
         $this->propertyDateService = $propertyDateService;

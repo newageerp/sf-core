@@ -5,7 +5,7 @@ namespace Newageerp\SfControlpanel\Console\In;
 use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 use Newageerp\SfControlpanel\Console\LocalConfigUtils;
 use Doctrine\ORM\EntityManagerInterface;
-use Newageerp\SfControlpanel\Console\PropertiesUtils;
+use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -16,18 +16,18 @@ class InLocalConfigSyncFieldsConsole extends Command
 
     protected EntityManagerInterface $em;
 
-    protected PropertiesUtils $propertiesUtils;
+    protected PropertiesUtilsV3 $propertiesUtilsV3;
 
     protected EntitiesUtilsV3 $entitiesUtilsV3;
 
     public function __construct(
         EntityManagerInterface $em,
-        PropertiesUtils        $propertiesUtils,
+        PropertiesUtilsV3        $propertiesUtilsV3,
         EntitiesUtilsV3          $entitiesUtilsV3,
     ) {
         parent::__construct();
         $this->em = $em;
-        $this->propertiesUtils = $propertiesUtils;
+        $this->propertiesUtilsV3 = $propertiesUtilsV3;
         $this->entitiesUtilsV3 = $entitiesUtilsV3;
     }
 
@@ -267,7 +267,7 @@ class InLocalConfigSyncFieldsConsole extends Command
                     $enumsData
                 );
             }
-            $propSet['naeType'] = $this->propertiesUtils->getPropertyNaeType($propSet, []);
+            $propSet['naeType'] = $this->propertiesUtilsV3->getPropertyNaeType($propSet, []);
 
             $properties[] = $propSet;
 
@@ -286,7 +286,7 @@ class InLocalConfigSyncFieldsConsole extends Command
                 'enum' => $propSet['enum'] ?? [],
                 'available' => $available,
             ];
-            $propPhp['naeType'] = $this->propertiesUtils->getPropertyNaeType($propPhp, []);
+            $propPhp['naeType'] = $this->propertiesUtilsV3->getPropertyNaeType($propPhp, []);
             $phpProperties[] = $propPhp;
         }
 
