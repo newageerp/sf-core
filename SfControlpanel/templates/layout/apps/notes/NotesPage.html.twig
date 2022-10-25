@@ -50,7 +50,7 @@ export default function NotesPageContent() {
 
     const [readAllR] = UIConfig.useURequest('NAENotesReadAll');
 
-    const [getData, getDataParams] = UIConfig.useUList('note', functions.properties.getKeysFromObject(defObject));
+    const [getData, getDataParams] = UIConfig.useUList('note', getKeysFromObject(defObject));
     const [pages, setPages] = useState(1);
     const [activePage, setActivePage] = useState(1);
 

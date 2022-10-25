@@ -122,7 +122,7 @@ export default function TaskContent() {
 
     const [getData, getDataParams] = OpenApi.useUList<IData>(
         moduleSchema,
-        functions.properties.getKeysFromObject(defObject)
+        getKeysFromObject(defObject)
     )
     const loadData = () => {
         const filters: any[] = [{ and: [['i.completed', '=', completed, true]] }]
