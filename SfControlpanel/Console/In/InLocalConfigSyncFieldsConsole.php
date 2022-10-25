@@ -178,7 +178,6 @@ class InLocalConfigSyncFieldsConsole extends Command
         $properties = [];
         $propertiesKeys = [];
         $dbDataKeys = [];
-        $phpProperties = [];
 
         foreach ($propsData as $prop) {
             if (!isset($dbDataKeys[$prop['config']['entity']])) {
@@ -270,24 +269,6 @@ class InLocalConfigSyncFieldsConsole extends Command
             $propSet['naeType'] = $this->propertiesUtilsV3->getPropertyNaeType($propSet, []);
 
             $properties[] = $propSet;
-
-
-            $propPhp = [
-                'key' => $propSet['key'],
-                'title' => $propSet['title'],
-                'type' => $propSet['type'],
-                'format' => $propSet['format'],
-                'description' => $propSet['description'],
-                'schema' => $propSet['schema'],
-                'isDb' => $propSet['isDb'],
-                'dbType' => $propSet['dbType'],
-                'as' => $propSet['as'] ?? '',
-                'additionalProperties' => $propSet['additionalProperties'] ?? [],
-                'enum' => $propSet['enum'] ?? [],
-                'available' => $available,
-            ];
-            $propPhp['naeType'] = $this->propertiesUtilsV3->getPropertyNaeType($propPhp, []);
-            $phpProperties[] = $propPhp;
         }
 
 
