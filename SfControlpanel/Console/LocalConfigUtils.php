@@ -4,15 +4,6 @@ namespace Newageerp\SfControlpanel\Console;
 
 class LocalConfigUtils
 {
-    public static function getSqliteDb()
-    {
-        if (!file_exists($_ENV['NAE_SFS_CP_DB_PATH'])) {
-            return false;
-        }
-        $configDbFile = $_ENV['NAE_SFS_CP_DB_PATH'];
-        return new \SQLite3($configDbFile);
-    }
-
     public static function getCpConfigFile(string $file)
     {
         return $_ENV['NAE_SFS_CP_STORAGE_PATH'] . '/' . $file . '.json';
@@ -57,19 +48,9 @@ class LocalConfigUtils
         return $_ENV['NAE_SFS_ROOT_PATH'] . '/front-generated';
     }
 
-    public static function getStrapiCachePath()
-    {
-        return $_ENV['NAE_SFS_ROOT_PATH'] . '/strapi';
-    }
-
     public static function getCpDbPath()
     {
         return $_ENV['NAE_SFS_ROOT_PATH'] . '/config-storage';
-    }
-
-    public static function getPhpCachePath()
-    {
-        return $_ENV['NAE_SFS_ROOT_PATH'] . '/assets/properties';
     }
 
     public static function getPhpVariablesPath()

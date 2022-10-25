@@ -25,38 +25,6 @@ class InLocalConfigSyncVariablesConsole extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        // TMP OLD SYNC
-        $db = LocalConfigUtils::getSqliteDb();
-        if ($db) {
-            $sql = 'select variables.id, variables.slug, variables.text from variables';
-            $result = $db->query($sql);
-
-            $variables = LocalConfigUtils::getCpConfigFileData('variables');
-            while ($data = $result->fetchArray(SQLITE3_ASSOC)) {
-                $newId = 'synced-' . $data['id'];
-
-                $isExist = false;
-                foreach ($variables as $var) {
-                    if ($var['id'] === $newId) {
-                        $isExist = true;
-                    }
-                }
-                if (!$isExist) {
-                    $variables[] = [
-                        'id' => $newId,
-                        'tag' => '',
-                        'title' => '',
-                        'config' => [
-                            'slug' => $data['slug'],
-                            'text' => $data['text']
-                        ]
-                    ];
-                }
-            }
-            file_put_contents(LocalConfigUtils::getCpConfigFile('variables'), json_encode($variables, JSON_UNESCAPED_UNICODE));
-        }
-        // TMP OLD SYNC OFF
-
         $configPhpPath = LocalConfigUtils::getPhpVariablesPath() . '/NaeSVariables.php';
         $configPath = LocalConfigUtils::getFrontendConfigPath() . '/NaeSVariables.tsx';
         $fileContent = '';

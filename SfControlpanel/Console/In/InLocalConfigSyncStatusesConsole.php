@@ -24,44 +24,6 @@ class InLocalConfigSyncStatusesConsole extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        // TMP OLD SYNC
-        $db = LocalConfigUtils::getSqliteDb();
-        if ($db) {
-            $sql = "select statuses.id, statuses.type, statuses.status, statuses.text, statuses.color, statuses.brightness, entities.slug from statuses
-        left join entities on entities.id = statuses.entity";
-            $result = $db->query($sql);
-
-            $variables = LocalConfigUtils::getCpConfigFileData('statuses');
-            while ($data = $result->fetchArray(SQLITE3_ASSOC)) {
-                $newId = 'synced-' . $data['id'];
-
-                $isExist = false;
-                foreach ($variables as $var) {
-                    if ($var['id'] === $newId) {
-                        $isExist = true;
-                    }
-                }
-                if (!$isExist) {
-                    $variables[] = [
-                        'id' => $newId,
-                        'tag' => '',
-                        'title' => '',
-                        'config' => [
-                            'entity' => $data['slug'],
-                            'text' => $data['text'],
-                            'status' => $data['status'],
-                            'type' => $data['type'],
-                            'color' => $data['color'],
-                            'brightness' => $data['brightness'],
-                        ]
-                    ];
-                }
-            }
-            file_put_contents(LocalConfigUtils::getCpConfigFile('statuses'), json_encode($variables, JSON_UNESCAPED_UNICODE));
-        }
-        // TMP OLD SYNC OFF
-
-        //        $configJsonPath = LocalConfigUtils::getStrapiCachePath() . '/NaeSStatuses.json';
         $configPath = LocalConfigUtils::getFrontendConfigPath() . '/NaeSStatuses.tsx';
 
         $fileContent = 'import { INaeStatus } from "@newageerp/nae-react-ui/dist/interfaces";

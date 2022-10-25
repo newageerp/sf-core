@@ -25,51 +25,6 @@ class InLocalConfigSyncEntitiesConsole extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        // TMP OLD SYNC
-        $db = LocalConfigUtils::getSqliteDb();
-        if ($db) {
-            $sql = "select
-            entities.id,
-            entities.className, 
-            entities.slug, 
-            entities.titleSingle, 
-            entities.titlePlural, 
-            entities.required, 
-            entities.scopes 
-            from entities ";
-            $result = $db->query($sql);
-
-            $variables = LocalConfigUtils::getCpConfigFileData('entities');
-            while ($data = $result->fetchArray(SQLITE3_ASSOC)) {
-                $newId = 'synced-' . $data['id'];
-
-                $isExist = false;
-                foreach ($variables as $var) {
-                    if ($var['id'] === $newId) {
-                        $isExist = true;
-                    }
-                }
-                if (!$isExist) {
-                    $variables[] = [
-                        'id' => $newId,
-                        'tag' => '',
-                        'title' => '',
-                        'config' => [
-                            'className' => $data['className'],
-                            'slug' => $data['slug'],
-                            'titleSingle' => $data['titleSingle'],
-                            'titlePlural' => $data['titlePlural'],
-                            'required' => $data['required'],
-                            'scopes' => $data['scopes'],
-                        ]
-                    ];
-                }
-            }
-            file_put_contents(LocalConfigUtils::getCpConfigFile('entities'), json_encode($variables));
-        }
-        // TMP OLD SYNC OFF
-
-        $configJsonPath = LocalConfigUtils::getStrapiCachePath() . '/NaeSSchema.json';
         $configPath = LocalConfigUtils::getFrontendConfigPath() . '/NaeSSchema.tsx';
 
         $fileContent = 'import { INaeSchema } from "@newageerp/nae-react-ui/dist/interfaces";
@@ -126,10 +81,6 @@ class InLocalConfigSyncEntitiesConsole extends Command
         file_put_contents(
             $configPath,
             $fileContent
-        );
-        file_put_contents(
-            $configJsonPath,
-            json_encode($entities, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)
         );
 
         return Command::SUCCESS;
