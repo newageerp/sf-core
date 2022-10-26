@@ -29,8 +29,8 @@ class SfS3Client {
         return null;
     }
 
-    public static function saveBase64File(string $fileName, string $contents, string $acl, string $contentType) {
-        $host = 'http://local.767.lt:7800';
+    public static function saveBase64File(string $fileName, string $contents, string $acl) {
+        $host = 'http://s3client:3000';
         $url = $host . '/uploadBase64';
 
         $ch = curl_init($url);
@@ -39,8 +39,7 @@ class SfS3Client {
                 'file' => [
                     'name' => $fileName,
                     'contents' => $contents,
-                    'acl' => $acl,
-                    'contentType' => $contentType
+                    'acl' => $acl
                 ]
             ]
         );
