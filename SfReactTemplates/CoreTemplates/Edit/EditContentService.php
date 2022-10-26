@@ -36,7 +36,8 @@ use Newageerp\SfReactTemplates\CoreTemplates\Form\Rows\CompactRow;
 use Newageerp\SfReactTemplates\CoreTemplates\Form\Rows\WideRow;
 use Newageerp\SfReactTemplates\CoreTemplates\Layout\FlexRow;
 
-class EditContentService {
+class EditContentService
+{
 
     protected EditFormsUtilsV3 $editFormsUtilsV3;
 
@@ -58,7 +59,7 @@ class EditContentService {
     {
 
         $required = $this->entitiesUtilsV3->getRequiredBySlug($schema);
-        
+
         $editableForm = new EditableForm(null, $isCompact);
 
         $editForm = $this->editFormsUtilsV3->getEditFormBySchemaAndType($schema, $type);
@@ -99,7 +100,7 @@ class EditContentService {
                     if ($fieldIndex === 0) {
                         $formLabel->setPaddingTop('tw3-pt-0');
                     }
-                    
+
                     $wideRow = new WideRow();
                     $wideRow->getControlContent()->addTemplate($formLabel);
                     $wideRow->setFieldVisibilityData([
@@ -275,7 +276,11 @@ class EditContentService {
                                     $objectField->setFieldDependency($field['fieldDependency']);
                                 }
                                 if (isset($field['relKeyExtraSelect']) && $field['relKeyExtraSelect']) {
-                                    $objectField->setFieldExtraSelect(json_decode($field['relKeyExtraSelect'], true));
+                                    if (mb_strpos($field['relKeyExtraSelect'], '[') === 0) {
+                                        $objectField->setFieldExtraSelect(json_decode($field['relKeyExtraSelect'], true));
+                                    } else {
+                                        $objectField->setFieldExtraSelect(explode(",", $field['relKeyExtraSelect']));
+                                    }
                                 }
                                 if (isset($field['allowCreateRel']) && $field['allowCreateRel']) {
                                     $objectField->setAllowCreateRel($field['allowCreateRel']);
