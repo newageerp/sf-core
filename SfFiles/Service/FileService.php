@@ -28,7 +28,7 @@ class FileService
 
         $url = SfS3Client::fileExists($fileName);
         if (!$url) {
-            $url = SfS3Client::saveFile($fileName, file_get_contents($fileUrl), 'public-read');
+            $url = SfS3Client::saveBase64File($fileName, base64_encode(file_get_contents($fileUrl)), 'public-read');
         }
 
         return $url;
