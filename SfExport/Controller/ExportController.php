@@ -315,7 +315,7 @@ class ExportController extends UControllerBase
             $writer = new Xlsx($spreadsheet);
             $writer->save($tmpFile);
 
-            $contents = file_get_contents($tmpFile);
+            $contents = base64_encode(file_get_contents($tmpFile));
             unlink($tmpFile);
             $url = SfS3Client::saveFile('xlsx/export/tmp/'.$fileName, $contents, 'public-read');
 
