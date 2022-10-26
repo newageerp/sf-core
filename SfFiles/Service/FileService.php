@@ -10,15 +10,11 @@ class FileService
     protected string $className = 'App\Entity\File';
     protected string $localStorage;
 
-    protected string $publicStorage;
-
     protected EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->localStorage = $_ENV['NAE_SFFILES_STORAGE_DIR'];
-
-        $this->publicStorage = $_ENV['NAE_SFFILES_STORAGE_PUBLIC_DIR'];
 
         $this->entityManager = $entityManager;
     }
@@ -26,24 +22,15 @@ class FileService
     public function cacheFileToPublicFolder($file) : string
     {
         $fileUrl = $_ENV['FRONT_URL'] . '/app/nae-core/files/viewById?id=' . $file->getId();
-        $filePath = $this->publicStorage.'/cache/' . $file->getFileName();
 
-        if (!file_exists($filePath)) {
-            file_put_contents(
-                $filePath,
-                file_get_contents($fileUrl)
-            );
-        }
-        return $_ENV['FRONT_URL'].'/public/cache/' . $file->getFileName();
-    }
+        $fileName = 'caspian/cache/'.$file->getId().'_'.$file->getFileName();
 
-    public function getPublicTmpDir()
-    {
-        $dir = $this->publicStorage . '/tmp';
-        if (!is_dir($dir)) {
-            mkdir($dir);
+        $url = SfS3Client::fileExists($fileName);
+        if (!$url) {
+            $url = SfS3Client::saveFile($fileName, file_get_contents($fileUrl), 'public-read');
         }
-        return $dir;
+
+        return $url;
     }
 
     public function getTmpDir()
