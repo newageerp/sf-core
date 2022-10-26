@@ -4,6 +4,7 @@ namespace Newageerp\SfFiles\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Filesystem\Filesystem;
+use Newageerp\SfS3Client\SfS3Client;
 
 class FileService
 {
