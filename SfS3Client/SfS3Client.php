@@ -7,14 +7,16 @@ class SfS3Client {
         $url = $host . '/upload';
 
         $ch = curl_init($url);
-        $payload = json_encode($exportData);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, [
-            'file' => [
-                'name' => $fileName,
-                'contents' => $contents,
-                'acl' => 'public-read'
+        $payload = json_encode(
+            [
+                'file' => [
+                    'name' => $fileName,
+                    'contents' => $contents,
+                    'acl' => $acl
+                ]
             ]
-        ]);
+        );
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
         curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type:application/json']);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $result = curl_exec($ch);

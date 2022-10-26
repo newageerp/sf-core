@@ -317,7 +317,7 @@ class ExportController extends UControllerBase
 
             $contents = file_get_contents($tmpFile);
             unlink($tmpFile);
-            $url = SfS3Client::saveFile('xlsx/export/tmp/'.$fileName);
+            $url = SfS3Client::saveFile('xlsx/export/tmp/'.$fileName, $contents, 'public-read');
 
             return $this->json([
                 'url' => $url
