@@ -21,7 +21,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Newageerp\SfSocket\Service\SocketService;
 use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
-
+use Newageerp\SfS3Client\SfS3Client;
 /**
  * @Route(path="/app/nae-core/export")
  */
@@ -310,11 +310,17 @@ class ExportController extends UControllerBase
                 }
             }
 
+            $tmpFile = '/tmp/'.time().'.xlsx';
+
             $writer = new Xlsx($spreadsheet);
-            $writer->save($storageDir . $fileName);
+            $writer->save($tmpFile);
+
+            $contents = file_get_contents($tmpFile);
+            unlink($tmpfile);
+            $url = SfS3Client::saveFile('xlsx/export/tmp/'.$fileName);
 
             return $this->json([
-                'fileName' => $fileName
+                'url' => $url
             ]);
         } catch (Exception $e) {
             $response = $this->json([

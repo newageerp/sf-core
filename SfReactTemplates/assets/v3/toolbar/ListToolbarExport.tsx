@@ -7,7 +7,7 @@ import { ToolbarButtonWithMenu } from '@newageerp/v3.buttons.toolbar-button-with
 import { ToolbarButton } from '@newageerp/v3.buttons.toolbar-button'
 import { useTemplateLoader } from '../templates/TemplateLoader';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
-import {MenuItem} from '@newageerp/v3.modal.menu-item'
+import { MenuItem } from '@newageerp/v3.modal.menu-item'
 
 export type ExportContainerProps = {
     exports: ITabExport[];
@@ -52,7 +52,9 @@ export function ListToolbarExport(props: ExportContainerProps) {
             columns: ex.columns,
             title: ex.title,
         }).then((res: any) => {
-            window.open(res.data.fileName, '_blank');
+            if (res.data.url) {
+                window.open(res.data.url, '_blank');
+            }
         });
     };
 
