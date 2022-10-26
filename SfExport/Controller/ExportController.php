@@ -61,7 +61,6 @@ class ExportController extends UControllerBase
     public function doExport(Request $request, UService $uService, PropertiesUtilsV3 $propertiesUtilsV3): JsonResponse
     {
         try {
-            $storageDir = $_ENV['NAE_SFS_PUBLIC_DOC_DIR'];
             $exportDir = '/public/export';
 
             $request = $this->transformJsonBody($request);
