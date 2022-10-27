@@ -544,6 +544,7 @@ class UService
             }
 
             if ($type === 'array' && $format !== 'string') {
+                $mapped = null;
                 if (isset($prop['additionalProperties'])) {
                     $additionalProperties = json_decode($prop['additionalProperties'], true);
                     foreach ($additionalProperties as $propAd) {
