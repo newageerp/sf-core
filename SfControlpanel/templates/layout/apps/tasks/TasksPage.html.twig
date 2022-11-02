@@ -1,7 +1,7 @@
 import React, { useState, Fragment, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TasksPageToolbar } from '@newageerp/sfs.apps.tasks.tasks-page-toolbar'
-import { UI, UIConfig } from '@newageerp/nae-react-ui';
+import { UI } from '@newageerp/nae-react-ui';
 import { useRecoilState } from 'recoil';
 import { UserSpaceWrapperToolbarState } from '../../layout/toolbar/UserSpaceWrapperToolbar';
 import moment from 'moment';
@@ -14,7 +14,7 @@ import { Badge } from '@newageerp/ui.badges.base.badge'
 import { getTaskEnums, getTaskEnumsColors } from '../../enums/view/TaskEnums';
 {% endif %}
 import { IconType, Icon } from '@newageerp/ui.icons.base.icon';
-import { SFSOpenEditModalWindowProps, SFSOpenViewModalWindowProps } from '@newageerp/v3.popups.mvc-popup';
+import { SFSOpenEditModalWindowProps, SFSOpenViewModalWindowProps, SFSOpenViewWindow } from '@newageerp/v3.popups.mvc-popup';
 import { getKeysFromObject } from '../../v3/utils';
 import { showSuccessNotification } from '../../v3/navigation/NavigationComponent';
 
@@ -286,9 +286,10 @@ export default function TaskContent() {
                                                 href={'#'}
                                                 onClick={(e) => {
                                                     e.preventDefault()
-                                                    UIConfig.router({
-                                                        path: `/u/${task.parentSchema}/main/view/${task.parentId}`
-                                                    })
+                                                    SFSOpenViewWindow(
+                                                        task.parentSchema,
+                                                        task.parentId
+                                                    )
                                                 }}
                                             >
                                                 <i className='fad fa-external-link-alt' />

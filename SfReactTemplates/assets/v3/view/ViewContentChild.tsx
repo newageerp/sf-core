@@ -11,7 +11,7 @@ import { useRecoilValue } from "recoil";
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import { ToolbarButtonWithMenu } from "@newageerp/v3.buttons.toolbar-button-with-menu";
 import { WhiteCard } from "@newageerp/v3.widgets.white-card";
-import { SFSOpenEditModalWindowProps } from "@newageerp/v3.popups.mvc-popup";
+import { SFSOpenEditModalWindowProps, SFSOpenEditWindowProps } from "@newageerp/v3.popups.mvc-popup";
 
 interface Props {
   onBack?: () => void;
@@ -57,7 +57,7 @@ export default function ViewContentChild(props: Props) {
     ? props.forceEditInPopup
     : isPopup;
 
-  const [doRemove] = UIConfig.useURemove(props.schema);
+  const [doRemove] = OpenApi.useURemove(props.schema);
 
   const { editable, removable } = props;
 
@@ -70,6 +70,7 @@ export default function ViewContentChild(props: Props) {
             SFSOpenEditModalWindowProps({
               id: props.id,
               schema: props.schema,
+              type: props.type,
               onSaveCallback: (_el: any, backFunc: any) => {
                 reloadData().then(() => {
                   setViewKey(viewKey + 1);
@@ -78,10 +79,11 @@ export default function ViewContentChild(props: Props) {
               },
             });
           } else {
-            UIConfig.router({
-              path:
-                "/u/" + props.schema + "/" + props.type + "/edit/" + props.id,
-            });
+            SFSOpenEditWindowProps({
+              id: props.id,
+              schema: props.schema,
+              type: props.type,
+            })
           }
         }
       }

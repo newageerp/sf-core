@@ -1,6 +1,6 @@
-import { UI, UIConfig } from "@newageerp/nae-react-ui";
+import { UI } from "@newageerp/nae-react-ui";
 import React from "react";
-import { SFSOpenEditModalWindowProps } from '@newageerp/v3.popups.mvc-popup';
+import { SFSOpenEditModalWindowProps, SFSOpenEditWindowProps } from '@newageerp/v3.popups.mvc-popup';
 
 interface Props {
   from: string;
@@ -37,9 +37,11 @@ export default function useConvert(props: Props) {
         onSaveCallback: createOptions.onSaveCallback,
       });
     } else {
-      UIConfig.router({
-        path: "/u/" + props.to + "/" + createOptions.type + "/edit/new",
+      SFSOpenEditWindowProps({
+        id: "new",
+        schema: props.to,
         options: { createOptions: createOptions.options },
+        type: createOptions.type,
       });
     }
   };

@@ -5,9 +5,9 @@ import { IconType } from '@newageerp/ui.icons.base.icon'
 import { IconList } from '@newageerp/ui.icons.base.icon-list'
 import { useComponentVisible } from '@newageerp/hooks.use-component-visible'
 import { Menu, MenuItem } from '@newageerp/sfs.modal.menu'
-import { UI, UIConfig } from '@newageerp/nae-react-ui'
+import { UI } from '@newageerp/nae-react-ui'
 import { useTranslation } from 'react-i18next';
-import { SFSOpenEditModalWindowProps } from '@newageerp/v3.popups.mvc-popup'
+import { SFSOpenEditModalWindowProps, SFSOpenEditWindowProps } from '@newageerp/v3.popups.mvc-popup'
 
 interface Props {
     element: any,
@@ -48,10 +48,14 @@ export default function {{ compName }}(props: Props) {
                 type: targetOptions.type,
             });
         } else {
-            UIConfig.router({
-                path: "/u/"+ target +"/" + targetOptions.type + "/edit/new",
-                options: { createOptions: targetOptions.options }
-            });
+            SFSOpenEditWindowProps(
+                {
+                    id: "new",
+                    schema: target,
+                    options: { createOptions: targetOptions.options },
+                    type: targetOptions.type,
+                }
+            )
         }
     }
 
