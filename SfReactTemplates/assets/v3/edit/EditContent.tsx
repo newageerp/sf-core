@@ -1,7 +1,8 @@
-import { UI, UIConfig } from "@newageerp/nae-react-ui";
+import { UI } from "@newageerp/nae-react-ui";
 import React, { Fragment } from "react";
 import { useHistory } from "react-router-dom";
 import MainEdit from "../../v2/edit-forms/MainEdit";
+import { showSuccessNotification } from "../navigation/NavigationComponent";
 import { useTemplateLoader } from "../templates/TemplateLoader";
 
 interface Props {
@@ -33,7 +34,7 @@ export default function EditContent(props: Props) {
         onBack={tdata.onBack}
         newStateOptions={props.newStateOptions}
         onSave={(_el, backFunc) => {
-          UIConfig.toast.success("Išsaugota");
+          showSuccessNotification("Išsaugota");
           if (tdata.onSaveCallback) {
             tdata.onSaveCallback(_el, backFunc);
           } else {

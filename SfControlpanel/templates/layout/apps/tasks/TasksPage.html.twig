@@ -16,6 +16,7 @@ import { getTaskEnums, getTaskEnumsColors } from '../../enums/view/TaskEnums';
 import { IconType, Icon } from '@newageerp/ui.icons.base.icon';
 import { SFSOpenEditModalWindowProps, SFSOpenViewModalWindowProps } from '@newageerp/v3.popups.mvc-popup';
 import { getKeysFromObject } from '../../v3/utils';
+import { showSuccessNotification } from '../../v3/navigation/NavigationComponent';
 
 const moduleSchema = 'task'
 
@@ -116,7 +117,7 @@ export default function TaskContent() {
             id
         ).then(() => {
             loadData()
-            UIConfig.toast.success(t('Išsaugota'))
+            showSuccessNotification(t('Išsaugota'))
         })
     }
 

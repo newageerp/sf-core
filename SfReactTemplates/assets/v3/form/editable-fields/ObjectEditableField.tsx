@@ -1,4 +1,3 @@
-import { UI } from '@newageerp/nae-react-ui';
 import React, { Fragment, useState } from 'react'
 import TemplateLoader, { useTemplateLoader } from '../../templates/TemplateLoader';
 import { ToolbarButton } from '@newageerp/v3.buttons.toolbar-button';
@@ -6,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 import { SFSOpenEditModalWindowProps } from '@newageerp/v3.popups.mvc-popup';
 import { getTabFromSchemaAndType } from '../../utils';
+import SelectFieldSchema from '../../old-ui/SelectFromSchema';
 
 
 interface Props {
@@ -116,7 +116,7 @@ export default function ObjectEditableField(props: Props) {
   if (props.as === 'select') {
 
     return (
-      <UI.Form.SelectFromSchema
+      <SelectFieldSchema
         value={value}
         onChange={updateValue}
         schema={props.relSchema}
@@ -132,19 +132,21 @@ export default function ObjectEditableField(props: Props) {
   return (
     <Fragment>
 
-      <div className={"tw3-w-full tw3-max-w-[500px] tw3-border tw3-border-slate-300 tw3-rounded tw3-flex tw3-items-center tw3-gap-2"}>
+      <div className={"tw3-w-full tw3-max-w-[500px] tw3-border tw3-border-slate-300 tw3-rounded tw3-flex tw3-items-center tw3-gap-2 tw3-bg-white"}>
 
         <ToolbarButton
           iconName='search'
           onClick={() => setIsPopup(true)}
           children={isValue ? value[props.relKey] : t('Seach')}
           className={'tw3-w-full'}
+          bgColor={'tw3-bg-white'}
         />
 
         {!isValue && canCreate &&
           <ToolbarButton
             iconName='plus'
             onClick={onNew}
+            bgColor={'tw3-bg-white'}
           />
         }
 
@@ -153,6 +155,7 @@ export default function ObjectEditableField(props: Props) {
             iconName='window-close'
             textColor='tw3-text-red-600'
             onClick={() => updateValue(null)}
+            bgColor={'tw3-bg-white'}
           />
         }
 

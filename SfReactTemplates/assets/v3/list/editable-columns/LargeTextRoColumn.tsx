@@ -1,8 +1,7 @@
 import React, { Fragment, useState } from 'react'
 import { useTemplateLoader } from '../../templates/TemplateLoader';
-import { Text } from '@newageerp/data.table.text';
-import { UIConfig } from '@newageerp/nae-react-ui';
 import { FieldTextarea } from '@newageerp/v3.form.field-textarea';
+import { showSuccessNotification } from '../../navigation/NavigationComponent';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 
 interface Props {
@@ -18,7 +17,7 @@ export default function LargeTextEditableColumn(props: Props) {
   const [value, setValue] = useState(element ? element[props.fieldKey] : "");
   const updateValue = (e: any) => setValue(e.target.value);
 
-  const [doSave] = UIConfig.useUSave(
+  const [doSave] = OpenApi.useUSave(
     props.schema
   );
 
@@ -33,7 +32,7 @@ export default function LargeTextEditableColumn(props: Props) {
       },
       element.id
     ).then(() => {
-      UIConfig.toast.success("Saved");
+      showSuccessNotification("Saved");
     });
   };
 

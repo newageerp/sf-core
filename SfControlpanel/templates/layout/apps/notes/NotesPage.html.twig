@@ -1,4 +1,3 @@
-import { UIConfig } from "@newageerp/nae-react-ui";
 import React, { Fragment, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { NotesPageToolbar } from '@newageerp/sfs.apps.notes.notes-page-toolbar'
@@ -10,6 +9,7 @@ import NotesNameResolver from "../../../UserComponents/ModelsCacheData/NotesName
 import { PageContainer } from '@newageerp/ui.paging.base.page-container'
 import NoteLine from "./NoteLine";
 import { getKeysFromObject } from "../../v3/utils";
+import { showTaskSentNotification } from "../../v3/navigation/NavigationComponent";
 
 const pageSize = 20;
 
@@ -48,9 +48,9 @@ export default function NotesPageContent() {
     const [, setToolbarTitle] = useRecoilState(UserSpaceWrapperToolbarState)
     const userState: any = useRecoilValue(OpenApi.naeUserState);
 
-    const [readAllR] = UIConfig.useURequest('NAENotesReadAll');
+    const [readAllR] = OpenApi.useURequest('NAENotesReadAll');
 
-    const [getData, getDataParams] = UIConfig.useUList('note', getKeysFromObject(defObject));
+    const [getData, getDataParams] = OpenApi.useUList<IData>('note', getKeysFromObject(defObject));
     const [pages, setPages] = useState(1);
     const [activePage, setActivePage] = useState(1);
 
@@ -60,7 +60,7 @@ export default function NotesPageContent() {
 
     const readAll = () => {
         readAllR({});
-        UIConfig.toast.success(UIConfig.texts.taskSentMessage)
+        showTaskSentNotification()
     }
 
     const loadData = () => {

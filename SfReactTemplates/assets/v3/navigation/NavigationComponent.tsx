@@ -1,5 +1,5 @@
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
-import { UI } from '@newageerp/nae-react-ui';
+import { UI, UIConfig } from '@newageerp/nae-react-ui';
 import React, { Fragment, useEffect, useState } from 'react'
 import { useHistory } from 'react-router';
 import { Popup } from '@newageerp/v3.popups.popup'
@@ -132,4 +132,16 @@ export default function NavigationComponent() {
             }
         </Fragment>
     )
+}
+
+export const showTaskSentNotification = () => {
+    UIConfig.toast.success(UIConfig.texts.taskSentMessage);
+}
+
+export const showSuccessNotification = (text: string) => {
+    UIConfig.toast.success(text);
+}
+
+export const showErrorNotification = (text: string) => {
+    UIConfig.toast.error(text);
 }
