@@ -121,6 +121,15 @@ export const getSchemaTitle = (_schema: string, plural: boolean) => {
   return title
 }
 
+export interface INaeWidget {
+  schema: string
+  type: WidgetType | string
+  comp: any
+  options: any
+  sort: number
+  hideScopes?: string[]
+  showScopes?: string[]
+}
 export interface WidgetProps {
   type: WidgetType
   schema?: string
