@@ -12,6 +12,7 @@ import TemplateLoader, {
 import { fieldVisibility, IFieldVisibility } from "../../../config/fields/fieldVisibility";
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper'
 import { AlertWidget, transformErrorAlert } from "@newageerp/v3.widgets.alert-widget";
+import { WidgetType } from '../../v3/utils'
 
 export interface MainEditTemplateData {
   element: any,
@@ -234,7 +235,7 @@ export default function MainEdit(props: Props) {
           </AlertWidget>}
 
           <UI.Widget.Widget
-            type={UI.Widget.WidgetType.editRight}
+            type={WidgetType.editRight}
             element={element}
             schema={props.schema ? props.schema : '-'}
             saveError={saveDataParams.error}

@@ -5,6 +5,7 @@ import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 import { useRecoilValue } from 'recoil';
 import TasksWidget from '../../apps/tasks/TasksWidget';
 import TemplateLoader, { useTemplateLoader } from '../../v3/templates/TemplateLoader';
+import { WidgetType } from '../../v3/utils';
 
 interface Props {
     extraOptions: any,
@@ -43,14 +44,14 @@ export default function ViewTop(props: Props) {
 
             contentBefore1Line={
                 <UI.Widget.Widget
-                    type={UI.Widget.WidgetType.viewMainTop1LineBefore}
+                    type={WidgetType.viewMainTop1LineBefore}
                     schema={props.schema}
                     element={props.element}
                 />
             }
             contentBefore2Line={
                 <UI.Widget.Widget
-                    type={UI.Widget.WidgetType.viewMainTop2LineBefore}
+                    type={WidgetType.viewMainTop2LineBefore}
                     schema={props.schema}
                     element={props.element}
                 />
@@ -58,14 +59,14 @@ export default function ViewTop(props: Props) {
 
             contentAfter1Line={
                 <UI.Widget.Widget
-                    type={UI.Widget.WidgetType.viewMainTop1LineAfter}
+                    type={WidgetType.viewMainTop1LineAfter}
                     schema={props.schema}
                     element={props.element}
                 />
             }
             contentAfter2Line={
                 <UI.Widget.Widget
-                    type={UI.Widget.WidgetType.viewMainTop2LineAfter}
+                    type={WidgetType.viewMainTop2LineAfter}
                     schema={props.schema}
                     element={props.element}
                 />

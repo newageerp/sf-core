@@ -1,5 +1,5 @@
-import { UI } from '@newageerp/nae-react-ui';
-import { INaeWidget } from '@newageerp/nae-react-ui/dist/interfaces';
+import { INaeWidget, WidgetType } from '../../../_generated/v3/utils';
+
 import { Fragment } from 'react';
 {% for comp in components %}
 import { {{ comp }}Widget } from './buttons/{{ comp }}';
@@ -9,7 +9,7 @@ export const GeneratedPdfWidgets: INaeWidget[] = [
 {% for key, comp in components %}
     {
         schema: "{{ key }}",
-        type: UI.Widget.WidgetType.viewAfterPdfButton,
+        type: WidgetType.viewAfterPdfButton,
         sort: 0,
         options: {},
         comp: {{ comp }}Widget

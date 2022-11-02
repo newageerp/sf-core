@@ -1,5 +1,4 @@
 import { UI, UIConfig } from "@newageerp/nae-react-ui";
-import { INaeWidget } from "@newageerp/nae-react-ui/dist/interfaces";
 import React, { Fragment, useState } from "react";
 // import { useTranslation } from 'react-i18next'
 import TemplateLoader, { Template } from "../templates/TemplateLoader";
@@ -12,6 +11,7 @@ import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import { ToolbarButtonWithMenu } from "@newageerp/v3.buttons.toolbar-button-with-menu";
 import { WhiteCard } from "@newageerp/v3.widgets.white-card";
 import { SFSOpenEditModalWindowProps, SFSOpenEditWindowProps } from "@newageerp/v3.popups.mvc-popup";
+import { INaeWidget, WidgetType } from "../utils";
 
 interface Props {
   onBack?: () => void;
@@ -101,7 +101,7 @@ export default function ViewContentChild(props: Props) {
 
   const middleWidgets = UIConfig.widgets().filter(
     (w: INaeWidget) =>
-      w.type === UI.Widget.WidgetType.viewMiddle &&
+      w.type === WidgetType.viewMiddle &&
       (w.schema === props.schema || w.schema === "all")
   );
 
@@ -131,7 +131,7 @@ export default function ViewContentChild(props: Props) {
           showBookmark={true}
           contentBefore1Line={
             <UI.Widget.Widget
-              type={UI.Widget.WidgetType.viewMainTop1LineBefore}
+              type={WidgetType.viewMainTop1LineBefore}
               schema={props.schema}
               element={element}
             />
@@ -160,7 +160,7 @@ export default function ViewContentChild(props: Props) {
               />
 
               <UI.Widget.Widget
-                type={UI.Widget.WidgetType.viewMainTop2LineBefore}
+                type={WidgetType.viewMainTop2LineBefore}
                 schema={props.schema}
                 element={element}
               />
@@ -168,14 +168,14 @@ export default function ViewContentChild(props: Props) {
           }
           contentAfter1Line={
             <UI.Widget.Widget
-              type={UI.Widget.WidgetType.viewMainTop1LineAfter}
+              type={WidgetType.viewMainTop1LineAfter}
               schema={props.schema}
               element={element}
             />
           }
           contentAfter2Line={
             <UI.Widget.Widget
-              type={UI.Widget.WidgetType.viewMainTop2LineAfter}
+              type={WidgetType.viewMainTop2LineAfter}
               schema={props.schema}
               element={element}
             />
@@ -214,7 +214,7 @@ export default function ViewContentChild(props: Props) {
                   )}
                 </WhiteCard>
                 <UI.Widget.Widget
-                  type={UI.Widget.WidgetType.viewBottom}
+                  type={WidgetType.viewBottom}
                   schema={props.schema}
                   element={element}
                 />
@@ -232,7 +232,7 @@ export default function ViewContentChild(props: Props) {
               {middleWidgets.length > 0 && (
                 <div style={{ width: 700, minWidth: 700, maxWidth: 700 }}>
                   <UI.Widget.Widget
-                    type={UI.Widget.WidgetType.viewMiddle}
+                    type={WidgetType.viewMiddle}
                     schema={props.schema}
                     element={element}
                   />
@@ -241,13 +241,13 @@ export default function ViewContentChild(props: Props) {
               <div className={"tw3-w-[420px] tw3-min-w-[420px] tw3-max-w-[420px]"}>
                 <div className={"grid grid-cols-1 gap-1"}>
                   <UI.Widget.Widget
-                    type={UI.Widget.WidgetType.viewRightTop}
+                    type={WidgetType.viewRightTop}
                     schema={props.schema}
                     element={element}
                   />
 
                   <UI.Widget.Widget
-                    type={UI.Widget.WidgetType.viewRightButtons}
+                    type={WidgetType.viewRightButtons}
                     schema={props.schema}
                     element={element}
                   />
@@ -261,31 +261,31 @@ export default function ViewContentChild(props: Props) {
                     )} */}
 
                   <UI.Widget.Widget
-                    type={UI.Widget.WidgetType.viewAfterPdfButton}
+                    type={WidgetType.viewAfterPdfButton}
                     schema={props.schema}
                     element={element}
                   />
 
                   <UI.Widget.Widget
-                    type={UI.Widget.WidgetType.viewAfterConvertButton}
+                    type={WidgetType.viewAfterConvertButton}
                     schema={props.schema}
                     element={element}
                   />
 
                   <UI.Widget.Widget
-                    type={UI.Widget.WidgetType.viewAfterCreateButton}
+                    type={WidgetType.viewAfterCreateButton}
                     schema={props.schema}
                     element={element}
                   />
 
                   <UI.Widget.Widget
-                    type={UI.Widget.WidgetType.viewAfterEditButton}
+                    type={WidgetType.viewAfterEditButton}
                     schema={props.schema}
                     element={element}
                   />
 
                   <UI.Widget.Widget
-                    type={UI.Widget.WidgetType.viewRight}
+                    type={WidgetType.viewRight}
                     schema={props.schema}
                     element={element}
                   />
@@ -305,7 +305,7 @@ export default function ViewContentChild(props: Props) {
               </div>
             </div>
             <UI.Widget.Widget
-              type={UI.Widget.WidgetType.viewExtraBottom}
+              type={WidgetType.viewExtraBottom}
               schema={props.schema}
               element={element}
             />
