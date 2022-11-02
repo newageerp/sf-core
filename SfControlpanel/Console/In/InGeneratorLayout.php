@@ -110,7 +110,7 @@ class InGeneratorLayout extends Command
             'layout/apps/mails/MailsContent.html.twig' => ['apps/mails', 'MailsContent'],
 
             'layout/apps/notes/NoteContentForm.html.twig' => ['apps/notes', 'NoteContentForm'],
-            'layout/apps/notes/NoteEditForm.html.twig' => ['apps/notes', 'NoteEditForm'],
+            // 'layout/apps/notes/NoteEditForm.html.twig' => ['apps/notes', 'NoteEditForm'],
             'layout/apps/notes/NoteLine.html.twig' => ['apps/notes', 'NoteLine'],
             'layout/apps/notes/NotesContent.html.twig' => ['apps/notes', 'NotesContent'],
             'layout/apps/notes/NotesContentMembers.html.twig' => ['apps/notes', 'NotesContentMembers'],
