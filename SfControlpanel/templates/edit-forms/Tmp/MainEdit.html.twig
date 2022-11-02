@@ -11,6 +11,7 @@ import TemplateLoader, {
 } from "../../v3/templates/TemplateLoader";
 import { fieldVisibility, IFieldVisibility } from "../../../config/fields/fieldVisibility";
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper'
+import { AlertWidget, transformErrorAlert } from "@newageerp/v3.widgets.alert-widget";
 
 export interface MainEditTemplateData {
   element: any,
@@ -228,7 +229,9 @@ export default function MainEdit(props: Props) {
           )}
 
 
-          {!!saveDataParams.error && <UI.Form.ErrorAlert error={saveDataParams.error} />}
+          {!!saveDataParams.error && <AlertWidget>
+            {transformErrorAlert(saveDataParams.error)}
+          </AlertWidget>}
 
           <UI.Widget.Widget
             type={UI.Widget.WidgetType.editRight}

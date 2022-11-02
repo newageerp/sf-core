@@ -1,5 +1,6 @@
 import { UIConfig } from "@newageerp/nae-react-ui";
-import { INaeTab, INaeTabField } from "@newageerp/nae-react-ui/dist/interfaces";
+import { INaeSchema, INaeTab, INaeTabField } from "@newageerp/nae-react-ui/dist/interfaces";
+import { NaeSSchema } from "../../config/NaeSSchema";
 
 export const filterScopes = (
   element: any,
@@ -102,4 +103,20 @@ export const getKeysFromObject = (defObject: any, prefix = '') => {
     }
   })
   return makeKeys
+}
+
+export const getSchemaTitle = (_schema: string, plural: boolean) => {
+  const schemas = NaeSSchema;
+
+  let title: string = _schema
+  schemas.forEach((s: INaeSchema) => {
+    if (s.schema === _schema) {
+      if (plural) {
+        title = s.titlePlural
+      } else {
+        title = s.title
+      }
+    }
+  })
+  return title
 }

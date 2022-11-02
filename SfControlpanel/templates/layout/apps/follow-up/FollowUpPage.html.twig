@@ -2,12 +2,12 @@ import React, { useState, useEffect, Fragment } from 'react'
 import { FollowupPageToolbar } from '@newageerp/sfs.apps.followup.followup-page-toolbar'
 import { useTranslation } from 'react-i18next';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
-import { functions, UI } from '@newageerp/nae-react-ui';
 import moment from 'moment';
 import { useRecoilState } from 'recoil';
 import { UserSpaceWrapperToolbarState } from '../../layout/toolbar/UserSpaceWrapperToolbar';
 import { TitleOverTable } from '@newageerp/ui.texts.base.title-over-table'
 import TemplateLoader from '../../v3/templates/TemplateLoader';
+import { getSchemaTitle } from '../../v3/utils';
 
 export default function FollowUpPage() {
     const { t } = useTranslation();
@@ -95,7 +95,7 @@ export default function FollowUpPage() {
             {
                 schema: s,
                 extraFilter: extraFilter,
-                title: functions.schemas.getSchemaTitle(s, true)
+                title: getSchemaTitle(s, true)
             }
         )
     })

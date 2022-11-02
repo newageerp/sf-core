@@ -4,10 +4,10 @@ import NotesContentMembers from "./NotesContentMembers";
 
 import { useTranslation } from "react-i18next";
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
-import { UI } from "@newageerp/nae-react-ui";
 import { RichEditor } from "@newageerp/ui.form.base.form-pack";
 import { TwBackgroundColors } from "@newageerp/ui.styles.tailwind";
 import { SquareButton } from '@newageerp/ui.buttons.base.square-button';
+import { AlertWidget, transformErrorAlert } from "@newageerp/v3.widgets.alert-widget";
 
 interface Props {
   noteId: number;
@@ -55,7 +55,9 @@ export default function NoteEditForm(props: Props) {
     <div className={"space-y-2"}>
       {!!saveDataParams.error && (
         <div>
-          <UI.Form.ErrorAlert error={saveDataParams.error} />
+          <AlertWidget>
+            {transformErrorAlert(saveDataParams.error)}
+          </AlertWidget>
         </div>
       )}
       <RichEditor

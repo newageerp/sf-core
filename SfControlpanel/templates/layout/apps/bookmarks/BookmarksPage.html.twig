@@ -1,12 +1,11 @@
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper'
-import { functions } from '@newageerp/nae-react-ui'
 import React, { useState, useEffect, Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TitleOverTable } from '@newageerp/ui.texts.base.title-over-table'
 import { useRecoilState } from 'recoil'
 import { UserSpaceWrapperToolbarState } from '../../layout/toolbar/UserSpaceWrapperToolbar'
 import TemplateLoader from '../../v3/templates/TemplateLoader';
-import { getKeysFromObject } from '../../v3/utils'
+import { getKeysFromObject, getSchemaTitle } from '../../v3/utils'
 
 interface IFollow {
     id: number
@@ -77,7 +76,7 @@ export default function BookmarksPage() {
             {
                 schema: s,
                 extraFilter: extraFilter,
-                title: functions.schemas.getSchemaTitle(s, true)
+                title: getSchemaTitle(s, true)
             }
         )
     })

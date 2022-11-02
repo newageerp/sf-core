@@ -1,10 +1,8 @@
 import React, { Fragment, useState } from "react";
 import { useTranslation } from "react-i18next";
-import NoteContentForm from "./NoteContentForm";
 import parse from "html-react-parser";
 import { useSelector } from "react-redux";
 import { selectorBySchemaSlug } from "../../../Components/Models/ormSelectors";
-import { UI } from "@newageerp/nae-react-ui";
 import { useRecoilValue } from "recoil";
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import NoteEditForm from "./NoteEditForm";
@@ -16,10 +14,8 @@ import {
   TwBorderColors,
   TwTextColors,
 } from "@newageerp/ui.styles.tailwind";
-import { IconList } from "@newageerp/ui.icons.base.icon-list";
 import { IconType } from "@newageerp/ui.icons.base.icon";
 import { Menu, MenuItem } from "@newageerp/sfs.modal.menu";
-import { NotesEditForm } from '@newageerp/sfs.notes.notes-edit-form';
 import { NotesAnswerForm } from '@newageerp/sfs.notes.notes-answer-form'
 import { NotesQuoteTextSelector } from '@newageerp/sfs.notes.notes-quote-text-selector'
 import { useNoteHookNae } from '../../../Components/Hooks/useNoteHookNae';
