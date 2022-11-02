@@ -120,3 +120,44 @@ export const getSchemaTitle = (_schema: string, plural: boolean) => {
   })
   return title
 }
+
+export interface WidgetProps {
+  type: WidgetType
+  schema?: string
+  element: any
+  saveError?: any
+  userState?: any
+  extraOptions?: any
+}
+export interface ContentWidgetProps {
+  schema: string
+  element: any
+  options: any
+  userState?: any
+  type?: WidgetType
+  saveError?: any
+}
+
+export enum WidgetType {
+  viewMainTop = 'viewMainTop',
+
+  viewMainTop2LineBefore = 'viewMainTop2LineBefore',
+  viewMainTop2LineAfter = 'viewMainTop2LineAfter',
+
+  viewMainTop1LineBefore = 'viewMainTop1LineBefore',
+  viewMainTop1LineAfter = 'viewMainTop1LineAfter',
+
+  editRight = 'editRight',
+  viewBottom = 'mainBottom',
+  viewMiddle = 'mainMiddle',
+  viewRightTop = 'mainRightTop',
+  viewRight = 'mainRight',
+  viewExtraBottom = 'viewExtraBottom',
+  viewRightButtons = 'mainRightButtons',
+  viewAfterPdfButton = 'mainAfterPdfButton',
+  viewAfterConvertButton = 'mainAfterConvertButton',
+  viewAfterCreateButton = 'viewAfterCreateButton',
+  viewAfterEditButton = 'mainAfterEditButton',
+  skip = 'skip',
+  listAfterTable = 'listAfterTable',
+}

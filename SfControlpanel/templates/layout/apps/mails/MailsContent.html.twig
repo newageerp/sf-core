@@ -1,13 +1,12 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import parse from "html-react-parser";
-import { ContentWidgetProps } from "@newageerp/nae-react-ui/dist/UI/Widget/NEWidgets";
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import { LogoLoader } from "@newageerp/ui.loaders.logo-loader";
 import { Table, Td, Th } from "@newageerp/ui.table.base.table";
 import { Popup } from "@newageerp/ui.popups.base.popup";
 import { TwoLinesDatetime } from "@newageerp/data.view.date.base.two-lines-datetime";
-import { getKeysFromObject } from "../../v3/utils";
+import { ContentWidgetProps, getKeysFromObject } from "../../v3/utils";
 
 interface Props extends ContentWidgetProps {
   toolbar?: any;
