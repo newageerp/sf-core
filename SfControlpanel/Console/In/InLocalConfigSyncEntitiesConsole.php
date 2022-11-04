@@ -27,7 +27,7 @@ class InLocalConfigSyncEntitiesConsole extends Command
     {
         $configPath = LocalConfigUtils::getFrontendConfigPath() . '/NaeSSchema.tsx';
 
-        $fileContent = 'import { INaeSchema } from "../_generated/v3/utils"";
+        $fileContent = 'import { INaeSchema } from "../_generated/v3/utils"
 ';
 
         $entityData = LocalConfigUtils::getCpConfigFileData('entities');

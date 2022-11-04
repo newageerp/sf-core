@@ -26,7 +26,7 @@ class InLocalConfigSyncStatusesConsole extends Command
     {
         $configPath = LocalConfigUtils::getFrontendConfigPath() . '/NaeSStatuses.tsx';
 
-        $fileContent = 'import { INaeStatus } from "../_generated/v3/utils";";
+        $fileContent = 'import { INaeStatus } from "../_generated/v3/utils";
 ';
 
         $statusData = LocalConfigUtils::getCpConfigFileData('statuses');
