@@ -11,6 +11,8 @@ import { I{{ schema }}FieldsNae } from './use{{ schema }}HookNae';
 
 import { useRecoilValue } from 'recoil';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
+import { SFSSocketService } from '../../_generated/v3/navigation/NavigationComponent';
+import { getSchemaByClassName } from '../../_generated/v3/utils';
 
 export default function DataCacheSocketComponent() {
     const userState: any = useRecoilValue(OpenApi.naeUserState);
@@ -25,7 +27,7 @@ export default function DataCacheSocketComponent() {
     const onSocketDoRequest = (data: any) => {
         let fields = ['id'];
         let dataToCheck = [];
-        let schema = functions.schemas.getSchemaByClassName(data.schema);
+        let schema = getSchemaByClassName(data.schema);
 
         {% for schema in checks %}
         if (data.schema === NaeSSchemaMap.{{ schema }}.className) {
@@ -66,13 +68,13 @@ export default function DataCacheSocketComponent() {
     }, [socketItem]);
 
     useEffect(() => {
-        UI.Socket.Service.addCallback(
+        SFSSocketService.addCallback(
             "data-update-all",
             "data-update-all",
             setSocketItem
         );
         return () => {
-            UI.Socket.Service.removeCallback(
+            SFSSocketService.removeCallback(
                 "data-update-all",
                 "data-update-all"
             );
@@ -81,19 +83,19 @@ export default function DataCacheSocketComponent() {
 
 {% if hasNotes %}
     useEffect(() => {
-        UI.Socket.Service.subscribe(`notes-${userState.id}`);
-        UI.Socket.Service.subscribe(`notes-${userState.permissionGroup}`);
+        SFSSocketService.subscribe(`notes-${userState.id}`);
+        SFSSocketService.subscribe(`notes-${userState.permissionGroup}`);
 
-        UI.Socket.Service.addCallback(
+        SFSSocketService.addCallback(
             `notes-create`,
             `notes-create`,
             onForceSocketDoRequest
         );
         return () => {
-            UI.Socket.Service.unsubscribe(`notes-${userState.id}`);
-            UI.Socket.Service.unsubscribe(`notes-${userState.permissionGroup}`);
+            SFSSocketService.unsubscribe(`notes-${userState.id}`);
+            SFSSocketService.unsubscribe(`notes-${userState.permissionGroup}`);
 
-            UI.Socket.Service.removeCallback(
+            SFSSocketService.removeCallback(
                 `notes-create`,
                 `notes-create`,
             );

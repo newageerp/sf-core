@@ -1,10 +1,10 @@
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import React, { useEffect, Fragment } from "react";
-import { UI } from "@newageerp/nae-react-ui";
 import { useRecoilValue } from "recoil";
 import NoteContentForm from "./NoteContentForm";
 import NoteLine from "./NoteLine";
 import { ContentWidgetProps, getKeysFromObject } from "../../v3/utils";
+import { SFSSocketService } from "../../v3/navigation/NavigationComponent";
 
 const moduleName = "note";
 
@@ -69,9 +69,9 @@ export default function NotesContent(props: Props) {
 
   useEffect(() => {
     const action = "note-" + props.element.id + "-" + props.schema;
-    UI.Socket.Service.addCallback(action, action + "-el", loadData);
+    SFSSocketService.addCallback(action, action + "-el", loadData);
     return () => {
-        UI.Socket.Service.removeCallback(action, action + "-el");
+        SFSSocketService.removeCallback(action, action + "-el");
     };
   }, [props.element.id, props.schema]);
 

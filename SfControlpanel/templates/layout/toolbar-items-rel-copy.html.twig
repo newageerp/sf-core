@@ -5,9 +5,9 @@ import { IconType } from '@newageerp/ui.icons.base.icon'
 import { IconList } from '@newageerp/ui.icons.base.icon-list'
 import { useComponentVisible } from '@newageerp/hooks.use-component-visible'
 import { Menu, MenuItem } from '@newageerp/sfs.modal.menu'
-import { UI } from '@newageerp/nae-react-ui'
 import { useTranslation } from 'react-i18next';
 import { SFSOpenEditModalWindowProps, SFSOpenEditWindowProps } from '@newageerp/v3.popups.mvc-popup'
+import { useNaePopup } from '../../../v3/old-ui/OldPopupProvider'
 
 interface Props {
     element: any,
@@ -19,7 +19,7 @@ export default function {{ compName }}(props: Props) {
     const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false);
     const toggleComponentVisible = () => setIsComponentVisible(!isComponentVisible);
 
-    const { isPopup } = UI.Popup.useNaePopup();
+    const { isPopup } = useNaePopup();
 
     const createOptions: any = {};
 

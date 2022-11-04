@@ -1,10 +1,10 @@
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
-import { Hooks } from '@newageerp/nae-react-ui';
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import { Redirect, useLocation } from 'react-router-dom'
 import axios from 'axios'
 import { atom, useRecoilState } from 'recoil';
+import {useDidMount} from '@newageerp/v3.hooks.use-did-mount'
 
 export interface AppRouterRoute {
     path: string
@@ -19,7 +19,7 @@ export interface AppRouterProps {
 }
 
 export default function AppRouter(props: AppRouterProps) {
-    const isMount = Hooks.useDidMount();
+    const isMount = useDidMount();
     const [userState, setUserState] = useRecoilState<any>(OpenApi.naeUserState)
 
     const [getUserData, getUserDataParams] = OpenApi.useURequest('NAEauthGetProfile')

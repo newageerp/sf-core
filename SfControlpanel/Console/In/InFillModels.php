@@ -388,7 +388,6 @@ class InFillModels extends Command
         $componentsContent = "
 import React, { Fragment } from 'react'
 import { PropsId, PropsLink } from './types';
-import { Hooks, functions, UI } from \"@newageerp/nae-react-ui\";
 import { NaeSSchemaMap } from '../../config/NaeSSchema';
 import moment from \"moment\";
 import { " . $selectorsJoin . " } from '../../Components/Models/ormSelectors';

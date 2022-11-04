@@ -27,7 +27,7 @@ class InLocalConfigSyncPdfsConsole extends Command
     {
         $configPath = LocalConfigUtils::getFrontendConfigPath() . '/NaeSPdfs.tsx';
 
-        $fileContent = 'import { INaePdf } from "@newageerp/nae-react-ui/dist/interfaces";
+        $fileContent = 'import { INaePdf } from "../_generated/v3/utils";";
 ';
 
 //        $sql = 'select pdfs.template, pdfs.title, pdfs.skipList, pdfs.sort, pdfs.skipWithoutSign, entities.slug from pdfs

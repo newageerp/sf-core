@@ -37,7 +37,7 @@ class InLocalConfigSyncFieldsConsole extends Command
         $configPathDbKeys = LocalConfigUtils::getFrontendConfigPath() . '/NaeSDbKeys.tsx';
         $configPathKeys = LocalConfigUtils::getFrontendConfigPath() . '/NaeSPropertiesKeys.tsx';
 
-        $fileContent = 'import { INaeProperty, INaePropertyEnum } from "@newageerp/nae-react-ui/dist/interfaces";
+        $fileContent = 'import { INaeProperty } from "../_generated/v3/utils";";
 ';
         $fileDbKeysContent = '';
 

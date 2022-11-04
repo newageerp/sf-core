@@ -1,6 +1,6 @@
-import { UI } from "@newageerp/nae-react-ui";
 import React from "react";
 import { SFSOpenEditModalWindowProps, SFSOpenEditWindowProps } from '@newageerp/v3.popups.mvc-popup';
+import { useNaePopup } from "../v3/old-ui/OldPopupProvider";
 
 interface Props {
   from: string;
@@ -12,7 +12,7 @@ interface Props {
 }
 
 export default function useConvert(props: Props) {
-  const { isPopup } = UI.Popup.useNaePopup();
+  const { isPopup } = useNaePopup();
 
   const createOptions: any = {
     options: {
