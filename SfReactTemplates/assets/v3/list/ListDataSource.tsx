@@ -10,8 +10,9 @@ import { ServerFilterItem } from "@newageerp/ui.components.list.filter-container
 import TemplateLoader, { Template } from "../templates/TemplateLoader";
 import { FilterContainer } from '@newageerp/ui.components.list.filter-container';
 import { useTemplateLoader } from '../templates/TemplateLoader';
-import { getTabFieldsToReturn, getTabFromSchemaAndType } from "../utils";
+import { getTabFieldsToReturn } from "../utils";
 import { SFSSocketService } from "../navigation/NavigationComponent";
+import { useUIBuilder } from "../old-ui/builder/OldUIBuilderProvider";
 interface Props {
   children: Template[];
   hidePaging?: boolean;
@@ -37,6 +38,7 @@ interface Props {
 }
 
 export default function ListDataSource(props: Props) {
+  const {getTabFromSchemaAndType} = useUIBuilder();
   const { data: tData } = useTemplateLoader();
 
   const [extendedSearchOptions, setExtendedSearchOptions] = useState<any[]>([]);

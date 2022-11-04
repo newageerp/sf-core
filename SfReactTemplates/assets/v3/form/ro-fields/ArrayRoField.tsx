@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
+import { useUIBuilder } from '../../old-ui/builder/OldUIBuilderProvider';
 import OldArrayFieldComponentRo from '../../old-ui/OldArrayFieldComponentRo';
 import { useTemplateLoader } from '../../templates/TemplateLoader';
-import { getTabFromSchemaAndType } from '../../utils';
 
 interface Props {
   fieldKey: string;
@@ -11,6 +11,7 @@ interface Props {
 }
 
 export default function ArrayRoField(props: Props) {
+  const {getTabFromSchemaAndType} = useUIBuilder();
   const { data: tData } = useTemplateLoader();
   const { element } = tData;
 

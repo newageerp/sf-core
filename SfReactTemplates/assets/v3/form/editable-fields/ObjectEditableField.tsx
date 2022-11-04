@@ -4,8 +4,8 @@ import { ToolbarButton } from '@newageerp/v3.buttons.toolbar-button';
 import { useTranslation } from 'react-i18next';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 import { SFSOpenEditModalWindowProps } from '@newageerp/v3.popups.mvc-popup';
-import { getTabFromSchemaAndType } from '../../utils';
 import SelectFieldSchema from '../../old-ui/SelectFromSchema';
+import { useUIBuilder } from '../../old-ui/builder/OldUIBuilderProvider';
 
 
 interface Props {
@@ -24,6 +24,8 @@ interface Props {
 }
 
 export default function ObjectEditableField(props: Props) {
+  const {getTabFromSchemaAndType} = useUIBuilder();
+
   const { t } = useTranslation();
   const [isPopup, setIsPopup] = useState(false);
 

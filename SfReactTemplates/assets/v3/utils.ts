@@ -1,6 +1,32 @@
-import { UIConfig } from "@newageerp/nae-react-ui";
-import { INaeTabField } from "@newageerp/nae-react-ui/dist/interfaces";
+import { NaeSProperties } from "../../config/NaeSProperties";
 import { NaeSSchema } from "../../config/NaeSSchema";
+import { NaeSStatuses } from "../../config/NaeSStatuses";
+
+
+export enum WidgetType {
+  viewMainTop = 'viewMainTop',
+
+  viewMainTop2LineBefore = 'viewMainTop2LineBefore',
+  viewMainTop2LineAfter = 'viewMainTop2LineAfter',
+
+  viewMainTop1LineBefore = 'viewMainTop1LineBefore',
+  viewMainTop1LineAfter = 'viewMainTop1LineAfter',
+
+  editRight = 'editRight',
+  viewBottom = 'mainBottom',
+  viewMiddle = 'mainMiddle',
+  viewRightTop = 'mainRightTop',
+  viewRight = 'mainRight',
+  viewExtraBottom = 'viewExtraBottom',
+  viewRightButtons = 'mainRightButtons',
+  viewAfterPdfButton = 'mainAfterPdfButton',
+  viewAfterConvertButton = 'mainAfterConvertButton',
+  viewAfterCreateButton = 'viewAfterCreateButton',
+  viewAfterEditButton = 'mainAfterEditButton',
+  skip = 'skip',
+  listAfterTable = 'listAfterTable',
+}
+
 
 export const filterScopes = (
   element: any,
@@ -40,24 +66,6 @@ export const filterScopes = (
   return isShow;
 };
 
-export const getTabFromSchemaAndType = (
-  schema: string,
-  type: string,
-): INaeTab => {
-  const tabs = UIConfig.tabs();
-  const founded = tabs.filter(
-    (tab) => tab.schema === schema && tab.type === type,
-  );
-  if (founded.length > 0) {
-    return founded[0];
-  }
-  return {
-    fields: [],
-    schema: schema,
-    type: type,
-    sort: [],
-  };
-};
 
 export const getTabFieldsToReturn = (tab: INaeTab | null) => {
   let fieldsToReturn: string[] = ["scopes", "_viewTitle"];
@@ -147,30 +155,6 @@ export interface ContentWidgetProps {
   saveError?: any
 }
 
-export enum WidgetType {
-  viewMainTop = 'viewMainTop',
-
-  viewMainTop2LineBefore = 'viewMainTop2LineBefore',
-  viewMainTop2LineAfter = 'viewMainTop2LineAfter',
-
-  viewMainTop1LineBefore = 'viewMainTop1LineBefore',
-  viewMainTop1LineAfter = 'viewMainTop1LineAfter',
-
-  editRight = 'editRight',
-  viewBottom = 'mainBottom',
-  viewMiddle = 'mainMiddle',
-  viewRightTop = 'mainRightTop',
-  viewRight = 'mainRight',
-  viewExtraBottom = 'viewExtraBottom',
-  viewRightButtons = 'mainRightButtons',
-  viewAfterPdfButton = 'mainAfterPdfButton',
-  viewAfterConvertButton = 'mainAfterConvertButton',
-  viewAfterCreateButton = 'viewAfterCreateButton',
-  viewAfterEditButton = 'mainAfterEditButton',
-  skip = 'skip',
-  listAfterTable = 'listAfterTable',
-}
-
 
 
 
@@ -183,7 +167,7 @@ export const getPropertyDataForSchema = (
   _schema: string,
   key: string
 ): INaeProperty => {
-  const properties = UIConfig.properties()
+  const properties = NaeSProperties
   const filterProperties = properties.filter((p: INaeProperty) => {
     return p.schema === _schema && p.key === key
   })
@@ -277,7 +261,7 @@ export const getStatusForSchemaAndType = (
   type: string,
   status: number
 ): INaeStatus => {
-  const activeStatus = UIConfig.statuses().filter(
+  const activeStatus = NaeSStatuses.filter(
     (s) => s.status === status && s.type === type && s.schema === schema
   )
   if (activeStatus.length > 0) {
@@ -291,19 +275,6 @@ export const getStatusForSchemaAndType = (
     bgColor: 'blue',
     brightness: 500
   }
-}
-export const getViewFieldsForSchema = (
-  _schema: string,
-  type: string = 'main'
-) => {
-  const viewFields = UIConfig.viewFields()
-  const viewFieldsFilter = viewFields.filter(
-    (view: INaeViewSettings) => view.schema === _schema && view.type === type
-  )
-  if (viewFieldsFilter.length > 0) {
-    return viewFieldsFilter[0]
-  }
-  return null
 }
 
 export interface INaeEditFieldTagCloud {
@@ -444,7 +415,7 @@ export interface INaeEditSettings {
 }
 
 export const getSchemaClassNameBySchema = (schema: string) => {
-  const schemas = UIConfig.schemas()
+  const schemas = NaeSSchema
 
   const _schemaA = schemas.filter((s) => s.schema === schema)
   if (_schemaA.length > 0) {
@@ -463,7 +434,7 @@ export const getStatusForProperty = (
   property: INaeProperty,
   status: number
 ): INaeStatus => {
-  const activeStatus = UIConfig.statuses().filter(
+  const activeStatus = NaeSStatuses.filter(
     (s) =>
       s.status === status &&
       s.type === property.key &&
@@ -587,11 +558,104 @@ export interface INaePdf {
 }
 
 export const getSchemaByClassName = (className: string) => {
-  const schemas = UIConfig.schemas()
+  const schemas = NaeSSchema;
 
   const _schemaA = schemas.filter((s) => s.className === className)
   if (_schemaA.length > 0) {
     return _schemaA[0].schema
   }
   return '-'
+}
+export interface TransformViewValueOptions {
+  compactView?: boolean;
+  contentClassName?: string;
+}
+export interface INaeTabFieldCustomProps {
+  column: TheadCol
+  property: INaeProperty
+  item: any
+  tabField: INaeTabField
+  navigate: (schema: string, id: number | string, item: any) => void
+}
+
+export interface INaeTabFieldCustom {
+  fieldsToReturn?: string[]
+  thead?: TheadCol
+  tbody?: (obj: INaeTabFieldCustomProps) => TrowCol
+}
+
+export interface INaeTabField {
+  key: string
+  titlePath?: string
+  sortPath?: string
+  filterPath?: string
+  relName?: string
+  sortCol?: string
+  link?: boolean
+  linkNl?: boolean
+  disableSort?: boolean
+  custom?: INaeTabFieldCustom
+  editable?: boolean
+  onEditCallback?: (el: any) => void,
+}
+export interface INaeTabSort {
+  key: string
+  value: string
+}
+export interface TheadCol {
+  props: TableThProps
+  content: any
+  keyPath?: string
+  sortPath?: string
+  filterPath?: string
+}
+export interface TableThProps
+  extends React.DetailedHTMLProps<
+    React.ThHTMLAttributes<HTMLTableHeaderCellElement>,
+    HTMLTableHeaderCellElement
+  > {
+  size?: TableSize | string
+}
+export interface TrowCol {
+  props: TableTdProps
+  content: any
+}
+export interface TableTdProps
+  extends React.DetailedHTMLProps<
+  React.TdHTMLAttributes<HTMLTableDataCellElement>,
+  HTMLTableDataCellElement
+  > {
+  size?: TableSize | string
+}
+export enum TableSize {
+  sm = 'sm',
+  base = 'base',
+  lg = 'lg'
+}
+
+
+
+export const getTextAlignForProperty = (
+  property: any,
+  isLink?: boolean
+) => {
+  const isNumber =
+    (property.type === 'number' && property.format === 'float') ||
+    (property.type === 'integer' && !property.enum)
+  const isBoolean = property.type === 'bool' || property.type === 'boolean'
+  const isDate = property.type === 'string' && property.format === 'date'
+
+  if (isLink) {
+    return 'text-left'
+  } else if (property.as && property.as === 'status') {
+    return 'text-left'
+  } else if (isDate) {
+    return 'text-center'
+  } else if (isNumber) {
+    return 'text-right'
+  } else if (isBoolean) {
+    return 'text-center'
+  } else {
+    return 'text-left'
+  }
 }

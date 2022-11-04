@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import Td from './OldTd'
 import Th from './OldTh'
 import { defaultStrippedRowClassName, TrowCol } from './OldTrow'
-import { getDefProperty, getPropertyDataForSchema, getPropertyForPath, getTabFieldsToReturn, INaeTab } from '../utils'
+import { getDefProperty, getPropertyDataForSchema, getPropertyForPath, getTabFieldsToReturn, getTextAlignForProperty, INaeTab } from '../utils'
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper'
 import { editPopupBySchemaAndType } from '../../editforms/EditPopup'
 import OldTable, { TheadCol } from './OldTable'
@@ -486,30 +486,7 @@ export const transformTdProps = (obj: any) => {
   return c
 }
 
-export const getTextAlignForProperty = (
-  property: any,
-  isLink?: boolean
-) => {
-  const isNumber =
-    (property.type === 'number' && property.format === 'float') ||
-    (property.type === 'integer' && !property.enum)
-  const isBoolean = property.type === 'bool' || property.type === 'boolean'
-  const isDate = property.type === 'string' && property.format === 'date'
 
-  if (isLink) {
-    return 'text-left'
-  } else if (property.as && property.as === 'status') {
-    return 'text-left'
-  } else if (isDate) {
-    return 'text-center'
-  } else if (isNumber) {
-    return 'text-right'
-  } else if (isBoolean) {
-    return 'text-center'
-  } else {
-    return 'text-left'
-  }
-}
 
 export const transformThProps = (
   column: TheadCol,

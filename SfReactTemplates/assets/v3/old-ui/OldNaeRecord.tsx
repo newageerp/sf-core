@@ -2,7 +2,8 @@ import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import React, { useContext, useEffect, useState, Fragment } from "react";
 import { getDepenciesForField } from "../../../config/fields/fieldDependencies";
 import { SFSSocketService } from "../navigation/NavigationComponent";
-import { getElementFieldsToReturn, getSchemaClassNameBySchema, getViewFieldsForSchema, INaeViewSettings } from "../utils";
+import { getElementFieldsToReturn, getSchemaClassNameBySchema, INaeViewSettings } from "../utils";
+import { useUIBuilder } from './builder/OldUIBuilderProvider';
 
 export interface RecordProviderValue {
     loadTime: number;
@@ -40,6 +41,8 @@ export interface RecordProps {
 }
 
 export const NaeRecordProvider = ({ children, schema, id, fieldsToReturn, viewType, defaultViewIndex, viewId, showOnEmpty }: RecordProps) => {
+    const {getViewFieldsForSchema} = useUIBuilder();
+    
     let _fieldsToReturn: string[] = [];
     if (fieldsToReturn) {
         _fieldsToReturn = fieldsToReturn;

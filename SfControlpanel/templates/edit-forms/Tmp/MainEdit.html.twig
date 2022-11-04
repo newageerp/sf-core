@@ -2,18 +2,17 @@ import React, { Fragment, useEffect, useState } from 'react'
 
 import { useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-
-import { functions, UIConfig } from '@newageerp/nae-react-ui'
-import { INaeEditSettings } from '@newageerp/nae-react-ui/dist/interfaces'
-
 import TemplateLoader, {
   useTemplateLoader,
 } from "../../v3/templates/TemplateLoader";
-import { fieldVisibility, IFieldVisibility } from "../../../config/fields/fieldVisibility";
+import { fieldVisibility, IFieldVisibility, resetFieldsToDefValues } from "../../../config/fields/fieldVisibility";
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper'
 import { AlertWidget, transformErrorAlert } from "@newageerp/v3.widgets.alert-widget";
-import { WidgetType } from '../../v3/utils'
+import { getElementFieldsToReturn, INaeEditSettings, WidgetType } from '../../v3/utils'
 import OldNeWidgets from '../../v3/old-ui/OldNeWidgets'
+import OnUpdateElementService from "../../../components/form/OnUpdateElementService"
+import { getDepenciesForField } from '../../../config/fields/fieldDependencies';
+import { useUIBuilder } from '../../v3/old-ui/builder/OldUIBuilderProvider';
 
 export interface MainEditTemplateData {
   element: any,
@@ -50,6 +49,8 @@ interface Props {
 }
 
 export default function MainEdit(props: Props) {
+  const {getEditFieldsForSchema} = useUIBuilder();
+  
   const { data: tData } = useTemplateLoader();
 
   let hiddenFields: any = []
@@ -57,7 +58,7 @@ export default function MainEdit(props: Props) {
   const location = useLocation<any>()
   const locationState = location.state
 
-  const [saveData, saveDataParams] = UIConfig.useUSave(
+  const [saveData, saveDataParams] = OpenApi.useUSave(
     props.schema,
     props.fieldsToReturnOnSave ? props.fieldsToReturnOnSave : ['id']
   )
@@ -72,7 +73,7 @@ export default function MainEdit(props: Props) {
       setHasChanges(true)
       _el[key] = val
 
-      _el = UIConfig.onEditElementUpdate(props.schema, key, val, _el, updateElement)
+      _el = OnUpdateElementService.onUpdate(props.schema, key, val, _el)
 
       setElement(_el)
     }
@@ -85,7 +86,7 @@ export default function MainEdit(props: Props) {
         _hasChanges = true
         _el[k] = updates[k]
 
-        _el = UIConfig.onEditElementUpdate(props.schema, k, updates[k], _el, updateElement)
+        _el = OnUpdateElementService.onUpdate(props.schema, k, updates[k], _el)
       }
     })
 
@@ -148,16 +149,16 @@ export default function MainEdit(props: Props) {
     })
   }
 
-  const editSettings = functions.fields.getEditFieldsForSchema(props.schema, props.type)
+  const editSettings = getEditFieldsForSchema(props.schema, props.type)
   const editFields: INaeEditSettings = editSettings
     ? editSettings
     : { fields: [], schema: '', type: '' }
-  let fieldsToReturn: string[] = functions.viewTransform.getElementFieldsToReturn(
+  let fieldsToReturn: string[] = getElementFieldsToReturn(
     editFields,
-    (key: string) => UIConfig.getDepenciesForField(props.schema, key)
+    (key: string) => getDepenciesForField(props.schema, key)
   )
 
-  const [schemaGetData, schemaGetDataParams] = UIConfig.useUList(
+  const [schemaGetData, schemaGetDataParams] = OpenApi.useUList(
     props.schema,
     fieldsToReturn
   )
@@ -203,7 +204,7 @@ export default function MainEdit(props: Props) {
   }
 
 
-  UIConfig.resetFieldsToDefValues(
+  resetFieldsToDefValues(
     props.schema,
     element,
     JSON.parse(JSON.stringify(hiddenFields)),

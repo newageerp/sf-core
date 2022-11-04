@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { FieldSelect } from '@newageerp/v3.form.field-select'
-import { getTabFromSchemaAndType } from '../utils'
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper'
+import { useUIBuilder } from './builder/OldUIBuilderProvider'
 
 interface Props {
   className?: string
@@ -21,6 +21,8 @@ interface Props {
 }
 
 export default function SelectFieldSchema(props: Props) {
+  const {getTabFromSchemaAndType} = useUIBuilder();
+
   const { tab } = props
 
   const [options, setOptions] = useState<any[]>([])

@@ -1,13 +1,8 @@
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper'
-import { UIConfig } from '@newageerp/nae-react-ui'
 import React, { Fragment } from 'react'
 import { useRecoilValue } from 'recoil'
-import { filterScopes, INaeWidget } from '../utils'
-
-// import { useUIBuilder } from '../../UIBuilder/UIBuilderProvider'
-// import { BuilderWidgetProvider } from './BuilderWidgetProvider'
-// import { IUIBuilderWidgetRecordItem } from '../../UIBuilderPages/UIBuilderWidgetsPage'
-// import { configWidgetToINaeWidget } from '../../configTransforms'
+import { filterScopes, INaeWidget, WidgetType } from '../utils'
+import { useUIBuilder } from './builder/OldUIBuilderProvider'
 
 export interface WidgetProps {
   type: WidgetType
@@ -27,34 +22,12 @@ export interface ContentWidgetProps {
   saveError?: any
 }
 
-export enum WidgetType {
-  viewMainTop = 'viewMainTop',
-
-  viewMainTop2LineBefore = 'viewMainTop2LineBefore',
-  viewMainTop2LineAfter = 'viewMainTop2LineAfter',
-
-  viewMainTop1LineBefore = 'viewMainTop1LineBefore',
-  viewMainTop1LineAfter = 'viewMainTop1LineAfter',
-
-  editRight = 'editRight',
-  viewBottom = 'mainBottom',
-  viewMiddle = 'mainMiddle',
-  viewRightTop = 'mainRightTop',
-  viewRight = 'mainRight',
-  viewExtraBottom = 'viewExtraBottom',
-  viewRightButtons = 'mainRightButtons',
-  viewAfterPdfButton = 'mainAfterPdfButton',
-  viewAfterConvertButton = 'mainAfterConvertButton',
-  viewAfterCreateButton = 'viewAfterCreateButton',
-  viewAfterEditButton = 'mainAfterEditButton',
-  skip = 'skip',
-  listAfterTable = 'listAfterTable',
-}
-
 export default function OldNeWidgets(props: WidgetProps) {
-    const userState: any = useRecoilValue<any>(OpenApi.naeUserState);
+  const defaults = useUIBuilder();
+
+  const userState: any = useRecoilValue<any>(OpenApi.naeUserState);
   const { type, schema, element } = props
-  const allWidgets: INaeWidget[] = UIConfig.widgets()
+  const allWidgets: INaeWidget[] = defaults.getTransformedWidgets();
 
   // console.log('ELDEBUG NEWidgets', {element});
 

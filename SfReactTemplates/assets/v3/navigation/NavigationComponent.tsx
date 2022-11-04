@@ -4,7 +4,7 @@ import { useHistory } from 'react-router';
 import { Popup } from '@newageerp/v3.popups.popup'
 import { MailsForm } from '@newageerp/ui.mails.mails-form';
 import { useNaeWindow } from '../old-ui/OldNaeWindowProvider';
-import { UI, UIConfig } from '@newageerp/nae-react-ui';
+import SocketService from '../SocketService';
 
 export default function NavigationComponent() {
     const history = useHistory();
@@ -136,15 +136,15 @@ export default function NavigationComponent() {
 }
 
 export const showTaskSentNotification = () => {
-    UIConfig.toast.success(UIConfig.texts.taskSentMessage);
+    OpenApi.toast.success("Užduotis išsiųsta apdorojimui. Po jos įvykdymo gausite pranešimą.");
 }
 
 export const showSuccessNotification = (text: string) => {
-    UIConfig.toast.success(text);
+    OpenApi.toast.success(text);
 }
 
 export const showErrorNotification = (text: string) => {
-    UIConfig.toast.error(text);
+    OpenApi.toast.error(text);
 }
 
-export const SFSSocketService = UI.Socket.Service;
+export const SFSSocketService = SocketService;

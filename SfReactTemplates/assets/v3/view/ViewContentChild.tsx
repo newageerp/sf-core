@@ -1,4 +1,3 @@
-import { UIConfig } from "@newageerp/nae-react-ui";
 import React, { Fragment, useState } from "react";
 // import { useTranslation } from 'react-i18next'
 import TemplateLoader, { Template } from "../templates/TemplateLoader";
@@ -17,6 +16,7 @@ import OldLoaderLogo from "../old-ui/OldLoaderLogo";
 import OldNeWidgets from "../old-ui/OldNeWidgets";
 import { useNaeRecord } from "../old-ui/OldNaeRecord";
 import { useNaePopup } from "../old-ui/OldPopupProvider";
+import { useUIBuilder } from "../old-ui/builder/OldUIBuilderProvider";
 
 interface Props {
   onBack?: () => void;
@@ -41,6 +41,8 @@ interface Props {
 }
 
 export default function ViewContentChild(props: Props) {
+  const defaults = useUIBuilder();
+
   const { t } = useTranslation();
   const userState = useRecoilValue(OpenApi.naeUserState);
 
@@ -68,43 +70,45 @@ export default function ViewContentChild(props: Props) {
 
   const onEdit = editable
     ? () => {
-        if (props.onEdit) {
-          props.onEdit();
+      if (props.onEdit) {
+        props.onEdit();
+      } else {
+        if (isEditInPopup) {
+          SFSOpenEditModalWindowProps({
+            id: props.id,
+            schema: props.schema,
+            type: props.type,
+            onSaveCallback: (_el: any, backFunc: any) => {
+              reloadData().then(() => {
+                setViewKey(viewKey + 1);
+                backFunc();
+              });
+            },
+          });
         } else {
-          if (isEditInPopup) {
-            SFSOpenEditModalWindowProps({
-              id: props.id,
-              schema: props.schema,
-              type: props.type,
-              onSaveCallback: (_el: any, backFunc: any) => {
-                reloadData().then(() => {
-                  setViewKey(viewKey + 1);
-                  backFunc();
-                });
-              },
-            });
-          } else {
-            SFSOpenEditWindowProps({
-              id: props.id,
-              schema: props.schema,
-              type: props.type,
-            })
-          }
+          SFSOpenEditWindowProps({
+            id: props.id,
+            schema: props.schema,
+            type: props.type,
+          })
         }
       }
+    }
     : undefined;
 
   const onRemove = removable
     ? () => {
-        doRemove(props.id).then(() => {
-          if (props.onBack) {
-            props.onBack();
-          }
-        });
-      }
+      doRemove(props.id).then(() => {
+        if (props.onBack) {
+          props.onBack();
+        }
+      });
+    }
     : undefined;
 
-  const middleWidgets = UIConfig.widgets().filter(
+  const widgets = defaults.getTransformedWidgets();
+
+  const middleWidgets = widgets.filter(
     (w: INaeWidget) =>
       w.type === WidgetType.viewMiddle &&
       (w.schema === props.schema || w.schema === "all")
@@ -120,7 +124,7 @@ export default function ViewContentChild(props: Props) {
         <ElementToolbar
           parentId={element.id}
           parentSchema={props.schema}
-          onBack={props.onBack ? props.onBack : () => {}}
+          onBack={props.onBack ? props.onBack : () => { }}
           element={element}
           onEdit={onEdit}
           onRemove={onRemove}
@@ -209,9 +213,9 @@ export default function ViewContentChild(props: Props) {
                       templates={props.formContent}
                       templateData={{
                         element: element,
-                        updateElement: () => {},
+                        updateElement: () => { },
                         fieldVisibility: fieldVisibility,
-                        pushHiddenFields: () => {},
+                        pushHiddenFields: () => { },
                       }}
                     />
                   ) : (
@@ -228,9 +232,9 @@ export default function ViewContentChild(props: Props) {
                   templates={bottomContent}
                   templateData={{
                     element: element,
-                    updateElement: () => {},
+                    updateElement: () => { },
                     fieldVisibility: fieldVisibility,
-                    pushHiddenFields: () => {},
+                    pushHiddenFields: () => { },
                   }}
                 />
               </div>
@@ -300,9 +304,9 @@ export default function ViewContentChild(props: Props) {
                       templates={rightContent}
                       templateData={{
                         element: element,
-                        updateElement: () => {},
+                        updateElement: () => { },
                         fieldVisibility: fieldVisibility,
-                        pushHiddenFields: () => {},
+                        pushHiddenFields: () => { },
                       }}
                     />
                   </div>
