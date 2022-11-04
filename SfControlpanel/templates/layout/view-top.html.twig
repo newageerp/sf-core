@@ -6,6 +6,7 @@ import { useRecoilValue } from 'recoil';
 import TasksWidget from '../../apps/tasks/TasksWidget';
 import TemplateLoader, { useTemplateLoader } from '../../v3/templates/TemplateLoader';
 import { WidgetType } from '../../v3/utils';
+import OldNeWidgets from '../../v3/old-ui/OldNeWidgets';
 
 interface Props {
     extraOptions: any,
@@ -43,14 +44,14 @@ export default function ViewTop(props: Props) {
             showBookmark={ {% if showBookmark %}true{% else %}false{% endif %} }
 
             contentBefore1Line={
-                <UI.Widget.Widget
+                <OldNeWidgets
                     type={WidgetType.viewMainTop1LineBefore}
                     schema={props.schema}
                     element={props.element}
                 />
             }
             contentBefore2Line={
-                <UI.Widget.Widget
+                <OldNeWidgets
                     type={WidgetType.viewMainTop2LineBefore}
                     schema={props.schema}
                     element={props.element}
@@ -58,14 +59,14 @@ export default function ViewTop(props: Props) {
             }
 
             contentAfter1Line={
-                <UI.Widget.Widget
+                <OldNeWidgets
                     type={WidgetType.viewMainTop1LineAfter}
                     schema={props.schema}
                     element={props.element}
                 />
             }
             contentAfter2Line={
-                <UI.Widget.Widget
+                <OldNeWidgets
                     type={WidgetType.viewMainTop2LineAfter}
                     schema={props.schema}
                     element={props.element}

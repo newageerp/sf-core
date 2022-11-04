@@ -1,5 +1,5 @@
-import { UI } from '@newageerp/nae-react-ui';
 import React, { Fragment } from 'react'
+import OldArrayFieldComponentRo from '../../old-ui/OldArrayFieldComponentRo';
 import { useTemplateLoader } from '../../templates/TemplateLoader';
 import { getTabFromSchemaAndType } from '../../utils';
 
@@ -21,7 +21,7 @@ export default function ArrayRoField(props: Props) {
   }
 
   return (
-    <UI.Form.ArrayRo
+    <OldArrayFieldComponentRo
         title={""}
         schema={props.tabSchema}
         value={value}

@@ -13,6 +13,7 @@ import { fieldVisibility, IFieldVisibility } from "../../../config/fields/fieldV
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper'
 import { AlertWidget, transformErrorAlert } from "@newageerp/v3.widgets.alert-widget";
 import { WidgetType } from '../../v3/utils'
+import OldNeWidgets from '../../v3/old-ui/OldNeWidgets'
 
 export interface MainEditTemplateData {
   element: any,
@@ -230,11 +231,11 @@ export default function MainEdit(props: Props) {
           )}
 
 
-          {!!saveDataParams.error && <AlertWidget>
+          {!!saveDataParams.error && <AlertWidget color='danger'>
             {transformErrorAlert(saveDataParams.error)}
           </AlertWidget>}
 
-          <UI.Widget.Widget
+          <OldNeWidgets
             type={WidgetType.editRight}
             element={element}
             schema={props.schema ? props.schema : '-'}

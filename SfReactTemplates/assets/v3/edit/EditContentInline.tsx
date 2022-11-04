@@ -1,4 +1,3 @@
-import { UIConfig } from "@newageerp/nae-react-ui";
 import React from "react";
 import TemplateLoader from "../templates/TemplateLoader";
 

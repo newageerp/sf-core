@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef, Fragment } from "react";
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
-import { UI } from "@newageerp/nae-react-ui";
 import {
   PageContainer,
 } from "@newageerp/ui.paging.base.page-container";
@@ -12,6 +11,7 @@ import TemplateLoader, { Template } from "../templates/TemplateLoader";
 import { FilterContainer } from '@newageerp/ui.components.list.filter-container';
 import { useTemplateLoader } from '../templates/TemplateLoader';
 import { getTabFieldsToReturn, getTabFromSchemaAndType } from "../utils";
+import { SFSSocketService } from "../navigation/NavigationComponent";
 interface Props {
   children: Template[];
   hidePaging?: boolean;
@@ -201,7 +201,7 @@ export default function ListDataSource(props: Props) {
 
   useEffect(() => {
     if (props.socketData) {
-      UI.Socket.Service.subscribeToList(
+      SFSSocketService.subscribeToList(
         {
           key: props.socketData.id,
           data: props.socketData.data,
@@ -212,7 +212,7 @@ export default function ListDataSource(props: Props) {
 
     return () => {
       if (props.socketData) {
-        UI.Socket.Service.unSubscribeFromList({ key: props.socketData.id });
+        SFSSocketService.unSubscribeFromList({ key: props.socketData.id });
       }
     };
   }, [props.socketData]);

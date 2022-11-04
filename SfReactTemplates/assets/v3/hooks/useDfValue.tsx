@@ -3,7 +3,6 @@ import {
   getHookForSchema,
   useEmptyHook,
 } from "../../../UserComponents/ModelsCacheData/ModelFields";
-import { functions } from "@newageerp/nae-react-ui";
 import StatusDfRoField from "../form/df-ro-fields/StatusDfRoField";
 import FileDfRoField from "../form/df-ro-fields/FileDfRoField";
 import FileMultipleDfRoField from "../form/df-ro-fields/FileMultipleDfRoField";
@@ -25,6 +24,7 @@ import EnumTextDfRoField from '../form/df-ro-fields/EnumTextDfRoField';
 import ArrayDfRoField from "../form/df-ro-fields/ArrayDfRoField";
 import StringDfRoField from '../form/df-ro-fields/StringDfRoField';
 import { RsButton as RsButtonTpl } from "@newageerp/v3.buttons.rs-button";
+import { getPropertyForPath } from "../utils";
 
 interface Props {
   id: number;
@@ -39,7 +39,7 @@ export function useDfValue(props: Props) {
   let hook3 = useEmptyHook;
 
   if (pathArray.length === 3) {
-    const prop = functions.properties.getPropertyForPath(props.path);
+    const prop = getPropertyForPath(props.path);
     if (prop) {
       hook2 = getHookForSchema(prop.schema);
       depth = 2;
@@ -47,8 +47,8 @@ export function useDfValue(props: Props) {
   }
 
   if (pathArray.length === 4) {
-    const prop = functions.properties.getPropertyForPath(props.path);
-    const prop2 = functions.properties.getPropertyForPath(`${pathArray[0]}.${pathArray[1]}.${pathArray[2]}`);
+    const prop = getPropertyForPath(props.path);
+    const prop2 = getPropertyForPath(`${pathArray[0]}.${pathArray[1]}.${pathArray[2]}`);
 
     if (prop && prop2) {
       hook2 = getHookForSchema(prop2.schema);
@@ -112,7 +112,7 @@ interface DfValueViewProps extends Props {
 export function DfValueView(props: DfValueViewProps) {
 
   let component = <Fragment />
-  const property = functions.properties.getPropertyForPath(props.path);
+  const property = getPropertyForPath(props.path);
   if (property?.naeType === 'status') {
     component = <StatusDfRoField id={props.id} schema={property.schema} fieldKey={props.path} />
   }

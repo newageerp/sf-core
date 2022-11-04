@@ -1,6 +1,6 @@
-import { UI } from '@newageerp/nae-react-ui';
 import React, { Fragment } from 'react'
 import { useTemplateLoader } from '../../templates/TemplateLoader';
+import OldFileField from '../../old-ui/OldFileField';
 
 interface Props {
   fieldKey: string;
@@ -18,7 +18,7 @@ export default function FileEditableField(props: Props) {
   const updateValue = (e: any) => updateElement(props.fieldKey, e);
 
   return (
-    <UI.Form.FileField
+    <OldFileField
       val={value}
       onChange={updateValue}
       // @ts-ignore

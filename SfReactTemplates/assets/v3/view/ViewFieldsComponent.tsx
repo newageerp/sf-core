@@ -2,6 +2,7 @@ import { functions } from '@newageerp/nae-react-ui'
 import { TransformViewValueOptions } from '@newageerp/nae-react-ui/dist/functions'
 import { INaeFormViewRow, INaeViewField, INaeViewSettings } from '@newageerp/nae-react-ui/dist/interfaces'
 import React, { Fragment } from 'react'
+import { getPropertyDataForSchema } from '../utils'
 
 
 interface Props {
@@ -30,7 +31,7 @@ export default function ViewFieldsComponent(props: Props) {
                         >
                             {fieldRow.map((f: INaeViewField, colIndex: number) => {
                                 const property = f.key
-                                    ? functions.properties.getPropertyDataForSchema(props.schema, f.key)
+                                    ? getPropertyDataForSchema(props.schema, f.key)
                                     : null
                                 return (
                                     <Fragment key={fRowKey + '-' + colIndex}>

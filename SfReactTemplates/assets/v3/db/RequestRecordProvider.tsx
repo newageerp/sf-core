@@ -1,5 +1,5 @@
-import { UI } from "@newageerp/nae-react-ui";
 import React from "react";
+import { NaeRecordProvider } from "../old-ui/OldNaeRecord";
 import { Template, TemplatesParser } from "../templates/TemplateLoader";
 
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
 
 export default function RequestRecordProvider(props: Props) {
   return (
-    <UI.Record.NaeRecordProvider
+    <NaeRecordProvider
       schema={props.schema}
       viewType={props.viewType}
       id={props.id}
@@ -26,6 +26,6 @@ export default function RequestRecordProvider(props: Props) {
       }
     >
       <TemplatesParser templates={props.children} />
-    </UI.Record.NaeRecordProvider>
+    </NaeRecordProvider>
   );
 }

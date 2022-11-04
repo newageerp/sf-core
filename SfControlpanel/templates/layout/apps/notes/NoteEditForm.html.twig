@@ -55,7 +55,7 @@ export default function NoteEditForm(props: Props) {
     <div className={"space-y-2"}>
       {!!saveDataParams.error && (
         <div>
-          <AlertWidget>
+          <AlertWidget color='danger'>
             {transformErrorAlert(saveDataParams.error)}
           </AlertWidget>
         </div>

@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react'
 import { MenuItem, MenuItemProps } from '@newageerp/v3.modal.menu-item'
-import { UI } from '@newageerp/nae-react-ui';
 import { useRecoilValue } from 'recoil';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 import { filterScopes } from '../utils';
 import { useTemplateLoader } from '../templates/TemplateLoader';
+import { useNaePopup } from '../old-ui/OldPopupProvider';
 
 declare type Props = {
     elementId: number,
@@ -20,7 +20,7 @@ export default function MenuItemWithCreate(props: Props) {
 
     const userState = useRecoilValue(OpenApi.naeUserState);
 
-    const { isPopup } = UI.Popup.useNaePopup();
+    const { isPopup } = useNaePopup();
     const openInPopup = isPopup || props.forcePopup;
 
     const isShow = filterScopes(

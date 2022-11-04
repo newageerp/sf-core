@@ -1,5 +1,5 @@
-import { UI } from '@newageerp/nae-react-ui';
 import React, { Fragment } from 'react'
+import OldFileFieldMultipleRo from '../../old-ui/OldFileFieldMultipleRo';
 import { useTemplateLoader } from '../../templates/TemplateLoader';
 
 interface Props {
@@ -20,6 +20,6 @@ export default function FileMultipleRoField(props: Props) {
   }
 
   return (
-    <UI.Form.FileFieldMultipleRo files={file} />
+    <OldFileFieldMultipleRo files={file} />
   )
 }

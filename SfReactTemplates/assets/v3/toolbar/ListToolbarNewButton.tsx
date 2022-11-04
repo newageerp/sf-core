@@ -1,7 +1,7 @@
 import React from 'react'
 import { MainButton } from '@newageerp/v3.buttons.main-button';
 import { useTranslation } from 'react-i18next';
-import { UI } from '@newageerp/nae-react-ui';
+import { useNaePopup } from '../old-ui/OldPopupProvider';
 
 interface Props {
     schema: string,
@@ -12,7 +12,7 @@ interface Props {
 
 export default function ListToolbarNewButton(props: Props) {
     const { t } = useTranslation();
-    const { isPopup } = UI.Popup.useNaePopup();
+    const { isPopup } = useNaePopup();
     const openInPopup = isPopup || props.forcePopup;
 
     const onClick = () => {

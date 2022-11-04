@@ -1,5 +1,5 @@
-import { UI } from '@newageerp/nae-react-ui';
 import React, { Fragment } from 'react'
+import OldDateTimeField from '../../old-ui/OldDateTimeField';
 import { useTemplateLoader } from '../../templates/TemplateLoader';
 
 interface Props {
@@ -18,7 +18,7 @@ export default function DateTimeEditableField(props: Props) {
   const updateValue = (e: any) => updateElement(props.fieldKey, e);
 
   return (
-    <UI.Form.DateTime
+    <OldDateTimeField
       value={value}
       onChange={updateValue}
     />

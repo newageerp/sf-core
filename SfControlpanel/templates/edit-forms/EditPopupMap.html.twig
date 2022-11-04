@@ -11,7 +11,7 @@ import { UI } from "@newageerp/nae-react-ui";
 interface PopupProps {
   onClose: () => void;
   editProps: MvcEditModalContentProps;
-  setViewProps: (v: MvcViewModalContentProps) => void;
+  setViewProps?: (v: MvcViewModalContentProps) => void;
 }
 
 export const editPopupBySchemaAndType = (

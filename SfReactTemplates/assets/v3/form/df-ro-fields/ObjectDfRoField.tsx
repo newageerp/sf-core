@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { useDfValue } from '../../hooks/useDfValue';
 import { String } from '@newageerp/data.table.string';
 import { RsButton } from '@newageerp/v3.buttons.rs-button';
-import { functions } from '@newageerp/nae-react-ui';
+import { getPropertyForPath } from '../../utils';
 
 interface Props {
   id: number,
@@ -20,7 +20,7 @@ export default function ObjectDfRoField(props: Props) {
   }
   let relSchema = props.relSchema;
   if (!relSchema) {
-    const prop = functions.properties.getPropertyForPath(props.fieldKey);
+    const prop = getPropertyForPath(props.fieldKey);
     relSchema = prop?.schema;
   }
 

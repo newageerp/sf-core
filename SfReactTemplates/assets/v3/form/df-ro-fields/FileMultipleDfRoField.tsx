@@ -1,6 +1,6 @@
-import { UI } from '@newageerp/nae-react-ui';
 import React, { Fragment } from 'react'
 import { useDfValue } from '../../hooks/useDfValue';
+import OldFileFieldMultipleRo from '../../old-ui/OldFileFieldMultipleRo';
 
 interface Props {
   fieldKey: string;
@@ -15,6 +15,6 @@ export default function FileMultipleDfRoField(props: Props) {
   }
 
   return (
-    <UI.Form.FileFieldMultipleRo files={value} />
+    <OldFileFieldMultipleRo files={value} />
   )
 }

@@ -1,4 +1,4 @@
-import { UI, UIConfig } from "@newageerp/nae-react-ui";
+import { UIConfig } from "@newageerp/nae-react-ui";
 import React, { Fragment, useState } from "react";
 // import { useTranslation } from 'react-i18next'
 import TemplateLoader, { Template } from "../templates/TemplateLoader";
@@ -12,6 +12,11 @@ import { ToolbarButtonWithMenu } from "@newageerp/v3.buttons.toolbar-button-with
 import { WhiteCard } from "@newageerp/v3.widgets.white-card";
 import { SFSOpenEditModalWindowProps, SFSOpenEditWindowProps } from "@newageerp/v3.popups.mvc-popup";
 import { INaeWidget, WidgetType } from "../utils";
+import OldAlert, { AlertBgColor } from "../old-ui/OldAlert";
+import OldLoaderLogo from "../old-ui/OldLoaderLogo";
+import OldNeWidgets from "../old-ui/OldNeWidgets";
+import { useNaeRecord } from "../old-ui/OldNaeRecord";
+import { useNaePopup } from "../old-ui/OldPopupProvider";
 
 interface Props {
   onBack?: () => void;
@@ -39,7 +44,7 @@ export default function ViewContentChild(props: Props) {
   const { t } = useTranslation();
   const userState = useRecoilValue(OpenApi.naeUserState);
 
-  const { element, reloadData, reloading } = UI.Record.useNaeRecord();
+  const { element, reloadData, reloading } = useNaeRecord();
 
   const {
     rightContent,
@@ -50,7 +55,7 @@ export default function ViewContentChild(props: Props) {
     elementToolbarMoreMenuContent,
   } = props;
 
-  const { isPopup } = UI.Popup.useNaePopup();
+  const { isPopup } = useNaePopup();
   const [viewKey, setViewKey] = useState(0);
 
   const isEditInPopup = props.forceEditInPopup
@@ -130,7 +135,7 @@ export default function ViewContentChild(props: Props) {
           showRemind={true}
           showBookmark={true}
           contentBefore1Line={
-            <UI.Widget.Widget
+            <OldNeWidgets
               type={WidgetType.viewMainTop1LineBefore}
               schema={props.schema}
               element={element}
@@ -159,7 +164,7 @@ export default function ViewContentChild(props: Props) {
                 templateData={{ element: element }}
               />
 
-              <UI.Widget.Widget
+              <OldNeWidgets
                 type={WidgetType.viewMainTop2LineBefore}
                 schema={props.schema}
                 element={element}
@@ -167,14 +172,14 @@ export default function ViewContentChild(props: Props) {
             </Fragment>
           }
           contentAfter1Line={
-            <UI.Widget.Widget
+            <OldNeWidgets
               type={WidgetType.viewMainTop1LineAfter}
               schema={props.schema}
               element={element}
             />
           }
           contentAfter2Line={
-            <UI.Widget.Widget
+            <OldNeWidgets
               type={WidgetType.viewMainTop2LineAfter}
               schema={props.schema}
               element={element}
@@ -213,7 +218,7 @@ export default function ViewContentChild(props: Props) {
                     <Fragment />
                   )}
                 </WhiteCard>
-                <UI.Widget.Widget
+                <OldNeWidgets
                   type={WidgetType.viewBottom}
                   schema={props.schema}
                   element={element}
@@ -231,7 +236,7 @@ export default function ViewContentChild(props: Props) {
               </div>
               {middleWidgets.length > 0 && (
                 <div style={{ width: 700, minWidth: 700, maxWidth: 700 }}>
-                  <UI.Widget.Widget
+                  <OldNeWidgets
                     type={WidgetType.viewMiddle}
                     schema={props.schema}
                     element={element}
@@ -240,13 +245,13 @@ export default function ViewContentChild(props: Props) {
               )}
               <div className={"tw3-w-[420px] tw3-min-w-[420px] tw3-max-w-[420px]"}>
                 <div className={"grid grid-cols-1 gap-1"}>
-                  <UI.Widget.Widget
+                  <OldNeWidgets
                     type={WidgetType.viewRightTop}
                     schema={props.schema}
                     element={element}
                   />
 
-                  <UI.Widget.Widget
+                  <OldNeWidgets
                     type={WidgetType.viewRightButtons}
                     schema={props.schema}
                     element={element}
@@ -260,31 +265,31 @@ export default function ViewContentChild(props: Props) {
                       }
                     )} */}
 
-                  <UI.Widget.Widget
+                  <OldNeWidgets
                     type={WidgetType.viewAfterPdfButton}
                     schema={props.schema}
                     element={element}
                   />
 
-                  <UI.Widget.Widget
+                  <OldNeWidgets
                     type={WidgetType.viewAfterConvertButton}
                     schema={props.schema}
                     element={element}
                   />
 
-                  <UI.Widget.Widget
+                  <OldNeWidgets
                     type={WidgetType.viewAfterCreateButton}
                     schema={props.schema}
                     element={element}
                   />
 
-                  <UI.Widget.Widget
+                  <OldNeWidgets
                     type={WidgetType.viewAfterEditButton}
                     schema={props.schema}
                     element={element}
                   />
 
-                  <UI.Widget.Widget
+                  <OldNeWidgets
                     type={WidgetType.viewRight}
                     schema={props.schema}
                     element={element}
@@ -304,18 +309,18 @@ export default function ViewContentChild(props: Props) {
                 </div>
               </div>
             </div>
-            <UI.Widget.Widget
+            <OldNeWidgets
               type={WidgetType.viewExtraBottom}
               schema={props.schema}
               element={element}
             />
           </Fragment>
         ) : reloading ? (
-          <UI.Loader.Logo />
+          <OldLoaderLogo />
         ) : (
-          <UI.Alerts.Alert bgColor={UI.Alerts.AlertBgColor.red}>
+          <OldAlert bgColor={AlertBgColor.red}>
             {t("Neturite teisių matyti šį įrašą")}
-          </UI.Alerts.Alert>
+          </OldAlert>
         )}
       </div>
     </Fragment>

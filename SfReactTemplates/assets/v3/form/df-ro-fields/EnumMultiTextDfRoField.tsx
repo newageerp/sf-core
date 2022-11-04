@@ -1,6 +1,6 @@
-import { functions } from '@newageerp/nae-react-ui';
 import React from 'react'
 import { useDfValue } from '../../hooks/useDfValue';
+import { getPropertyForPath } from '../../utils';
 
 interface Props {
   fieldKey: string;
@@ -10,7 +10,7 @@ interface Props {
 
 export default function EnumMultiTextDfRoField(props: Props) {
   const value = useDfValue({ id: props.id, path: props.fieldKey });
-  const prop = functions.properties.getPropertyForPath(props.fieldKey);
+  const prop = getPropertyForPath(props.fieldKey);
   const options = props.options?props.options:prop?.enum;
   
   return (

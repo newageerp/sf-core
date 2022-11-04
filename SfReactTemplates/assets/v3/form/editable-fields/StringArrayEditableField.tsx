@@ -1,4 +1,3 @@
-import { UI } from '@newageerp/nae-react-ui';
 import React, { Fragment, useEffect, useState } from 'react'
 import { useTemplateLoader } from '../../templates/TemplateLoader';
 import { useTranslation } from 'react-i18next';

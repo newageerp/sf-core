@@ -1,13 +1,14 @@
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
-import { UI, UIConfig } from '@newageerp/nae-react-ui';
 import React, { Fragment, useEffect, useState } from 'react'
 import { useHistory } from 'react-router';
 import { Popup } from '@newageerp/v3.popups.popup'
 import { MailsForm } from '@newageerp/ui.mails.mails-form';
+import { useNaeWindow } from '../old-ui/OldNaeWindowProvider';
+import { UI, UIConfig } from '@newageerp/nae-react-ui';
 
 export default function NavigationComponent() {
     const history = useHistory();
-    const { showViewPopup, showEditPopup } = UI.Window.useNaeWindow()
+    const { showViewPopup, showEditPopup } = useNaeWindow()
     const [emailOptions, setEmailOptions] = useState<any>(undefined);
 
     useEffect(() => {
@@ -145,3 +146,5 @@ export const showSuccessNotification = (text: string) => {
 export const showErrorNotification = (text: string) => {
     UIConfig.toast.error(text);
 }
+
+export const SFSSocketService = UI.Socket.Service;

@@ -1,5 +1,5 @@
-import { UI } from '@newageerp/nae-react-ui';
 import React, { Fragment } from 'react'
+import OldArrayFieldComponent from '../../old-ui/OldArrayFieldComponent';
 import { useTemplateLoader } from '../../templates/TemplateLoader';
 import { getTabFromSchemaAndType } from '../../utils';
 
@@ -26,7 +26,7 @@ export default function ArrayEditableField(props: Props) {
   }
 
   return (
-    <UI.Form.Array
+    <OldArrayFieldComponent
       schema={props.tabSchema}
       title=""
       value={value}

@@ -1,5 +1,5 @@
-import { UI } from "@newageerp/nae-react-ui";
 import React, { Fragment } from "react";
+import OldSelectFieldMulti from "../../old-ui/OldSelectFieldMulti";
 import { useTemplateLoader } from "../../templates/TemplateLoader";
 
 interface Props {
@@ -19,7 +19,7 @@ export default function EnumMultiTextEditableField(props: Props) {
   const updateValue = (e: any) => updateElement(props.fieldKey, e);
 
   return (
-    <UI.Form.SelectMulti
+    <OldSelectFieldMulti
       value={value}
       onChange={updateValue}
       options={props.options}

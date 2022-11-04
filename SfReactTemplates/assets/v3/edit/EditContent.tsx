@@ -1,8 +1,8 @@
-import { UI } from "@newageerp/nae-react-ui";
 import React, { Fragment } from "react";
 import { useHistory } from "react-router-dom";
 import MainEdit from "../../v2/edit-forms/MainEdit";
 import { showSuccessNotification } from "../navigation/NavigationComponent";
+import { useNaePopup } from "../old-ui/OldPopupProvider";
 import { useTemplateLoader } from "../templates/TemplateLoader";
 
 interface Props {
@@ -20,7 +20,7 @@ interface Props {
 
 export default function EditContent(props: Props) {
   const history = useHistory();
-  const { isPopup } = UI.Popup.useNaePopup();
+  const { isPopup } = useNaePopup();
   const { data: tdata } = useTemplateLoader();
 
   return (

@@ -2,7 +2,6 @@ import React, { Fragment, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TaskContainer } from '@newageerp/sfs.apps.tasks.task-container'
 import { TwBackgroundColors } from '@newageerp/ui.styles.tailwind'
-import { UI } from '@newageerp/nae-react-ui'
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper'
 import { SFSOpenEditModalWindowProps, SFSOpenViewModalWindowProps } from '@newageerp/v3.popups.mvc-popup'
 import { ContentWidgetProps, getKeysFromObject } from '../../v3/utils'
@@ -52,8 +51,6 @@ const moduleName = 'task'
 export default function TasksWidget(props: ContentWidgetProps) {
   const { t } = useTranslation()
   const userState = props.userState
-
-  const { closeEditPopup } = UI.Window.useNaeWindow()
 
   const [getData, getDataParams] = OpenApi.useUList<IData>(
     moduleName,
@@ -105,9 +102,9 @@ export default function TasksWidget(props: ContentWidgetProps) {
     SFSOpenEditModalWindowProps({
       id: 'new',
       schema: moduleName,
-      onSaveCallback: () => {
+      onSaveCallback: (_el, back) => {
         loadData()
-        closeEditPopup()
+        back()
       },
       options: {
         createOptions: {

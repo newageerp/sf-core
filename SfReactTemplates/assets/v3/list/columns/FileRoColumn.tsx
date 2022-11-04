@@ -1,5 +1,5 @@
-import { UI } from '@newageerp/nae-react-ui';
 import React, { Fragment } from 'react'
+import OldFileFieldRo from '../../old-ui/OldFileFieldRo';
 import { useTemplateLoader } from '../../templates/TemplateLoader';
 
 interface Props {
@@ -21,6 +21,6 @@ export default function FileRoColumn(props: Props) {
   }
 
   return (
-    <UI.Form.FileFieldRo file={value} />
+    <OldFileFieldRo file={value} />
   )
 }

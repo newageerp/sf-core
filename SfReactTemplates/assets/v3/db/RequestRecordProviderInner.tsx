@@ -1,5 +1,5 @@
-import { UI } from "@newageerp/nae-react-ui";
 import React from "react";
+import { useNaeRecord } from "../old-ui/OldNaeRecord";
 import TemplateLoader, { Template } from "../templates/TemplateLoader";
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default function RequestRecordProviderInner(props: Props) {
-  const { element } = UI.Record.useNaeRecord();
+  const { element } = useNaeRecord();
 
   return (
     <TemplateLoader

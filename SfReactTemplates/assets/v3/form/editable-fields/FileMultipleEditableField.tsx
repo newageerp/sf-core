@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
-import { UI } from '@newageerp/nae-react-ui';
 import { useTemplateLoader } from '../../templates/TemplateLoader';
+import OldFileFieldMultiple from '../../old-ui/OldFileFieldMultiple';
 
 interface Props {
   fieldKey: string;
@@ -18,7 +18,7 @@ export default function FileMultipleEditableField(props: Props) {
   const updateValue = (e: any) => updateElement(props.fieldKey, e);
 
   return (
-    <UI.Form.FileFieldMultiple
+    <OldFileFieldMultiple
       val={value}
       onChange={updateValue}
       // @ts-ignore

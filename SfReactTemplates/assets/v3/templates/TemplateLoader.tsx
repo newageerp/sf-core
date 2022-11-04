@@ -3,7 +3,6 @@ import axios from "axios";
 import ViewContent from "../view/ViewContent";
 import PopupWindow from "../popup/PopupWindow";
 import ToolbarTitle from "../maintoolbar/ToolbarTitle";
-import { UI } from "@newageerp/nae-react-ui";
 import ListContent from "../list/ListContent";
 import TableTr from "../table/TableTr";
 import DataString from "../data/DataString";

@@ -1,7 +1,7 @@
-import { UI } from '@newageerp/nae-react-ui';
 import { FieldTextarea } from '@newageerp/v3.form.field-textarea';
 import React, { Fragment, useEffect, useState } from 'react'
 import { useTemplateLoader } from '../../templates/TemplateLoader';
+import { RichEditor } from '@newageerp/ui.form.base.form-pack';
 
 interface Props {
   fieldKey: string;
@@ -40,7 +40,7 @@ export default function LargeTextEditableField(props: Props) {
 
   if (props.as === 'rich_editor') {
     return (
-      <UI.Form.RichEditor
+      <RichEditor
         value={value}
         setValue={updateValueRich}
         className={'w-full block'}
