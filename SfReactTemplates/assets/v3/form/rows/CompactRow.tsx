@@ -14,7 +14,8 @@ interface Props {
   fieldVisibilityData?: {
     fieldKey: string;
     fieldSchema: string;
-  }
+  },
+  skipCheckFieldVisibility?: boolean,
 }
 
 export default function CompactRow(props: Props) {
@@ -31,6 +32,7 @@ export default function CompactRow(props: Props) {
     const fData = props.fieldVisibilityData;
 
     const fVisibility =
+      !props.skipCheckFieldVisibility &&
       !!fieldVisibility && 
       !!fieldVisibility[fData.fieldSchema] &&
         !!fieldVisibility[fData.fieldSchema][fData.fieldKey]

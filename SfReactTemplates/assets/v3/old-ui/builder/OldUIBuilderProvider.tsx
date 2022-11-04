@@ -70,7 +70,7 @@ export const UIBuilderProvider = (props: UIBuilderProviderProps) => {
         _schema: string,
         type: string = 'main'
     ) => {
-        const editFields = editData.map((e) => configEditToINaeEditSettings(e))
+        const editFields = editData.map((e) => configEditToINaeEditSettings(e, getTabFromSchemaAndType))
 
         const editFieldsFilter = editFields.filter(
             (edit: INaeEditSettings) => edit.schema === _schema && edit.type === type
@@ -283,7 +283,8 @@ export interface MainListEditField {
 }
 
 const configEditToINaeEditSettings = (
-    c: IUIBuilderEditItem
+    c: IUIBuilderEditItem,
+    getTabFromSchemaAndType: (schema: string, type?: string) => any
 ): INaeEditSettings => {
     const configFieldToINae = (f: MainListEditField) => {
         const pathA = f.path.split('.').slice(1)

@@ -18,6 +18,7 @@ import OldTabSelectField from './OldTabSelectField'
 import OldTabFloatField from './OldTabFloatField'
 import OldTabTextareaField from './OldTabTextareaField'
 import OldTabStringField from './OldTabStringField'
+import {MainButton} from '@newageerp/v3.buttons.main-button'
 
 interface Props {
   schema: string
@@ -142,7 +143,10 @@ export default function OldArrayFieldComponent(props: Props) {
     <Fragment>
       <div>
         <div className={'space-y-4'}>
-          <button onClick={toggleCreateNew}>New</button>
+          <MainButton iconName='plus' onClick={toggleCreateNew}>
+            {t('Add')}
+          </MainButton>
+          {/* <button onClick={toggleCreateNew}>New</button> */}
           <OldTable
 
             containerClassName={'w-full'}

@@ -155,6 +155,9 @@ class EditContentService
                     $level1Path = $pathArray[0] . '.' . $pathArray[1];
 
                     $wideRow = $isCompact ? new CompactRow() : new WideRow();
+                    if (isset($editForm['skipCheckFieldVisibility'])) {
+                        $wideRow->setSkipCheckFieldVisibility($editForm['skipCheckFieldVisibility']);
+                    }
                     $wideRow->setLabelClassName(isset($field['labelClassName']) ? $field['labelClassName'] : '');
                     $wideRow->setControlClassName(isset($field['inputClassName']) ? $field['inputClassName'] : '');
                     if (!$hideLabel) {
