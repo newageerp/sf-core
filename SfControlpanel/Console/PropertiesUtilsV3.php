@@ -471,4 +471,10 @@ class PropertiesUtilsV3
         }
         return $className;
     }
+
+    public function getPropertyTitleForPath(string $path): string
+    {
+        $property = $this->getPropertyForPath($path);
+        return $property ? $property['title'] : '';
+    }
 }
