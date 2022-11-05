@@ -19,7 +19,7 @@ class WhiteCardWithViewFormWidget extends Template
 
     public function getProps(): array
     {
-        $props = parent::getProps();
+        $props = [];
         $props['viewId'] = $this->getViewId();
         $props['title'] = $this->getTitle();
         $props['editId']  = $this->getEditId();
