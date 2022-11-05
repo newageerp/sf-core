@@ -22,6 +22,7 @@ import FilesWidgetUIBuilder from './OldFilesWidgetUIBuilder'
 import UIBShowHideScopes from './OldUIBShowHideScopes'
 import UIBViewButtonToElement from './OldUIBViewButtonToElement'
 import UIBPropertyView from './OldUIBPropertyView'
+import OldWhiteCard from '../OldWhiteCard'
 
 
 export interface BuilderWidgetProviderValue {
@@ -145,7 +146,7 @@ export const getBuilderComponents = () => {
     },
 
     CARDWHITE: {
-      component: WhiteCard,
+      component: OldWhiteCard,
       group: 'Card',
       title: 'White',
       settingsComponent: Fragment

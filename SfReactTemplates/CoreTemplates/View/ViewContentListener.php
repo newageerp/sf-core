@@ -15,6 +15,10 @@ use Newageerp\SfUservice\Service\UService;
 
 class ViewContentListener implements EventSubscriberInterface
 {
+    public const MAINVIEWWIDGETRIGHT = 'PageMainViewRightContent';
+    public const MAINVIEWWIDGETBOTTOM = 'PageMainViewBottomContent';
+    public const MAINVIEWWIDGETMIDDLE = 'PageMainViewMiddleContent';
+
     protected UService $uservice;
 
     protected EntitiesUtilsV3 $entitiesUtilsV3;
@@ -56,11 +60,20 @@ class ViewContentListener implements EventSubscriberInterface
             $isPopup = isset($event->getData()['isPopup']) && $event->getData()['isPopup'];
             $isCompact = isset($event->getData()['isCompact']) && $event->getData()['isCompact'];
 
-            $rightContentEvent = new LoadTemplateEvent($viewContent->getRightContent(), 'PageMainViewRightContent', $event->getData());
-            $this->eventDispatcher->dispatch($rightContentEvent, LoadTemplateEvent::NAME);
+            $widgetTemplateEvents = [
+                self::MAINVIEWWIDGETRIGHT => $viewContent->getRightContent(),
+                self::MAINVIEWWIDGETBOTTOM => $viewContent->getBottomContent(),
+                self::MAINVIEWWIDGETMIDDLE => $viewContent->getMiddleContent()
+            ];
 
-            $bottomContentEvent = new LoadTemplateEvent($viewContent->getBottomContent(), 'PageMainViewBottomContent', $event->getData());
-            $this->eventDispatcher->dispatch($bottomContentEvent, LoadTemplateEvent::NAME);
+            foreach ($widgetTemplateEvents as $wdgTemplate => $content) {
+                $wEvent = new LoadTemplateEvent(
+                    $content,
+                    $wdgTemplate,
+                    $event->getData()
+                );
+                $this->eventDispatcher->dispatch($wEvent, LoadTemplateEvent::NAME);
+            }
 
             $afterTitleBlockContentEvent = new LoadTemplateEvent($viewContent->getAfterTitleBlockContent(), 'PageMainViewAfterTitleBlockContent', $event->getData());
             $this->eventDispatcher->dispatch($afterTitleBlockContentEvent, LoadTemplateEvent::NAME);

@@ -1,4 +1,5 @@
 import React from 'react'
+import TemplateLoader from '../../templates/TemplateLoader';
 import { NaeRecordProvider } from '../OldNaeRecord';
 import { useBuilderWidget } from './OldBuilderWidgetProvider';
 
@@ -21,7 +22,16 @@ export default function ViewCompactBuilderWidget(props: Props) {
             viewId={"ViewCompactBuilderWidget-" + element.id + "-" + props.schema}
             showOnEmpty={true}
         >
-            TODO
+            <TemplateLoader
+                templateName='InlineViewContent'
+                data={{
+                    schema: props.schema,
+                    type: props.viewType,
+                    id: element.id,
+                    isCompact: props.compactView,
+                }}
+            />
+
             {/* <ViewCompact
                 schema={props.schema}
                 type={props.viewType}

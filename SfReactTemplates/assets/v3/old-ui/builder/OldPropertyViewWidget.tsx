@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import { getHookForSchema } from '../../../../UserComponents/ModelsCacheData/ModelFields';
+import { DfValueView } from '../../hooks/useDfValue';
 import { getPropertyForPath } from '../../utils';
 
 
@@ -14,6 +15,7 @@ interface PropertyViewProps {
     property: any,
     label?: PropertyLabelProps,
     contentClassName?: string,
+    propertyPath: string,
 }
 
 export default function PropertyViewWidget(props: PropertyViewProps) {
@@ -46,11 +48,7 @@ export default function PropertyViewWidget(props: PropertyViewProps) {
                     }
                     style={contentStyle}
                 >
-                    TODO
-                    {/* <ViewContentValue
-                        property={property}
-                        element={rsElement}
-                    /> */}
+                    <DfValueView path={props.propertyPath} id={props.id} />
                 </span>
             </div>
         )
@@ -58,11 +56,7 @@ export default function PropertyViewWidget(props: PropertyViewProps) {
 
     return (
         <div className={contentClassName.join(' ')}>
-            TODO
-            {/* <ViewContentValue
-                property={property}
-                element={rsElement}
-            /> */}
+            <DfValueView path={props.propertyPath} id={props.id} />
         </div>
     )
 }

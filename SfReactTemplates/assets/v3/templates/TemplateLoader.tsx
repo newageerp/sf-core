@@ -140,6 +140,8 @@ import ListToolbarQuickFilters from "../toolbar/ListToolbarQuickFilters";
 import LargeTextEditableColumn from "../list/editable-columns/LargeTextRoColumn";
 import FormFieldTagCloudTemplate from "../form/FormFieldTagCloudTemplate";
 
+import {WhiteCardWithViewFormWidget} from "../widgets/WhiteCardWithViewFormWidget";
+
 export interface Template {
   comp: string;
   action: any;
@@ -274,6 +276,8 @@ const componentsMap: any = {
   "layout.flexrow": FlexRow,
 
   "widgets.numberwidget": NumberCardWidget,
+  "widgets.WhiteCardWithViewFormWidget": WhiteCardWithViewFormWidget,
+
   "widgets.dfnumberwidget": NumberCardDfWidget,
 
   "toolbar.action-button": ToolbarActionButton,

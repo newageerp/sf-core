@@ -4,6 +4,7 @@ import React from 'react'
 import PopoverConfirm from '../OldPopoverConfirm'
 import { ButtonBgColor, ButtonSize, getTextColorForBg } from '../OldButton'
 import {showSuccessNotification} from "../../navigation/NavigationComponent"
+import OldFontAwesomeIcon from '../OldFontAwesomeIcon'
 
 export interface ButtonUIBuilderProps
   extends React.DetailedHTMLProps<
@@ -130,7 +131,7 @@ export default function ButtonUIBuilder(props: ButtonUIBuilderProps) {
           className={className.join(' ')}
           ref={props.forwardRef}
         >
-          {/* {!!iconProps && <FontAwesomeIcon {...iconProps} />} */}
+          {!!iconProps && <OldFontAwesomeIcon {...iconProps} />}
           {props.children}
         </button>
       </PopoverConfirm>
@@ -144,7 +145,7 @@ export default function ButtonUIBuilder(props: ButtonUIBuilderProps) {
       ref={props.forwardRef}
       onClick={onClick}
     >
-      {/* {!!iconProps && <FontAwesomeIcon {...iconProps} />} */}
+      {!!iconProps && <OldFontAwesomeIcon {...iconProps} />}
       {props.children}
     </button>
   )

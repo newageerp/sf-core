@@ -18,6 +18,7 @@ class ViewContent extends Template
 
     protected Placeholder $rightContent;
     protected Placeholder $bottomContent;
+    protected Placeholder $middleContent;
 
     protected Placeholder $afterTitleBlockContent;
     protected Placeholder $elementToolbarAfterFieldsContent;
@@ -36,6 +37,7 @@ class ViewContent extends Template
 
         $this->rightContent = new Placeholder();
         $this->bottomContent = new Placeholder();
+        $this->middleContent = new Placeholder();
 
         $this->afterTitleBlockContent = new Placeholder();
         $this->elementToolbarAfterFieldsContent = new Placeholder();
@@ -54,6 +56,7 @@ class ViewContent extends Template
 
             'rightContent' => $this->getRightContent()->toArray(),
             'bottomContent' => $this->getBottomContent()->toArray(),
+            'middleContent' => $this->getMiddleContent()->toArray(),
 
             'afterTitleBlockContent' => $this->getAfterTitleBlockContent()->toArray(),
             'elementToolbarAfterFieldsContent' => $this->getElementToolbarAfterFieldsContent()->toArray(),
@@ -309,6 +312,30 @@ class ViewContent extends Template
     public function setBottomContent(Placeholder $bottomContent): self
     {
         $this->bottomContent = $bottomContent;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of middleContent
+     *
+     * @return Placeholder
+     */
+    public function getMiddleContent(): Placeholder
+    {
+        return $this->middleContent;
+    }
+
+    /**
+     * Set the value of middleContent
+     *
+     * @param Placeholder $middleContent
+     *
+     * @return self
+     */
+    public function setMiddleContent(Placeholder $middleContent): self
+    {
+        $this->middleContent = $middleContent;
 
         return $this;
     }

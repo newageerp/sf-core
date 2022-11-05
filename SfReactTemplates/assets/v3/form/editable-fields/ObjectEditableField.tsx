@@ -6,6 +6,7 @@ import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 import { SFSOpenEditModalWindowProps } from '@newageerp/v3.popups.mvc-popup';
 import SelectFieldSchema from '../../old-ui/SelectFromSchema';
 import { useUIBuilder } from '../../old-ui/builder/OldUIBuilderProvider';
+import classNames from 'classnames';
 
 
 interface Props {
@@ -24,7 +25,7 @@ interface Props {
 }
 
 export default function ObjectEditableField(props: Props) {
-  const {getTabFromSchemaAndType} = useUIBuilder();
+  const { getTabFromSchemaAndType } = useUIBuilder();
 
   const { t } = useTranslation();
   const [isPopup, setIsPopup] = useState(false);
@@ -136,13 +137,20 @@ export default function ObjectEditableField(props: Props) {
 
       <div className={"tw3-w-full tw3-max-w-[500px] tw3-border tw3-border-slate-300 tw3-rounded tw3-flex tw3-items-center tw3-gap-2 tw3-bg-white"}>
 
-        <ToolbarButton
-          iconName='search'
+        <button
           onClick={() => setIsPopup(true)}
-          children={isValue ? value[props.relKey] : t('Seach')}
-          className={'tw3-w-full'}
-          bgColor={'tw3-bg-white'}
-        />
+          className={classNames(
+            'tw3-px-[10px] tw3-py-[9px] tw3-flex  tw3-items-center tw3-duration-150  tw3-rounded-md ',
+            'hover:tw3-bg-sky-100 hover:tw3-text-sky-600',
+            {'tw3-text-slate-800': isValue, 'tw3-text-slate-500': !isValue},
+            'tw3-bg-white',
+            'tw3-w-full',
+          )}
+        >
+          <span className={classNames([`fa-fw fa-light fa-search tw3-mr-3 tw3-text-slate-500`])} />
+          <span className="tw3-text-sm">{isValue ? value[props.relKey] : t('Seach')}</span>
+        </button>
+
 
         {!isValue && canCreate &&
           <ToolbarButton

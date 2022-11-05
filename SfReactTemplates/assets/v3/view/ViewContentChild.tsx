@@ -9,7 +9,10 @@ import { useRecoilValue } from "recoil";
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import { ToolbarButtonWithMenu } from "@newageerp/v3.buttons.toolbar-button-with-menu";
 import { WhiteCard } from "@newageerp/v3.widgets.white-card";
-import { SFSOpenEditModalWindowProps, SFSOpenEditWindowProps } from "@newageerp/v3.popups.mvc-popup";
+import {
+  SFSOpenEditModalWindowProps,
+  SFSOpenEditWindowProps,
+} from "@newageerp/v3.popups.mvc-popup";
 import { INaeWidget, WidgetType } from "../utils";
 import OldAlert, { AlertBgColor } from "../old-ui/OldAlert";
 import OldLoaderLogo from "../old-ui/OldLoaderLogo";
@@ -32,6 +35,7 @@ interface Props {
   removable: boolean;
 
   rightContent: Template[];
+  middleContent: Template[];
   bottomContent: Template[];
 
   afterTitleBlockContent: Template[];
@@ -50,6 +54,7 @@ export default function ViewContentChild(props: Props) {
 
   const {
     rightContent,
+    middleContent,
     bottomContent,
     afterTitleBlockContent,
     elementToolbarAfterFieldsContent,
@@ -70,40 +75,40 @@ export default function ViewContentChild(props: Props) {
 
   const onEdit = editable
     ? () => {
-      if (props.onEdit) {
-        props.onEdit();
-      } else {
-        if (isEditInPopup) {
-          SFSOpenEditModalWindowProps({
-            id: props.id,
-            schema: props.schema,
-            type: props.type,
-            onSaveCallback: (_el: any, backFunc: any) => {
-              reloadData().then(() => {
-                setViewKey(viewKey + 1);
-                backFunc();
-              });
-            },
-          });
+        if (props.onEdit) {
+          props.onEdit();
         } else {
-          SFSOpenEditWindowProps({
-            id: props.id,
-            schema: props.schema,
-            type: props.type,
-          })
+          if (isEditInPopup) {
+            SFSOpenEditModalWindowProps({
+              id: props.id,
+              schema: props.schema,
+              type: props.type,
+              onSaveCallback: (_el: any, backFunc: any) => {
+                reloadData().then(() => {
+                  setViewKey(viewKey + 1);
+                  backFunc();
+                });
+              },
+            });
+          } else {
+            SFSOpenEditWindowProps({
+              id: props.id,
+              schema: props.schema,
+              type: props.type,
+            });
+          }
         }
       }
-    }
     : undefined;
 
   const onRemove = removable
     ? () => {
-      doRemove(props.id).then(() => {
-        if (props.onBack) {
-          props.onBack();
-        }
-      });
-    }
+        doRemove(props.id).then(() => {
+          if (props.onBack) {
+            props.onBack();
+          }
+        });
+      }
     : undefined;
 
   const widgets = defaults.getTransformedWidgets();
@@ -124,7 +129,7 @@ export default function ViewContentChild(props: Props) {
         <ElementToolbar
           parentId={element.id}
           parentSchema={props.schema}
-          onBack={props.onBack ? props.onBack : () => { }}
+          onBack={props.onBack ? props.onBack : () => {}}
           element={element}
           onEdit={onEdit}
           onRemove={onRemove}
@@ -213,9 +218,9 @@ export default function ViewContentChild(props: Props) {
                       templates={props.formContent}
                       templateData={{
                         element: element,
-                        updateElement: () => { },
+                        updateElement: () => {},
                         fieldVisibility: fieldVisibility,
-                        pushHiddenFields: () => { },
+                        pushHiddenFields: () => {},
                       }}
                     />
                   ) : (
@@ -232,14 +237,28 @@ export default function ViewContentChild(props: Props) {
                   templates={bottomContent}
                   templateData={{
                     element: element,
-                    updateElement: () => { },
+                    updateElement: () => {},
                     fieldVisibility: fieldVisibility,
-                    pushHiddenFields: () => { },
+                    pushHiddenFields: () => {},
                   }}
                 />
               </div>
-              {middleWidgets.length > 0 && (
+              {(middleWidgets.length > 0 || middleContent.length > 0) && (
                 <div style={{ width: 700, minWidth: 700, maxWidth: 700 }}>
+                  {middleContent.length > 0 && (
+                    <div className="tw3-space-y-2">
+                      <TemplateLoader
+                        templates={middleContent}
+                        templateData={{
+                          element: element,
+                          updateElement: () => {},
+                          fieldVisibility: fieldVisibility,
+                          pushHiddenFields: () => {},
+                        }}
+                      />
+                    </div>
+                  )}
+
                   <OldNeWidgets
                     type={WidgetType.viewMiddle}
                     schema={props.schema}
@@ -247,7 +266,9 @@ export default function ViewContentChild(props: Props) {
                   />
                 </div>
               )}
-              <div className={"tw3-w-[420px] tw3-min-w-[420px] tw3-max-w-[420px]"}>
+              <div
+                className={"tw3-w-[420px] tw3-min-w-[420px] tw3-max-w-[420px]"}
+              >
                 <div className={"grid grid-cols-1 gap-1"}>
                   <OldNeWidgets
                     type={WidgetType.viewRightTop}
@@ -304,9 +325,9 @@ export default function ViewContentChild(props: Props) {
                       templates={rightContent}
                       templateData={{
                         element: element,
-                        updateElement: () => { },
+                        updateElement: () => {},
                         fieldVisibility: fieldVisibility,
-                        pushHiddenFields: () => { },
+                        pushHiddenFields: () => {},
                       }}
                     />
                   </div>

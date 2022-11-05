@@ -12,6 +12,7 @@ interface Props {
   removable: boolean;
 
   rightContent: Template[];
+  middleContent: Template[];
   bottomContent: Template[];
 
   afterTitleBlockContent: Template[];
@@ -33,6 +34,7 @@ export default function ViewContent(props: Props) {
       editable={props.editable}
       removable={props.removable}
       rightContent={props.rightContent}
+      middleContent={props.middleContent}
       bottomContent={props.bottomContent}
       afterTitleBlockContent={props.afterTitleBlockContent}
       elementToolbarAfterFieldsContent={props.elementToolbarAfterFieldsContent}

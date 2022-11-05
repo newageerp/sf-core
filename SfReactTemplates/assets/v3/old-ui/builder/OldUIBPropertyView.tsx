@@ -29,16 +29,17 @@ export default function UIBPropertyView(props: Props) {
   if (isSingle) {
     return (
       <PropertyViewWidget
+        propertyPath={props.path}
         property={property}
         id={element.id}
         contentClassName={props.contentClassName}
         label={
           props.showLabel
             ? {
-                titlePath: titlePath,
-                isCompactView: props.isCompactView,
-                className: props.labelClassName
-              }
+              titlePath: titlePath,
+              isCompactView: props.isCompactView,
+              className: props.labelClassName
+            }
             : undefined
         }
       />
@@ -54,20 +55,21 @@ export default function UIBPropertyView(props: Props) {
     elementId = keypath
       .split('.')
       .reduce((previous, current) => previous[current], element)
-  } catch (e) {}
-  
+  } catch (e) { }
+
   return (
     <PropertyViewWidget
+      propertyPath={props.path}
       property={property}
       id={elementId}
       contentClassName={props.contentClassName}
       label={
         props.showLabel
           ? {
-              titlePath: titlePath,
-              isCompactView: props.isCompactView,
-              className: props.labelClassName
-            }
+            titlePath: titlePath,
+            isCompactView: props.isCompactView,
+            className: props.labelClassName
+          }
           : undefined
       }
     />
