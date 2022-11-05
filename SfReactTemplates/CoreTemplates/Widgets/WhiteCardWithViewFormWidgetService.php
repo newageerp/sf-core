@@ -24,7 +24,7 @@ class WhiteCardWithViewFormWidgetService
         [$schema, $type] = explode(":", $viewId);
 
         $t = $this->inlineViewContentService->loadView(
-            $viewId,
+            $schema,
             $type,
             $elementId,
             $isCompact,
