@@ -18,6 +18,7 @@ class ViewContentListener implements EventSubscriberInterface
     public const MAINVIEWWIDGETRIGHT = 'PageMainViewRightContent';
     public const MAINVIEWWIDGETBOTTOM = 'PageMainViewBottomContent';
     public const MAINVIEWWIDGETMIDDLE = 'PageMainViewMiddleContent';
+    public const MAINVIEWWIDGETBOTTOMEXTRA = 'PageMainViewBottomExtraContent';
 
     protected UService $uservice;
 
@@ -63,6 +64,7 @@ class ViewContentListener implements EventSubscriberInterface
             $widgetTemplateEvents = [
                 self::MAINVIEWWIDGETRIGHT => $viewContent->getRightContent(),
                 self::MAINVIEWWIDGETBOTTOM => $viewContent->getBottomContent(),
+                self::MAINVIEWWIDGETBOTTOMEXTRA => $viewContent->getBottomExtraContent(),
                 self::MAINVIEWWIDGETMIDDLE => $viewContent->getMiddleContent()
             ];
 

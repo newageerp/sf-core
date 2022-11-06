@@ -14,7 +14,7 @@ class TabContainer extends Template
      */
     protected $items = [];
 
-    public function __construct(?string $title)
+    public function __construct(?string $title = null)
     {
         $this->title = $title;
     }

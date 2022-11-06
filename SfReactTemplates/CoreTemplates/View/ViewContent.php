@@ -18,6 +18,7 @@ class ViewContent extends Template
 
     protected Placeholder $rightContent;
     protected Placeholder $bottomContent;
+    protected Placeholder $bottomExtraContent;
     protected Placeholder $middleContent;
 
     protected Placeholder $afterTitleBlockContent;
@@ -37,6 +38,7 @@ class ViewContent extends Template
 
         $this->rightContent = new Placeholder();
         $this->bottomContent = new Placeholder();
+        $this->bottomExtraContent = new Placeholder();
         $this->middleContent = new Placeholder();
 
         $this->afterTitleBlockContent = new Placeholder();
@@ -336,6 +338,30 @@ class ViewContent extends Template
     public function setMiddleContent(Placeholder $middleContent): self
     {
         $this->middleContent = $middleContent;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of bottomExtraContent
+     *
+     * @return Placeholder
+     */
+    public function getBottomExtraContent(): Placeholder
+    {
+        return $this->bottomExtraContent;
+    }
+
+    /**
+     * Set the value of bottomExtraContent
+     *
+     * @param Placeholder $bottomExtraContent
+     *
+     * @return self
+     */
+    public function setBottomExtraContent(Placeholder $bottomExtraContent): self
+    {
+        $this->bottomExtraContent = $bottomExtraContent;
 
         return $this;
     }
