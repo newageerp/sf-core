@@ -58,6 +58,7 @@ class ViewContent extends Template
 
             'rightContent' => $this->getRightContent()->toArray(),
             'bottomContent' => $this->getBottomContent()->toArray(),
+            'bottomExtraContent' => $this->getBottomExtraContent()->toArray(),
             'middleContent' => $this->getMiddleContent()->toArray(),
 
             'afterTitleBlockContent' => $this->getAfterTitleBlockContent()->toArray(),
