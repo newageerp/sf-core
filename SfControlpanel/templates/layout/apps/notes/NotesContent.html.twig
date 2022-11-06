@@ -1,10 +1,11 @@
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
-import React, { useEffect, Fragment } from "react";
+import React, { useEffect, Fragment, useState } from "react";
 import { useRecoilValue } from "recoil";
 import NoteContentForm from "./NoteContentForm";
 import NoteLine from "./NoteLine";
 import { ContentWidgetProps, getKeysFromObject } from "../../v3/utils";
 import { SFSSocketService } from "../../v3/navigation/NavigationComponent";
+import { PageContainer } from "@newageerp/ui.paging.base.page-container";
 
 const moduleName = "note";
 
@@ -42,7 +43,12 @@ const defObject: INote = {
   replyTo: 0,
 };
 
+const pageSize = 10;
+
 export default function NotesContent(props: Props) {
+  const [pages, setPages] = useState(1);
+  const [activePage, setActivePage] = useState(1);
+
   const userState: any = useRecoilValue(OpenApi.naeUserState);
 
   const [getData, getDataParams] = OpenApi.useUList<INote>(
@@ -60,18 +66,24 @@ export default function NotesContent(props: Props) {
           ],
         },
       ],
-      1,
-      1000,
+      activePage,
+      pageSize,
       [{ key: "i.id", value: "desc" }]
     );
   };
-  useEffect(loadData, []);
+  useEffect(loadData, [activePage]);
+
+  useEffect(() => {
+    if (getDataParams.data) {
+      setPages(Math.ceil(getDataParams.data.records / pageSize));
+    }
+  }, [getDataParams.data]);
 
   useEffect(() => {
     const action = "note-" + props.element.id + "-" + props.schema;
     SFSSocketService.addCallback(action, action + "-el", loadData);
     return () => {
-        SFSSocketService.removeCallback(action, action + "-el");
+      SFSSocketService.removeCallback(action, action + "-el");
     };
   }, [props.element.id, props.schema]);
 
@@ -120,6 +132,11 @@ export default function NotesContent(props: Props) {
             </div>
           </Fragment>
         )}
+        <PageContainer
+          activePage={activePage}
+          pages={pages}
+          setActivePage={setActivePage}
+        />
       </div>
     </Fragment>
   );
