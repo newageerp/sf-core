@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { groupMap } from '@newageerp/v3.utils.groupMap'
+import { groupMap } from '@newageerp/v3.utils.group-map'
 import Td from './OldTd';
 import Trow, { TrowProps } from './OldTrow'
 
