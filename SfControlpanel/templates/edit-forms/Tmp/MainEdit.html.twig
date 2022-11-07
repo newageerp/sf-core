@@ -10,9 +10,9 @@ import { OpenApi } from '@newageerp/nae-react-auth-wrapper'
 import { AlertWidget, transformErrorAlert } from "@newageerp/v3.widgets.alert-widget";
 import { getElementFieldsToReturn, INaeEditSettings, WidgetType } from '../../v3/utils'
 import OldNeWidgets from '../../v3/old-ui/OldNeWidgets'
-import OnUpdateElementService from "../../../components/form/OnUpdateElementService"
 import { getDepenciesForField } from '../../../config/fields/fieldDependencies';
 import { useUIBuilder } from '../../v3/old-ui/builder/OldUIBuilderProvider';
+import { onEditElementUpdate } from '../../_custom/fields/onEditElementUpdate';
 
 export interface MainEditTemplateData {
   element: any,
@@ -73,7 +73,7 @@ export default function MainEdit(props: Props) {
       setHasChanges(true)
       _el[key] = val
 
-      _el = OnUpdateElementService.onUpdate(props.schema, key, val, _el)
+      _el = onEditElementUpdate(props.schema, key, val, _el)
 
       setElement(_el)
     }
@@ -86,7 +86,7 @@ export default function MainEdit(props: Props) {
         _hasChanges = true
         _el[k] = updates[k]
 
-        _el = OnUpdateElementService.onUpdate(props.schema, k, updates[k], _el)
+        _el = onEditElementUpdate(props.schema, k, updates[k], _el)
       }
     })
 
