@@ -37,6 +37,7 @@ interface Props {
   rightContent: Template[];
   middleContent: Template[];
   bottomContent: Template[];
+  bottomExtraContent: Template[];
 
   afterTitleBlockContent: Template[];
   elementToolbarAfterFieldsContent: Template[];
@@ -56,6 +57,7 @@ export default function ViewContentChild(props: Props) {
     rightContent,
     middleContent,
     bottomContent,
+    bottomExtraContent,
     afterTitleBlockContent,
     elementToolbarAfterFieldsContent,
     elementToolbarLine2BeforeContent,
@@ -334,6 +336,21 @@ export default function ViewContentChild(props: Props) {
                 </div>
               </div>
             </div>
+            
+
+            {bottomExtraContent.length > 0 && (
+              <div className="tw3-space-y-2">
+                <TemplateLoader
+                  templates={bottomExtraContent}
+                  templateData={{
+                    element: element,
+                    updateElement: () => {},
+                    fieldVisibility: fieldVisibility,
+                    pushHiddenFields: () => {},
+                  }}
+                />
+              </div>
+            )}
             <OldNeWidgets
               type={WidgetType.viewExtraBottom}
               schema={props.schema}

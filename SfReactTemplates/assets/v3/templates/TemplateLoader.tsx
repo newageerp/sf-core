@@ -141,6 +141,7 @@ import LargeTextEditableColumn from "../list/editable-columns/LargeTextRoColumn"
 import FormFieldTagCloudTemplate from "../form/FormFieldTagCloudTemplate";
 
 import WhiteCardWithViewFormWidget from "../widgets/WhiteCardWithViewFormWidget";
+import TabContainer from "../tabs/TabContainer";
 
 export interface Template {
   comp: string;
@@ -401,6 +402,8 @@ const componentsMap: any = {
   'list.list-data-source': ListDataSource,
   'list.list-data-table': ListDataTable,
   'list.action.add-select-button': AddSelectButton,
+
+  'tabs.TabContainer': TabContainer,
 
   ...CustomEditComponentsMap,
   ...CustomListComponentsMap,

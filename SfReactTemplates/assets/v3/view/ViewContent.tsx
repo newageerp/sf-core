@@ -14,6 +14,7 @@ interface Props {
   rightContent: Template[];
   middleContent: Template[];
   bottomContent: Template[];
+  bottomExtraContent: Template[];
 
   afterTitleBlockContent: Template[];
   elementToolbarAfterFieldsContent: Template[];
@@ -36,6 +37,7 @@ export default function ViewContent(props: Props) {
       rightContent={props.rightContent}
       middleContent={props.middleContent}
       bottomContent={props.bottomContent}
+      bottomExtraContent={props.bottomExtraContent}
       afterTitleBlockContent={props.afterTitleBlockContent}
       elementToolbarAfterFieldsContent={props.elementToolbarAfterFieldsContent}
       elementToolbarLine2BeforeContent={props.elementToolbarLine2BeforeContent}
