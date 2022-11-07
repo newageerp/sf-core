@@ -1,10 +1,14 @@
 import React from 'react'
+import { useTemplateLoader } from "../../../../v3/templates/TemplateLoader";
 
 interface Props {
     fieldKey: string,
 }
 
 export default function {{ compName }}(props: Props) {
+    const { data: tData } = useTemplateLoader();
+    const { element } = tData;
+
     return (
         <div>{{ compName }}</div>
     )

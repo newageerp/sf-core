@@ -142,7 +142,7 @@ class EntitiesUtilsV3
 
             $isAllowScope = false;
             foreach ($scopes as $scope) {
-                if (mb_strpos($scope, 'allow-create')) {
+                if (mb_strpos($scope, 'allow-create') !== false) {
                     $isAllowScope = true;
                 }
             }

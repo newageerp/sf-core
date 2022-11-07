@@ -26,7 +26,7 @@ class EntityPermissionService
         }
         $isAllowScope = false;
         foreach ($scopes as $scope) {
-            if (mb_strpos($scope, 'allow-edit')) {
+            if (mb_strpos($scope, 'allow-edit') !== false) {
                 $isAllowScope = true;
             }
         }
@@ -59,7 +59,7 @@ class EntityPermissionService
         }
         $isAllowScope = false;
         foreach ($scopes as $scope) {
-            if (mb_strpos($scope, 'allow-remove')) {
+            if (mb_strpos($scope, 'allow-remove') !== false) {
                 $isAllowScope = true;
             }
         }

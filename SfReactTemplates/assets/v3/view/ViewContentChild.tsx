@@ -13,7 +13,7 @@ import {
   SFSOpenEditModalWindowProps,
   SFSOpenEditWindowProps,
 } from "@newageerp/v3.popups.mvc-popup";
-import { INaeWidget, WidgetType } from "../utils";
+import { checkIsEditable, INaeWidget, WidgetType } from "../utils";
 import OldAlert, { AlertBgColor } from "../old-ui/OldAlert";
 import OldLoaderLogo from "../old-ui/OldLoaderLogo";
 import OldNeWidgets from "../old-ui/OldNeWidgets";
@@ -73,44 +73,46 @@ export default function ViewContentChild(props: Props) {
 
   const [doRemove] = OpenApi.useURemove(props.schema);
 
-  const { editable, removable } = props;
+  const { removable } = props;
+
+  const editable = checkIsEditable(element ? element.scopes : [], userState);
 
   const onEdit = editable
     ? () => {
-        if (props.onEdit) {
-          props.onEdit();
+      if (props.onEdit) {
+        props.onEdit();
+      } else {
+        if (isEditInPopup) {
+          SFSOpenEditModalWindowProps({
+            id: props.id,
+            schema: props.schema,
+            type: props.type,
+            onSaveCallback: (_el: any, backFunc: any) => {
+              reloadData().then(() => {
+                setViewKey(viewKey + 1);
+                backFunc();
+              });
+            },
+          });
         } else {
-          if (isEditInPopup) {
-            SFSOpenEditModalWindowProps({
-              id: props.id,
-              schema: props.schema,
-              type: props.type,
-              onSaveCallback: (_el: any, backFunc: any) => {
-                reloadData().then(() => {
-                  setViewKey(viewKey + 1);
-                  backFunc();
-                });
-              },
-            });
-          } else {
-            SFSOpenEditWindowProps({
-              id: props.id,
-              schema: props.schema,
-              type: props.type,
-            });
-          }
+          SFSOpenEditWindowProps({
+            id: props.id,
+            schema: props.schema,
+            type: props.type,
+          });
         }
       }
+    }
     : undefined;
 
   const onRemove = removable
     ? () => {
-        doRemove(props.id).then(() => {
-          if (props.onBack) {
-            props.onBack();
-          }
-        });
-      }
+      doRemove(props.id).then(() => {
+        if (props.onBack) {
+          props.onBack();
+        }
+      });
+    }
     : undefined;
 
   const widgets = defaults.getTransformedWidgets();
@@ -131,7 +133,7 @@ export default function ViewContentChild(props: Props) {
         <ElementToolbar
           parentId={element.id}
           parentSchema={props.schema}
-          onBack={props.onBack ? props.onBack : () => {}}
+          onBack={props.onBack ? props.onBack : () => { }}
           element={element}
           onEdit={onEdit}
           onRemove={onRemove}
@@ -220,9 +222,9 @@ export default function ViewContentChild(props: Props) {
                       templates={props.formContent}
                       templateData={{
                         element: element,
-                        updateElement: () => {},
+                        updateElement: () => { },
                         fieldVisibility: fieldVisibility,
-                        pushHiddenFields: () => {},
+                        pushHiddenFields: () => { },
                       }}
                     />
                   ) : (
@@ -239,9 +241,9 @@ export default function ViewContentChild(props: Props) {
                   templates={bottomContent}
                   templateData={{
                     element: element,
-                    updateElement: () => {},
+                    updateElement: () => { },
                     fieldVisibility: fieldVisibility,
-                    pushHiddenFields: () => {},
+                    pushHiddenFields: () => { },
                   }}
                 />
               </div>
@@ -253,9 +255,9 @@ export default function ViewContentChild(props: Props) {
                         templates={middleContent}
                         templateData={{
                           element: element,
-                          updateElement: () => {},
+                          updateElement: () => { },
                           fieldVisibility: fieldVisibility,
-                          pushHiddenFields: () => {},
+                          pushHiddenFields: () => { },
                         }}
                       />
                     </div>
@@ -327,16 +329,16 @@ export default function ViewContentChild(props: Props) {
                       templates={rightContent}
                       templateData={{
                         element: element,
-                        updateElement: () => {},
+                        updateElement: () => { },
                         fieldVisibility: fieldVisibility,
-                        pushHiddenFields: () => {},
+                        pushHiddenFields: () => { },
                       }}
                     />
                   </div>
                 </div>
               </div>
             </div>
-            
+
 
             {bottomExtraContent.length > 0 && (
               <div className="tw3-space-y-2">
@@ -344,9 +346,9 @@ export default function ViewContentChild(props: Props) {
                   templates={bottomExtraContent}
                   templateData={{
                     element: element,
-                    updateElement: () => {},
+                    updateElement: () => { },
                     fieldVisibility: fieldVisibility,
-                    pushHiddenFields: () => {},
+                    pushHiddenFields: () => { },
                   }}
                 />
               </div>

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNaeRecord } from "../old-ui/OldNaeRecord";
 import { Template, useTemplateLoader } from "../templates/TemplateLoader";
 import ViewContentChild from "./ViewContentChild";
 
@@ -24,6 +25,21 @@ interface Props {
 
 export default function ViewContent(props: Props) {
   const { data: tdata } = useTemplateLoader();
+  // const { element } = useNaeRecord();
+  // const [oldScopes, setOldScopes] = useState(element ? element.scopes : undefined);
+  // useEffect(() => {
+  //   if (tdata.onElementScopeChange) {
+  //     if (element) {
+  //       if (oldScopes === undefined) {
+  //         setOldScopes(element.scopes);
+  //       } else {
+  //         if (JSON.stringify(element.scopes) !== JSON.stringify(oldScopes)) {
+  //           tdata.onElementScopeChange();
+  //         }
+  //       }
+  //     }
+  //   }
+  // }, [element]);
 
   return (
     <ViewContentChild

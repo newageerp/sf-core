@@ -142,10 +142,13 @@ export default function ObjectEditableField(props: Props) {
           className={classNames(
             'tw3-px-[10px] tw3-py-[9px] tw3-flex  tw3-items-center tw3-duration-150  tw3-rounded-md ',
             'hover:tw3-bg-sky-100 hover:tw3-text-sky-600',
-            {'tw3-text-slate-800': isValue, 'tw3-text-slate-500': !isValue},
+            { 'tw3-text-slate-800': isValue, 'tw3-text-slate-500': !isValue },
             'tw3-bg-white',
             'tw3-w-full',
+            'tw3-text-left',
+            'tw3-truncate tw3-max-h-[38px]'
           )}
+          title={isValue ? value[props.relKey] : ""}
         >
           <span className={classNames([`fa-fw fa-light fa-search tw3-mr-3 tw3-text-slate-500`])} />
           <span className="tw3-text-sm">{isValue ? value[props.relKey] : t('Seach')}</span>

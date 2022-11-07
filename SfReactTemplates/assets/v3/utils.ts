@@ -659,3 +659,24 @@ export const getTextAlignForProperty = (
     return 'text-left'
   }
 }
+
+export const checkIsEditable = (scopes: any, userState: any) => {
+  if (!scopes) {
+    return true;
+  }
+
+  if (scopes.indexOf('disable-edit') >= 0) {
+    return false
+  }
+  if (scopes.indexOf('disable-edit-' + userState.permissionGroup) >= 0) {
+    return false
+  }
+  let isAllowScope = scopes.filter((s: string) => s.indexOf('allow-edit') >= 0).length > 0;
+  if (isAllowScope) {
+    if (scopes.indexOf('allow-edit-' + userState.permissionGroup) >= 0) {
+      return true
+    }
+    return false;
+  }
+  return true
+}
