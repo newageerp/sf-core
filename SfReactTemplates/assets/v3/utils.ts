@@ -242,20 +242,6 @@ export const getPropertyEnumLabel = (
   return '-3'
 }
 
-export const groupMap = (data: any[], keyFunc: (el: any) => string) => {
-  let grouped: any = {}
-  data.forEach((el: any) => {
-    const groupKey = keyFunc(el)
-    if (!(groupKey in grouped)) {
-      grouped[groupKey] = []
-    }
-    grouped[groupKey].push(el)
-  })
-  return grouped
-}
-
-
-
 export const getStatusForSchemaAndType = (
   schema: string,
   type: string,
