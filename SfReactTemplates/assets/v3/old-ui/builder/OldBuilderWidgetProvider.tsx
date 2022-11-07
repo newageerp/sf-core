@@ -1,6 +1,5 @@
 import React, { Fragment, useContext } from 'react'
 import { CheckUserPermissionComponent } from '../../../../config/NaeSPermissions'
-import FtlCalculationSuggestions from '../../../../Plugins/KzCarriersOrders/Ftl/FtlCalculationSuggestions'
 import { getHookForSchema } from '../../../../UserComponents/ModelsCacheData/ModelFields'
 import { ContentWidgetProps, WidgetType } from '../../utils'
 import ButtonUIBuilderShowEditPopup from './OldButtonUIBuilderShowEditPopup'
@@ -8,7 +7,6 @@ import OldCrudStatusChange from './OldCrudStatusChange'
 
 import { IUIBuilderItem, useUIBuilder } from './OldUIBuilderProvider'
 import { OldUiH5 } from '../OldUiH5';
-import { WhiteCard } from '@newageerp/v3.widgets.white-card'
 import DataList from './OldDataList'
 import SchemaNameFromContext from './OldSchemaNameFromContext'
 import { SchemaProvider } from './OldSchemaProvider'
@@ -17,7 +15,6 @@ import ButtonUIBuilderDoAction from './OldButtonBuilderDoAction'
 import CreateWidgetBuilder from './OldCreateWidgetBuilder'
 import PropetyLabel from './OldPropertyLabel'
 import ViewCompactBuilderWidget from './OldViewCompactBuilderWidget'
-import ButtonUIBuilderToggleNumber from './OldButtonUIBuilderToggleNumber'
 import FilesWidgetUIBuilder from './OldFilesWidgetUIBuilder'
 import UIBShowHideScopes from './OldUIBShowHideScopes'
 import UIBViewButtonToElement from './OldUIBViewButtonToElement'
@@ -221,13 +218,6 @@ export const getBuilderComponents = () => {
       settingsComponent: Fragment,
     },
 
-    ButtonUIBuilderToggleNumber: {
-      component: ButtonUIBuilderToggleNumber,
-      group: 'Buttons',
-      title: 'Toggle number',
-      settingsComponent: Fragment,
-    },
-
 
     FILESWIDGET: {
       component: FilesWidgetUIBuilder,
@@ -261,12 +251,6 @@ export const getBuilderComponents = () => {
       component: CheckUserPermissionComponent,
       group: "PERMISSIONS",
       title: "Check permissions",
-      settingsComponent: Fragment,
-    },
-    FtlCalculationSuggestions: {
-      component: FtlCalculationSuggestions,
-      group: "KZ",
-      title: "FTL calculations",
       settingsComponent: Fragment,
     }
   })
