@@ -389,11 +389,11 @@ class InFillModels extends Command
 import React, { Fragment } from 'react'
 import { PropsId, PropsLink } from './types';
 import moment from \"moment\";
-import { " . $selectorsJoin . " } from '../../Components/Models/ormSelectors';
+import { " . $selectorsJoin . " } from '../models/ormSelectors';
 ";
 
         foreach ($models as $m) {
-            $componentsContent .= "import { use" . $m . "HookNae } from '../../Components/Hooks/use" . $m . "HookNae';" . PHP_EOL;
+            $componentsContent .= "import { use" . $m . "HookNae } from '../hooks/use" . $m . "HookNae';" . PHP_EOL;
         }
 
         $componentsContent .= PHP_EOL . PHP_EOL;
