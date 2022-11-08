@@ -1,5 +1,5 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react'
-import { NaeWidgets } from '../../../../config/widgets'
+import { NaeWidgets } from '../../../_custom/config/widgets'
 import { getPropertyForPath, getTextAlignForProperty, INaeEditField, INaeEditSettings, INaeFormEditRow, INaeFormViewRow, INaeTab, INaeTabField, INaeViewField, INaeViewSettings, INaeWidget } from '../../utils'
 import { BuilderWidgetProvider } from './OldBuilderWidgetProvider'
 

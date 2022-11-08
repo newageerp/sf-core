@@ -35,7 +35,7 @@ class InLocalConfigSyncFieldsConsole extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $configPath = Utils::customFolderPath('config') . '/NaeSProperties.tsx';
-        $configPathDbKeys = LocalConfigUtils::getFrontendConfigPath() . '/NaeSDbKeys.tsx';
+        // $configPathDbKeys = LocalConfigUtils::getFrontendConfigPath() . '/NaeSDbKeys.tsx';
         $configPathKeys = Utils::customFolderPath('config') . '/NaeSPropertiesKeys.tsx';
 
         $fileContent = 'import { INaeProperty } from "../../v3/utils";

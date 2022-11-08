@@ -38,10 +38,10 @@ class LocalConfigUtils
     }
 
 
-    public static function getFrontendConfigPath()
-    {
-        return $_ENV['NAE_SFS_ROOT_PATH'] . '/front-end-config';
-    }
+    // public static function getFrontendConfigPath()
+    // {
+    //     return $_ENV['NAE_SFS_ROOT_PATH'] . '/front-end-config';
+    // }
 
     public static function getFrontendGeneratedPath()
     {
