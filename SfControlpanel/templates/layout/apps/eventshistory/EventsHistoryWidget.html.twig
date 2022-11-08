@@ -9,6 +9,8 @@ import NotesContent from "../notes/NotesContent";
 export default function EventsHistoryWidget(props: ContentWidgetProps) {
   const { t } = useTranslation();
 
+  const items = [];
+  
   if (!props.options?.skipMyComments) {
     items.push(
       {
