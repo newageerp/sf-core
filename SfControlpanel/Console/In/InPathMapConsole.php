@@ -3,6 +3,7 @@
 namespace Newageerp\SfControlpanel\Console\In;
 
 use Newageerp\SfControlpanel\Console\LocalConfigUtils;
+use Newageerp\SfControlpanel\Console\Utils;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -21,7 +22,7 @@ class InPathMapConsole extends Command
         $docJsonFile = LocalConfigUtils::getDocJsonPath();
         $docJsonData = json_decode(file_get_contents($docJsonFile), true);
 
-        $configPath = LocalConfigUtils::getFrontendConfigPath() . '/NaePaths.tsx';
+        $configPath = Utils::customFolderPath('config') . '/NaePaths.tsx';
 
         $paths = $docJsonData['paths'];
 

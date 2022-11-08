@@ -1,5 +1,5 @@
-import { NaeSProperties } from "../../config/NaeSProperties";
-import { NaeSSchema } from "../../config/NaeSSchema";
+import { NaeSProperties } from "../_custom/config/NaeSProperties";
+import { NaeSSchema } from "../_custom/config/NaeSSchema";
 import { NaeSStatuses } from "../_custom/config/NaeSStatuses";
 
 
