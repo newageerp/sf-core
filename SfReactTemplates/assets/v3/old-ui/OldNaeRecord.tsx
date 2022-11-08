@@ -1,6 +1,6 @@
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import React, { useContext, useEffect, useState, Fragment } from "react";
-import { getDepenciesForField } from "../../../config/fields/fieldDependencies";
+import { getDepenciesForField } from "../../_custom/fields/fieldDependencies";
 import { SFSSocketService } from "../navigation/NavigationComponent";
 import { getElementFieldsToReturn, getSchemaClassNameBySchema, INaeViewSettings } from "../utils";
 import { useUIBuilder } from './builder/OldUIBuilderProvider';

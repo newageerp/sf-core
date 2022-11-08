@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 // import { useTranslation } from 'react-i18next'
 import TemplateLoader, { Template } from "../templates/TemplateLoader";
-import { fieldVisibility } from "../../../config/fields/fieldVisibility";
+import { fieldVisibility } from "../../_custom/fields/fieldVisibility";
 import { useTranslation } from "react-i18next";
 import TasksWidget from "../../apps/tasks/TasksWidget";
 import { ElementToolbar } from "@newageerp/ui.components.element.element-toolbar";
