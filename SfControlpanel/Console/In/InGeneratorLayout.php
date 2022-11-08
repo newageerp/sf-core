@@ -129,7 +129,7 @@ class InGeneratorLayout extends Command
             'utils/useConvert.html.twig' => ['utils', 'useConvert'],
 
 
-            
+
         ];
 
         $hasTasksApp = class_exists('App\Entity\Task');
@@ -147,8 +147,10 @@ class InGeneratorLayout extends Command
         ];
         foreach ($templates as $template => $target) {
             $fileName = Utils::customFolderPath($target[0]) . '/' . $target[1] . '.tsx';
-            $generatedContent = $twig->load($template)->render([]);
-            Utils::writeOnChanges($fileName, $generatedContent);
+            if (!file_exists($fileName)) {
+                $generatedContent = $twig->load($template)->render([]);
+                Utils::writeOnChanges($fileName, $generatedContent);
+            }
         }
 
         $templates = [
