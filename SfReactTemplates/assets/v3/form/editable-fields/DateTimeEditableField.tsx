@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
-import OldDateTimeField from '../../old-ui/OldDateTimeField';
 import { useTemplateLoader } from '../../templates/TemplateLoader';
+import {FieldDateTime} from '@newageerp/v3.form.field-date-time'
 
 interface Props {
   fieldKey: string;
@@ -18,9 +18,10 @@ export default function DateTimeEditableField(props: Props) {
   const updateValue = (e: any) => updateElement(props.fieldKey, e);
 
   return (
-    <OldDateTimeField
+    <FieldDateTime
       value={value}
       onChange={updateValue}
+      className='tw3-w-56'
     />
   )
 }

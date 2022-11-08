@@ -11,13 +11,13 @@ import {   dropzoneAcceptStyle,
 import { ContentWidgetProps } from '../utils'
 import { WhiteCard } from '@newageerp/v3.widgets.white-card'
 import OldLoaderLogo from './OldLoaderLogo';
-import OldTooltip from './OldTooltip'
 import { OldUiH5 } from './OldUiH5'
 import OldFilesContentItem from './OldFilesContentItem';
 import OldPopup from './OldPopup'
 import OldEmailForm from './OldEmailForm'
 import { getLinkForFile } from './OldFileFieldRo'
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper'
+import { Tooltip } from "@newageerp/v3.badges.tooltip";
 
 const defaultActions = ['download', 'preview', 'mail']
 
@@ -153,7 +153,7 @@ export default function OldFilesWidget(props: ContentWidgetProps) {
 
       {!props.options.skipHeader && (
         <div className={'flex gap-2 items-center'}>
-          {!!props.options.hint && <OldTooltip text={props.options.hint} />}
+          {!!props.options.hint && <Tooltip text={props.options.hint} />}
           <div className={'flex-grow'}>
             <OldUiH5 icon={'fad fa-folders fa-fw'}>
               {t(options.title ? options.title : 'Failai')}

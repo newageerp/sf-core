@@ -4,6 +4,7 @@ import { Float } from '@newageerp/data.table.float'
 
 interface Props {
   fieldKey: string;
+  accuracy?: number;
 }
 
 export default function FloatRoField(props: Props) {
@@ -17,6 +18,6 @@ export default function FloatRoField(props: Props) {
   const value = element[props.fieldKey];
 
   return (
-    <Float value={value} />
+    <Float value={value} accuracy={props.accuracy} />
   )
 }
