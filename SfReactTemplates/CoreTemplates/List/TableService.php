@@ -104,15 +104,15 @@ class TableService
                     function ($item) {
                         $item['property'] = $this->getPropertiesUtilsV3()->getPropertyForPath($item['path']);
                         $item['type'] = $this->getPropertiesUtilsV3()->getPropertyNaeType($item['property'], []);
-        
+
                         $pathA = explode(".", $item['path']);
                         $pathA[0] = 'i';
                         $item['path'] = implode(".", $pathA);
-        
+
                         if ($item['type'] === 'object') {
                             $item['sort'] = $this->getEntitiesUtilsV3()->getDefaultSortForSchema($item['property']['typeFormat']);
                         }
-        
+
                         return $item;
                     },
                     $quickFilters
@@ -195,6 +195,19 @@ class TableService
             ]
         ]);
         $listDataSource->getChildren()->addTemplate($listTable);
+
+        $tab = $this->getTabsUtilsV3()->getTabBySchemaAndType(
+            $schema,
+            $type,
+        );
+        if ($tab) {
+            // TABS EXPORT
+            if (isset($tab['exports']) && $tab['exports']) {
+                $listDataSource->getToolbar()->getToolbarRight()->addTemplate(
+                    new ToolbarExport($schema, $tab['exports'])
+                );
+            }
+        }
 
         if ($wrapWithCard >= self::WRAPWITHCARD) {
             $whiteCard = new WhiteCard();
