@@ -25,10 +25,10 @@ class InLocalConfigSyncPdfsConsole extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $configPath = LocalConfigUtils::getFrontendConfigPath() . '/NaeSPdfs.tsx';
+        // $configPath = LocalConfigUtils::getFrontendConfigPath() . '/NaeSPdfs.tsx';
 
-        $fileContent = 'import { INaePdf } from "../_generated/v3/utils";
-';
+        // $fileContent = 'import { INaePdf } from "../_generated/v3/utils";
+// ';
 
 //        $sql = 'select pdfs.template, pdfs.title, pdfs.skipList, pdfs.sort, pdfs.skipWithoutSign, entities.slug from pdfs
 //        left join entities on entities.id = pdfs.entity ';
@@ -46,41 +46,41 @@ class InLocalConfigSyncPdfsConsole extends Command
 //                'skipWithoutSign' => isset($data['skipWithoutSign']) && $data['skipWithoutSign'] === 1,
 //            ];
 //        }
-        $pdfs = [];
-        $pdfsData = LocalConfigUtils::getCpConfigFileData('pdfs');
-        foreach ($pdfsData as $pdf) {
-            $pdfs[] = [
-                'sort' => (int)$pdf['config']['sort'],
-                'schema' => $pdf['config']['entity'],
-                'template' => $pdf['config']['template'],
-                'title' => $pdf['config']['title'],
-                'skipList' => $pdf['config']['skipList'] === 1,
-                'skipWithoutSign' => isset($pdf['config']['skipWithoutSign']) && $pdf['config']['skipWithoutSign'] === 1,
-            ];
-        }
+        // $pdfs = [];
+        // $pdfsData = LocalConfigUtils::getCpConfigFileData('pdfs');
+        // foreach ($pdfsData as $pdf) {
+        //     $pdfs[] = [
+        //         'sort' => (int)$pdf['config']['sort'],
+        //         'schema' => $pdf['config']['entity'],
+        //         'template' => $pdf['config']['template'],
+        //         'title' => $pdf['config']['title'],
+        //         'skipList' => $pdf['config']['skipList'] === 1,
+        //         'skipWithoutSign' => isset($pdf['config']['skipWithoutSign']) && $pdf['config']['skipWithoutSign'] === 1,
+        //     ];
+        // }
 
-        usort($pdfs, function ($pdfA, $pdfB) {
-            if ($pdfA['sort'] < $pdfB['sort']) {
-                return -1;
-            }
-            if ($pdfA['sort'] > $pdfB['sort']) {
-                return 1;
-            }
-            if ($pdfA['schema'] < $pdfB['schema']) {
-                return -1;
-            }
-            if ($pdfA['schema'] > $pdfB['schema']) {
-                return 1;
-            }
-            return 0;
-        });
+        // usort($pdfs, function ($pdfA, $pdfB) {
+        //     if ($pdfA['sort'] < $pdfB['sort']) {
+        //         return -1;
+        //     }
+        //     if ($pdfA['sort'] > $pdfB['sort']) {
+        //         return 1;
+        //     }
+        //     if ($pdfA['schema'] < $pdfB['schema']) {
+        //         return -1;
+        //     }
+        //     if ($pdfA['schema'] > $pdfB['schema']) {
+        //         return 1;
+        //     }
+        //     return 0;
+        // });
 
-        $fileContent .= 'export const NaeSPdfs: INaePdf[] = ' . json_encode($pdfs, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        // $fileContent .= 'export const NaeSPdfs: INaePdf[] = ' . json_encode($pdfs, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
-        file_put_contents(
-            $configPath,
-            $fileContent
-        );
+        // file_put_contents(
+        //     $configPath,
+        //     $fileContent
+        // );
 
         return Command::SUCCESS;
     }
