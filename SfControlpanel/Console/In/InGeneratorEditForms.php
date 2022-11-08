@@ -2,6 +2,7 @@
 
 namespace Newageerp\SfControlpanel\Console\In;
 
+use Newageerp\SfControlpanel\Console\LocalConfigUtilsV3;
 use Newageerp\SfControlpanel\Console\Utils;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -22,7 +23,7 @@ class InGeneratorEditForms extends Command
         $customEfFunctionTemplate = new TemplateService('v3/edit/CustomFieldFunction.html.twig');
         $customEfFunctionTemplateMap = new TemplateService('v3/edit/CustomEditComponentsMap.html.twig');
 
-        $editsFile = $_ENV['NAE_SFS_CP_STORAGE_PATH'] . '/edit.json';
+        $editsFile = LocalConfigUtilsV3::getNaeSfsCpStoragePath() . '/edit.json';
         $editItems = [];
         if (file_exists($editsFile)) {
             $editItems = json_decode(

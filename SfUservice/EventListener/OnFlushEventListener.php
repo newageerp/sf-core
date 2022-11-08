@@ -5,6 +5,7 @@ namespace Newageerp\SfUservice\EventListener;
 use App\Kernel;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Event\PostFlushEventArgs;
+use Newageerp\SfControlpanel\Console\LocalConfigUtilsV3;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -26,7 +27,7 @@ class OnFlushEventListener
         $this->ajLogger = $ajLogger;
         $this->bus = $bus;
         $this->options = json_decode(
-            file_get_contents($_ENV['NAE_SFS_CP_STORAGE_PATH'] . '/entity-changes.json'),
+            file_get_contents(LocalConfigUtilsV3::getNaeSfsCpStoragePath() . '/entity-changes.json'),
             true
         );
         $this->insertions = [];

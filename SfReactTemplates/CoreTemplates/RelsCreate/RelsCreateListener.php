@@ -3,6 +3,7 @@
 namespace Newageerp\SfReactTemplates\CoreTemplates\RelsCreate;
 
 use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
+use Newageerp\SfControlpanel\Console\LocalConfigUtilsV3;
 use Newageerp\SfReactTemplates\CoreTemplates\Buttons\MainButton;
 use Newageerp\SfReactTemplates\CoreTemplates\Buttons\ToolbarButton;
 use Newageerp\SfReactTemplates\CoreTemplates\Buttons\ToolbarButtonWithMenu;
@@ -24,7 +25,7 @@ class RelsCreateListener implements EventSubscriberInterface
     public function onTemplate(LoadTemplateEvent $event)
     {
         if ($event->isTemplateForAnyEntity('PageMainViewElementToolbarLine2BeforeContent')) {
-            $relsCreateFile = $_ENV['NAE_SFS_CP_STORAGE_PATH'] . '/rels-create.json';
+            $relsCreateFile = LocalConfigUtilsV3::getNaeSfsCpStoragePath() . '/rels-create.json';
 
             if (file_exists($relsCreateFile)) {
                 $relsList = json_decode(file_get_contents($relsCreateFile), true);

@@ -4,6 +4,7 @@ namespace Newageerp\SfControlpanel\Console\In;
 
 use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 use Newageerp\SfControlpanel\Console\LocalConfigUtils;
+use Newageerp\SfControlpanel\Console\LocalConfigUtilsV3;
 use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
 use Newageerp\SfControlpanel\Console\Utils;
 use Newageerp\SfControlpanel\Service\TemplateService;
@@ -83,7 +84,7 @@ class InFillModels extends Command
 
         $modelsDir = Utils::customFolderPath('models');
 
-        $defaultsFile = $_ENV['NAE_SFS_CP_STORAGE_PATH'] . '/defaults.json';
+        $defaultsFile = LocalConfigUtilsV3::getNaeSfsCpStoragePath() . '/defaults.json';
         $defaultItems = json_decode(
             file_get_contents($defaultsFile),
             true

@@ -7,6 +7,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Newageerp\SfControlpanel\Console\LocalConfigUtils;
+use Newageerp\SfControlpanel\Console\LocalConfigUtilsV3;
 use Symfony\Component\Filesystem\Filesystem;
 
 class InGeneratorMenu extends Command
@@ -35,7 +36,7 @@ class InGeneratorMenu extends Command
             __DIR__ . '/templates/menu/MenuFolder.txt'
         );
 
-        $menuFile = $_ENV['NAE_SFS_CP_STORAGE_PATH'] . '/menu.json';
+        $menuFile = LocalConfigUtilsV3::getNaeSfsCpStoragePath() . '/menu.json';
         $menuItems = [];
         if (file_exists($menuFile)) {
             $menuItems = json_decode(
@@ -87,7 +88,7 @@ class InGeneratorMenu extends Command
         }
 
         // MENU TITLE
-        $menuTitleFile = $_ENV['NAE_SFS_CP_STORAGE_PATH'] . '/menu-title.json';
+        $menuTitleFile = LocalConfigUtilsV3::getNaeSfsCpStoragePath() . '/menu-title.json';
         $menuTitleItems = [];
         if (file_exists($menuTitleFile)) {
             $menuTitleItems = json_decode(
@@ -131,7 +132,7 @@ class InGeneratorMenu extends Command
         }
 
         // MENU FOLDER
-        $menuFolderFile = $_ENV['NAE_SFS_CP_STORAGE_PATH'] . '/menu-folder.json';
+        $menuFolderFile = LocalConfigUtilsV3::getNaeSfsCpStoragePath() . '/menu-folder.json';
         $menuFolderItems = [];
         if (file_exists($menuFolderFile)) {
             $menuFolderItems = json_decode(

@@ -4,6 +4,7 @@ namespace Newageerp\SfControlpanel\Console\In;
 
 use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 use Newageerp\SfControlpanel\Console\LocalConfigUtils;
+use Newageerp\SfControlpanel\Console\LocalConfigUtilsV3;
 use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
 use Newageerp\SfControlpanel\Console\Utils;
 use Newageerp\SfControlpanel\Service\Entities\EntitiesService;
@@ -60,7 +61,7 @@ class InGeneratorLayout extends Command
         Utils::writeOnChanges($fileName, $generatedContent);
 
         // toolbar layout rels copy
-        $relsCreateFile = $_ENV['NAE_SFS_CP_STORAGE_PATH'] . '/rels-copy.json';
+        $relsCreateFile = LocalConfigUtilsV3::getNaeSfsCpStoragePath() . '/rels-copy.json';
         if (file_exists($relsCreateFile)) {
             $relsList = json_decode(file_get_contents($relsCreateFile), true);
             $rels = [];

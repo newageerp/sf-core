@@ -2,6 +2,7 @@
 
 namespace Newageerp\SfControlpanel\Console\In;
 
+use Newageerp\SfControlpanel\Console\LocalConfigUtilsV3;
 use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
 use Newageerp\SfControlpanel\Console\Utils;
 use Symfony\Component\Console\Command\Command;
@@ -42,7 +43,7 @@ class InGeneratorRoutes extends Command
         $customMenuPath = Utils::customFolderPath('menu');
         $customRoutesPath = Utils::customFolderPath('routes');
 
-        $tabsFile = $_ENV['NAE_SFS_CP_STORAGE_PATH'] . '/tabs.json';
+        $tabsFile = LocalConfigUtilsV3::getNaeSfsCpStoragePath() . '/tabs.json';
         $tabItems = [];
         if (file_exists($tabsFile)) {
             $tabItems = json_decode(
@@ -50,7 +51,7 @@ class InGeneratorRoutes extends Command
                 true
             );
         }
-        $editsFile = $_ENV['NAE_SFS_CP_STORAGE_PATH'] . '/edit.json';
+        $editsFile = LocalConfigUtilsV3::getNaeSfsCpStoragePath() . '/edit.json';
         $editItems = [];
         if (file_exists($editsFile)) {
             $editItems = json_decode(
@@ -59,7 +60,7 @@ class InGeneratorRoutes extends Command
             );
         }
 
-        $viewsFile = $_ENV['NAE_SFS_CP_STORAGE_PATH'] . '/view.json';
+        $viewsFile = LocalConfigUtilsV3::getNaeSfsCpStoragePath() . '/view.json';
         $viewItems = [];
         if (file_exists($viewsFile)) {
             $viewItems = json_decode(

@@ -3,6 +3,7 @@
 namespace Newageerp\SfControlpanel\Console\In;
 
 use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
+use Newageerp\SfControlpanel\Console\LocalConfigUtilsV3;
 use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
 use Newageerp\SfControlpanel\Console\Utils;
 use Symfony\Component\Console\Command\Command;
@@ -27,7 +28,7 @@ class InGeneratorBadges extends Command
             __DIR__ . '/templates/badges/Badge.txt'
         );
 
-        $badgeFile = $_ENV['NAE_SFS_CP_STORAGE_PATH'] . '/badge.json';
+        $badgeFile = LocalConfigUtilsV3::getNaeSfsCpStoragePath() . '/badge.json';
         $badgeItems = [];
         if (file_exists($badgeFile)) {
             $badgeItems = json_decode(

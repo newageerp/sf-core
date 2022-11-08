@@ -2,6 +2,7 @@
 
 namespace Newageerp\SfControlpanel\Console\In;
 
+use Newageerp\SfControlpanel\Console\LocalConfigUtilsV3;
 use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
 use Newageerp\SfControlpanel\Console\Utils;
 use Symfony\Component\Console\Command\Command;
@@ -28,7 +29,7 @@ class InGeneratorFileWidgets extends Command
         ]);
         $fileWidgetTemplate = $twig->load('element/widgets/files-widget.html.twig');
 
-        $widgetsFile = $_ENV['NAE_SFS_CP_STORAGE_PATH'] . '/files-widget.json';
+        $widgetsFile = LocalConfigUtilsV3::getNaeSfsCpStoragePath() . '/files-widget.json';
         $widgetItems = [];
         if (file_exists($widgetsFile)) {
             $widgetItems = json_decode(

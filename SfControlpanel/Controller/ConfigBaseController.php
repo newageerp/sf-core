@@ -4,6 +4,7 @@ namespace Newageerp\SfControlpanel\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Newageerp\SfBaseEntity\Controller\OaBaseController;
+use Newageerp\SfControlpanel\Console\LocalConfigUtilsV3;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Newageerp\SfSocket\Service\SocketService;
 
@@ -15,7 +16,7 @@ class ConfigBaseController extends OaBaseController
     {
         parent::__construct($em, $eventDispatcher, $socketService);
 
-        $this->localStorage = $_ENV['NAE_SFS_CP_STORAGE_PATH'];
+        $this->localStorage = LocalConfigUtilsV3::getNaeSfsCpStoragePath();
     }
 
     /**
