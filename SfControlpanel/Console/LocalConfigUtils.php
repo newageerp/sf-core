@@ -24,48 +24,53 @@ class LocalConfigUtils
 
     // public static function getFrontendHooksPath()
     // {
-    //     return $_ENV['NAE_SFS_ROOT_PATH'] . '/front-hooks';
+    //     return self::getNaeSfsRootPath() . '/front-hooks';
     // }
 
     // public static function getFrontendModelsPath()
     // {
-    //     return $_ENV['NAE_SFS_ROOT_PATH'] . '/front-models';
+    //     return self::getNaeSfsRootPath() . '/front-models';
     // }
 
     // public static function getFrontendModelsCachePath()
     // {
-    //     return $_ENV['NAE_SFS_ROOT_PATH'] . '/front-models-cache';
+    //     return self::getNaeSfsRootPath() . '/front-models-cache';
     // }
 
 
     // public static function getFrontendConfigPath()
     // {
-    //     return $_ENV['NAE_SFS_ROOT_PATH'] . '/front-end-config';
+    //     return self::getNaeSfsRootPath() . '/front-end-config';
     // }
+
+    public static function getNaeSfsRootPath()
+    {
+        return isset($_ENV['NAE_SFS_ROOT_PATH']) ? $_ENV['NAE_SFS_ROOT_PATH'] : '/var/www/symfony';
+    }
 
     public static function getFrontendGeneratedPath()
     {
-        return $_ENV['NAE_SFS_ROOT_PATH'] . '/front-generated';
+        return self::getNaeSfsRootPath() . '/front-generated';
     }
 
     public static function getCpDbPath()
     {
-        return $_ENV['NAE_SFS_ROOT_PATH'] . '/config-storage';
+        return self::getNaeSfsRootPath() . '/config-storage';
     }
 
     public static function getPhpVariablesPath()
     {
-        return $_ENV['NAE_SFS_ROOT_PATH'] . '/src/Config';
+        return self::getNaeSfsRootPath() . '/src/Config';
     }
 
     public static function getPhpEntitiesPath()
     {
-        return $_ENV['NAE_SFS_ROOT_PATH'] . '/src/Entity';
+        return self::getNaeSfsRootPath() . '/src/Entity';
     }
 
     public static function getPhpControllerPath()
     {
-        return $_ENV['NAE_SFS_ROOT_PATH'] . '/src/Controller';
+        return self::getNaeSfsRootPath() . '/src/Controller';
     }
 
     public static function transformCamelCaseToKey(string $key)
@@ -102,7 +107,6 @@ class LocalConfigUtils
                     $output[] = mb_strtolower($l);
                 }
             }
-
         }
 
         return implode("", $output);
