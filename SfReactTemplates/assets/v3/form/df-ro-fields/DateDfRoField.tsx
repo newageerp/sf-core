@@ -11,6 +11,6 @@ export default function DateDfRoField(props: Props) {
   const value = useDfValue({ id: props.id, path: props.fieldKey });
 
   return (
-    <Date value={value} />
+    <Date value={value} format={process.env.REACT_APP_DATE_FORMAT} />
   )
 }

@@ -17,6 +17,6 @@ export default function DateRoField(props: Props) {
   const value = element[props.fieldKey];
 
   return (
-    <Date value={value} />
+    <Date value={value} format={process.env.REACT_APP_DATE_FORMAT} />
   )
 }
