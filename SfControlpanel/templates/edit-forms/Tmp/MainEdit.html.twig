@@ -13,6 +13,7 @@ import OldNeWidgets from '../../v3/old-ui/OldNeWidgets'
 import { getDepenciesForField } from '../../../config/fields/fieldDependencies';
 import { useUIBuilder } from '../../v3/old-ui/builder/OldUIBuilderProvider';
 import { onEditElementUpdate } from '../../_custom/fields/onEditElementUpdate';
+import { subscribe, unsubscribe } from '../../v2/utils/utils';
 
 export interface MainEditTemplateData {
   element: any,
@@ -78,6 +79,18 @@ export default function MainEdit(props: Props) {
       setElement(_el)
     }
   }
+
+  useEffect(() => {
+        const listener = (e: any) => {
+            updateElement(e.detail.key, e.detail.val);
+        }
+        subscribe(`${props.schema}-${props.type}-Update`, listener);
+
+        return () => {
+            unsubscribe(`${props.schema}-${props.type}-Update`, listener);
+        }
+  }, [updateElement, props.schema, props.type]);
+
   const updateElementBatch = (updates: any) => {
     let _el = JSON.parse(JSON.stringify(element))
     let _hasChanges = false
