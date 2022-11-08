@@ -3,7 +3,6 @@
 namespace Newageerp\SfSocket\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Enqueue\Client\ProducerInterface;
 use \Predis\Client;
 use Psr\Log\LoggerInterface;
 
@@ -13,8 +12,6 @@ class WsUpdateService
 
     protected LoggerInterface $ajLogger;
 
-    protected ProducerInterface $producer;
-
     protected EntityManagerInterface $em;
 
     protected SocketService $socketService;
@@ -22,12 +19,10 @@ class WsUpdateService
 
     public function __construct(
         LoggerInterface $ajLogger,
-        ProducerInterface $producer,
         EntityManagerInterface $em,
         SocketService $socketService,
     ) {
         $this->ajLogger = $ajLogger;
-        $this->producer = $producer;
         $this->em = $em;
         $this->socketService = $socketService;
 
