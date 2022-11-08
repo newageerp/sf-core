@@ -1,6 +1,6 @@
 import { Base } from '@newageerp/v2.element.status-badge.base';
 import React from 'react'
-import { NaeSStatuses } from '../../../../config/NaeSStatuses';
+import { NaeSStatuses } from '../../../_custom/config/NaeSStatuses';
 import { useDfValue } from '../../hooks/useDfValue';
 
 interface Props {

@@ -1,7 +1,7 @@
 import { Base } from '@newageerp/v2.element.status-badge.base';
 import React, { Fragment } from 'react'
 import { useTemplateLoader } from '../../templates/TemplateLoader';
-import { NaeSStatuses } from '../../../../config/NaeSStatuses';
+import { NaeSStatuses } from '../../../_custom/config/NaeSStatuses';
 
 interface Props {
   fieldKey: string;

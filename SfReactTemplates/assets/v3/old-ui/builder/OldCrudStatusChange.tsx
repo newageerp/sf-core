@@ -6,7 +6,7 @@ import PopoverConfirm from '../OldPopoverConfirm';
 import { useBuilderWidget } from './OldBuilderWidgetProvider';
 import { AlertWidget, transformErrorAlert } from '@newageerp/v3.widgets.alert-widget';
 import { INaeStatus } from '../../utils';
-import { NaeSStatuses } from '../../../../config/NaeSStatuses';
+import { NaeSStatuses } from '../../../_custom/config/NaeSStatuses';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 
 interface Props {

@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { getHookForSchema } from '../../../../UserComponents/ModelsCacheData/ModelFields';
 import { useTemplateLoader } from '../../templates/TemplateLoader';
 import { Base } from '@newageerp/v2.element.status-badge.base';
-import { NaeSStatuses } from '../../../../config/NaeSStatuses';
+import { NaeSStatuses } from '../../../_custom/config/NaeSStatuses';
 import { useTranslation } from 'react-i18next';
 
 interface Props {

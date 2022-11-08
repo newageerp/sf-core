@@ -1,6 +1,6 @@
 import { NaeSProperties } from "../../config/NaeSProperties";
 import { NaeSSchema } from "../../config/NaeSSchema";
-import { NaeSStatuses } from "../../config/NaeSStatuses";
+import { NaeSStatuses } from "../_custom/config/NaeSStatuses";
 
 
 export enum WidgetType {
