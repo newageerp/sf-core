@@ -183,6 +183,9 @@ services:
       - {name: "kernel.event_listener"}
 
 
+  Newageerp\SfSocket\EventListener\SfWsUpdateListener:
+    tags:
+      - {name: "kernel.event_listener"}
   Newageerp\SfSocket\EventListener\SfSocketListener:
     tags:
       - name: "doctrine.event_listener"
