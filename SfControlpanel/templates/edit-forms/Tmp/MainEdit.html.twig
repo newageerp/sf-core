@@ -5,12 +5,12 @@ import { useTranslation } from 'react-i18next'
 import TemplateLoader, {
   useTemplateLoader,
 } from "../../v3/templates/TemplateLoader";
-import { fieldVisibility, IFieldVisibility, resetFieldsToDefValues } from "../../../config/fields/fieldVisibility";
+import { fieldVisibility, IFieldVisibility, resetFieldsToDefValues } from "../../_custom/fields/fieldVisibility";
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper'
 import { AlertWidget, transformErrorAlert } from "@newageerp/v3.widgets.alert-widget";
 import { getElementFieldsToReturn, INaeEditSettings, WidgetType } from '../../v3/utils'
 import OldNeWidgets from '../../v3/old-ui/OldNeWidgets'
-import { getDepenciesForField } from '../../../config/fields/fieldDependencies';
+import { getDepenciesForField } from '../../_custom/fields/fieldDependencies';
 import { useUIBuilder } from '../../v3/old-ui/builder/OldUIBuilderProvider';
 import { onEditElementUpdate } from '../../_custom/fields/onEditElementUpdate';
 import { subscribe, unsubscribe } from '../../v2/utils/utils';

@@ -144,6 +144,8 @@ class InGeneratorLayout extends Command
 
         $templates = [
             'config/fields/onEditElementUpdate.html.twig' => ['fields', 'onEditElementUpdate'],
+            'config/fields/fieldDependencies.html.twig' => ['fields', 'fieldDependencies'],
+            'config/fields/fieldVisibility.html.twig' => ['fields', 'fieldVisibility'],
         ];
         foreach ($templates as $template => $target) {
             $fileName = Utils::customFolderPath($target[0]) . '/' . $target[1] . '.tsx';
@@ -154,12 +156,11 @@ class InGeneratorLayout extends Command
         }
 
         $templates = [
-            'config/fields/edit.html.twig' => ['fields', 'edit'],
-            'config/fields/fieldDependencies.html.twig' => ['fields', 'fieldDependencies'],
-            'config/fields/fieldVisibility.html.twig' => ['fields', 'fieldVisibility'],
+            // 'config/fields/edit.html.twig' => ['fields', 'edit'],
+            // 'config/fields/fieldVisibility.html.twig' => ['fields', 'fieldVisibility'],
+            // 'config/fields/fieldDependencies.html.twig' => ['fields', 'fieldDependencies'],
             // 'config/fields/onEditElementUpdate.html.twig' => ['fields', 'onEditElementUpdate'],
-
-            'config/fields/view.html.twig' => ['fields', 'view'],
+            // 'config/fields/view.html.twig' => ['fields', 'view'],
 
             'config/tabs/index.html.twig' => ['tabs', 'index'],
 
