@@ -6,6 +6,7 @@ use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 use Newageerp\SfControlpanel\Console\LocalConfigUtils;
 use Doctrine\ORM\EntityManagerInterface;
 use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
+use Newageerp\SfControlpanel\Console\Utils;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -33,9 +34,9 @@ class InLocalConfigSyncFieldsConsole extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $configPath = LocalConfigUtils::getFrontendConfigPath() . '/NaeSProperties.tsx';
+        $configPath = Utils::customFolderPath('config') . '/NaeSProperties.tsx';
         $configPathDbKeys = LocalConfigUtils::getFrontendConfigPath() . '/NaeSDbKeys.tsx';
-        $configPathKeys = LocalConfigUtils::getFrontendConfigPath() . '/NaeSPropertiesKeys.tsx';
+        $configPathKeys = Utils::customFolderPath('config') . '/NaeSPropertiesKeys.tsx';
 
         $fileContent = 'import { INaeProperty } from "../_generated/v3/utils";
 ';
