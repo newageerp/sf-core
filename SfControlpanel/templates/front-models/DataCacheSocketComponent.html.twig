@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
-import { {% for schema in checks %}Selector{{ schema }}Nae,{% endfor %} } from "../Models/ormSelectors"
-import { NaeSSchemaMap } from '../../_generated/_custom/config/NaeSSchema';
+import { {% for schema in checks %}Selector{{ schema }}Nae,{% endfor %} } from "../models/ormSelectors"
+import { NaeSSchemaMap } from '../config/NaeSSchema';
 import { useDataCache } from './DataCacheProvider';
 
 {% for schema in checks %}
@@ -10,8 +10,8 @@ import { I{{ schema }}FieldsNae } from './use{{ schema }}HookNae';
 
 import { useRecoilValue } from 'recoil';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
-import { SFSSocketService } from '../../_generated/v3/navigation/NavigationComponent';
-import { getSchemaByClassName } from '../../_generated/v3/utils';
+import { SFSSocketService } from '../../v3/navigation/NavigationComponent';
+import { getSchemaByClassName } from '../../v3/utils';
 
 export default function DataCacheSocketComponent() {
     const userState: any = useRecoilValue(OpenApi.naeUserState);

@@ -666,3 +666,10 @@ export const checkIsEditable = (scopes: any, userState: any) => {
   }
   return true
 }
+
+export const defTableSort = [
+  {
+    key: 'i.id',
+    value: 'ASC',
+  }
+]

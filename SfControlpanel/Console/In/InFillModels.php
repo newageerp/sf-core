@@ -81,7 +81,7 @@ class InFillModels extends Command
             )
         ];
 
-        $modelsDir = LocalConfigUtils::getFrontendModelsPath();
+        $modelsDir = Utils::customFolderPath('models');
 
         $defaultsFile = $_ENV['NAE_SFS_CP_STORAGE_PATH'] . '/defaults.json';
         $defaultItems = json_decode(
@@ -174,7 +174,7 @@ class InFillModels extends Command
         );
 
         // FILL HOOKS
-        $hooksDir = LocalConfigUtils::getFrontendHooksPath();
+        $hooksDir = Utils::customFolderPath('hooks');
         $modelProperties = [];
         foreach ($modelClasses as $m) {
             if ($m === 'Queue') {
@@ -371,7 +371,7 @@ class InFillModels extends Command
         );
 
         // ModelsCacheData
-        $compDir = LocalConfigUtils::getFrontendModelsCachePath();
+        $compDir = Utils::customFolderPath('models-cache-data');
         $compFile = $compDir . '/ModelFields.tsx';
 
         $models = array_keys($modelProperties);
@@ -599,7 +599,7 @@ import { " . $selectorsJoin . " } from '../../Components/Models/ormSelectors';
         $hasNotes = class_exists('App\Entity\Note');
         $hasUsers = class_exists('App\Entity\User');
 
-        $hooksDir = LocalConfigUtils::getFrontendHooksPath();
+        $hooksDir = Utils::customFolderPath('hooks');
         $socketCheckFilePath = $hooksDir . '/DataCacheSocketComponent.tsx';
         $socketFileContent = $dataCacheSocketTemplate->render(
             [
