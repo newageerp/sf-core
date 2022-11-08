@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { useTranslation } from "react-i18next";
-import { FieldLabel } from '@newageerp/v3.form.field-label'
+import { FieldLabel } from '@newageerp/v3.bundles.form-bundle'
 import { Tooltip } from '@newageerp/ui.texts.base.tooltip'
 
 interface Props {

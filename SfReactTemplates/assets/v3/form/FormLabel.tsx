@@ -1,5 +1,5 @@
 import React from 'react'
-import {Label} from '@newageerp/v3.form.label'
+import {Label} from '@newageerp/v3.bundles.form-bundle'
 
 interface Props {
   text: string,

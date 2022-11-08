@@ -1,5 +1,5 @@
 import React from 'react'
-import { FieldHint } from '@newageerp/v3.form.field-hint'
+import { FieldHint } from '@newageerp/v3.bundles.form-bundle'
 
 interface Props {
   text: string,

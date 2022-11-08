@@ -1,5 +1,5 @@
 import React from 'react'
-import { FieldSelect } from '@newageerp/v3.form.field-select'
+import { FieldSelect } from '@newageerp/v3.bundles.form-bundle'
 
 interface Props {
     schema: string,

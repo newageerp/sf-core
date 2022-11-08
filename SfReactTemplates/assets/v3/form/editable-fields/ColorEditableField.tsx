@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { useTranslation } from 'react-i18next';
 import { useTemplateLoader } from '../../templates/TemplateLoader';
 import { StatusWidget } from '@newageerp/v3.widgets.status-widget';
-import { FieldSelect } from '@newageerp/v3.form.field-select';
+import { FieldSelect } from '@newageerp/v3.bundles.form-bundle';
 
 interface Props {
   fieldKey: string;

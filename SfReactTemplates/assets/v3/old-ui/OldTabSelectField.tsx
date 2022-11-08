@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import {FieldSelect} from '@newageerp/v3.form.field-select'
+import {FieldSelect} from '@newageerp/v3.bundles.form-bundle'
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 
 interface Props {

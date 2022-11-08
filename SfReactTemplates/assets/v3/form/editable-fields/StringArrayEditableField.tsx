@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { useTemplateLoader } from '../../templates/TemplateLoader';
 import { useTranslation } from 'react-i18next';
-import { FieldTextarea } from '@newageerp/v3.form.field-textarea'
+import { FieldTextarea } from '@newageerp/v3.bundles.form-bundle'
 import LargeTextEditableField from './LargeTextEditableField';
 import FormHint from '../FormHint';
 

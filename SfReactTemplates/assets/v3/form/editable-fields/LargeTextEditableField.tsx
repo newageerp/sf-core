@@ -1,7 +1,7 @@
-import { FieldTextarea } from '@newageerp/v3.form.field-textarea';
+import { FieldTextarea } from '@newageerp/v3.bundles.form-bundle';
 import React, { Fragment, useEffect, useState } from 'react'
 import { useTemplateLoader } from '../../templates/TemplateLoader';
-import { RichEditor } from '@newageerp/ui.form.base.form-pack';
+import { RichEditor } from '@newageerp/v3.bundles.form-bundle';
 
 interface Props {
   fieldKey: string;

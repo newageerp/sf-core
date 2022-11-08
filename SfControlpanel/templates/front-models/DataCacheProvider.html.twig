@@ -1,4 +1,3 @@
-import { UI } from "@newageerp/nae-react-ui";
 import React, { useContext, useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import { SelectorQueueNae } from "../models/ormSelectors";
@@ -6,6 +5,9 @@ import { useTranslation } from 'react-i18next';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 import { NaeSSchemaMap } from "../../_custom/config/NaeSSchema";
 import { useRecoilValue } from 'recoil';
+import { OldUiH3 } from "../../v3/old-ui/OldUiH5";
+import OldLoaderLogo from "../../v3/old-ui/OldLoaderLogo";
+
 {% if hasNotes %}
 import { INoteFieldsNae } from './useNoteHookNae';
 {% endif %}
@@ -176,8 +178,8 @@ export const DataCacheProvider = (props: DataCacheProps) => {
             {isCaching && isLoggedIn ?
 
             <div className={"w-96 mx-auto mt-8 flex justify-center flex-wrap gap-8"}>
-                <UI.Typography.H3 className="w-full text-center">{t('Kraunami duomenys...')}</UI.Typography.H3>
-                <UI.Loader.Logo />
+                <OldUiH3 className="w-full text-center">{t('Kraunami duomenys...')}</OldUiH3>
+                <OldLoaderLogo />
             </div>
 
             : props.children}

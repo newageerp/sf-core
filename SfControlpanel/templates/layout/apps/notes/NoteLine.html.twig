@@ -18,7 +18,7 @@ import { NotesAnswerForm } from '@newageerp/sfs.notes.notes-answer-form'
 import { NotesQuoteTextSelector } from '@newageerp/sfs.notes.notes-quote-text-selector'
 import { SFSOpenViewModalWindowProps } from '@newageerp/v3.popups.mvc-popup'
 import { NotesEditForm } from "@newageerp/sfs.notes.notes-edit-form"
-import { useNoteHookNae } from "../../_custom/hooks/useNoteHookNae";
+import { getHookForSchema } from "../../_custom/models-cache-data/ModelFields";
 import { selectorBySchemaSlug } from "../../_custom/models/ormSelectors";
 
 interface IData {
@@ -211,7 +211,7 @@ export default function NoteLine(props: Props) {
             </span>
           )}
         </div>
-        {!!note.replyTo && <NotesQuoteTextSelector id={note.replyTo} selector={useNoteHookNae} />}
+        {!!note.replyTo && <NotesQuoteTextSelector id={note.replyTo} selector={getHookForSchema(moduleName)} />}
         <div className={"w-full text-sm"}>{parse(note.content)}</div>
         {showAnswerForm && (
           <NotesAnswerForm

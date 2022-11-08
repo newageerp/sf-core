@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react'
 import { useTemplateLoader } from '../../templates/TemplateLoader';
-import { FieldTextarea } from '@newageerp/v3.form.field-textarea';
+import { FieldTextarea } from '@newageerp/v3.bundles.form-bundle';
 import { showSuccessNotification } from '../../navigation/NavigationComponent';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 
