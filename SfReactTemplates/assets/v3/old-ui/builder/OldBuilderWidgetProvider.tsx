@@ -1,6 +1,6 @@
 import React, { Fragment, useContext } from 'react'
 import { CheckUserPermissionComponent } from '../../../_custom/config/NaeSPermissions'
-import { getHookForSchema } from '../../../../UserComponents/ModelsCacheData/ModelFields'
+import { getHookForSchema } from '../../../_custom/models-cache-data/ModelFields'
 import { ContentWidgetProps, WidgetType } from '../../utils'
 import ButtonUIBuilderShowEditPopup from './OldButtonUIBuilderShowEditPopup'
 import OldCrudStatusChange from './OldCrudStatusChange'

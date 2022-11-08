@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react'
 import { PdfLinesContainer } from '@newageerp/ui.components.element.pdf-lines-container';
 import { PdfLine } from '@newageerp/ui.components.element.pdf-line';
-import { PropsId } from '../../../../UserComponents/ModelsCacheData/types';
+import { PropsId } from '../../../_custom/models-cache-data/types';
 import axios from 'axios'
 import { PopupPdf } from '@newageerp/ui.popups.base.popup-pdf';
 import { PdfWindow } from '@newageerp/ui.files.pdf.pdf-window';

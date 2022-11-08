@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { getHookForSchema } from '../../../../UserComponents/ModelsCacheData/ModelFields';
+import { getHookForSchema } from '../../../_custom/models-cache-data/ModelFields';
 import { getPropertyForPath } from '../../utils';
 import { useBuilderWidget } from './OldBuilderWidgetProvider';
 import { useUIBuilder } from './OldUIBuilderProvider';

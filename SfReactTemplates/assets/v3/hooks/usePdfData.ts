@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { PropsId } from "../../../UserComponents/ModelsCacheData/types";
+import { PropsId } from "../../_custom/models-cache-data/types";
 
 type PdfProps = {
   template: string;
