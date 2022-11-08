@@ -9,26 +9,33 @@ import NotesContent from "../notes/NotesContent";
 export default function EventsHistoryWidget(props: ContentWidgetProps) {
   const { t } = useTranslation();
 
-  const items = [
-    {
-      content: <NotesContent  {...props} toolbar={<Fragment/>} showOnlyMy={true} />,
-      tab: {
-        children: t("Komentarai man"),
-      },
-    },
+  if (!props.options?.skipMyComments) {
+    items.push(
+      {
+        content: <NotesContent  {...props} toolbar={<Fragment/>} showOnlyMy={true} />,
+        tab: {
+          children: t("My comments"),
+        },
+      }
+    );
+  }
+  items.push(
     {
       content: <NotesContent  {...props} toolbar={<Fragment/>} showOnlyMy={false} />,
       tab: {
-        children: t("Visi komentarai"),
+        children: t("All comments"),
       },
-    },
-    {
-      content: <MailsContent {...props} toolbar={<Fragment/>} />,
-      tab: {
-        children: t("Laiškai"),
+    }
+  );
+  if (!props.options?.skipMails) {
+    items.push(
+      {
+        content: <MailsContent {...props} toolbar={<Fragment/>} />,
+        tab: {
+          children: t("Mails"),
+        },
       },
-    },
-  ];
-
+    );
+  }
   return <WhiteCard compact={true}><TabContainer items={items} /></WhiteCard>;
 }
