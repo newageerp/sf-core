@@ -177,7 +177,7 @@ export default function NoteLine(props: Props) {
               bgColor={TwBackgroundColors.sky}
               onClick={hideNote}
             >
-              {saveDataParams.loading ? t("Siunčiama") : t("Perskaityta")}
+              {saveDataParams.loading ? t("Sending") : t("Mark as read")}
             </SquareButton>
           )}
 
@@ -198,12 +198,12 @@ export default function NoteLine(props: Props) {
                 <Menu>
                   {isCanEdit && (
                     <MenuItem onClick={() => setShowEditForm(true)}>
-                      {t("Redaguoti")}
+                      {t("Update")}
                     </MenuItem>
                   )}
                   {isCanAnswer && (
                     <MenuItem onClick={() => setShowAnswerForm(true)}>
-                      {t("Atsakyti")}
+                      {t("Reply")}
                     </MenuItem>
                   )}
                 </Menu>

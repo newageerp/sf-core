@@ -57,7 +57,7 @@ export default function {{ compName }}Widget(props: Props) {
                         <CardWidgetTitle className='flex-grow'>{title}</CardWidgetTitle>
                     }
                     {!!onEdit &&
-                        <button className='tw3-absolute tw3-top-[10px] tw3-right-[10px]' title={t('Redaguoti')} onClick={onEdit}>
+                        <button className='tw3-absolute tw3-top-[10px] tw3-right-[10px]' title={t('Update')} onClick={onEdit}>
                             <Icon type={IconType.Regular} icon={IconList.edit} className={classNames(TwTextColors.slate400, TwTextColors.sky600Hover)} />
                         </button>
                     }
