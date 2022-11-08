@@ -40,18 +40,18 @@ function UserSpaceWrapperToolbar(props: Props) {
                 <Toolbar>
                         <CustomToolbarBefore />
                         <ToolbarTitle>{toolbarTitle}</ToolbarTitle>
-                        <span className="flex-grow"></span>
+                        <span className="tw3-flex-grow"></span>
                         <ActionsBar
                                 items={
                                 []
                                 }
                         />
-                        <span className="relative ml-20 mr-20" ref={settingsVisibleData.ref} style={ { width: 200 } }>
-                                <div className="flex gap-2 items-center text-white cursor-pointer" onClick={() => settingsVisibleData.setIsComponentVisible(!settingsVisibleData.isComponentVisible)}>
-                                        <span className={classNames('flex items-center justify-center', TwBackgroundColors.orange, TwTextSizes.px12, 'rounded-full')} style={ {width: 24, height: 24, minWidth: 24,} }>
+                        <span className="tw3-relative tw3-ml-20 tw3-mr-20" ref={settingsVisibleData.ref} style={ { width: 200 } }>
+                                <div className="tw3-flex tw3-gap-2 tw3-items-center tw3-text-white tw3-cursor-pointer" onClick={() => settingsVisibleData.setIsComponentVisible(!settingsVisibleData.isComponentVisible)}>
+                                        <span className={classNames('tw3-flex tw3-items-center tw3-justify-center', TwBackgroundColors.orange, TwTextSizes.px12, 'tw3-rounded-full')} style={ {width: 24, height: 24, minWidth: 24,} }>
                                         <Icon type={IconType.Regular} icon={IconList.user}/>
                                         </span>
-                                        <p className="flex-grow">
+                                        <p className="tw3-flex-grow">
                                                 {userState.fullName}
                                         </p>
                                         <Icon type={IconType.Regular} icon={IconList.angleDown} />
