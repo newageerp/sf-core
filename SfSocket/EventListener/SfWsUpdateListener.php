@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Plugins\CoreWsUpdate;
+namespace Newageerp\SfSocket\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Newageerp\SfEventListener\EventListener\BaseListener;
