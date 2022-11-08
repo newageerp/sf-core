@@ -110,7 +110,7 @@ export default function OldFilePopup(props: Props) {
                             onClick={doDownload}
                             icon={"fas fa-download"}
                         >
-                            {t("Atsisiųsti")}
+                            {t("Download")}
                         </Button>
 
                         {isPdf &&
@@ -120,7 +120,7 @@ export default function OldFilePopup(props: Props) {
                                 onClick={doPrint}
                                 icon={"fas fa-print"}
                             >
-                                {t("Spausdinti")}
+                                {t("Print")}
                             </Button>
                         }
 
@@ -135,7 +135,7 @@ export default function OldFilePopup(props: Props) {
                                 }}
                                 icon={"fas fa-paper-plane"}
                             >
-                                {t("Siųsti")}
+                                {t("Send")}
                             </Button>
                         }
 
@@ -151,7 +151,7 @@ export default function OldFilePopup(props: Props) {
                                     bgColor={ButtonBgColor.red}
                                     icon={"fas fa-paper-plane"}
                                 >
-                                    {t("Ištrinti")}
+                                    {t("Delete")}
                                 </Button>
                             </OldPopoverConfirm>
                         )}

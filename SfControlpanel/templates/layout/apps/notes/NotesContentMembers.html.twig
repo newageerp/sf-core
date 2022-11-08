@@ -17,7 +17,7 @@ export default function NotesContentMembers(props: Props) {
 
   return (
     <Select
-      placeholder={"Informuoti..."}
+      placeholder={"Notify..."}
       options={users.filter(u => u.disabled === false).sort((object1, object2) => {
         const key = 'fullName';
         const obj1 = object1[key].toUpperCase()

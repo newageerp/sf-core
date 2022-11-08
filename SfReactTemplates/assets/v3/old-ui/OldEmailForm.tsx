@@ -220,7 +220,7 @@ export default function OldEmailForm(props: Props) {
             iconLoading={sendDataParams.loading}
             icon={'fad fa-paper-plane'}
           >
-            {t('Siųsti')}
+            {t('Send')}
           </Button>
 
           <WhiteCard>

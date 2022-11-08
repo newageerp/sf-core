@@ -91,7 +91,7 @@ export default function OldFilesContentItem(props: Props) {
         bgColor={ButtonBgColor.blue}
         brightness={100}
         icon={'fal fa-download'}
-        title={t('Atsisiųsti')}
+        title={t('Download')}
         onClick={() => doDownload()}
       />
     ),
@@ -100,7 +100,7 @@ export default function OldFilesContentItem(props: Props) {
         bgColor={ButtonBgColor.blue}
         brightness={100}
         icon={'fal fa-eye'}
-        title={t('Peržiūrėti')}
+        title={t('Preview')}
         onClick={() => setPreviewPopup(1)}
       />
     ),
@@ -109,7 +109,7 @@ export default function OldFilesContentItem(props: Props) {
         bgColor={ButtonBgColor.blue}
         brightness={100}
         icon={'fal fa-paper-plane'}
-        title={t('Siųsti')}
+        title={t('Send')}
         onClick={toggleEmailPopup}
       />
     ),
