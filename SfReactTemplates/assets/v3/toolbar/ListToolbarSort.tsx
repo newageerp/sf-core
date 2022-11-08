@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ToolbarButton } from '@newageerp/v3.buttons.toolbar-button'
+import { ToolbarButton } from '@newageerp/v3.bundles.buttons-bundle'
 import { useTranslation } from 'react-i18next'
 import { useComponentVisible } from '@newageerp/hooks.use-component-visible';
 import {

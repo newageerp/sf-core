@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { NaeSStatuses } from "../../../_custom/config/NaeSStatuses";
 import { useTemplateLoader } from "../../templates/TemplateLoader";
-import { StatusWidget, StatusWidgetColors } from '@newageerp/v3.widgets.status-widget';
+import { StatusWidget, StatusWidgetColors } from '@newageerp/v3.bundles.widgets-bundle';
 
 
 interface Props {

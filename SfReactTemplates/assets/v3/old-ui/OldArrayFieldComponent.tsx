@@ -13,12 +13,12 @@ import OldButtonSchemaMultiLink from './OldButtonSchemaMultiLink'
 import moment from 'moment'
 import OldBadge, { BadgeSize } from './OldBadge'
 import { NaeSStatuses } from '../../_custom/config/NaeSStatuses'
-import { nl2p } from '@newageerp/v3.utils.nl2p'
+import { nl2p } from '@newageerp/v3.bundles.utils-bundle'
 import OldTabSelectField from './OldTabSelectField'
 import OldTabFloatField from './OldTabFloatField'
 import OldTabTextareaField from './OldTabTextareaField'
 import OldTabStringField from './OldTabStringField'
-import {MainButton} from '@newageerp/v3.buttons.main-button'
+import {MainButton} from '@newageerp/v3.bundles.buttons-bundle'
 
 interface Props {
   schema: string

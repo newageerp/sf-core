@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { useTemplateLoader } from "../../templates/TemplateLoader";
 import { String } from "@newageerp/data.table.string";
-import { RsButton } from "@newageerp/v3.buttons.rs-button";
+import { RsButton } from "@newageerp/v3.bundles.buttons-bundle";
 
 interface Props {
   fieldKey: string;

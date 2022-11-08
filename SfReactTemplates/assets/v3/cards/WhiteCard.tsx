@@ -1,6 +1,6 @@
 import React from "react";
 import { Template, TemplatesParser } from "../templates/TemplateLoader";
-import { WhiteCard as WhiteCardTpl } from "@newageerp/v3.widgets.white-card";
+import { WhiteCard as WhiteCardTpl } from "@newageerp/v3.bundles.widgets-bundle";
 
 
 interface Props {

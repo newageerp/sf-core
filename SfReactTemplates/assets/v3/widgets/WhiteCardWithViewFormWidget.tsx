@@ -1,12 +1,12 @@
 import React from "react";
-import { WhiteCard } from "@newageerp/v3.widgets.white-card";
-import { TextCardTitle } from "@newageerp/v3.typography.text-card-title";
+import { WhiteCard } from "@newageerp/v3.bundles.widgets-bundle";
+import { TextCardTitle } from "@newageerp/v3.bundles.typography-bundle";
 import TemplateLoader, { Template } from "../templates/TemplateLoader";
 import {
   TemplatesParser,
   useTemplateLoader,
 } from "../templates/TemplateLoader";
-import { ToolbarButton } from "@newageerp/v3.buttons.toolbar-button";
+import { ToolbarButton } from "@newageerp/v3.bundles.buttons-bundle";
 import { SFSOpenEditModalWindowProps } from "@newageerp/v3.popups.mvc-popup";
 
 interface Props {

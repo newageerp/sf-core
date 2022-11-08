@@ -1,4 +1,4 @@
-import { StatusWidget } from '@newageerp/v3.widgets.status-widget';
+import { StatusWidget } from '@newageerp/v3.bundles.widgets-bundle';
 import React from 'react'
 import { useDfValue } from '../../hooks/useDfValue';
 import { useTranslation } from 'react-i18next';

@@ -1,4 +1,4 @@
-import { ToolbarButton } from '@newageerp/v3.buttons.toolbar-button'
+import { ToolbarButton } from '@newageerp/v3.bundles.buttons-bundle'
 import React from 'react'
 import { useTranslation } from 'react-i18next';
 import { useTemplateLoader } from '../../templates/TemplateLoader';

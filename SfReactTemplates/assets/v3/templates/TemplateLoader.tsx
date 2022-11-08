@@ -11,7 +11,7 @@ import EditContent from "../edit/EditContent";
 import ViewFilesWidget from "../view/Widget/ViewFilesWidget";
 
 import FlexRow from "../layout/FlexRow";
-import { NumberCardWidget } from "@newageerp/v3.widgets.number-card-widget";
+import { NumberCardWidget } from "@newageerp/v3.bundles.widgets-bundle";
 import ViewStatusWidget from "../view/Widget/ViewStatusWidget";
 import ToolbarActionButton from "../toolbar/ToolbarActionButton";
 import EditContentPopup from "../edit/EditContentPopup";
@@ -120,7 +120,7 @@ import ObjectRoColumn from "../list/columns/ObjectRoColumn";
 import StatusRoColumn from "../list/columns/StatusRoColumn";
 import StringArrayRoColumn from "../list/columns/StringArrayRoColumn";
 import StringRoColumn from "../list/columns/StringRoColumn";
-import { RsButton } from "@newageerp/v3.buttons.rs-button";
+import { RsButton } from "@newageerp/v3.bundles.buttons-bundle";
 import RsButtonTemplate from "../buttons/RsButtonTemplate";
 import ListDataSource from "../list/ListDataSource";
 import ListDataTable from "../list/ListDataTable";

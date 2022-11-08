@@ -7,8 +7,8 @@ import TasksWidget from "../../apps/tasks/TasksWidget";
 import { ElementToolbar } from "@newageerp/ui.components.element.element-toolbar";
 import { useRecoilValue } from "recoil";
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
-import { ToolbarButtonWithMenu } from "@newageerp/v3.buttons.toolbar-button-with-menu";
-import { WhiteCard } from "@newageerp/v3.widgets.white-card";
+import { ToolbarButtonWithMenu } from "@newageerp/v3.bundles.buttons-bundle";
+import { WhiteCard } from "@newageerp/v3.bundles.widgets-bundle";
 import {
   SFSOpenEditModalWindowProps,
   SFSOpenEditWindowProps,

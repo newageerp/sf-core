@@ -1,6 +1,6 @@
-import { NumberCardWidgetColors } from '@newageerp/v3.widgets.number-card-widget';
+import { NumberCardWidgetColors } from '@newageerp/v3.bundles.widgets-bundle';
 import React from 'react'
-import { NumberCardWidget } from "@newageerp/v3.widgets.number-card-widget";
+import { NumberCardWidget } from "@newageerp/v3.bundles.widgets-bundle";
 import { useDfValue } from '../hooks/useDfValue';
 import { getPropertyForPath } from '../utils';
 

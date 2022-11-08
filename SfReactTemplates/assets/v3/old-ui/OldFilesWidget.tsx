@@ -9,7 +9,7 @@ import {   dropzoneAcceptStyle,
     dropzoneBaseStyle,
     dropzoneRejectStyle } from './OldFileUploadWidget'
 import { ContentWidgetProps } from '../utils'
-import { WhiteCard } from '@newageerp/v3.widgets.white-card'
+import { WhiteCard } from '@newageerp/v3.bundles.widgets-bundle'
 import OldLoaderLogo from './OldLoaderLogo';
 import { OldUiH5 } from './OldUiH5'
 import OldFilesContentItem from './OldFilesContentItem';

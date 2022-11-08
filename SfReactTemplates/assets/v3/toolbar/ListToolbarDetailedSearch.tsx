@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { ToolbarButton } from '@newageerp/v3.buttons.toolbar-button'
+import { ToolbarButton } from '@newageerp/v3.bundles.buttons-bundle'
 import { useTranslation } from 'react-i18next';
 import { useTemplateLoader } from '../templates/TemplateLoader';
 import axios from 'axios';

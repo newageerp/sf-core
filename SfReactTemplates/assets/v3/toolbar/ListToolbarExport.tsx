@@ -3,8 +3,8 @@ import { Fragment } from 'react';
 import axios from 'axios';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ToolbarButtonWithMenu } from '@newageerp/v3.buttons.toolbar-button-with-menu'
-import { ToolbarButton } from '@newageerp/v3.buttons.toolbar-button'
+import { ToolbarButtonWithMenu } from '@newageerp/v3.bundles.buttons-bundle'
+import { ToolbarButton } from '@newageerp/v3.bundles.buttons-bundle'
 import { useTemplateLoader } from '../templates/TemplateLoader';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 import { MenuItem } from '@newageerp/v3.modal.menu-item'

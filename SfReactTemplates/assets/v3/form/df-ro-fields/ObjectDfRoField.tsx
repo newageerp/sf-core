@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { useDfValue } from '../../hooks/useDfValue';
 import { String } from '@newageerp/data.table.string';
-import { RsButton } from '@newageerp/v3.buttons.rs-button';
+import { RsButton } from '@newageerp/v3.bundles.buttons-bundle';
 import { getPropertyForPath } from '../../utils';
 
 interface Props {

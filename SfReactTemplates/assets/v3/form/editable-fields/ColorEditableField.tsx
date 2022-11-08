@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { useTranslation } from 'react-i18next';
 import { useTemplateLoader } from '../../templates/TemplateLoader';
-import { StatusWidget } from '@newageerp/v3.widgets.status-widget';
+import { StatusWidget } from '@newageerp/v3.bundles.widgets-bundle';
 import { FieldSelect } from '@newageerp/v3.bundles.form-bundle';
 
 interface Props {

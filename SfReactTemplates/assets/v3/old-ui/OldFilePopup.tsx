@@ -1,4 +1,4 @@
-import { WhiteCard } from "@newageerp/v3.widgets.white-card";
+import { WhiteCard } from "@newageerp/v3.bundles.widgets-bundle";
 import React, { useState, useRef, Fragment, useEffect } from "react";
 // @ts-ignore
 import FileViewer from "react-file-viewer";

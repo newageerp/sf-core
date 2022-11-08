@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react'
 import TemplateLoader, { Template } from '../templates/TemplateLoader';
-import {ToolbarButton} from '@newageerp/v3.buttons.toolbar-button';
+import {ToolbarButton} from '@newageerp/v3.bundles.buttons-bundle';
 
 interface Props {
     title: string,

@@ -1,5 +1,5 @@
 import React from 'react'
-import { MainButton } from '@newageerp/v3.buttons.main-button';
+import { MainButton } from '@newageerp/v3.bundles.buttons-bundle';
 import { useTranslation } from 'react-i18next';
 import { useNaePopup } from '../old-ui/OldPopupProvider';
 

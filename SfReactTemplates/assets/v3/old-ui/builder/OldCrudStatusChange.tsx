@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Button from '../OldButton';
 import PopoverConfirm from '../OldPopoverConfirm';
 import { useBuilderWidget } from './OldBuilderWidgetProvider';
-import { AlertWidget, transformErrorAlert } from '@newageerp/v3.widgets.alert-widget';
+import { AlertWidget, transformErrorAlert } from '@newageerp/v3.bundles.widgets-bundle';
 import { INaeStatus } from '../../utils';
 import { NaeSStatuses } from '../../../_custom/config/NaeSStatuses';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';

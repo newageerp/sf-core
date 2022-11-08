@@ -5,7 +5,7 @@ import moment from 'moment'
 
 import axios from 'axios'
 import OldLoaderComponent from './OldLoaderComponent'
-import { WhiteCard } from '@newageerp/v3.widgets.white-card'
+import { WhiteCard } from '@newageerp/v3.bundles.widgets-bundle'
 import { OldUiH5 } from './OldUiH5'
 
 interface Props {

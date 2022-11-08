@@ -23,7 +23,7 @@ import EnumNumberDfRoField from '../form/df-ro-fields/EnumNumberDfRoField';
 import EnumTextDfRoField from '../form/df-ro-fields/EnumTextDfRoField';
 import ArrayDfRoField from "../form/df-ro-fields/ArrayDfRoField";
 import StringDfRoField from '../form/df-ro-fields/StringDfRoField';
-import { RsButton as RsButtonTpl } from "@newageerp/v3.buttons.rs-button";
+import { RsButton as RsButtonTpl } from "@newageerp/v3.bundles.buttons-bundle";
 import { getPropertyForPath } from "../utils";
 
 interface Props {

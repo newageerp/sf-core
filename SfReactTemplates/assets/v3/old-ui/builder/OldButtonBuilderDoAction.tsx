@@ -1,5 +1,5 @@
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
-import { AlertWidget, transformErrorAlert } from '@newageerp/v3.widgets.alert-widget';
+import { AlertWidget, transformErrorAlert } from '@newageerp/v3.bundles.widgets-bundle';
 import React, { Fragment } from 'react';
 import { useBuilderWidget } from './OldBuilderWidgetProvider';
 

@@ -2,7 +2,7 @@ import React from 'react'
 import {
     MainButton as MainButtonTpl,
     MainButtonProps,
-} from "@newageerp/v3.buttons.main-button";
+} from "@newageerp/v3.bundles.buttons-bundle";
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 
 declare type Props = {

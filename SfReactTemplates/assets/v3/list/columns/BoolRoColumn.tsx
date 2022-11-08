@@ -1,4 +1,4 @@
-import { StatusWidget } from '@newageerp/v3.widgets.status-widget';
+import { StatusWidget } from '@newageerp/v3.bundles.widgets-bundle';
 import React, { Fragment } from 'react'
 import { useTemplateLoader } from '../../templates/TemplateLoader';
 import { useTranslation } from 'react-i18next';

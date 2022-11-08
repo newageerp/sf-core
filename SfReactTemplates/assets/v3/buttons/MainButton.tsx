@@ -3,7 +3,7 @@ import React from "react";
 import {
   MainButton as MainButtonTpl,
   MainButtonProps,
-} from "@newageerp/v3.buttons.main-button";
+} from "@newageerp/v3.bundles.buttons-bundle";
 
 
 declare type Props = {

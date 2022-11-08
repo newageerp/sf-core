@@ -8,7 +8,7 @@ import { getLinkForFile } from './OldFileFieldRo'
 import FileUploadWidget from './OldFileUploadWidget'
 import { showSuccessNotification, showErrorNotification } from '../navigation/NavigationComponent';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper'
-import { WhiteCard } from '@newageerp/v3.widgets.white-card'
+import { WhiteCard } from '@newageerp/v3.bundles.widgets-bundle'
 import OldFormLabel from './OldFormLabel'
 import OldInputField from './OldInputField'
 import { RichEditor } from '@newageerp/ui.form.base.form-pack';
