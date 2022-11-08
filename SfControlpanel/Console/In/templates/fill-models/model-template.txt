@@ -1,5 +1,5 @@
 import { Model, fk, many, attr } from "redux-orm";
-import { NaeSSchemaMap } from "../../_generated/_custom/config/NaeSSchema";
+import { NaeSSchemaMap } from "../config/NaeSSchema";
 
 class |MODELNAME|Model extends Model {
   static reducer(action, |MODELNAME|Model, session) {

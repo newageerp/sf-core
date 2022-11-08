@@ -3,19 +3,20 @@ import { Components, NaeAuthWrapper, OpenApi } from '@newageerp/nae-react-auth-w
 import { NaeApiFunctions } from "../_custom/config/NaePaths";
 import AppRouter from "../routes/wrappers/AppRouter";
 import { Provider } from 'react-redux';
-import { store } from '../../Components/Models/ormstore';
+
 {# import '@newageerp/ui.styles.tailwind/dist/all.css' #}
 import { RoutesWrapper } from "../routes/wrappers/RoutesWrapper";
 import AuthLogin from "../auth/AuthLogin";
 import UserSpaceWrapper from "../routes/wrappers/UserSpaceWrapper";
 import AppRoutes from "../routes/AppRoutes";
-import { DataCacheProvider } from "../../Components/Hooks/DataCacheProvider";
 import { Redirect, Switch } from "react-router-dom";
 import CustomUserWrapperRoutes from "../_custom/routes/CustomUserWrapperRoutes";
 import NavigationComponent, { SFSSocketService } from "../v3/navigation/NavigationComponent";
 import { NaeWindowProvider } from "../v3/old-ui/OldNaeWindowProvider";
 import {useDidMount} from '@newageerp/v3.hooks.use-did-mount'
 import { UIBuilderProvider } from "../v3/old-ui/builder/OldUIBuilderProvider";
+import { store } from "../_custom/models/ormstore";
+import { DataCacheProvider } from "../_custom/hooks/DataCacheProvider";
 
 function App() {
     const [isLoaded, setIsLoaded] = useState(false);

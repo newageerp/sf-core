@@ -2,7 +2,6 @@ import React, { Fragment, useState } from "react";
 import { useTranslation } from "react-i18next";
 import parse from "html-react-parser";
 import { useSelector } from "react-redux";
-import { selectorBySchemaSlug } from "../../../Components/Models/ormSelectors";
 import { useRecoilValue } from "recoil";
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import { SquareButton } from "@newageerp/ui.buttons.base.square-button";
@@ -17,9 +16,10 @@ import { IconType } from "@newageerp/ui.icons.base.icon";
 import { Menu, MenuItem } from "@newageerp/sfs.modal.menu";
 import { NotesAnswerForm } from '@newageerp/sfs.notes.notes-answer-form'
 import { NotesQuoteTextSelector } from '@newageerp/sfs.notes.notes-quote-text-selector'
-import { useNoteHookNae } from '../../../Components/Hooks/useNoteHookNae';
 import { SFSOpenViewModalWindowProps } from '@newageerp/v3.popups.mvc-popup'
 import { NotesEditForm } from "@newageerp/sfs.notes.notes-edit-form"
+import { useNoteHookNae } from "../../_custom/hooks/useNoteHookNae";
+import { selectorBySchemaSlug } from "../../_custom/models/ormSelectors";
 
 interface IData {
   id: number;
