@@ -11,9 +11,10 @@ class Placeholder
 
     protected array $placeholderTemplatesData = [];
 
-    public function addTemplate(Template $template)
+    public function addTemplate(Template $template) : Placeholder
     {
         $this->templates[] = $template;
+        return $this;
     }
 
     /**

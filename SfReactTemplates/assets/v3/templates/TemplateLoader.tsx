@@ -125,7 +125,7 @@ import ObjectRoColumn from "../list/columns/ObjectRoColumn";
 import StatusRoColumn from "../list/columns/StatusRoColumn";
 import StringArrayRoColumn from "../list/columns/StringArrayRoColumn";
 import StringRoColumn from "../list/columns/StringRoColumn";
-import { RsButton } from "@newageerp/v3.bundles.buttons-bundle";
+import RsButton from "../buttons/RsButton";
 import RsButtonTemplate from "../buttons/RsButtonTemplate";
 import ListDataSource from "../list/ListDataSource";
 import ListDataTable from "../list/ListDataTable";
