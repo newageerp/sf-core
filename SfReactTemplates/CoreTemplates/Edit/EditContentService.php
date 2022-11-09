@@ -58,6 +58,8 @@ class EditContentService
     public function fillFormContent(string $schema, string $type, EditFormContent $editContent, bool $isCompact = false)
     {
 
+        $requiredFields = [];
+
         $required = $this->entitiesUtilsV3->getRequiredBySlug($schema);
 
         $editableForm = new EditableForm(null, $isCompact);
@@ -167,6 +169,7 @@ class EditContentService
                         }
                         if (in_array($pathArray[1], $required) || (isset($field['required']) && $field['required'])) {
                             $label->setIsRequired(true);
+                            $requiredFields[] = $pathArray[1];
                         }
                         if ($prop['description']) {
                             $label->setTooltip(($prop['description']));
@@ -321,5 +324,9 @@ class EditContentService
             }
         }
         $editContent->getContent()->addTemplate($editableForm);
+
+        return [
+            'requiredFields' => $requiredFields
+        ];
     }
 }

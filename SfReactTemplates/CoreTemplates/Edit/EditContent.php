@@ -21,6 +21,8 @@ class EditContent extends Template
 
     protected ?array $newStateOptions = null;
 
+    protected ?array $requiredFields = [];
+
     public function __construct(string $schema, string $type, string $id, ?object $entity)
     {
         $this->schema = $schema;
@@ -46,6 +48,7 @@ class EditContent extends Template
             'id' => $this->getId(),
             'defaultViewIndex' => $this->getDefaultViewIndex(),
             'newStateOptions' => $this->getNewStateOptions(),
+            'requiredFields' => $this->getRequiredFields(),
         ];
     }
 
@@ -194,6 +197,30 @@ class EditContent extends Template
     public function setFormContent(EditFormContent $formContent): self
     {
         $this->formContent = $formContent;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of requiredFields
+     *
+     * @return ?array
+     */
+    public function getRequiredFields(): ?array
+    {
+        return $this->requiredFields;
+    }
+
+    /**
+     * Set the value of requiredFields
+     *
+     * @param ?array $requiredFields
+     *
+     * @return self
+     */
+    public function setRequiredFields(?array $requiredFields): self
+    {
+        $this->requiredFields = $requiredFields;
 
         return $this;
     }

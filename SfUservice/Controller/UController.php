@@ -173,6 +173,7 @@ class UController extends UControllerBase
             $id = $request->get('id');
             $data = $request->get('data');
             $fieldsToReturn = $request->get('fieldsToReturn');
+            $requiredFields = $request->get('requiredFields');
 
             $schema = $request->get('schema');
             $className = $this->convertSchemaToEntity($schema);
@@ -191,7 +192,7 @@ class UController extends UControllerBase
                 $element = $repository->find($id);
             }
 
-            $uService->updateElement($element, $data, $schema);
+            $uService->updateElement($element, $data, $schema, $requiredFields);
 
             $entityManager->flush();
 

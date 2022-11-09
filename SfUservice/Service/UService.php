@@ -465,7 +465,8 @@ class UService
     public function updateElement(
         $element, 
         array $data, 
-        string $schema
+        string $schema,
+        ?array $requiredFields = [],
         )
     {
         $isNew = false;
@@ -644,7 +645,8 @@ class UService
 
         $requiredError = [];
         if (!(isset($data['skipRequiredCheck']) && $data['skipRequiredCheck'])) {
-            $requiredFields = $this->entitiesUtilsV3->getRequiredBySlug($schema);
+            $entityRequiredFields = $this->entitiesUtilsV3->getRequiredBySlug($schema);
+            $requiredFields = array_merge($requiredFields, $entityRequiredFields);
 
             foreach ($requiredFields as $requiredField) {
                 $method = 'get' . lcfirst($requiredField);

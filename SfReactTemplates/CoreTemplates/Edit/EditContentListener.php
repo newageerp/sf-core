@@ -67,12 +67,15 @@ class EditContentListener implements EventSubscriberInterface
             $editContent->getFormContent()->setParentElement($parentElement);
             $editContent->setNewStateOptions($newStateOptions);
 
-            $this->editContentService->fillFormContent(
+            $result = $this->editContentService->fillFormContent(
                 $schema,
                 $type,
                 $editContent->getFormContent(),
                 $isCompact
             );
+            if (isset($result['requiredFields'])) {
+                $editContent->setRequiredFields($result['requiredFields']);
+            }
 
             if ($isPopup) {
                 $popupWindow = new PopupWindow();

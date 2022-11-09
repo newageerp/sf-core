@@ -16,6 +16,8 @@ interface Props {
 
   parentElement?: any;
   newStateOptions?: any;
+
+  requiredFields?: string[],
 }
 
 export default function EditContent(props: Props) {
@@ -33,6 +35,7 @@ export default function EditContent(props: Props) {
         id={props.id}
         onBack={tdata.onBack}
         newStateOptions={props.newStateOptions}
+        requiredFields={props.requiredFields}
         onSave={(_el, backFunc) => {
           showSuccessNotification("Išsaugota");
           if (tdata.onSaveCallback) {

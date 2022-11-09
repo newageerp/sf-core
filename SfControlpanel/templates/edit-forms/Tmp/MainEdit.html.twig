@@ -47,6 +47,8 @@ interface Props {
   editContainerClassName?: string,
 
   skipRequiredCheck?: boolean,
+
+  requiredFields?: string[],
 }
 
 export default function MainEdit(props: Props) {
@@ -115,7 +117,7 @@ export default function MainEdit(props: Props) {
     }
     const isNew = props.id === 'new'
     setHasChanges(false)
-    saveData({ ...element, skipRequiredCheck: props.skipRequiredCheck }, props.id).then((res: any) => {
+    saveData({ ...element, skipRequiredCheck: props.skipRequiredCheck, requiredFields: props.requiredFields }, props.id).then((res: any) => {
       if (res) {
         if (res.error) {
         } else {
@@ -140,7 +142,7 @@ export default function MainEdit(props: Props) {
     }
     const isNew = props.id === 'new'
     setHasChanges(false)
-    saveData(element, props.id).then((res: any) => {
+    saveData({ ...element, skipRequiredCheck: props.skipRequiredCheck, requiredFields: props.requiredFields }, props.id).then((res: any) => {
       if (res) {
         if (res.error) {
           OpenApi.toast.error(t("Klaida"));
