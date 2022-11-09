@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+<?php
+
+/** @noinspection PhpMultipleClassDeclarationsInspection */
 
 namespace Newageerp\SfUservice\Controller;
 
@@ -40,7 +42,7 @@ class UController extends UControllerBase
         return $this->json(['success' => 1, 'data' => [['success' => 1]]]);
     }
 
-/**
+    /**
      * @Route(path="/getMultipleForModel", methods={"POST"})
      * @OA\Post (operationId="NAEUMultipleListForModels")
      * @throws Exception
@@ -48,8 +50,7 @@ class UController extends UControllerBase
     public function getMultipleForModel(
         Request  $request,
         UService $uService
-    ): JsonResponse
-    {
+    ): JsonResponse {
         $modelFields = json_decode(file_get_contents('/var/www/symfony/assets/model-fields.json'), true);
 
         $request = $this->transformJsonBody($request);
@@ -69,7 +70,7 @@ class UController extends UControllerBase
                     $data['schema'],
                     $data['page'] ?? 1,
                     $data['pageSize'] ?? 20,
-                    isset($modelFields[$data['schema']]) ?$modelFields[$data['schema']]: ['id'],
+                    isset($modelFields[$data['schema']]) ? $modelFields[$data['schema']] : ['id'],
                     $data['filters'] ?? [],
                     $data['extraData'] ?? [],
                     $data['sort'] ?? [],
@@ -87,8 +88,7 @@ class UController extends UControllerBase
     public function getMultiple(
         Request  $request,
         UService $uService
-    ): JsonResponse
-    {
+    ): JsonResponse {
         $request = $this->transformJsonBody($request);
 
         $user = $this->findUser($request);
@@ -123,8 +123,7 @@ class UController extends UControllerBase
     public function getList(
         Request  $request,
         UService $uService,
-    ): Response
-    {
+    ): Response {
         try {
             $request = $this->transformJsonBody($request);
 
@@ -173,7 +172,7 @@ class UController extends UControllerBase
             $id = $request->get('id');
             $data = $request->get('data');
             $fieldsToReturn = $request->get('fieldsToReturn');
-            $requiredFields = isset($data['requiredFields'])?$data['requiredFields']:[];
+            $requiredFields = isset($data['requiredFields']) ? $data['requiredFields'] : [];
 
             $schema = $request->get('schema');
             $className = $this->convertSchemaToEntity($schema);
@@ -260,7 +259,7 @@ class UController extends UControllerBase
 
                 $uService->updateElement($element, $item['data'], $schema);
 
-//                $return[] = ObjectSerializer::serializeRow($element, $fieldsToReturn);
+                //                $return[] = ObjectSerializer::serializeRow($element, $fieldsToReturn);
             }
 
             $entityManager->flush();
@@ -389,6 +388,4 @@ class UController extends UControllerBase
             return $response;
         }
     }
-
-
 }
