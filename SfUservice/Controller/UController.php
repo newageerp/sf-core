@@ -173,7 +173,7 @@ class UController extends UControllerBase
             $id = $request->get('id');
             $data = $request->get('data');
             $fieldsToReturn = $request->get('fieldsToReturn');
-            $requiredFields = $request->get('requiredFields');
+            $requiredFields = isset($data['requiredFields'])?$data['requiredFields']:[];
 
             $schema = $request->get('schema');
             $className = $this->convertSchemaToEntity($schema);
