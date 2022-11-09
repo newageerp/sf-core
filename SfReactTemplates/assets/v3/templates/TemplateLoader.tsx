@@ -5,6 +5,7 @@ import PopupWindow from "../popup/PopupWindow";
 import ToolbarTitle from "../maintoolbar/ToolbarTitle";
 import ListContent from "../list/ListContent";
 import TableTr from "../table/TableTr";
+import Table from "../table/Table";
 import DataString from "../data/DataString";
 import TableTh from "../table/TableTh";
 import EditContent from "../edit/EditContent";
@@ -267,6 +268,7 @@ const componentsMap: any = {
   "table.th": TableTh,
   "table.td": TableTd,
   "table.tr": TableTr,
+  "table.table": Table,
 
   "data.string": DataString,
 
