@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import React from 'react'
 import { Template, TemplatesParser } from '../templates/TemplateLoader'
-import { Table } from '@newageerp/ui.table.base.table'
+import { Table as TableTpl } from '@newageerp/ui.table.base.table'
 
 interface Props {
     head: Template[],
@@ -11,7 +11,7 @@ interface Props {
 
 export default function Table(props: Props) {
   return (
-    <Table 
+    <TableTpl 
       className={classNames(props.className)}
       thead={
         <thead>
