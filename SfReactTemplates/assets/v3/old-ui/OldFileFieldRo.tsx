@@ -22,9 +22,8 @@ export default function OldFileFieldRo(props: Props) {
 
   return (
     <div
-      className={`flex gap-2 items-center ${
-        props.width ? props.width : 'w-96'
-      }`}
+      className={`flex gap-2 items-center ${props.width ? props.width : 'w-96'
+        }`}
     >
       <Fragment>
         <p className={'flex-grow'}>{file.filename}</p>
@@ -63,12 +62,12 @@ export default function OldFileFieldRo(props: Props) {
         otherFiles={
           props.otherFiles
             ? props.otherFiles.map((file, fIndex: number) => ({
-                name: file.filename,
-                link: getLinkForFile(file),
-                type: ext,
-                path: file.path,
-                id: fIndex
-              }))
+              name: file.filename,
+              link: getLinkForFile(file),
+              type: ext,
+              path: file.path,
+              id: fIndex
+            }))
             : undefined
         }
       />
@@ -78,16 +77,19 @@ export default function OldFileFieldRo(props: Props) {
 
 
 export const getLinkForFile = (f: any): string => {
-    return (
-      window.location.origin +
-      '/app/nae-core/files/download?f=' +
-      encodeURIComponent(
-        JSON.stringify({
-          path: f.path,
-          name: f.filename
-        })
-      ) +
-      '&token=' +
-      window.localStorage.getItem('token')
-    )
+  if (f.path.indexOf('http://') || f.path.indexOf('https://')) {
+    return f.path;
   }
+  return (
+    window.location.origin +
+    '/app/nae-core/files/download?f=' +
+    encodeURIComponent(
+      JSON.stringify({
+        path: f.path,
+        name: f.filename
+      })
+    ) +
+    '&token=' +
+    window.localStorage.getItem('token')
+  )
+}

@@ -15,6 +15,7 @@ interface Props {
     },
     actionPath: string,
     elementId: number,
+    extraRequestData?: any
 }
 
 export default function ToolbarButtonElementWithAction(props: Props) {
@@ -22,7 +23,8 @@ export default function ToolbarButtonElementWithAction(props: Props) {
         axiosInstance.post(
             props.actionPath,
             {
-                id: props.elementId
+                id: props.elementId,
+                ...props.extraRequestData
             }
         )
     }
