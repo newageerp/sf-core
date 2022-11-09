@@ -85,7 +85,7 @@ export const UIBuilderProvider = (props: UIBuilderProviderProps) => {
         _schema: string,
         type: string = 'main'
     ) => {
-        const viewFields = viewData.map((e) => configViewToINaeViewSettings(e))
+        const viewFields = viewData.map((e) => configViewToINaeViewSettings(e, getTabFromSchemaAndType))
         const viewFieldsFilter = viewFields.filter(
             (view: INaeViewSettings) => view.schema === _schema && view.type === type
         )
@@ -366,7 +366,8 @@ const configEditToINaeEditSettings = (
 }
 
 const configViewToINaeViewSettings = (
-    c: IUIBuilderViewItem
+    c: IUIBuilderViewItem,
+    getTabFromSchemaAndType: (schema: string, type?: string) => any
 ): INaeViewSettings => {
     const configFieldToINae = (f: MainListViewField) => {
         const pathA = f.path.split('.').slice(1)

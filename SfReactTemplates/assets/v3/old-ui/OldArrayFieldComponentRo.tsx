@@ -25,7 +25,7 @@ export default function OldArrayFieldComponentRo(props: Props) {
         data: props.value,
         callback: (item: any, index: number) => {
             const scopes = item.scopes ? item.scopes : [];
-            let rowClassName = defaultStrippedRowClassName(index);
+            let rowClassName = "";
 
             scopes.forEach((scope: string) => {
                 if (scope.indexOf('bg-row-color:') > -1) {
@@ -53,7 +53,7 @@ export default function OldArrayFieldComponentRo(props: Props) {
                         thead={
                             <OldThead
                                 columns={getThColums({ tab: props.tab, schema: props.schema })}
-                                extraContentEnd={<Th className={'text-right'}>{t('Veiksmai')}</Th>}
+                                // extraContentEnd={<Th className={'text-right'}>{t('Veiksmai')}</Th>}
                             />
                         }
                         tbody={<OldTbody {...bodyProps} />}

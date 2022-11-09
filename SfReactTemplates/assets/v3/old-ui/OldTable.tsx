@@ -17,7 +17,7 @@ export const TableBorder = 'border border-' + TableBorderColor
 
 export default function OldTable(props: Props) {
     const isPrint = usePrint();
-    const className = ['w-full']
+    const className = ['base-table w-full']
     if (props.className) {
         className.push(props.className)
     }
@@ -69,5 +69,6 @@ export interface TableThProps
         React.ThHTMLAttributes<HTMLTableHeaderCellElement>,
         HTMLTableHeaderCellElement
     > {
-    size?: TableSize | string
+    size?: TableSize | string,
+    textAlignment?: string
 }

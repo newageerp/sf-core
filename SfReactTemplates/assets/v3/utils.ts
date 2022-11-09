@@ -632,17 +632,17 @@ export const getTextAlignForProperty = (
   const isDate = property.type === 'string' && property.format === 'date'
 
   if (isLink) {
-    return 'text-left'
+    return 'tw3-text-left'
   } else if (property.as && property.as === 'status') {
-    return 'text-left'
+    return 'tw3-text-left'
   } else if (isDate) {
-    return 'text-center'
+    return 'tw3-text-center'
   } else if (isNumber) {
-    return 'text-right'
+    return 'tw3-text-right'
   } else if (isBoolean) {
-    return 'text-center'
+    return 'tw3-text-center'
   } else {
-    return 'text-left'
+    return 'tw3-text-left'
   }
 }
 

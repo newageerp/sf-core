@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
-import Td from './OldTd'
-import Th from './OldTh'
+// import Td from './OldTd'
+// import Th from './OldTh'
 import { defaultStrippedRowClassName, TrowCol } from './OldTrow'
 import { getDefProperty, getPropertyDataForSchema, getPropertyForPath, getTabFieldsToReturn, getTextAlignForProperty, INaeTab } from '../utils'
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper'
@@ -18,7 +18,8 @@ import OldTabSelectField from './OldTabSelectField'
 import OldTabFloatField from './OldTabFloatField'
 import OldTabTextareaField from './OldTabTextareaField'
 import OldTabStringField from './OldTabStringField'
-import {MainButton} from '@newageerp/v3.bundles.buttons-bundle'
+import { MainButton, ToolbarButton } from '@newageerp/v3.bundles.buttons-bundle'
+import {Table, Td, Th} from '@newageerp/ui.table.base.table'
 
 interface Props {
   schema: string
@@ -87,7 +88,7 @@ export default function OldArrayFieldComponent(props: Props) {
     data: props.value,
     callback: (item: any, index: number) => {
       const scopes = item.scopes ? item.scopes : [];
-      let rowClassName = defaultStrippedRowClassName(index);
+      let rowClassName = "";
 
       scopes.forEach((scope: string) => {
         if (scope.indexOf('bg-row-color:') > -1) {
@@ -98,26 +99,24 @@ export default function OldArrayFieldComponent(props: Props) {
 
       const extraContentEnd = (
         <Fragment>
-          <Td className={'space-x-2 text-right'}>
-            <button
+          <Td className={'tw3-flex tw3-gap-2 tw3-justify-end'}>
+            <ToolbarButton
+              iconName='edit'
               onClick={() => {
                 setEditPopupId(item.id)
               }}
-            >
-              <i className='fad fa-edit text-nsecondary-600' />
-            </button>
-
-            <button
+            />
+            <ToolbarButton
+              iconName='copy'
               onClick={() => {
                 setCopyPopupId(item.id)
               }}
-            >
-              <i className='fad fa-copy text-nsecondary-600' />
-            </button>
-
-            <button onClick={() => removeElement(index)}>
-              <i className='fad fa-trash text-pink-700' />
-            </button>
+            />
+            <ToolbarButton
+              iconName='trash'
+              onClick={() => removeElement(index)}
+              textColor={'tw3-text-red-500'}
+            />
           </Td>
         </Fragment>
       )
@@ -141,19 +140,17 @@ export default function OldArrayFieldComponent(props: Props) {
 
   return (
     <Fragment>
-      <div>
-        <div className={'space-y-4'}>
+      <div className='tw3-rounded tw3-border tw3-border-slate-300 tw3-p-2 tw3-bg-white'>
+        <div className={'tw3-space-y-4'}>
           <MainButton iconName='plus' onClick={toggleCreateNew}>
             {t('Add')}
           </MainButton>
-          {/* <button onClick={toggleCreateNew}>New</button> */}
           <OldTable
-
             containerClassName={'w-full'}
             thead={
               <OldThead
                 columns={getThColums({ tab: localTab, schema: props.schema })}
-                extraContentEnd={<Th className={'text-right'}>{t('Veiksmai')}</Th>}
+                extraContentEnd={<Th textAlignment={'tw3-text-right'}>{t('Veiksmai')}</Th>}
               />
             }
             tbody={<OldTbody {...bodyProps} />}
@@ -497,7 +494,8 @@ export const transformThProps = (
   property: any,
   isLink?: boolean
 ): TheadCol => {
-  column.props.className += ' ' + getTextAlignForProperty(property, isLink)
+  // column.props.className += ' ' + getTextAlignForProperty(property, isLink)
+  column.props.textAlignment = getTextAlignForProperty(property, isLink);
 
   return column
 }

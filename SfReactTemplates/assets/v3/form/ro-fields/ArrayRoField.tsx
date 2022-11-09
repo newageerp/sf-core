@@ -15,11 +15,11 @@ export default function ArrayRoField(props: Props) {
   const { data: tData } = useTemplateLoader();
   const { element } = tData;
 
-  const value: any[] = element[props.fieldKey] ? element[props.fieldKey] : []
-
   if (!element) {
     return <Fragment />;
   }
+
+  const value: any[] = element[props.fieldKey] ? element[props.fieldKey] : []
 
   return (
     <OldArrayFieldComponentRo
