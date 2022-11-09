@@ -127,6 +127,7 @@ import StringArrayRoColumn from "../list/columns/StringArrayRoColumn";
 import StringRoColumn from "../list/columns/StringRoColumn";
 import RsButton from "../buttons/RsButton";
 import RsButtonTemplate from "../buttons/RsButtonTemplate";
+import ToolbarButtonElementWithAction from "../buttons/ToolbarButtonElementWithAction"
 import ListDataSource from "../list/ListDataSource";
 import ListDataTable from "../list/ListDataTable";
 import ViewStatusWidgetWithActions from "../view/Widget/ViewStatusWidgetWithActions";
@@ -401,6 +402,7 @@ const componentsMap: any = {
   "buttons.toolbar-button-with-menu": ToolbarButtonWithMenu,
   "buttons.rs-button": RsButton,
   "buttons.rs-button-template": RsButtonTemplate,
+  'buttons.toolbar-button-element-with-action': ToolbarButtonElementWithAction,
 
   "modal.menu-item-with-create": MenuItemWithCreate,
   "modal.menu-item-with-edit": MenuItemWithEdit,
