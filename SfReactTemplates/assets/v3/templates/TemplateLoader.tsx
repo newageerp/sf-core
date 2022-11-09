@@ -94,6 +94,10 @@ import ObjectDfRoField from "../form/df-ro-fields/ObjectDfRoField";
 import StatusDfRoField from "../form/df-ro-fields/StatusDfRoField";
 import StringArrayDfRoField from "../form/df-ro-fields/StringArrayDfRoField";
 import StringDfRoField from "../form/df-ro-fields/StringDfRoField";
+
+import PrimitiveString from "../primitives/PrimitiveString";
+
+
 import ViewPdfWidget, { ViewPdfItem } from "../view/Widget/ViewPdfWidget";
 import WhiteCard from "../cards/WhiteCard";
 import MainButton from "../buttons/MainButton";
@@ -406,6 +410,8 @@ const componentsMap: any = {
   'list.action.add-select-button': AddSelectButton,
 
   'tabs.TabContainer': TabContainer,
+
+  'primitives.string': PrimitiveString,
 
   ...CustomEditComponentsMap,
   ...CustomListComponentsMap,
