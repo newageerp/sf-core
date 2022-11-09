@@ -10,6 +10,8 @@ class ToolbarButtonElementWithAction extends ToolbarButton
     protected string $path = '';
 
     protected int $elementId = 0;
+
+    protected ?array $extraRequestData = [];
     
     public function getProps(): array
     {
@@ -19,6 +21,7 @@ class ToolbarButtonElementWithAction extends ToolbarButton
         $props['button'] = $oldProps;
         $props['actionPath'] = $this->getPath();
         $props['elementId'] = $this->getElementId();
+        $props['extraRequestData'] = $this->getExtraRequestData();
 
         return $props;
     }
@@ -73,6 +76,30 @@ class ToolbarButtonElementWithAction extends ToolbarButton
     public function setElementId(int $elementId): self
     {
         $this->elementId = $elementId;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of extraRequestData
+     *
+     * @return ?array
+     */
+    public function getExtraRequestData(): ?array
+    {
+        return $this->extraRequestData;
+    }
+
+    /**
+     * Set the value of extraRequestData
+     *
+     * @param ?array $extraRequestData
+     *
+     * @return self
+     */
+    public function setExtraRequestData(?array $extraRequestData): self
+    {
+        $this->extraRequestData = $extraRequestData;
 
         return $this;
     }
