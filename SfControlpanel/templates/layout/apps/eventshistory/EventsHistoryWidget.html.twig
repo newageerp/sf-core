@@ -2,7 +2,7 @@ import { TabContainer } from "@newageerp/ui.tabs.tab-container";
 import React, {Fragment} from "react";
 import { useTranslation } from "react-i18next";
 import { ContentWidgetProps } from "../../v3/utils";
-import { WhiteCard } from "@newageerp/ui.cards.base.white-card";
+import { WhiteCard } from "@newageerp/v3.bundles.widgets-bundle";
 import MailsContent from "../mails/MailsContent";
 import NotesContent from "../notes/NotesContent";
 
@@ -39,5 +39,5 @@ export default function EventsHistoryWidget(props: ContentWidgetProps) {
       },
     );
   }
-  return <WhiteCard compact={true}><TabContainer items={items} /></WhiteCard>;
+  return <WhiteCard isCompact={true}><TabContainer items={items} /></WhiteCard>;
 }
