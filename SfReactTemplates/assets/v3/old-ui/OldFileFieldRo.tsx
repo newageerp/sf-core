@@ -1,7 +1,7 @@
+import { ToolbarButton } from '@newageerp/v3.bundles.buttons-bundle'
 import React, { Fragment, useState } from 'react'
-import Button, { ButtonBgColor, ButtonSize } from './OldButton'
-import FilePopup from './OldFilePopup'
-
+import { PopupFile } from '@newageerp/ui.popups.base.popup-file';
+import { FilesWindow } from '@newageerp/ui.files.files.files-window';
 
 interface Props {
   file: any
@@ -22,62 +22,65 @@ export default function OldFileFieldRo(props: Props) {
 
   return (
     <div
-      className={`flex gap-2 items-center ${props.width ? props.width : 'w-96'
+      className={`tw3-flex tw3-gap-2 tw3-items-center ${props.width ? props.width : 'tw3-w-96 tw3-max-w-96'
         }`}
     >
       <Fragment>
-        <p className={'flex-grow'}>{file.filename}</p>
+        <p className={'tw3-flex-grow tw3-truncate'}>{file.filename}</p>
 
-        <Button
-          size={ButtonSize.sm}
-          bgColor={ButtonBgColor.nsecondary}
-          brightness={50}
-          icon={'fal fa-eye'}
+        <ToolbarButton
+          iconName='eye'
           onClick={toggleShowFilePopup}
-        ></Button>
-
-        <Button
-          size={ButtonSize.sm}
-          bgColor={ButtonBgColor.nsecondary}
-          brightness={50}
-          icon={'fal fa-download'}
+        />
+        <ToolbarButton
+          iconName='download'
           onClick={() => {
             const link = getLinkForFile(file)
             window.open(link, '_blank')
           }}
-        ></Button>
+        />
       </Fragment>
-
-      <FilePopup
-        visible={showFilePoup}
-        printOnLoad={false}
-        toggleVisible={toggleShowFilePopup}
-        file={{
-          name: file.filename,
-          link: getLinkForFile(file),
-          type: ext,
-          path: file.path,
-          id: props.otherFiles ? props.otherFiles.indexOf(file) : 0
-        }}
-        otherFiles={
-          props.otherFiles
-            ? props.otherFiles.map((file, fIndex: number) => ({
-              name: file.filename,
-              link: getLinkForFile(file),
-              type: ext,
-              path: file.path,
-              id: fIndex
-            }))
-            : undefined
-        }
-      />
+      {showFilePoup &&
+        <PopupFile onClose={toggleShowFilePopup}>
+          <FilesWindow
+            file={{
+              title: file.filename,
+              onView: {
+                link: getLinkForFile(file),
+                ext: ext,
+                id: file.id,
+              },
+              onDownload: () => {
+                const link = getLinkForFile(file)
+                window.open(link, '_blank')
+              }
+            }}
+            onBack={toggleShowFilePopup}
+            otherFiles={props.otherFiles
+              ? props.otherFiles.map((file, fIndex: number) => ({
+                title: file.filename,
+                onView: {
+                  link: getLinkForFile(file),
+                  ext: ext,
+                  id: file.id,
+                },
+                onDownload: () => {
+                  const link = getLinkForFile(file)
+                  window.open(link, '_blank')
+                }
+              })
+              )
+              : undefined}
+          />
+        </PopupFile>
+      }
     </div>
   )
 }
 
 
 export const getLinkForFile = (f: any): string => {
-  if (f.path.indexOf('http://') || f.path.indexOf('https://')) {
+  if (f.path.indexOf('http://') === 0 || f.path.indexOf('https://') === 0) {
     return f.path;
   }
   return (

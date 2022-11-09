@@ -1,8 +1,9 @@
 import React, { Fragment, useState } from 'react'
 import FileUploadWidget from './OldFileUploadWidget'
-import Button, { ButtonBgColor, ButtonSize } from './OldButton';
+import { PopupFile } from '@newageerp/ui.popups.base.popup-file';
+import { FilesWindow } from '@newageerp/ui.files.files.files-window';
 import { getLinkForFile } from './OldFileFieldRo';
-import FilePopup from './OldFilePopup';
+import { ToolbarButton } from '@newageerp/v3.bundles.buttons-bundle';
 
 interface Props {
     property: any,
@@ -39,37 +40,24 @@ export default function OldFileField(props: Props) {
 
     return (
         <Fragment>
-            <div className={`flex gap-2 items-center ${props.width ? props.width : 'w-96'}`}>
+            <div className={`tw3-flex tw3-gap-2 tw3-items-center ${props.width ? props.width : 'tw3-w-96 tw3-max-w-96'}`}>
                 {props.val && props.val.filename ?
                     <Fragment>
-                        <p>{props.val.filename}</p>
+                        <p className={'tw3-flex-grow tw3-truncate'}>{props.val.filename}</p>
 
-                        <Button
-                            size={ButtonSize.sm}
-                            bgColor={ButtonBgColor.nsecondary}
-                            brightness={50}
-                            icon={"fal fa-eye"}
+                        <ToolbarButton
+                            iconName='eye'
                             onClick={doPreview}
-                        >
-                        </Button>
-
-                        <Button
-                            size={ButtonSize.sm}
-                            bgColor={ButtonBgColor.nsecondary}
-                            brightness={50}
-                            icon={"fal fa-download"}
+                        />
+                        <ToolbarButton
+                            iconName='download'
                             onClick={doDownload}
-                        >
-                        </Button>
-
-                        <Button
-                            size={ButtonSize.sm}
-                            bgColor={ButtonBgColor.red}
-                            brightness={50}
-                            icon={"fal fa-window-close"}
+                        />
+                        <ToolbarButton
+                            iconName='window-close'
                             onClick={doRemove}
-                        >
-                        </Button>
+                            textColor={"tw3-text-red-500"}
+                        />
                     </Fragment>
                     :
                     <FileUploadWidget
@@ -88,30 +76,36 @@ export default function OldFileField(props: Props) {
                                     props.onChange(f);
                                 })
                             }
-                            
+
                         }}
                         hideCard={true}
                         hideTitle={true}
                     />
                 }
             </div>
-            {props.val && props.val.filename &&
-                <FilePopup
-                    visible={showFilePoup}
-                    printOnLoad={false}
-                    toggleVisible={toggleShowFilePopup}
+            {props.val && props.val.filename && showFilePoup &&
+                <PopupFile onClose={toggleShowFilePopup}>
+                    <FilesWindow
+                        file={{
+                            title: props.val.filename,
+                            onView: {
+                                link: getLinkForFile(props.val),
+                                ext: ext,
+                                id: props.val.id,
+                            },
+                            onDownload: () => {
+                                const link = getLinkForFile(props.val)
+                                window.open(link, '_blank')
+                            },
+                            onRemove: doRemove
 
-                    onRemove={doRemove}
+                        }}
+                        onBack={toggleShowFilePopup}
 
-                    file={{
-                        name: props.val.filename,
-                        link: getLinkForFile(props.val),
-                        type: ext,
-                        path: props.val.path,
-                        id: 0,
-                    }}
-                />
+                    />
+                </PopupFile>
             }
+
         </Fragment>
     )
 }

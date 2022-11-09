@@ -6,10 +6,17 @@ import { MailsForm } from '@newageerp/ui.mails.mails-form';
 import { useNaeWindow } from '../old-ui/OldNaeWindowProvider';
 import SocketService from '../SocketService';
 
+import {
+    ConfirmationPopup,
+    ConfirmationPopupProps,
+} from '@newageerp/v3.popups.confirmation-popup';
+
 export default function NavigationComponent() {
     const history = useHistory();
     const { showViewPopup, showEditPopup } = useNaeWindow()
     const [emailOptions, setEmailOptions] = useState<any>(undefined);
+
+    const [confirmationProps, setConfirmationProps] = useState<ConfirmationPopupProps>();
 
     useEffect(() => {
         const eventListener = (e: any) => {
@@ -114,6 +121,16 @@ export default function NavigationComponent() {
         }
     }, []);
 
+    useEffect(() => {
+        const eventListener = (e: any) => {
+            setConfirmationProps(e.detail);
+        };
+        window.addEventListener('SFSShowConfirmation', eventListener);
+        return () => {
+            window.removeEventListener('SFSShowConfirmation', eventListener);
+        }
+    }, []);
+
     return (
         <Fragment>
             {!!emailOptions &&
@@ -130,6 +147,13 @@ export default function NavigationComponent() {
                         }}
                     />
                 </Popup>
+            }
+            {!!confirmationProps &&
+                <ConfirmationPopup
+                    {...confirmationProps}
+                    onClick={() => setConfirmationProps(undefined)}
+                    isPopup={true}
+                />
             }
         </Fragment>
     )

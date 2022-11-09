@@ -165,7 +165,7 @@ class EditContentService
                         if ($isCompact) {
                             $label->setWidth('tw3-w-full');
                         }
-                        if (in_array($pathArray[1], $required)) {
+                        if (in_array($pathArray[1], $required) || (isset($field['required']) && $field['required'])) {
                             $label->setIsRequired(true);
                         }
                         if ($prop['description']) {
