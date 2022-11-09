@@ -11,7 +11,7 @@ class ToolbarButtonElementWithAction extends ToolbarButton
     
     public function getProps(): array
     {
-        $oldProps = $this->getProps();
+        $oldProps = parent::getProps();
 
         $props = [];
         $props['button'] = $oldProps;
