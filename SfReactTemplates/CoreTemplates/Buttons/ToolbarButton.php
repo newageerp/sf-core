@@ -12,7 +12,7 @@ class ToolbarButton extends Template
     protected ?string $className = null;
     protected ?bool $disabled = null;
     protected ?string $children = null;
-    protected ?array $confirmation = null;
+    protected $confirmation = null;
 
     public function __construct(string $iconName)
     {
@@ -156,12 +156,7 @@ class ToolbarButton extends Template
         return $this;
     }
 
-    /**
-     * Get the value of confirmation
-     *
-     * @return ?array
-     */
-    public function getConfirmation(): ?array
+    public function getConfirmation()
     {
         return $this->confirmation;
     }
@@ -169,11 +164,10 @@ class ToolbarButton extends Template
     /**
      * Set the value of confirmation
      *
-     * @param ?array $confirmation
      *
      * @return self
      */
-    public function setConfirmation(?array $confirmation): self
+    public function setConfirmation($confirmation): self
     {
         $this->confirmation = $confirmation;
 
