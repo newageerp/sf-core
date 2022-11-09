@@ -8,6 +8,8 @@ use Newageerp\SfReactTemplates\Template\Template;
 class ToolbarButtonElementWithAction extends ToolbarButton
 {
     protected string $path = '';
+
+    protected int $elementId = 0;
     
     public function getProps(): array
     {
@@ -16,6 +18,7 @@ class ToolbarButtonElementWithAction extends ToolbarButton
         $props = [];
         $props['button'] = $oldProps;
         $props['actionPath'] = $this->getPath();
+        $props['elementId'] = $this->getElementId();
 
         return $props;
     }
@@ -46,6 +49,30 @@ class ToolbarButtonElementWithAction extends ToolbarButton
     public function setPath(string $path): self
     {
         $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of elementId
+     *
+     * @return int
+     */
+    public function getElementId(): int
+    {
+        return $this->elementId;
+    }
+
+    /**
+     * Set the value of elementId
+     *
+     * @param int $elementId
+     *
+     * @return self
+     */
+    public function setElementId(int $elementId): self
+    {
+        $this->elementId = $elementId;
 
         return $this;
     }

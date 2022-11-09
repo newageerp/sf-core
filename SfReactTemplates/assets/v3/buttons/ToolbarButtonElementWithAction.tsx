@@ -1,6 +1,7 @@
 import React from 'react'
 import { ToolbarButton as ToolbarButtonTpl } from '@newageerp/v3.bundles.buttons-bundle'
-import { Template, TemplatesParser } from '../templates/TemplateLoader';
+import { Template, TemplatesParser, useTemplateLoader } from '../templates/TemplateLoader';
+import { axiosInstance } from '../api/config';
 
 interface Props {
     button: {
@@ -13,10 +14,17 @@ interface Props {
         confirmation?: boolean,
     },
     actionPath: string,
+    elementId: number,
 }
 
 export default function ToolbarButtonElementWithAction(props: Props) {
     const onClick = () => {
+        axiosInstance.post(
+            props.actionPath,
+            {
+                id: props.elementId
+            }
+        )
     }
     return (
         <ToolbarButtonTpl
