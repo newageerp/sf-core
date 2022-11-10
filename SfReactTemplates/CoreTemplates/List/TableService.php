@@ -73,12 +73,18 @@ class TableService
                 $type,
             );
 
+            $totals = $this->tabsUtilsV3->getTabTotals($schema, $type);
+
             if (isset($tab['summary']) && $tab['summary']) {
                 $tabContainer = new TabContainer();
 
                 $tabContainerItem = new TabContainerItem('Data');
                 $tabContainer->addItem($tabContainerItem);
                 $tabContainerItem->getContent()->addTemplate($listTable);
+                if ($totals) {
+                    $listTotals = new ListDataTotals($totals);
+                    $tabContainerItem->getContent()->addTemplate($listTotals);
+                }
 
                 $tabContainerItem = new TabContainerItem('Summary');
                 $tabContainer->addItem($tabContainerItem);
@@ -89,6 +95,12 @@ class TableService
                 $listDataSource->getChildren()->addTemplate($tabContainer);
             } else {
                 $listDataSource->getChildren()->addTemplate($listTable);
+
+                
+                if ($totals) {
+                    $listTotals = new ListDataTotals($totals);
+                    $listDataSource->getChildren()->addTemplate($listTotals);
+                }
             }
             
             // CREATE BUTTON

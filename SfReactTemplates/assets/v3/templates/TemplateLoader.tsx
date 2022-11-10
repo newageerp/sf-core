@@ -151,6 +151,7 @@ import TabContainer from "../tabs/TabContainer";
 import MailsContent from "../content-widgets/MailsContent";
 import NotesContent from "../content-widgets/NotesContent";
 import ListDataSummary from "../list/ListDataSummary";
+import ListDataTotals from "../list/ListDataTotals";
 
 export interface Template {
   comp: string;
@@ -413,6 +414,8 @@ const componentsMap: any = {
   'list.list-data-source': ListDataSource,
   'list.list-data-table': ListDataTable,
   'list.list-data-summary': ListDataSummary,
+  'list.list-data-totals': ListDataTotals,
+
   'list.action.add-select-button': AddSelectButton,
 
   'tabs.TabContainer': TabContainer,
