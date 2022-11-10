@@ -83,7 +83,7 @@ class TableService
                 $tabContainerItem = new TabContainerItem('Summary');
                 $tabContainer->addItem($tabContainerItem);
 
-                $listDataSummary = new ListDataSummary($tab['summary']);
+                $listDataSummary = new ListDataSummary($schema, $tab['summary']);
                 $tabContainerItem->getContent()->addTemplate($listDataSummary);
 
                 $listDataSource->getChildren()->addTemplate($tabContainer);
