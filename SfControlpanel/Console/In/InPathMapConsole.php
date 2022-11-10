@@ -43,7 +43,9 @@ class InPathMapConsole extends Command
 
         $fileContent = '
 // @ts-nocheck
-import axios from "axios";';
+import axios from "axios";
+import { axiosInstance } from "../../v3/api/config";
+';
 
         $fileContent .= '
 export const NaePaths = ' . json_encode($map, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
@@ -80,11 +82,11 @@ export const NaeApiFunctions = {';
         ';
                 if ($method === 'post') {
                     $fileContent .= '
-                    return axios.post(url, data, {headers: {Authorization: window.localStorage.getItem("token"),"Content-Type": "application/json",},});
+                    return axiosInstance.post(url, data});
                     ';
                 } else {
                     $fileContent .= '
-                    return axios.get(url, {headers: {Authorization: window.localStorage.getItem("token"),"Content-Type": "application/json",},});
+                    return axiosInstance.get(url});
                     ';
                 }
 

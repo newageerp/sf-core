@@ -7,7 +7,7 @@ type Props = {
 
 export default function ListDataTotals(props: Props) {
     const { data: tData } = useTemplateLoader();
-    if (tData.dataTotals) {
+    if (!tData.dataTotals) {
         return <Fragment />
     }
     return (
