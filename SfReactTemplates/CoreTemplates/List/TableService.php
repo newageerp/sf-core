@@ -72,7 +72,7 @@ class TableService
                 $schema,
                 $type,
             );
-            
+
             if (isset($tab['summary']) && $tab['summary']) {
                 $tabContainer = new TabContainer();
 
@@ -82,6 +82,9 @@ class TableService
 
                 $tabContainerItem = new TabContainerItem('Summary');
                 $tabContainer->addItem($tabContainerItem);
+
+                $listDataSummary = new ListDataSummary($tab['summary']);
+                $tabContainerItem->getContent()->addTemplate($listDataSummary);
 
                 $listDataSource->getChildren()->addTemplate($tabContainer);
             } else {
