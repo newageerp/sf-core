@@ -17,6 +17,9 @@ use Newageerp\SfReactTemplates\CoreTemplates\List\Toolbar\ToolbarTabSwitch;
 use Newageerp\SfReactTemplates\Template\Placeholder;
 use Newageerp\SfReactTemplates\Template\Template;
 
+use Newageerp\SfReactTemplates\CoreTemplates\Tabs\TabContainer;
+use Newageerp\SfReactTemplates\CoreTemplates\Tabs\TabContainerItem;
+
 class TableService
 {
     public const NOWRAP = 0;
@@ -160,6 +163,19 @@ class TableService
             $listDataSource->getToolbar()->getToolbarRight()->addTemplate(
                 new ToolbarDetailedSearch($schema)
             );
+
+            if (isset($tab['summary']) && $tab['summary']) {
+                $tabContainer = new TabContainer();
+
+                $tabContainerItem = new TabContainerItem('Data');
+                $tabContainer->addItem($tabContainerItem);
+                $tabContainerItem->getContent()->addTemplate($listDataSource);
+
+                $tabContainerItem = new TabContainerItem('Summary');
+                $tabContainer->addItem($tabContainerItem);
+
+                return $tabContainer;
+            }
         }
 
         return $listDataSource;
