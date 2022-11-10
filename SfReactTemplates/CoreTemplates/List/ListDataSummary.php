@@ -9,15 +9,19 @@ class ListDataSummary extends Template
 {
     protected array $summary = [];
 
-    public function __construct(array $summary)
+    protected string $schema = '';
+
+    public function __construct(string $schema, array $summary)
     {
+        $this->schema = $schema;
         $this->summary = $summary;
     }
 
     public function getProps(): array
     {
         return [
-            'summary' => $this->getSummary()
+            'summary' => $this->getSummary(),
+            'schema' => $this->getSchema(),
         ];
     }
 
@@ -46,6 +50,30 @@ class ListDataSummary extends Template
     public function setSummary(array $summary): self
     {
         $this->summary = $summary;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of schema
+     *
+     * @return string
+     */
+    public function getSchema(): string
+    {
+        return $this->schema;
+    }
+
+    /**
+     * Set the value of schema
+     *
+     * @param string $schema
+     *
+     * @return self
+     */
+    public function setSchema(string $schema): self
+    {
+        $this->schema = $schema;
 
         return $this;
     }
