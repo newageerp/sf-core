@@ -73,25 +73,7 @@ class ListContentListener implements EventSubscriberInterface
             $pageMainListToolbarRightContent = new LoadTemplateEvent($listDataSource->getToolbar()->getToolbarRight(), 'PageMainListToolbarRightContent', $event->getData());
             $this->eventDispatcher->dispatch($pageMainListToolbarRightContent, LoadTemplateEvent::NAME);
             
-
-            $tab = $this->getTabsUtilsV3()->getTabBySchemaAndType(
-                $event->getData()['schema'],
-                $event->getData()['type'],
-            );
-            if (isset($tab['summary']) && $tab['summary']) {
-                $tabContainer = new TabContainer();
-
-                $tabContainerItem = new TabContainerItem('Data');
-                $tabContainer->addItem($tabContainerItem);
-                $tabContainerItem->getContent()->addTemplate($listDataSource);
-
-                $tabContainerItem = new TabContainerItem('Summary');
-                $tabContainer->addItem($tabContainerItem);
-
-                $listContent->getChildren()->addTemplate($tabContainer);
-            } else {
-                $listContent->getChildren()->addTemplate($listDataSource);
-            }
+            $listContent->getChildren()->addTemplate($listDataSource);
 
             if ($isPopup) {
                 $popupWindow = new PopupWindow();

@@ -57,22 +57,37 @@ class TableService
         string $schema,
         string $type,
     ) {
-        $listDataSource = $this->buildListDataSource(
-            $schema,
-            $type,
-        );
-        $listTable = $this->buildTableData(
-            $schema,
-            $type,
-        );
-        $listDataSource->getChildren()->addTemplate($listTable);
-
         // toolbar
         $tab = $this->getTabsUtilsV3()->getTabBySchemaAndType(
             $schema,
             $type,
         );
         if ($tab) {
+            $listDataSource = $this->buildListDataSource(
+                $schema,
+                $type,
+            );
+
+            $listTable = $this->buildTableData(
+                $schema,
+                $type,
+            );
+            
+            if (isset($tab['summary']) && $tab['summary']) {
+                $tabContainer = new TabContainer();
+
+                $tabContainerItem = new TabContainerItem('Data');
+                $tabContainer->addItem($tabContainerItem);
+                $tabContainerItem->getContent()->addTemplate($listTable);
+
+                $tabContainerItem = new TabContainerItem('Summary');
+                $tabContainer->addItem($tabContainerItem);
+
+                $listDataSource->getChildren()->addTemplate($tabContainer);
+            } else {
+                $listDataSource->getChildren()->addTemplate($listTable);
+            }
+            
             // CREATE BUTTON
             $disableCreate = isset($tab['disableCreate']) && $tab['disableCreate'];
             if (
