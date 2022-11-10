@@ -31,7 +31,7 @@ class UService
 
     protected EventDispatcherInterface $eventDispatcher;
 
-     
+
     protected PropertiesUtilsV3 $propertiesUtilsV3;
     protected EntitiesUtilsV3 $entitiesUtilsV3;
 
@@ -72,6 +72,105 @@ class UService
         $entityClass = implode('', array_map('ucfirst', explode("-", $schema)));
 
         return 'App\Entity\\' . $entityClass;
+    }
+
+    public function getGroupedListDataForSchema(
+        string $schema,
+        array $filters,
+        array $summary,
+        bool  $skipPermissionsCheck = false,
+    ) {
+        $user = AuthService::getInstance()->getUser();
+        if (!$user) {
+            throw new \Exception('Invalid user');
+        }
+
+        $className = $this->convertSchemaToEntity($schema);
+
+        if (!$skipPermissionsCheck) {
+            $this->permissionService->extendFilters($user, $filters, $schema);
+        }
+
+        $classicMode = false;
+        if (isset($filters[0]['classicMode'])) {
+            $classicMode = $filters[0]['classicMode'];
+            unset($filters[0]['classicMode']);
+        }
+        if (isset($filters[1]['classicMode'])) {
+            $classicMode = $filters[1]['classicMode'];
+            unset($filters[1]['classicMode']);
+        }
+        if (isset($filters[2]['classicMode'])) {
+            $classicMode = $filters[2]['classicMode'];
+            unset($filters[2]['classicMode']);
+        }
+
+        $alias = 'i';
+
+        $qb = $this->em->createQueryBuilder()
+            ->select($alias)
+            ->from($className, $alias, null);
+
+        $params = [];
+        $joins = [];
+
+        $debug = false;
+
+        foreach ($filters as $filter) {
+            $statements = $this->getStatementsFromFilters($qb, $className, $filter, $debug, $joins, $params, $classicMode);
+            if ($statements && !$debug) {
+                $qb->andWhere($statements);
+            }
+        }
+
+        foreach ($params as $key => $val) {
+            $qb->setParameter($key, $val);
+        }
+
+        foreach ($joins as $join => $alias) {
+            $qb->leftJoin($join, $alias);
+        }
+
+        $query = $qb->getQuery();
+
+        $data = $query->getResult();
+
+        $groupedData = [];
+
+
+        foreach ($data as $result) {
+            foreach ($summary as $item) {
+                $fieldPath = explode(".", $item['field']);
+                $groupByPath = explode(".", $item['groupBy']);
+
+                $fieldObj = $result;
+                foreach ($fieldPath as $p) {
+                    $getter = 'get' . ucfirst($p);
+                    $fieldObj = $fieldObj->$getter();
+                }
+
+                $groupByObj = $result;
+                foreach ($groupByPath as $p) {
+                    $getter = 'get' . ucfirst($p);
+                    $groupByObj = $fieldObj->$getter();
+                }
+
+                if (!isset($groupedData[$groupByObj])) {
+                    $groupedData[$groupByObj] = [];
+                }
+                if (!isset($groupedData[$groupByObj][$fieldObj])) {
+                    $groupedData[$groupByObj][$fieldObj] = 0;
+                }
+
+                if ($item['type'] === 'count') {
+                    $groupedData[$groupByObj][$fieldObj]++;
+                } else {
+                    $groupedData[$groupByObj][$fieldObj] += $fieldObj;
+                }
+            }
+        }
+
+        return $groupedData;
     }
 
     public function getListDataForSchema(
@@ -463,12 +562,11 @@ class UService
      * @throws \Exception
      */
     public function updateElement(
-        $element, 
-        array $data, 
+        $element,
+        array $data,
         string $schema,
         ?array $requiredFields = [],
-        )
-    {
+    ) {
         $isNew = false;
         if (!$element->getId()) {
             $ev = new UBeforeCreateEvent($element, $data, $schema);

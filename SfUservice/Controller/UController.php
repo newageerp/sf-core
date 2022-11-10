@@ -117,6 +117,39 @@ class UController extends UControllerBase
     }
 
     /**
+     * @Route(path="/groupedList/{schema}", methods={"POST"})
+     */
+    public function getGroupedList(
+        Request  $request,
+        UService $uService,
+    ): Response {
+        try {
+            $request = $this->transformJsonBody($request);
+
+            $user = $this->findUser($request);
+            if (!$user) {
+                throw new Exception('Invalid user');
+            }
+            AuthService::getInstance()->setUser($user);
+
+            $schema = $request->get('schema');
+            $filters = $request->get('filters') ? $request->get('filters') : [];
+            $summary = $request->get('summary') ? $request->get('summary') : [];
+
+            return $this->json($uService->getGroupedListDataForSchema($schema, $filters, $summary));
+        } catch (Exception $e) {
+            $response = $this->json([
+                'description' => $e->getMessage(),
+                'f' => $e->getFile(),
+                'l' => $e->getLine()
+
+            ]);
+            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+            return $response;
+        }
+    }
+
+    /**
      * @Route(path="/get/{schema}", methods={"POST"})
      * @OA\Post (operationId="NAEUList")
      */
