@@ -163,19 +163,6 @@ class TableService
             $listDataSource->getToolbar()->getToolbarRight()->addTemplate(
                 new ToolbarDetailedSearch($schema)
             );
-
-            if (isset($tab['summary']) && $tab['summary']) {
-                $tabContainer = new TabContainer();
-
-                $tabContainerItem = new TabContainerItem('Data');
-                $tabContainer->addItem($tabContainerItem);
-                $tabContainerItem->getContent()->addTemplate($listDataSource);
-
-                $tabContainerItem = new TabContainerItem('Summary');
-                $tabContainer->addItem($tabContainerItem);
-
-                return $tabContainer;
-            }
         }
 
         return $listDataSource;

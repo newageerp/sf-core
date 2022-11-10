@@ -13,6 +13,8 @@ use Newageerp\SfReactTemplates\CoreTemplates\List\Toolbar\ToolbarSort;
 use Newageerp\SfReactTemplates\CoreTemplates\List\Toolbar\ToolbarTabSwitch;
 use Newageerp\SfReactTemplates\CoreTemplates\MainToolbar\MainToolbarTitle;
 use Newageerp\SfReactTemplates\CoreTemplates\Popup\PopupWindow;
+use Newageerp\SfReactTemplates\CoreTemplates\Tabs\TabContainer;
+use Newageerp\SfReactTemplates\CoreTemplates\Tabs\TabContainerItem;
 use Newageerp\SfReactTemplates\Event\LoadTemplateEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -61,8 +63,7 @@ class ListContentListener implements EventSubscriberInterface
                 $event->getData()['type'],
             );
             $listDataSource->setScrollToHeaderOnLoad(true);
-            $listContent->getChildren()->addTemplate($listDataSource);
-
+            
             $pageMainListToolbarMiddleContent = new LoadTemplateEvent($listDataSource->getToolbar()->getToolbarMiddle(), 'PageMainListToolbarMiddleContent', $event->getData());
             $this->eventDispatcher->dispatch($pageMainListToolbarMiddleContent, LoadTemplateEvent::NAME);
             
@@ -72,6 +73,25 @@ class ListContentListener implements EventSubscriberInterface
             $pageMainListToolbarRightContent = new LoadTemplateEvent($listDataSource->getToolbar()->getToolbarRight(), 'PageMainListToolbarRightContent', $event->getData());
             $this->eventDispatcher->dispatch($pageMainListToolbarRightContent, LoadTemplateEvent::NAME);
             
+
+            $tab = $this->getTabsUtilsV3()->getTabBySchemaAndType(
+                $event->getData()['schema'],
+                $event->getData()['type'],
+            );
+            if (isset($tab['summary']) && $tab['summary']) {
+                $tabContainer = new TabContainer();
+
+                $tabContainerItem = new TabContainerItem('Data');
+                $tabContainer->addItem($tabContainerItem);
+                $tabContainerItem->getContent()->addTemplate($listDataSource);
+
+                $tabContainerItem = new TabContainerItem('Summary');
+                $tabContainer->addItem($tabContainerItem);
+
+                $listContent->getChildren()->addTemplate($tabContainer);
+            } else {
+                $listContent->getChildren()->addTemplate($listDataSource);
+            }
 
             if ($isPopup) {
                 $popupWindow = new PopupWindow();
