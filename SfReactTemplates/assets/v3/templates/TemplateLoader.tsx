@@ -150,6 +150,7 @@ import WhiteCardWithViewFormWidget from "../widgets/WhiteCardWithViewFormWidget"
 import TabContainer from "../tabs/TabContainer";
 import MailsContent from "../content-widgets/MailsContent";
 import NotesContent from "../content-widgets/NotesContent";
+import ListDataSummary from "../list/ListDataSummary";
 
 export interface Template {
   comp: string;
@@ -411,6 +412,7 @@ const componentsMap: any = {
 
   'list.list-data-source': ListDataSource,
   'list.list-data-table': ListDataTable,
+  'list.list-data-summary': ListDataSummary,
   'list.action.add-select-button': AddSelectButton,
 
   'tabs.TabContainer': TabContainer,
