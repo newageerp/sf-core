@@ -148,6 +148,8 @@ import FormFieldTagCloudTemplate from "../form/FormFieldTagCloudTemplate";
 
 import WhiteCardWithViewFormWidget from "../widgets/WhiteCardWithViewFormWidget";
 import TabContainer from "../tabs/TabContainer";
+import MailsContent from "../content-widgets/MailsContent";
+import NotesContent from "../content-widgets/NotesContent";
 
 export interface Template {
   comp: string;
@@ -414,6 +416,9 @@ const componentsMap: any = {
   'tabs.TabContainer': TabContainer,
 
   'primitives.string': PrimitiveString,
+
+  'content-widgets.MailsContent': MailsContent,
+  'content-widgets.NotesContent': NotesContent,
 
   ...CustomEditComponentsMap,
   ...CustomListComponentsMap,

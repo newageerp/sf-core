@@ -14,7 +14,7 @@ export default function EventsHistoryWidget(props: ContentWidgetProps) {
   if (!props.options?.skipMyComments) {
     items.push(
       {
-        content: <NotesContent  {...props} toolbar={<Fragment/>} showOnlyMy={true} />,
+        content: <NotesContent {...props} id={props.element.id} showOnlyMy={true} />,
         tab: {
           children: t("My comments"),
         },
@@ -23,7 +23,7 @@ export default function EventsHistoryWidget(props: ContentWidgetProps) {
   }
   items.push(
     {
-      content: <NotesContent  {...props} toolbar={<Fragment/>} showOnlyMy={false} />,
+      content: <NotesContent {...props} id={props.element.id} showOnlyMy={false} />,
       tab: {
         children: t("All comments"),
       },
@@ -32,7 +32,7 @@ export default function EventsHistoryWidget(props: ContentWidgetProps) {
   if (!props.options?.skipMails) {
     items.push(
       {
-        content: <MailsContent {...props} toolbar={<Fragment/>} />,
+        content: <MailsContent {...props} id={props.element.id} />,
         tab: {
           children: t("Mails"),
         },

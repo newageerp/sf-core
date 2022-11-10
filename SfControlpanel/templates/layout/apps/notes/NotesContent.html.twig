@@ -3,15 +3,17 @@ import React, { useEffect, Fragment, useState } from "react";
 import { useRecoilValue } from "recoil";
 import NoteContentForm from "./NoteContentForm";
 import NoteLine from "./NoteLine";
-import { ContentWidgetProps, getKeysFromObject } from "../../v3/utils";
+import { getKeysFromObject } from "../../v3/utils";
 import { SFSSocketService } from "../../v3/navigation/NavigationComponent";
 import { PageContainer } from "@newageerp/ui.paging.base.page-container";
 
 const moduleName = "note";
 
-interface Props extends ContentWidgetProps {
-  toolbar?: any;
+interface Props {
   showOnlyMy?: boolean;
+  schema: string,
+  id: number,
+  options?: any
 }
 
 interface INote {
@@ -61,7 +63,7 @@ export default function NotesContent(props: Props) {
       [
         {
           and: [
-            ["i.parentId", "=", props.element.id, true],
+            ["i.parentId", "=", props.id, true],
             ["i.parentSchema", "eq", props.schema, true],
           ],
         },
@@ -80,12 +82,12 @@ export default function NotesContent(props: Props) {
   }, [getDataParams.data]);
 
   useEffect(() => {
-    const action = "note-" + props.element.id + "-" + props.schema;
+    const action = "note-" + props.id + "-" + props.schema;
     SFSSocketService.addCallback(action, action + "-el", loadData);
     return () => {
       SFSSocketService.removeCallback(action, action + "-el");
     };
-  }, [props.element.id, props.schema]);
+  }, [props.id, props.schema]);
 
   const data: INote[] = getDataParams.data.data;
 
@@ -102,9 +104,8 @@ export default function NotesContent(props: Props) {
 
   return (
     <Fragment>
-      {!!props.toolbar && props.toolbar}
       <NoteContentForm
-        parentElementId={props.element.id}
+        parentElementId={props.id}
         reloadData={loadData}
         parentSchema={props.schema}
         options={props.options}

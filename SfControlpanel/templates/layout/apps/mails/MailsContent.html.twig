@@ -6,10 +6,11 @@ import { LogoLoader } from "@newageerp/ui.loaders.logo-loader";
 import { Table, Td, Th } from "@newageerp/ui.table.base.table";
 import { Popup } from "@newageerp/ui.popups.base.popup";
 import { TwoLinesDatetime } from "@newageerp/data.view.date.base.two-lines-datetime";
-import { ContentWidgetProps, getKeysFromObject } from "../../v3/utils";
+import { getKeysFromObject } from "../../v3/utils";
 
-interface Props extends ContentWidgetProps {
-  toolbar?: any;
+interface Props {
+  schema: string,
+  id: number,
 }
 
 interface IData {
@@ -60,7 +61,7 @@ export default function MailsContent(props: Props) {
     return "";
   };
 
-  const folder = props.schema + "/" + props.element.id + "/%";
+  const folder = props.schema + "/" + props.id + "/%";
 
   const [popupMail, setPopupMail] = useState<IData | null>(null);
 
@@ -76,7 +77,7 @@ export default function MailsContent(props: Props) {
             or: [
               {
                 and: [
-                  ["i.parentId", "=", props.element.id, true],
+                  ["i.parentId", "=", props.id, true],
                   ["i.parentSchema", "equal", props.schema, true],
                 ],
               },
@@ -107,12 +108,10 @@ export default function MailsContent(props: Props) {
 
   return (
     <Fragment>
-      {!!props.toolbar && props.toolbar}
-
       {isLoading ? (
         <LogoLoader />
       ) : (
-        <div className={"px-4 bg-white py-2 rounded-sm"}>
+        <div className={"tw3-px-4 tw3-bg-white tw3-py-2 tw3-rounded-sm"}>
           <Table
             thead={
               <thead>
@@ -131,7 +130,7 @@ export default function MailsContent(props: Props) {
                 {data.map((mail: IData) => {
                   return (
                     <tr id={`mail-${mail.id}`}>
-                      <Td className="whitespace-nowrap">
+                      <Td className="tw3-whitespace-nowrap">
                         <button onClick={() => setPopupMail(mail)}>
                           <TwoLinesDatetime value={mail.createdAt} />
                         </button>
