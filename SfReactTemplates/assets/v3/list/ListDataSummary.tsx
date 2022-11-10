@@ -9,6 +9,7 @@ type ISummary = {
 
 type Props = {
     summary: ISummary[],
+    schema: string,
 }
 
 export default function ListDataSummary(props: Props) {
