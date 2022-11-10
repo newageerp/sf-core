@@ -82,11 +82,11 @@ export const NaeApiFunctions = {';
         ';
                 if ($method === 'post') {
                     $fileContent .= '
-                    return axiosInstance.post(url, data});
+                    return axiosInstance.post(url, data);
                     ';
                 } else {
                     $fileContent .= '
-                    return axiosInstance.get(url});
+                    return axiosInstance.get(url);
                     ';
                 }
 
