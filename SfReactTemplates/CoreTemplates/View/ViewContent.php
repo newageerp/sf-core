@@ -16,6 +16,9 @@ class ViewContent extends Template
 
     protected ?object $entity = null;
 
+    protected ?string $layoutLeftColClassName = null;
+    protected ?string $layoutRightColClassName = null;
+
     protected Placeholder $rightContent;
     protected Placeholder $bottomContent;
     protected Placeholder $bottomExtraContent;
@@ -51,7 +54,7 @@ class ViewContent extends Template
 
     public function getProps(): array
     {
-        return [
+        $props = [
             'formContent' => [$this->getFormContent()->toArray()],
             'editable' => EntityPermissionService::checkIsEditable($this->entity),
             'removable' => EntityPermissionService::checkIsRemovable($this->entity),
@@ -71,6 +74,15 @@ class ViewContent extends Template
             'type' => $this->getType(),
             'id' => $this->getId(),
         ];
+
+        if ($this->getLayoutLeftColClassName()) {
+            $props['layoutLeftColClassName'] = $this->getLayoutLeftColClassName();
+        }
+        if ($this->getLayoutRightColClassName()) {
+            $props['layoutRightColClassName'] = $this->getLayoutRightColClassName();
+        }
+
+        return $props;
     }
 
     public function getTemplateName(): string
@@ -363,6 +375,54 @@ class ViewContent extends Template
     public function setBottomExtraContent(Placeholder $bottomExtraContent): self
     {
         $this->bottomExtraContent = $bottomExtraContent;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of layoutLeftColClassName
+     *
+     * @return ?string
+     */
+    public function getLayoutLeftColClassName(): ?string
+    {
+        return $this->layoutLeftColClassName;
+    }
+
+    /**
+     * Set the value of layoutLeftColClassName
+     *
+     * @param ?string $layoutLeftColClassName
+     *
+     * @return self
+     */
+    public function setLayoutLeftColClassName(?string $layoutLeftColClassName): self
+    {
+        $this->layoutLeftColClassName = $layoutLeftColClassName;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of layoutRightColClassName
+     *
+     * @return ?string
+     */
+    public function getLayoutRightColClassName(): ?string
+    {
+        return $this->layoutRightColClassName;
+    }
+
+    /**
+     * Set the value of layoutRightColClassName
+     *
+     * @param ?string $layoutRightColClassName
+     *
+     * @return self
+     */
+    public function setLayoutRightColClassName(?string $layoutRightColClassName): self
+    {
+        $this->layoutRightColClassName = $layoutRightColClassName;
 
         return $this;
     }

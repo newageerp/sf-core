@@ -68,11 +68,14 @@ class ViewContentListener implements EventSubscriberInterface
                 self::MAINVIEWWIDGETMIDDLE => $viewContent->getMiddleContent()
             ];
 
+            $eventTemplateData = $event->getData();
+            $eventTemplateData['viewContent'] = $viewContent;
+
             foreach ($widgetTemplateEvents as $wdgTemplate => $content) {
                 $wEvent = new LoadTemplateEvent(
                     $content,
                     $wdgTemplate,
-                    $event->getData()
+                    $eventTemplateData,
                 );
                 $this->eventDispatcher->dispatch($wEvent, LoadTemplateEvent::NAME);
             }
