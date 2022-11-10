@@ -155,17 +155,20 @@ class UService
                     $groupByObj = $groupByObj->$getter();
                 }
 
-                if (!isset($groupedData[$groupByObj])) {
-                    $groupedData[$groupByObj] = [];
+                if (!isset($groupedData[$item['groupBy']])) {
+                    $groupedData[$item['groupBy']] = [];
                 }
-                if (!isset($groupedData[$groupByObj][$item['field']])) {
-                    $groupedData[$groupByObj][$item['field']] = 0;
+                if (!isset($groupedData[$item['groupBy']][$groupByObj])) {
+                    $groupedData[$item['groupBy']][$groupByObj] = [];
+                }
+                if (!isset($groupedData[$item['groupBy']][$groupByObj][$item['field']])) {
+                    $groupedData[$item['groupBy']][$groupByObj][$item['field']] = 0;
                 }
 
                 if ($item['type'] === 'count') {
-                    $groupedData[$groupByObj][$item['field']]++;
+                    $groupedData[$item['groupBy']][$groupByObj][$item['field']]++;
                 } else {
-                    $groupedData[$groupByObj][$item['field']] += $fieldObj;
+                    $groupedData[$item['groupBy']][$groupByObj][$item['field']] += $fieldObj;
                 }
             }
         }
