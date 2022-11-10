@@ -276,6 +276,9 @@ export default function ListDataSource(props: Props) {
               addNewBlockFilter: addNewBlockFilter,
               dataToRender: dataToRender,
               onAddSelectButton: tData.onAddSelectButton,
+              filter: {
+                prepareFilter,
+              }
             }}
           />
           {!!props.totals && props.totals && <Fragment>

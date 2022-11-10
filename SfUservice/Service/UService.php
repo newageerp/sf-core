@@ -152,7 +152,7 @@ class UService
                 $groupByObj = $result;
                 foreach ($groupByPath as $p) {
                     $getter = 'get' . ucfirst($p);
-                    $groupByObj = $fieldObj->$getter();
+                    $groupByObj = $groupByObj->$getter();
                 }
 
                 if (!isset($groupedData[$groupByObj])) {
