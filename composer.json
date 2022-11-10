@@ -16,7 +16,6 @@
     "doctrine/annotations": "^1.13",
     "symfony/serializer": "^5.0",
     "symfony/http-foundation": "^5.0",
-    "symfony/component": "^5.0",
     "symfony/event-dispatcher": "^5.0",
     "twig/twig": "^2.0",
     "phpoffice/phpspreadsheet": "^1.18",
