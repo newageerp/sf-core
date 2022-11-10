@@ -17,7 +17,7 @@ import OldPopup from './OldPopup'
 import OldEmailForm from './OldEmailForm'
 import { getLinkForFile } from './OldFileFieldRo'
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper'
-import { Tooltip } from "@newageerp/v3.badges.tooltip";
+import { Tooltip } from "@newageerp/v3.bundles.badges-bundle";
 
 const defaultActions = ['download', 'preview', 'mail']
 

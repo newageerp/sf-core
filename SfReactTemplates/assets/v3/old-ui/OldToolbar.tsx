@@ -1,6 +1,5 @@
 import React from 'react'
 // import { UIConfig } from '../../index';
-import { isMobile } from 'react-device-detect';
 import { usePrint } from './OldTable';
 
 export interface ToolbarProps {
@@ -12,9 +11,9 @@ export default function OldToolbar(props: ToolbarProps) {
     const isPrint = usePrint();
 
     return (
-        <div className={`${isPrint ? '' : ''}  ${props.inline ? '' : 'fixed top-0 right-0'} ${isMobile || isPrint ? "left-0" : " left-60 h-16 "}`} style={{ zIndex: 49 }}>
+        <div className={`${isPrint ? '' : ''}  ${props.inline ? '' : 'fixed top-0 right-0'} ${isPrint ? "left-0" : " left-60 h-16 "}`} style={{ zIndex: 49 }}>
             <div className={`flex items-center h-16 px-4 gap-6`}>
-                <div className={`flex-grow ${isMobile ? 'px-10' : ''}`}>
+                <div className={`flex-grow`}>
                     {props.children}
                 </div>
                 {/* {!isMobile && !isPrint && <Fragment>
