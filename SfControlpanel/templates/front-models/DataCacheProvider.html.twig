@@ -5,8 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 import { NaeSSchemaMap } from "../../_custom/config/NaeSSchema";
 import { useRecoilValue } from 'recoil';
-import { OldUiH3 } from "../../v3/old-ui/OldUiH5";
-import OldLoaderLogo from "../../v3/old-ui/OldLoaderLogo";
+import { LogoLoader } from "@newageerp/ui.loaders.logo-loader";
 
 {% if hasNotes %}
 import { INoteFieldsNae } from './useNoteHookNae';
@@ -177,9 +176,10 @@ export const DataCacheProvider = (props: DataCacheProps) => {
         >
             {isCaching && isLoggedIn ?
 
-            <div className={"w-96 mx-auto mt-8 flex justify-center flex-wrap gap-8"}>
-                <OldUiH3 className="w-full text-center">{t('Kraunami duomenys...')}</OldUiH3>
-                <OldLoaderLogo />
+            <div className="tw3-flex tw3-w-full tw3-h-[100vh] tw3-items-center tw3-animate-pulse tw3-bg-slate-50">
+                <div className={"tw3-mx-auto"}>
+                    <LogoLoader size={150} />
+                </div>
             </div>
 
             : props.children}
