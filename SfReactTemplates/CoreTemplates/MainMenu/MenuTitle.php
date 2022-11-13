@@ -4,7 +4,7 @@ namespace Newageerp\SfReactTemplates\CoreTemplates\MainMenu;
 
 use Newageerp\SfReactTemplates\Template\Template;
 
-class MenuItem extends Template
+class MenuTitle extends Template
 {
     protected string $title = '';
 
