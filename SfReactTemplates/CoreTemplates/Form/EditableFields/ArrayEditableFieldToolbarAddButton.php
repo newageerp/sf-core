@@ -15,7 +15,8 @@ class ArrayEditableFieldToolbarAddButton extends Template
 
     public function getProps(): array
     {
-        $props = parent::getProps();
+        // $props = parent::getProps();
+        $props = [];
 
         $props['schema'] = $this->getSchema();
 
