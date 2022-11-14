@@ -46,10 +46,10 @@ export default function OldArrayFieldComponentRo(props: Props) {
     return (
         <Fragment>
             <div>
-                <div className={'space-y-4'}>
+                <div className={'tw3-space-y-4'}>
                     <OldTable
 
-                        containerClassName={'w-full'}
+                        containerClassName={'tw3-w-full'}
                         thead={
                             <OldThead
                                 columns={getThColums({ tab: props.tab, schema: props.schema })}

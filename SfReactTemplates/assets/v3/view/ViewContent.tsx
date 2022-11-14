@@ -216,7 +216,7 @@ export default function ViewContent(props: Props) {
               templateData={{ element: element }}
             />
 
-            <div className={"tw3-flex gap-2"}>
+            <div className={"tw3-flex tw3-gap-2"}>
               <div className={classNames(props.layoutLeftColClassName ? props.layoutLeftColClassName : "tw3-flex-grow", "tw3-space-y-2")}>
                 <WhiteCard className={"tw3-relative"}>
                   {element ? (

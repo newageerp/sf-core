@@ -146,7 +146,7 @@ export default function OldArrayFieldComponent(props: Props) {
             {t('Add')}
           </MainButton>
           <OldTable
-            containerClassName={'w-full'}
+            containerClassName={'tw3-w-full'}
             thead={
               <OldThead
                 columns={getThColums({ tab: localTab, schema: props.schema })}
