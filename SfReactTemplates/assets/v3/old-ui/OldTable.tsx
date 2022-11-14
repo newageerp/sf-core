@@ -13,11 +13,11 @@ interface Props {
 }
 
 export const TableBorderColor = 'gray-200'
-export const TableBorder = 'border border-' + TableBorderColor
+export const TableBorder = 'tw3-border tw3-border-gray-200'
 
 export default function OldTable(props: Props) {
     const isPrint = usePrint();
-    const className = ['base-table w-full']
+    const className = ['base-table tw3-w-full']
     if (props.className) {
         className.push(props.className)
     }
@@ -28,7 +28,7 @@ export default function OldTable(props: Props) {
     }
 
     return (
-        <div className={`${props.containerClassName ? props.containerClassName : `w-full ${showOverflowClass ? 'overflow-x-auto' : ''}`}`}>
+        <div className={`${props.containerClassName ? props.containerClassName : `tw3-w-full ${showOverflowClass ? 'tw3-overflow-x-auto' : ''}`}`}>
             <table className={className.join(' ')} id={props.id}>
                 {props.thead && props.thead}
                 {props.tbody && props.tbody}
