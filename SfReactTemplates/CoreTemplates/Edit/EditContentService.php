@@ -36,9 +36,12 @@ use Newageerp\SfReactTemplates\CoreTemplates\Form\FormLabel;
 use Newageerp\SfReactTemplates\CoreTemplates\Form\Rows\CompactRow;
 use Newageerp\SfReactTemplates\CoreTemplates\Form\Rows\WideRow;
 use Newageerp\SfReactTemplates\CoreTemplates\Layout\FlexRow;
+use Newageerp\SfReactTemplates\Event\LoadTemplateEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class EditContentService
 {
+    protected EventDispatcherInterface $eventDispatcher;
 
     protected EditFormsUtilsV3 $editFormsUtilsV3;
 
@@ -50,10 +53,12 @@ class EditContentService
         EditFormsUtilsV3 $editFormsUtilsV3,
         PropertiesUtilsV3 $propertiesUtilsV3,
         EntitiesUtilsV3 $entitiesUtilsV3,
+        EventDispatcherInterface $eventDispatcher,
     ) {
         $this->editFormsUtilsV3 = $editFormsUtilsV3;
         $this->propertiesUtilsV3 = $propertiesUtilsV3;
         $this->entitiesUtilsV3 = $entitiesUtilsV3;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function fillFormContent(string $schema, string $type, EditFormContent $editContent, bool $isCompact = false)
@@ -316,6 +321,10 @@ class EditContentService
                         }
                     }
 
+
+                    $event = new LoadTemplateEvent($wideRow->getControlContent(), 'App.EditContentService.FieldControl', ['path' => $field['path']]);
+                    $this->getEventDispatcher()->dispatch($event, LoadTemplateEvent::NAME);
+
                     if ($flexRow !== null) {
                         $flexRow->getChildren()->addTemplate($wideRow);
                     } else {
@@ -333,5 +342,29 @@ class EditContentService
         return [
             'requiredFields' => $requiredFields
         ];
+    }
+
+    /**
+     * Get the value of eventDispatcher
+     *
+     * @return EventDispatcherInterface
+     */
+    public function getEventDispatcher(): EventDispatcherInterface
+    {
+        return $this->eventDispatcher;
+    }
+
+    /**
+     * Set the value of eventDispatcher
+     *
+     * @param EventDispatcherInterface $eventDispatcher
+     *
+     * @return self
+     */
+    public function setEventDispatcher(EventDispatcherInterface $eventDispatcher): self
+    {
+        $this->eventDispatcher = $eventDispatcher;
+
+        return $this;
     }
 }
