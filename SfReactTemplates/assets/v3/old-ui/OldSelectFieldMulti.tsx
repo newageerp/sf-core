@@ -38,7 +38,7 @@ export default function OldSelectFieldMulti(props: Props) {
 
   return (
     <Select
-      placeholder={t("Pasirinkite...")}
+      placeholder={t("Choose...")}
       options={options}
       className={className.join(" ")}
       isMulti={props.isMulti}

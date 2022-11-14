@@ -3,7 +3,7 @@ import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 
 export const axiosInstance = axios.create({
   baseURL: '',
-  timeout: 30 * 1000,
+  timeout: 300 * 1000,
   headers: {
     // @ts-ignore
     "Authorization": window.localStorage.getItem("token"),

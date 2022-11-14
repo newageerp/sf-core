@@ -15,12 +15,12 @@ import {
 } from "@newageerp/v3.popups.mvc-popup";
 import { checkIsEditable, INaeWidget, WidgetType } from "../utils";
 import OldAlert, { AlertBgColor } from "../old-ui/OldAlert";
-import OldLoaderLogo from "../old-ui/OldLoaderLogo";
 import OldNeWidgets from "../old-ui/OldNeWidgets";
 import { useNaeRecord } from "../old-ui/OldNaeRecord";
 import { useNaePopup } from "../old-ui/OldPopupProvider";
 import { useUIBuilder } from "../old-ui/builder/OldUIBuilderProvider";
 import classNames from 'classnames';
+import { LogoLoader } from "@newageerp/ui.loaders.logo-loader";
 
 interface Props {
   schema: string;
@@ -362,7 +362,7 @@ export default function ViewContent(props: Props) {
             />
           </Fragment>
         ) : reloading ? (
-          <OldLoaderLogo />
+          <LogoLoader />
         ) : (
           <OldAlert bgColor={AlertBgColor.red}>
             {t("Neturite teisių matyti šį įrašą")}

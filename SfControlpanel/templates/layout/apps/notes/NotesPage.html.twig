@@ -5,7 +5,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import { UserSpaceWrapperToolbarState } from "../../layout/toolbar/UserSpaceWrapperToolbar";
 import { LogoLoader } from "@newageerp/ui.loaders.logo-loader";
-import NotesNameResolver from "../../_custom/models-cache-data/NotesNameResolver";
+import NotesNameResolver, { NotesSchemaFix } from "../../_custom/models-cache-data/NotesNameResolver";
 import { PageContainer } from '@newageerp/ui.paging.base.page-container'
 import NoteLine from "./NoteLine";
 import { getKeysFromObject } from "../../v3/utils";
@@ -96,7 +96,7 @@ export default function NotesPageContent() {
     }, [getDataParams.data]);
 
     useEffect(() => {
-        setToolbarTitle(t('Komentarai'));
+        setToolbarTitle(t('Comments'));
     }, []);
 
     const parentElementCallack = (parentId: number, parentSchema: string) => {
@@ -130,6 +130,7 @@ export default function NotesPageContent() {
                                             showParentLink={true}
                                             doReload={loadData}
                                             parentElementCallack={parentElementCallack}
+                                            parentSchemaFix={NotesSchemaFix}
                                         />
                                     );
                                 })}

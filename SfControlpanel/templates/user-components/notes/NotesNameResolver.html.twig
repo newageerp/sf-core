@@ -6,6 +6,10 @@ interface Props {
     parentSchema: string,
 }
 
+export const NotesSchemaFix = (schema: string) => {
+    return schema;
+}
+
 export default function NotesNameResolver(props: Props) {
     const { t } = useTranslation();
 

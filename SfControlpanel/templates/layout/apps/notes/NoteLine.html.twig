@@ -41,6 +41,7 @@ interface Props {
   showParentLink?: boolean;
   note: IData; // NOTE
   parentElementCallack?: (parentId: number, parentSchema: string) => any;
+  parentSchemaFix?: (schema: string) => string,
 }
 
 const moduleName = "note";
@@ -64,7 +65,7 @@ export default function NoteLine(props: Props) {
   const toggleShowPopup = () =>
     SFSOpenViewModalWindowProps({
       id: note.parentId,
-      schema: note.parentSchema,
+      schema: props.parentSchemaFix ? props.parentSchemaFix(note.parentSchema) : note.parentSchema,
     });
 
   const [saveData, saveDataParams] = OpenApi.useUSave(moduleName);
