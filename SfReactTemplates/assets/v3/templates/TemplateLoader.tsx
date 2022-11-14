@@ -154,6 +154,7 @@ import ListDataSummary from "../list/ListDataSummary";
 import ListDataTotals from "../list/ListDataTotals";
 
 import { MenuFolder, MenuTitle, MenuItem } from "@newageerp/v3.bundles.menu-bundle";
+import AddButton from "../form/editable-fields/components/ArrayEditableField/AddButton";
 
 export interface Template {
   comp: string;
@@ -311,6 +312,8 @@ const componentsMap: any = {
   "form.roform": RoForm,
 
   "form.editable.arrayfield": ArrayEditableField,
+  "form.editable.arrayfield.toolbar.addButton": AddButton,
+
   "form.editable.audiofield": AudioEditableField,
   "form.editable.boolfield": BoolEditableField,
   "form.editable.colorfield": ColorEditableField,

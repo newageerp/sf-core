@@ -1,5 +1,6 @@
 import React from 'react'
-import OldTd, { TableTdProps } from './OldTd'
+import { TableTdProps } from './OldTd'
+import { Td } from '@newageerp/ui.table.base.table'
 
 export interface TrowCol {
   props: TableTdProps
@@ -16,7 +17,7 @@ export interface TrowProps {
 export const defaultStrippedRowClassName = (index: number) => index % 2 === 0 ? "bg-gray-100" : "";
 
 export default function OldTrow(props: TrowProps) {
-  const className = []
+  const className : string[] = []
   if (props.className) {
     className.push(props.className)
   }
@@ -25,9 +26,9 @@ export default function OldTrow(props: TrowProps) {
       {props.extraContentStart}
       {props.columns.map((col, index: number) => {
         return (
-          <OldTd key={'col-' + index} {...col.props}>
+          <Td key={'col-' + index} {...col.props}>
             {col.content}
-          </OldTd>
+          </Td>
         )
       })}
       {props.extraContentEnd}

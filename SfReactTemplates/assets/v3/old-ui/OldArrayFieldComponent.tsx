@@ -19,7 +19,8 @@ import OldTabFloatField from './OldTabFloatField'
 import OldTabTextareaField from './OldTabTextareaField'
 import OldTabStringField from './OldTabStringField'
 import { MainButton, ToolbarButton } from '@newageerp/v3.bundles.buttons-bundle'
-import {Table, Td, Th} from '@newageerp/ui.table.base.table'
+import { Table, Td, Th } from '@newageerp/ui.table.base.table'
+import TemplateLoader, { Template } from '../templates/TemplateLoader'
 
 interface Props {
   schema: string
@@ -32,6 +33,8 @@ interface Props {
   parentElement?: any
 
   disableCreateElement?: boolean
+
+  toolbar: Template[],
 }
 
 export default function OldArrayFieldComponent(props: Props) {
@@ -145,6 +148,13 @@ export default function OldArrayFieldComponent(props: Props) {
           <MainButton iconName='plus' onClick={toggleCreateNew}>
             {t('Add')}
           </MainButton>
+          <TemplateLoader
+            templates={props.toolbar}
+            templateData={{
+              addElement,
+              parentElement: props.parentElement
+            }}
+          />
           <OldTable
             containerClassName={'tw3-w-full'}
             thead={

@@ -6,6 +6,7 @@ use Newageerp\SfControlpanel\Console\EditFormsUtilsV3;
 use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
 use Newageerp\SfReactTemplates\CoreTemplates\Form\EditableFields\ArrayEditableField;
+use Newageerp\SfReactTemplates\CoreTemplates\Form\EditableFields\ArrayEditableFieldToolbarAddButton;
 use Newageerp\SfReactTemplates\CoreTemplates\Form\EditableFields\AudioEditableField;
 use Newageerp\SfReactTemplates\CoreTemplates\Form\EditableFields\BoolEditableField;
 use Newageerp\SfReactTemplates\CoreTemplates\Form\EditableFields\ColorEditableField;
@@ -192,12 +193,16 @@ class EditContentService
                             if ($naeType === 'array') {
                                 [$tabSchema, $tabType] = explode(':', $field['arrayRelTab']);
 
+                                $edf = new ArrayEditableField(
+                                    $pathArray[1],
+                                    $tabSchema,
+                                    $tabType,
+                                );
+                                $edf->getToolbar()->addTemplate(
+                                    new ArrayEditableFieldToolbarAddButton($tabSchema)
+                                );
                                 $wideRow->getControlContent()->addTemplate(
-                                    new ArrayEditableField(
-                                        $pathArray[1],
-                                        $tabSchema,
-                                        $tabType,
-                                    )
+                                    $edf
                                 );
                             }
                             if ($naeType === 'audio') {

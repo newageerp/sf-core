@@ -1,6 +1,6 @@
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
+import { InputFloat } from '@newageerp/ui.form.base.form-pack';
 import React, {useState, useEffect} from 'react';
-import OldInputField from './OldInputField';
 
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 }
 
 export default function OldTabFloatField(props: Props) {
-    const [q, setQ] = useState(props.value.toString());
+    const [q, setQ] = useState(props.value);
 
     const [doSave] = OpenApi.useUSave(
       props.property.schema
@@ -19,7 +19,7 @@ export default function OldTabFloatField(props: Props) {
     const saveElement = () => {
       doSave(
         {
-          [props.property.key]: parseFloat(q),
+          [props.property.key]: q,
         },
         props.elementId
       ).then(() => {
@@ -30,8 +30,8 @@ export default function OldTabFloatField(props: Props) {
     };
   
     useEffect(() => {
-      setQ(props.value.toString());
+      setQ(props.value);
     }, [props.value]);
   
-    return <OldInputField value={q} onChange={(e) => setQ(e.target.value)} onBlur={saveElement} />;
+    return <InputFloat value={q} onChangeFloat={(e) => setQ(e)} onBlur={saveElement} />;
 }

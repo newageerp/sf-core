@@ -11,12 +11,15 @@ class ArrayEditableField extends FormBaseField
     protected string $tabSchema = '';
     protected string $tabType = '';
 
+    protected Placeholder $toolbar;
+
     public function __construct(string $key, string $tabSchema, string $tabType)
     {
         parent::__construct($key);
 
         $this->tabSchema = $tabSchema;
         $this->tabType = $tabType;
+        $this->toolbar = new Placeholder();
     }
 
     public function getProps(): array
@@ -78,6 +81,30 @@ class ArrayEditableField extends FormBaseField
     public function setTabType(string $tabType): self
     {
         $this->tabType = $tabType;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of toolbar
+     *
+     * @return Placeholder
+     */
+    public function getToolbar(): Placeholder
+    {
+        return $this->toolbar;
+    }
+
+    /**
+     * Set the value of toolbar
+     *
+     * @param Placeholder $toolbar
+     *
+     * @return self
+     */
+    public function setToolbar(Placeholder $toolbar): self
+    {
+        $this->toolbar = $toolbar;
 
         return $this;
     }
