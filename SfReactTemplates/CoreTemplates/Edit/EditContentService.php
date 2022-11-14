@@ -41,6 +41,8 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class EditContentService
 {
+    public const EDITCONTENTFIELDCONTROLEVENT = 'App.EditContentService.FieldControl';
+
     protected EventDispatcherInterface $eventDispatcher;
 
     protected EditFormsUtilsV3 $editFormsUtilsV3;
@@ -322,7 +324,7 @@ class EditContentService
                     }
 
 
-                    $event = new LoadTemplateEvent($wideRow->getControlContent(), 'App.EditContentService.FieldControl', ['path' => $field['path']]);
+                    $event = new LoadTemplateEvent($wideRow->getControlContent(), self::EDITCONTENTFIELDCONTROLEVENT, ['path' => $field['path']]);
                     $this->getEventDispatcher()->dispatch($event, LoadTemplateEvent::NAME);
 
                     if ($flexRow !== null) {
