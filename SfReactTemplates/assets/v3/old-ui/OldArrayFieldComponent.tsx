@@ -150,7 +150,7 @@ export default function OldArrayFieldComponent(props: Props) {
             thead={
               <OldThead
                 columns={getThColums({ tab: localTab, schema: props.schema })}
-                extraContentEnd={<Th textAlignment={'tw3-text-right'}>{t('Veiksmai')}</Th>}
+                extraContentEnd={<Th textAlignment={'tw3-text-right'}>{t('Actions')}</Th>}
               />
             }
             tbody={<OldTbody {...bodyProps} />}

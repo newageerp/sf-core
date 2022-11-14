@@ -53,7 +53,7 @@ export default function OldArrayFieldComponentRo(props: Props) {
                         thead={
                             <OldThead
                                 columns={getThColums({ tab: props.tab, schema: props.schema })}
-                                // extraContentEnd={<Th className={'text-right'}>{t('Veiksmai')}</Th>}
+                                // extraContentEnd={<Th className={'text-right'}>{t('Actions')}</Th>}
                             />
                         }
                         tbody={<OldTbody {...bodyProps} />}
