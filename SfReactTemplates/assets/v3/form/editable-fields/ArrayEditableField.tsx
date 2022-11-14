@@ -1,13 +1,15 @@
 import React, { Fragment } from 'react'
 import { useUIBuilder } from '../../old-ui/builder/OldUIBuilderProvider';
 import OldArrayFieldComponent from '../../old-ui/OldArrayFieldComponent';
-import { useTemplateLoader } from '../../templates/TemplateLoader';
+import { Template, useTemplateLoader } from '../../templates/TemplateLoader';
 
 interface Props {
   fieldKey: string;
 
   tabSchema: string;
   tabType: string;
+
+  toolbar: Template[],
 }
 
 export default function ArrayEditableField(props: Props) {
@@ -35,6 +37,7 @@ export default function ArrayEditableField(props: Props) {
       onChange={updateValue}
       tab={getTabFromSchemaAndType(props.tabSchema, props.tabType)}
       parentElement={element}
+      toolbar={props.toolbar}
     />
   )
 }

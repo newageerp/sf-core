@@ -28,6 +28,7 @@ class ArrayEditableField extends FormBaseField
 
         $props['tabSchema'] = $this->getTabSchema();
         $props['tabType'] = $this->getTabType();
+        $props['toolbar'] = $this->getToolbar()->toArray();
 
         return $props;
     }

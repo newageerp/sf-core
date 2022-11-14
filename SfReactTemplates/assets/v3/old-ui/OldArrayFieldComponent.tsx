@@ -145,9 +145,9 @@ export default function OldArrayFieldComponent(props: Props) {
     <Fragment>
       <div className='tw3-rounded tw3-border tw3-border-slate-300 tw3-p-2 tw3-bg-white'>
         <div className={'tw3-space-y-4'}>
-          <MainButton iconName='plus' onClick={toggleCreateNew}>
+          {/* <MainButton iconName='plus' onClick={toggleCreateNew}>
             {t('Add')}
-          </MainButton>
+          </MainButton> */}
           <TemplateLoader
             templates={props.toolbar}
             templateData={{
