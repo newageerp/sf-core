@@ -20,7 +20,7 @@ export const editPopupBySchemaAndType = (
 
   return (
     <NaePopupProvider isPopup={true} onClose={props.onClose}>
-      <Popup isPopup={true} onClick={props.onClose} className={'tw3-min-w-[75vw] tw3-max-w-[75vw]'}>
+      <Popup title="" isPopup={true} onClick={props.onClose} className={'tw3-min-w-[75vw] tw3-max-w-[75vw]'}>
         <TemplateLoader
           key={`${editProps.schema}-${editProps.type}-${editProps.id}`}
           templateName="PageMainEdit"
