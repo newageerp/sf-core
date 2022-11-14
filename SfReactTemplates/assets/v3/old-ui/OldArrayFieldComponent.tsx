@@ -38,9 +38,6 @@ interface Props {
 }
 
 export default function OldArrayFieldComponent(props: Props) {
-  const [createNew, setCreateNew] = useState(false)
-  const toggleCreateNew = () => setCreateNew(!createNew)
-
   const [editPopupId, setEditPopupId] = useState<number>(0)
   const [copyPopupId, setCopyPopupId] = useState<number>(0)
 
@@ -57,11 +54,10 @@ export default function OldArrayFieldComponent(props: Props) {
     return f;
   })
 
-  const addElement = (el: any) => {
+  const addElement = (el: any, back: any) => {
     schemaGetData([{ and: [['i.id', 'eq', el.id]] }], 1, 1).then((res: any) => {
       const newEl = [...props.value, res.data.data[0]]
       props.onChange(newEl)
-      setCreateNew(false)
       setCopyPopupId(0)
     })
   }
@@ -84,7 +80,6 @@ export default function OldArrayFieldComponent(props: Props) {
   const removeElement = (index: number) => {
     const newEl = props.value.filter((_el: any, _i: number) => _i !== index)
     props.onChange(newEl)
-    setCreateNew(false)
   }
 
   const bodyProps = {
@@ -119,6 +114,7 @@ export default function OldArrayFieldComponent(props: Props) {
               iconName='trash'
               onClick={() => removeElement(index)}
               textColor={'tw3-text-red-500'}
+              confirmation={true}
             />
           </Td>
         </Fragment>
@@ -169,20 +165,6 @@ export default function OldArrayFieldComponent(props: Props) {
         </div>
       </div>
 
-      {!!createNew &&
-        <Fragment>
-          {editPopupBySchemaAndType(props.schema, 'main', {
-            onClose: toggleCreateNew,
-            editProps: {
-              schema: props.schema,
-              id: "new",
-              onSaveCallback: addElement,
-              parentElement: props.parentElement,
-              type: 'main'
-            },
-          })}
-        </Fragment>
-      }
       {editPopupId > 0 &&
         <Fragment>
           {editPopupBySchemaAndType(props.schema, 'main', {

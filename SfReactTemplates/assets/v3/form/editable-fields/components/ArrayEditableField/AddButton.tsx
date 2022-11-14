@@ -28,7 +28,10 @@ export default function AddButton(props: Props) {
                         editProps: {
                             schema: props.schema,
                             id: "new",
-                            onSaveCallback: tData.addElement,
+                            onSaveCallback: (_el, back) => {
+                                tData.addElement(_el, back);
+                                toggleCreateNew();
+                            },
                             parentElement: tData.parentElement,
                             type: 'main'
                         },
