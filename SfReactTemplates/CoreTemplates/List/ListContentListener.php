@@ -155,6 +155,7 @@ class ListContentListener implements EventSubscriberInterface
 
             if ($isPopup) {
                 $popupWindow = new PopupWindow();
+                $popupWindow->setSize('w75p');
                 $popupWindow->getChildren()->addTemplate($listContent);
                 $event->getPlaceholder()->addTemplate($popupWindow);
             } else {

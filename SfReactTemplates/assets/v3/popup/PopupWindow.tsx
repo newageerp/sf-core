@@ -4,7 +4,8 @@ import { Popup } from '@newageerp/ui.popups.base.popup'
 import { NaePopupProvider } from '../old-ui/OldPopupProvider';
 
 interface Props {
-  children: Template[]
+  children: Template[],
+  size?: string,
 }
 
 export default function PopupWindow(props: Props) {
@@ -12,7 +13,7 @@ export default function PopupWindow(props: Props) {
 
   return (
     <NaePopupProvider isPopup={true} onClose={tdata.onBack}>
-      <Popup onClose={tdata.onBack}>
+      <Popup onClose={tdata.onBack} size={props.size}>
         <TemplatesParser templates={props.children} />
       </Popup>
     </NaePopupProvider>

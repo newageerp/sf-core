@@ -9,6 +9,8 @@ class PopupWindow extends Template
 {
     protected ?Placeholder $children;
 
+    protected ?string $size = null;
+
     public function __construct(?Placeholder $children = null)
     {
         $this->children = $children ? $children : new Placeholder();
@@ -18,6 +20,7 @@ class PopupWindow extends Template
     {
         return [
             'children' => $this->getChildren()->toArray(),
+            'size' => $this->getSize(),
         ];
     }
 
@@ -53,5 +56,29 @@ class PopupWindow extends Template
     public function getTemplateData(): array
     {
         return $this->getChildren()->getTemplatesData();
+    }
+
+    /**
+     * Get the value of size
+     *
+     * @return ?string
+     */
+    public function getSize(): ?string
+    {
+        return $this->size;
+    }
+
+    /**
+     * Set the value of size
+     *
+     * @param ?string $size
+     *
+     * @return self
+     */
+    public function setSize(?string $size): self
+    {
+        $this->size = $size;
+
+        return $this;
     }
 }

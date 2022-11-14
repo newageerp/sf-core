@@ -9,7 +9,6 @@ import { editPopupBySchemaAndType } from '../../editforms/EditPopup'
 import OldTable, { TheadCol } from './OldTable'
 import OldThead from './OldThead'
 import OldTbody from './OldTbody'
-import OldButtonSchemaMultiLink from './OldButtonSchemaMultiLink'
 import moment from 'moment'
 import OldBadge, { BadgeSize } from './OldBadge'
 import { NaeSStatuses } from '../../_custom/config/NaeSStatuses'
@@ -18,7 +17,7 @@ import OldTabSelectField from './OldTabSelectField'
 import OldTabFloatField from './OldTabFloatField'
 import OldTabTextareaField from './OldTabTextareaField'
 import OldTabStringField from './OldTabStringField'
-import { MainButton, ToolbarButton } from '@newageerp/v3.bundles.buttons-bundle'
+import { MainButton, RsButton, ToolbarButton } from '@newageerp/v3.bundles.buttons-bundle'
 import { Table, Td, Th } from '@newageerp/ui.table.base.table'
 import TemplateLoader, { Template } from '../templates/TemplateLoader'
 
@@ -462,15 +461,16 @@ export const transformTdProps = (obj: any) => {
 
   if (tabField.link) {
     column.content = (
-      <OldButtonSchemaMultiLink
+      <RsButton
         id={linkId}
         schema={linkSchema}
-        className={tabField.linkNl ? 'text-left' : textAlignClassName}
-        onClick={() => navigate(linkSchema, linkId, item)}
-        buttonsNl={tabField.linkNl}
-      >
-        {column.content}
-      </OldButtonSchemaMultiLink>
+        defaultClick={"modal"}
+        button={{
+          children: column.content,
+          color: "white",
+          skipPadding: true,
+        }}
+      />
     )
   }
 
