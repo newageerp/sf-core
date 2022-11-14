@@ -155,7 +155,7 @@ class ListContentListener implements EventSubscriberInterface
 
             if ($isPopup) {
                 $popupWindow = new PopupWindow();
-                // $popupWindow->setSize('w75p');
+                $popupWindow->setClassName('tw3-min-w-[75vw] tw3-max-w-[75vw]');
                 $popupWindow->setTitle($this->entitiesUtilsV3->getTitlePluralBySlug($event->getData()['schema']));
                 $popupWindow->getChildren()->addTemplate($listContent);
                 $event->getPlaceholder()->addTemplate($popupWindow);
