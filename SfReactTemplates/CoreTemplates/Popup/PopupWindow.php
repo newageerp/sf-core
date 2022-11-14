@@ -11,6 +11,8 @@ class PopupWindow extends Template
 
     protected ?string $size = null;
 
+    protected string $title = '';
+
     public function __construct(?Placeholder $children = null)
     {
         $this->children = $children ? $children : new Placeholder();
@@ -21,6 +23,7 @@ class PopupWindow extends Template
         return [
             'children' => $this->getChildren()->toArray(),
             'size' => $this->getSize(),
+            'title' => $this->getTitle(),
         ];
     }
 
@@ -78,6 +81,30 @@ class PopupWindow extends Template
     public function setSize(?string $size): self
     {
         $this->size = $size;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of title
+     *
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set the value of title
+     *
+     * @param string $title
+     *
+     * @return self
+     */
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
 
         return $this;
     }
