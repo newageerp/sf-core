@@ -153,6 +153,8 @@ import NotesContent from "../content-widgets/NotesContent";
 import ListDataSummary from "../list/ListDataSummary";
 import ListDataTotals from "../list/ListDataTotals";
 
+import { MenuFolder, MenuTitle, MenuItem } from "@newageerp/v3.bundles.menu-bundle";
+
 export interface Template {
   comp: string;
   action: any;
@@ -424,6 +426,10 @@ const componentsMap: any = {
 
   'content-widgets.MailsContent': MailsContent,
   'content-widgets.NotesContent': NotesContent,
+
+  'main-menu.menu-title': MenuTitle,
+  'main-menu.menu-folder': MenuFolder,
+  'main-menu.menu-item': MenuItem,
 
   ...CustomEditComponentsMap,
   ...CustomListComponentsMap,

@@ -27,7 +27,7 @@ class MenuItem extends Template
         return [
             'children' => $this->getTitle(),
             'iconName' => $this->getIconName(),
-            'link' => $this->getLink(),
+            'href' => $this->getLink(),
         ];
     }
 

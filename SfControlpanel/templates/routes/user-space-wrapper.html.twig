@@ -1,18 +1,27 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { LayoutLeftMenuToolbar } from "@newageerp/ui.layout.base.layout-left-menu-toolbar";
 import LeftMenu from "../../_custom/menu/LeftMenu";
 import UserSpaceWrapperToolbar from "../../layout/toolbar/UserSpaceWrapperToolbar";
+import TemplateLoader from "../../v3/templates/TemplateLoader";
 
 interface Props {
-        children?: any
+  children?: any;
 }
 
 function UserSpaceWrapper(props: Props) {
-        return (
-        <LayoutLeftMenuToolbar leftSideContent={<LeftMenu />} toolbar={<UserSpaceWrapperToolbar/>}>
-                {props.children}
-        </LayoutLeftMenuToolbar>
-        );
+  return (
+    <LayoutLeftMenuToolbar
+      leftSideContent={
+        <Fragment>
+          <TemplateLoader templateName="App.UserSpaceWrapper.LeftMenu" data={{}}/>
+          <LeftMenu />
+        </Fragment>
+      }
+      toolbar={<UserSpaceWrapperToolbar />}
+    >
+      {props.children}
+    </LayoutLeftMenuToolbar>
+  );
 }
 
 export default UserSpaceWrapper;
