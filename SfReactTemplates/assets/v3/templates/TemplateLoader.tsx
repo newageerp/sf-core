@@ -155,6 +155,7 @@ import ListDataTotals from "../list/ListDataTotals";
 
 import { MenuFolder, MenuTitle, MenuItem } from "@newageerp/v3.bundles.menu-bundle";
 import AddButton from "../form/editable-fields/components/ArrayEditableField/AddButton";
+import ToolbarButtonListWithAction from "../buttons/ToolbarButtonListWithAction";
 
 export interface Template {
   comp: string;
@@ -412,6 +413,7 @@ const componentsMap: any = {
   "buttons.rs-button": RsButton,
   "buttons.rs-button-template": RsButtonTemplate,
   'buttons.toolbar-button-element-with-action': ToolbarButtonElementWithAction,
+  'buttons.toolbar-button-list-with-action': ToolbarButtonListWithAction,
 
   "modal.menu-item-with-create": MenuItemWithCreate,
   "modal.menu-item-with-edit": MenuItemWithEdit,
