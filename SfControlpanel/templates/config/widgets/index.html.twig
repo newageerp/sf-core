@@ -1,10 +1,10 @@
 import React, { Fragment } from "react";
 import { INaeWidget } from "../../v3/utils";
 import { BaseEntityWidgets } from "./widgets/base-entity.widgets";
-import { GeneratedLayoutWidgets } from "../../_generated/layout/GeneratedLayoutWidgets";
-import { GeneratedPdfWidgets } from "../../_generated/pdfs/GeneratedPdfWidgets";
+import { GeneratedLayoutWidgets } from "../../layout/GeneratedLayoutWidgets";
+{# import { GeneratedPdfWidgets } from "../../_generated/pdfs/GeneratedPdfWidgets"; #}
 
 export const NaeWidgets: INaeWidget[] = [
   ...GeneratedLayoutWidgets,
-  ...GeneratedPdfWidgets,
+  {# ...GeneratedPdfWidgets, #}
 ];

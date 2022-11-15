@@ -26,7 +26,8 @@
     "mailjet/mailjet-apiv3-php": "^1.5",
     "digitick/sepa-xml": "^2.1",
     "php-amqplib/php-amqplib": "^3.0",
-    "ramsey/uuid": "^4.2"
+    "ramsey/uuid": "^4.2",
+    "predis/predis": "^1.1"
   },
   "license": "MIT",
   "authors": [
