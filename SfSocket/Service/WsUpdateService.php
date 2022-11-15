@@ -114,6 +114,7 @@ class WsUpdateService
     public function getClient(): Client
     {
         if ($this->client === null) {
+            $dsn = isset($_ENV['WS_REDIS_DSN']) ? $_ENV['WS_REDIS_DSN'] : 'tcp://redis:6379';
             $this->client = new Client($_ENV['WS_REDIS_DSN'], ['parameters' => ['database' => 2]]);
         }
         return $this->client;
