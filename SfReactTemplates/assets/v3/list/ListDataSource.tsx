@@ -38,7 +38,7 @@ interface Props {
 }
 
 export default function ListDataSource(props: Props) {
-  const {getTabFromSchemaAndType} = useUIBuilder();
+  const { getTabFromSchemaAndType } = useUIBuilder();
   const { data: tData } = useTemplateLoader();
 
   const [extendedSearchOptions, setExtendedSearchOptions] = useState<any[]>([]);
@@ -253,7 +253,7 @@ export default function ListDataSource(props: Props) {
               }
 
             },
-
+            reloadData: loadData
           }
         }
       />
@@ -282,7 +282,7 @@ export default function ListDataSource(props: Props) {
               dataTotals
             }}
           />
-          
+
         </div>
       </div>
 

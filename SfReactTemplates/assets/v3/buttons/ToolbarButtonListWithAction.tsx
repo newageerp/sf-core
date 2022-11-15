@@ -18,13 +18,19 @@ interface Props {
 }
 
 export default function ToolbarButtonListWithAction(props: Props) {
+    const { data: tData } = useTemplateLoader();
+
     const onClick = () => {
         axiosInstance.post(
             props.actionPath,
             {
                 ...props.extraRequestData
             }
-        )
+        ).then(() => {
+            if (tData.reloadData) {
+                tData.reloadData();
+            }
+        });
     }
     return (
         <ToolbarButtonTpl
