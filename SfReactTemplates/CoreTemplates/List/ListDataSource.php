@@ -9,6 +9,7 @@ class ListDataSource extends Template
 {
     protected Placeholder $children;
     protected ListToolbar $toolbar;
+    protected ListToolbar $toolbarLine2;
 
     protected bool $hidePaging = false;
     protected array $sort = [];
@@ -33,6 +34,7 @@ class ListDataSource extends Template
         $this->type = $type;
         $this->children = new Placeholder();
         $this->toolbar = new ListToolbar();
+        $this->toolbarLine2 = new ListToolbar();
     }
 
     public function getProps(): array
@@ -52,6 +54,7 @@ class ListDataSource extends Template
             'pageSize' => $this->getPageSize(),
 
             'toolbar' => [$this->getToolbar()->toArray()],
+            'toolbarLine2' => [$this->getToolbarLine2()->toArray()],
 
             'totals' => $this->getTotals(),
 
@@ -348,6 +351,31 @@ class ListDataSource extends Template
     public function setHidePageSelectionSelect(bool $hidePageSelectionSelect): self
     {
         $this->hidePageSelectionSelect = $hidePageSelectionSelect;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the value of toolbarLine2
+     *
+     * @return ListToolbar
+     */
+    public function getToolbarLine2(): ListToolbar
+    {
+        return $this->toolbarLine2;
+    }
+
+    /**
+     * Set the value of toolbarLine2
+     *
+     * @param ListToolbar $toolbarLine2
+     *
+     * @return self
+     */
+    public function setToolbarLine2(ListToolbar $toolbarLine2): self
+    {
+        $this->toolbarLine2 = $toolbarLine2;
 
         return $this;
     }

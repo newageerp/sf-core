@@ -33,6 +33,7 @@ interface Props {
   pageSize: number,
 
   toolbar: Template[],
+  toolbarLine2: Template[],
 
   hidePageSelectionSelect?: boolean,
 }
@@ -257,6 +258,38 @@ export default function ListDataSource(props: Props) {
           }
         }
       />
+
+      {!!props.toolbarLine2 &&
+
+        <TemplateLoader
+          templates={props.toolbarLine2}
+          templateData={
+            {
+              defaults: {
+                quickSearch: dataState?.extraFilter?.__qs?._,
+              },
+              onAddExtraFilter,
+              sort: {
+                value: dataState?.sort,
+                onChange: setSort,
+              },
+              filter: {
+                prepareFilter,
+              },
+              extendedSearch: {
+                value: showExtendedSearch,
+                onChange: setShowExtendedSearch,
+                properties: {
+                  value: extendedSearchOptions,
+                  onChange: setExtendedSearchOptions,
+                }
+
+              },
+              reloadData: loadData
+            }
+          }
+        />
+      }
 
       {showExtendedSearch && extendedSearchOptions.length > 0 && (
         <FilterContainer

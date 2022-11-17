@@ -96,13 +96,13 @@ class TableService
             } else {
                 $listDataSource->getChildren()->addTemplate($listTable);
 
-                
+
                 if ($totals) {
                     $listTotals = new ListDataTotals($totals);
                     $listDataSource->getChildren()->addTemplate($listTotals);
                 }
             }
-            
+
             // CREATE BUTTON
             $disableCreate = isset($tab['disableCreate']) && $tab['disableCreate'];
             if (
@@ -151,9 +151,15 @@ class TableService
                     $quickFilters
                 );
 
-                $listDataSource->getToolbar()->getToolbarLeft()->addTemplate(
-                    new ToolbarQuickFilters($quickFilters)
-                );
+                if (count($quickFilters) >= 3) {
+                    $listDataSource->getToolbarLine2()->getToolbarLeft()->addTemplate(
+                        new ToolbarQuickFilters($quickFilters)
+                    );
+                } else {
+                    $listDataSource->getToolbar()->getToolbarLeft()->addTemplate(
+                        new ToolbarQuickFilters($quickFilters)
+                    );
+                }
             }
 
             // TABS SWITCH
