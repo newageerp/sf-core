@@ -19,7 +19,7 @@ class StripeService
             'data' => [
                 'id' => $ppOrder->getId() . ':' . time(),
                 'amount' => [
-                    'value' => round($ppOrder->getTotal(), 2),
+                    'value' => (string)(round($ppOrder->getTotal(), 2) * 100),
                     'currency_code' => $ppOrder->getCurrency(),
                 ],
                 'email' => $ppOrder->getEmail(),
