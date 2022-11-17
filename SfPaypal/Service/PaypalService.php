@@ -67,7 +67,7 @@ class PaypalService
                             return [
                                 'name' => $item->getName(),
                                 'unit_amount' => [
-                                    'value' => round($item->getTotal(), 2),
+                                    'value' => round($item->getPrice(), 2),
                                     'currency_code' => $ppOrder->getCurrency(),
                                 ],
                                 'quantity' => $item->getQuantity(),
