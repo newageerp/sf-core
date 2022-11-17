@@ -14,7 +14,7 @@ export default function StringArrayRoField(props: Props) {
     return <Fragment />;
   }
 
-  const value = props.fieldKey in element ? element[props.fieldKey].join("\n") : "";
+  const value = props.fieldKey in element && Array.isArray(element[props.fieldKey]) ? element[props.fieldKey].join("\n") : "";
 
   return (
     <Text value={value} />
