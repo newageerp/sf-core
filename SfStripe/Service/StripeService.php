@@ -13,6 +13,33 @@ class StripeService
         $this->endpointUrl = $endpointUrl;
     }
 
+    public function createPaymentIntent(StripeOrder $ppOrder)
+    {
+        $ppData = [
+            'data' => [
+                'id' => $ppOrder->getId() . ':' . time(),
+                'amount' => [
+                    'value' => (string)(round($ppOrder->getTotal(), 2) * 100),
+                    'currency_code' => $ppOrder->getCurrency(),
+                ],
+                'email' => $ppOrder->getEmail(),
+                'paymentMethod' => $ppOrder->getPaymentMethod(),
+            ],
+        ];
+
+        $url = $this->getEndpointUrl() . '/api/createPaymentIntent';
+
+        $ch = curl_init($url);
+        $payload = json_encode($ppData);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type:application/json']);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $result = json_decode(curl_exec($ch), true);
+        curl_close($ch);
+
+        return $result;
+    }
+
     public function startOrder(StripeOrder $ppOrder)
     {
         $ppData = [
