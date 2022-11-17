@@ -13,6 +13,24 @@ class StripeService
         $this->endpointUrl = $endpointUrl;
     }
 
+    public function validatePaymentIntent(string $orderId) {
+        $ppData = [
+            'orderId' => $orderId,
+        ];
+
+        $url = $this->getEndpointUrl() . '/api/validatePaymentIntent';
+
+        $ch = curl_init($url);
+        $payload = json_encode($ppData);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type:application/json']);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $result = json_decode(curl_exec($ch), true);
+        curl_close($ch);
+
+        return $result;
+    }
+
     public function createPaymentIntent(StripeOrder $ppOrder)
     {
         $ppData = [
