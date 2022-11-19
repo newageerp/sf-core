@@ -152,9 +152,9 @@ class TableService
                 );
 
                 if (count($quickFilters) >= 3) {
-                    $listDataSource->getToolbarLine2()->getChildren()->addTemplate(
-                        new ToolbarQuickFilters($quickFilters)
-                    );
+                    $tqf = new ToolbarQuickFilters($quickFilters);
+                    $tqf->setShowLabels(true);
+                    $listDataSource->getToolbarLine2()->getChildren()->addTemplate($tqf);
                 } else {
                     $listDataSource->getToolbar()->getToolbarLeft()->addTemplate(
                         new ToolbarQuickFilters($quickFilters)
