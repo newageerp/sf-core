@@ -29,8 +29,7 @@ export default function ListToolbarQuickFilters(props: Props) {
         </Fragment>
 
         if (props.showLabels) {
-          const property = getPropertyForPath(filter.path);
-          return <CompactRow key={`f-${fIndex}`} control={value} label={<FieldLabel>{property?.title}</FieldLabel>} />
+          return <CompactRow key={`f-${fIndex}`} control={value} label={<FieldLabel>{filter.property?.title}</FieldLabel>} />
         }
 
         return (
