@@ -37,7 +37,7 @@ class ListDataSource extends Template
         $this->toolbar = new ListToolbar();
 
         $this->toolbarLine2 = new FlexRow();
-        $this->toolbarLine2->setClassName('tw3-flex-wrap tw3-gap-2');
+        $this->toolbarLine2->setClassName('tw3-flex-wrap tw3-gap-4');
     }
 
     public function getProps(): array
