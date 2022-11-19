@@ -2,11 +2,8 @@ import React, { Fragment, useState } from 'react'
 import { useTemplateLoader } from '../templates/TemplateLoader';
 import { useTranslation } from 'react-i18next';
 import { FilterListData } from "@newageerp/sfs.list-toolbar.filter.filter-list-data"
-import { FilterListOptions } from "@newageerp/sfs.list-toolbar.filter.filter-list-options"
-import { FilterDate } from "@newageerp/sfs.list-toolbar.filter.filter-date"
 import { CompactRow } from "@newageerp/ui.form.base.form-pack";
-import { FieldLabel } from '@newageerp/v3.bundles.form-bundle'
-import { getPropertyForPath } from '../utils';
+import { FieldLabel, FieldDateRangeFilter } from '@newageerp/v3.bundles.form-bundle'
 
 interface Props {
   filters: any[],
@@ -23,8 +20,8 @@ export default function ListToolbarQuickFilters(props: Props) {
     <Fragment>
       {props.filters.map((filter: any, fIndex) => {
         const value = <Fragment>
-          {filter.type === 'date' && <FilterDate path={filter.path} onAddExtraFilter={onAddExtraFilter} />}
-          {filter.type === 'datetime' && <FilterDate path={filter.path} onAddExtraFilter={onAddExtraFilter} />}
+          {filter.type === 'date' && <FieldDateRangeFilter path={filter.path} onAddExtraFilter={onAddExtraFilter} />}
+          {filter.type === 'datetime' && <FieldDateRangeFilter path={filter.path} onAddExtraFilter={onAddExtraFilter} />}
           {filter.type === 'object' && <FilterListData path={filter.path} onAddExtraFilter={onAddExtraFilter} schema={filter.property.typeFormat} field={"_viewTitle"} iconName={filter.iconName} sort={filter.sort} />}
         </Fragment>
 
