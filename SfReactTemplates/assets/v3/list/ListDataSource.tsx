@@ -230,39 +230,9 @@ export default function ListDataSource(props: Props) {
 
   return (
     <Fragment>
-      <TemplateLoader
-        templates={props.toolbar}
-        templateData={
-          {
-            defaults: {
-              quickSearch: dataState?.extraFilter?.__qs?._,
-            },
-            onAddExtraFilter,
-            sort: {
-              value: dataState?.sort,
-              onChange: setSort,
-            },
-            filter: {
-              prepareFilter,
-            },
-            extendedSearch: {
-              value: showExtendedSearch,
-              onChange: setShowExtendedSearch,
-              properties: {
-                value: extendedSearchOptions,
-                onChange: setExtendedSearchOptions,
-              }
-
-            },
-            reloadData: loadData
-          }
-        }
-      />
-
-      {!!props.toolbarLine2 &&
-
+      <div className="tw3-space-y-2  tw3-py-4">
         <TemplateLoader
-          templates={props.toolbarLine2}
+          templates={props.toolbar}
           templateData={
             {
               defaults: {
@@ -289,7 +259,39 @@ export default function ListDataSource(props: Props) {
             }
           }
         />
-      }
+
+        {!!props.toolbarLine2 &&
+
+          <TemplateLoader
+            templates={props.toolbarLine2}
+            templateData={
+              {
+                defaults: {
+                  quickSearch: dataState?.extraFilter?.__qs?._,
+                },
+                onAddExtraFilter,
+                sort: {
+                  value: dataState?.sort,
+                  onChange: setSort,
+                },
+                filter: {
+                  prepareFilter,
+                },
+                extendedSearch: {
+                  value: showExtendedSearch,
+                  onChange: setShowExtendedSearch,
+                  properties: {
+                    value: extendedSearchOptions,
+                    onChange: setExtendedSearchOptions,
+                  }
+
+                },
+                reloadData: loadData
+              }
+            }
+          />
+        }
+      </div>
 
       {showExtendedSearch && extendedSearchOptions.length > 0 && (
         <FilterContainer

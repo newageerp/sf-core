@@ -2,6 +2,7 @@
 
 namespace Newageerp\SfReactTemplates\CoreTemplates\List;
 
+use Newageerp\SfReactTemplates\CoreTemplates\Layout\FlexRow;
 use Newageerp\SfReactTemplates\Template\Placeholder;
 use Newageerp\SfReactTemplates\Template\Template;
 
@@ -9,7 +10,7 @@ class ListDataSource extends Template
 {
     protected Placeholder $children;
     protected ListToolbar $toolbar;
-    protected ListToolbar $toolbarLine2;
+    protected FlexRow $toolbarLine2;
 
     protected bool $hidePaging = false;
     protected array $sort = [];
@@ -34,7 +35,9 @@ class ListDataSource extends Template
         $this->type = $type;
         $this->children = new Placeholder();
         $this->toolbar = new ListToolbar();
-        $this->toolbarLine2 = new ListToolbar();
+
+        $this->toolbarLine2 = new FlexRow();
+        $this->toolbarLine2->setClassName('tw3-flex-wrap tw3-gap-2');
     }
 
     public function getProps(): array
@@ -355,13 +358,12 @@ class ListDataSource extends Template
         return $this;
     }
 
-
     /**
      * Get the value of toolbarLine2
      *
-     * @return ListToolbar
+     * @return FlexRow
      */
-    public function getToolbarLine2(): ListToolbar
+    public function getToolbarLine2(): FlexRow
     {
         return $this->toolbarLine2;
     }
@@ -369,11 +371,11 @@ class ListDataSource extends Template
     /**
      * Set the value of toolbarLine2
      *
-     * @param ListToolbar $toolbarLine2
+     * @param FlexRow $toolbarLine2
      *
      * @return self
      */
-    public function setToolbarLine2(ListToolbar $toolbarLine2): self
+    public function setToolbarLine2(FlexRow $toolbarLine2): self
     {
         $this->toolbarLine2 = $toolbarLine2;
 

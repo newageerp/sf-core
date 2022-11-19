@@ -152,7 +152,7 @@ class TableService
                 );
 
                 if (count($quickFilters) >= 3) {
-                    $listDataSource->getToolbarLine2()->getToolbarLeft()->addTemplate(
+                    $listDataSource->getToolbarLine2()->getChildren()->addTemplate(
                         new ToolbarQuickFilters($quickFilters)
                     );
                 } else {

@@ -8,9 +8,10 @@ class ToolbarQuickFilters extends Template
 {
     protected array $filters;
 
+    protected bool $showLabels = false;
+
     public function __construct(array $filters)
     {
-        
         $this->filters = $filters;
     }
 
@@ -23,6 +24,7 @@ class ToolbarQuickFilters extends Template
     {
         return [
             'filters' => $this->getFilters(),
+            'showLabels' => $this->getShowLabels(),
         ];
     }
 
@@ -46,6 +48,30 @@ class ToolbarQuickFilters extends Template
     public function setFilters(array $filters): self
     {
         $this->filters = $filters;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of showLabels
+     *
+     * @return bool
+     */
+    public function getShowLabels(): bool
+    {
+        return $this->showLabels;
+    }
+
+    /**
+     * Set the value of showLabels
+     *
+     * @param bool $showLabels
+     *
+     * @return self
+     */
+    public function setShowLabels(bool $showLabels): self
+    {
+        $this->showLabels = $showLabels;
 
         return $this;
     }
