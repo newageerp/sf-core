@@ -42,6 +42,15 @@ class ListDataSource extends Template
 
     public function getProps(): array
     {
+        $toolbar = [];
+        if ($this->getToolbar()->hasTemplates()) {
+            $toolbar[] = $this->getToolbar()->toArray();
+        }
+        $toolbarLine2 = [];
+        if (count($this->getToolbarLine2()->getChildren()->getTemplates()) > 0) {
+            $toolbarLine2[] = $this->getToolbarLine2()->toArray();
+        }
+
         return [
             'schema' => $this->getSchema(),
             'type' => $this->getType(),
@@ -56,8 +65,8 @@ class ListDataSource extends Template
 
             'pageSize' => $this->getPageSize(),
 
-            'toolbar' => [$this->getToolbar()->toArray()],
-            'toolbarLine2' => [$this->getToolbarLine2()->toArray()],
+            'toolbar' => $toolbar,
+            'toolbarLine2' => $toolbarLine2,
 
             'totals' => $this->getTotals(),
 

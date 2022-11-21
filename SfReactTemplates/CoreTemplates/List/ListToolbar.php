@@ -20,7 +20,13 @@ class ListToolbar extends Template
         $this->toolbarRight = new Placeholder();
         $this->toolbarMiddle = new Placeholder();
     }
-    
+
+    public function hasTemplates()
+    {
+        return (count($this->getToolbarLeft()->getTemplates()) > 0 ||
+            count($this->getToolbarRight()->getTemplates()) > 0 ||
+            count($this->getToolbarMiddle()->getTemplates()) > 0);
+    }
 
     public function getProps(): array
     {

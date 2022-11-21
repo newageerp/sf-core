@@ -230,40 +230,10 @@ export default function ListDataSource(props: Props) {
 
   return (
     <Fragment>
-      <div className="tw3-space-y-2  tw3-py-4">
-        <TemplateLoader
-          templates={props.toolbar}
-          templateData={
-            {
-              defaults: {
-                quickSearch: dataState?.extraFilter?.__qs?._,
-              },
-              onAddExtraFilter,
-              sort: {
-                value: dataState?.sort,
-                onChange: setSort,
-              },
-              filter: {
-                prepareFilter,
-              },
-              extendedSearch: {
-                value: showExtendedSearch,
-                onChange: setShowExtendedSearch,
-                properties: {
-                  value: extendedSearchOptions,
-                  onChange: setExtendedSearchOptions,
-                }
-
-              },
-              reloadData: loadData
-            }
-          }
-        />
-
-        {!!props.toolbarLine2 &&
-
+      {((!!props.toolbar && props.toolbar.length > 0) || (!!props.toolbarLine2 && props.toolbarLine2.length > 0)) &&
+        <div className="tw3-space-y-2  tw3-py-4">
           <TemplateLoader
-            templates={props.toolbarLine2}
+            templates={props.toolbar}
             templateData={
               {
                 defaults: {
@@ -290,8 +260,40 @@ export default function ListDataSource(props: Props) {
               }
             }
           />
-        }
-      </div>
+
+          {!!props.toolbarLine2 &&
+
+            <TemplateLoader
+              templates={props.toolbarLine2}
+              templateData={
+                {
+                  defaults: {
+                    quickSearch: dataState?.extraFilter?.__qs?._,
+                  },
+                  onAddExtraFilter,
+                  sort: {
+                    value: dataState?.sort,
+                    onChange: setSort,
+                  },
+                  filter: {
+                    prepareFilter,
+                  },
+                  extendedSearch: {
+                    value: showExtendedSearch,
+                    onChange: setShowExtendedSearch,
+                    properties: {
+                      value: extendedSearchOptions,
+                      onChange: setExtendedSearchOptions,
+                    }
+
+                  },
+                  reloadData: loadData
+                }
+              }
+            />
+          }
+        </div>
+      }
 
       {showExtendedSearch && extendedSearchOptions.length > 0 && (
         <FilterContainer
