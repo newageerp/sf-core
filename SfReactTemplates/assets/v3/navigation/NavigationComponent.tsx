@@ -10,11 +10,14 @@ import {
   ConfirmationPopup,
   ConfirmationPopupProps,
 } from "@newageerp/v3.popups.confirmation-popup";
+import { FilesWindow } from "@newageerp/ui.files.files.files-window";
 
 export default function NavigationComponent() {
   const history = useHistory();
   const { showViewPopup, showEditPopup } = useNaeWindow();
+
   const [emailOptions, setEmailOptions] = useState<any>(undefined);
+  const [previewFileOptions, setPreviewFileOptions] = useState<any>(undefined);
 
   const [confirmationProps, setConfirmationProps] =
     useState<ConfirmationPopupProps>();
@@ -32,9 +35,8 @@ export default function NavigationComponent() {
 
   useEffect(() => {
     const eventListener = (e: any) => {
-      const link = `/u/${e.detail.schema}/${
-        e.detail.type ? e.detail.type : "main"
-      }/view/${e.detail.id}`;
+      const link = `/u/${e.detail.schema}/${e.detail.type ? e.detail.type : "main"
+        }/view/${e.detail.id}`;
       if (e.detail.replace) {
         history.replace(link);
       } else {
@@ -63,9 +65,8 @@ export default function NavigationComponent() {
 
   useEffect(() => {
     const eventListener = (e: any) => {
-      const link = `/u/${e.detail.schema}/${
-        e.detail.type ? e.detail.type : "main"
-      }/view/${e.detail.id}`;
+      const link = `/u/${e.detail.schema}/${e.detail.type ? e.detail.type : "main"
+        }/view/${e.detail.id}`;
       window.open(link, "_blank");
     };
     window.addEventListener("SFSOpenNewWindow", eventListener);
@@ -76,9 +77,8 @@ export default function NavigationComponent() {
 
   useEffect(() => {
     const eventListener = (e: any) => {
-      const link = `/u/${e.detail.schema}/${
-        e.detail.type ? e.detail.type : "main"
-      }/edit/${e.detail.id}`;
+      const link = `/u/${e.detail.schema}/${e.detail.type ? e.detail.type : "main"
+        }/edit/${e.detail.id}`;
       window.open(link, "_blank");
     };
     window.addEventListener("SFSOpenEditNewWindow", eventListener);
@@ -89,9 +89,8 @@ export default function NavigationComponent() {
 
   useEffect(() => {
     const eventListener = (e: any) => {
-      const link = `/u/${e.detail.schema}/${
-        e.detail.type ? e.detail.type : "main"
-      }/edit/${e.detail.id}`;
+      const link = `/u/${e.detail.schema}/${e.detail.type ? e.detail.type : "main"
+        }/edit/${e.detail.id}`;
       history.push(link, e.detail.options);
     };
     window.addEventListener("SFSOpenEditWindow", eventListener);
@@ -119,9 +118,8 @@ export default function NavigationComponent() {
 
   useEffect(() => {
     const eventListener = (e: any) => {
-      const link = `/u/${e.detail.schema}/${
-        e.detail.type ? e.detail.type : "main"
-      }/list`;
+      const link = `/u/${e.detail.schema}/${e.detail.type ? e.detail.type : "main"
+        }/list`;
       history.push(link);
     };
     window.addEventListener("SFSOpenListWindow", eventListener);
@@ -142,6 +140,16 @@ export default function NavigationComponent() {
 
   useEffect(() => {
     const eventListener = (e: any) => {
+      setPreviewFileOptions(e.detail);
+    };
+    window.addEventListener("SFSOpenFilePreview", eventListener);
+    return () => {
+      window.removeEventListener("SFSOpenFilePreview", eventListener);
+    };
+  }, []);
+
+  useEffect(() => {
+    const eventListener = (e: any) => {
       setConfirmationProps(e.detail);
     };
     window.addEventListener("SFSShowConfirmation", eventListener);
@@ -157,6 +165,7 @@ export default function NavigationComponent() {
           isPopup={true}
           onClick={() => setEmailOptions(undefined)}
           title=""
+          zIndex={450}
         >
           <MailsForm
             onBack={() => setEmailOptions(undefined)}
@@ -170,6 +179,22 @@ export default function NavigationComponent() {
           />
         </Popup>
       )}
+
+      {!!previewFileOptions && (
+        <Popup
+          isPopup={true}
+          onClick={() => setPreviewFileOptions(undefined)}
+          title=""
+          zIndex={450}
+        >
+          <FilesWindow
+            onBack={() => setPreviewFileOptions(undefined)}
+            {...previewFileOptions}
+            inPopup={true}
+          />
+        </Popup>
+      )}
+
       {!!confirmationProps && (
         <ConfirmationPopup
           {...confirmationProps}

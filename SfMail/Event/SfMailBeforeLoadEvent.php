@@ -14,7 +14,7 @@ class SfMailBeforeLoadEvent extends Event
 
     protected IUser $user;
 
-    protected object $entity;
+    protected ?object $entity;
 
     protected array $current;
 
@@ -90,7 +90,7 @@ class SfMailBeforeLoadEvent extends Event
     /**
      * @return object
      */
-    public function getEntity(): object
+    public function getEntity(): ?object
     {
         return $this->entity;
     }
@@ -98,7 +98,7 @@ class SfMailBeforeLoadEvent extends Event
     /**
      * @param object $entity
      */
-    public function setEntity(object $entity): void
+    public function setEntity(?object $entity): void
     {
         $this->entity = $entity;
     }

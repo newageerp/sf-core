@@ -1,8 +1,5 @@
+import React, { Fragment } from 'react'
 import { ToolbarButton } from '@newageerp/v3.bundles.buttons-bundle'
-import React, { Fragment, useState } from 'react'
-import { PopupFile } from '@newageerp/ui.popups.base.popup-file';
-import { FilesWindow } from '@newageerp/ui.files.files.files-window';
-
 interface Props {
   file: any
   width?: string
@@ -11,9 +8,7 @@ interface Props {
 }
 
 export default function OldFileFieldRo(props: Props) {
-  const { file } = props
-  const [showFilePoup, setShowFilePopup] = useState(false)
-  const toggleShowFilePopup = () => setShowFilePopup(!showFilePoup)
+  const { file } = props;
 
   let ext = ''
   if (file && file.filename) {
@@ -29,6 +24,45 @@ export default function OldFileFieldRo(props: Props) {
     width = props.width;
   }
 
+  const openFile = () => {
+    const options = {
+      file: {
+        title: file.filename,
+        onView: {
+          link: getLinkForFile(file),
+          ext: ext,
+          id: file.id,
+        },
+        onDownload: () => {
+          const link = getLinkForFile(file)
+          window.open(link, '_blank')
+        }
+      },
+      otherFiles: props.otherFiles
+        ? props.otherFiles.map((file, fIndex: number) => ({
+          title: file.filename,
+          onView: {
+            link: getLinkForFile(file),
+            ext: ext,
+            id: file.id,
+          },
+          onDownload: () => {
+            const link = getLinkForFile(file)
+            window.open(link, '_blank')
+          }
+        })
+        )
+        : undefined
+    }
+    const event = new CustomEvent(
+      'SFSOpenFilePreview',
+      {
+        detail: options
+      }
+    );
+    window.dispatchEvent(event);
+  };
+
   return (
     <div
       className={`tw3-flex tw3-gap-2 tw3-items-center ${width}`}
@@ -41,7 +75,7 @@ export default function OldFileFieldRo(props: Props) {
 
         <ToolbarButton
           iconName='eye'
-          onClick={toggleShowFilePopup}
+          onClick={openFile}
         />
         <ToolbarButton
           iconName='download'
@@ -51,40 +85,6 @@ export default function OldFileFieldRo(props: Props) {
           }}
         />
       </Fragment>
-      {showFilePoup &&
-        <PopupFile onClose={toggleShowFilePopup}>
-          <FilesWindow
-            file={{
-              title: file.filename,
-              onView: {
-                link: getLinkForFile(file),
-                ext: ext,
-                id: file.id,
-              },
-              onDownload: () => {
-                const link = getLinkForFile(file)
-                window.open(link, '_blank')
-              }
-            }}
-            onBack={toggleShowFilePopup}
-            otherFiles={props.otherFiles
-              ? props.otherFiles.map((file, fIndex: number) => ({
-                title: file.filename,
-                onView: {
-                  link: getLinkForFile(file),
-                  ext: ext,
-                  id: file.id,
-                },
-                onDownload: () => {
-                  const link = getLinkForFile(file)
-                  window.open(link, '_blank')
-                }
-              })
-              )
-              : undefined}
-          />
-        </PopupFile>
-      }
     </div>
   )
 }

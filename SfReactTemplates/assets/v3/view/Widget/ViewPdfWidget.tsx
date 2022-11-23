@@ -1,12 +1,9 @@
 import React, { Fragment, useState } from 'react'
 import { PdfLinesContainer } from '@newageerp/ui.components.element.pdf-lines-container';
 import { PdfLine } from '@newageerp/ui.components.element.pdf-line';
-import { PropsId } from '../../../_custom/models-cache-data/types';
 import axios from 'axios'
 import { PopupPdf } from '@newageerp/ui.popups.base.popup-pdf';
 import { PdfWindow } from '@newageerp/ui.files.pdf.pdf-window';
-import { MailsForm } from '@newageerp/ui.mails.mails-form';
-import { PopupMail } from '@newageerp/ui.popups.base.popup-mail';
 import { useTranslation } from 'react-i18next';
 import { Template, useTemplateLoader } from '../../templates/TemplateLoader';
 import TemplateLoader from '../../templates/TemplateLoader';
@@ -49,7 +46,7 @@ export default function ViewPdfWidget(props: Props) {
     return (
         <PdfLinesContainer
             key={key}
-            title={props.title ? props.title : t("PDF documents")}
+            title={props.title ? props.title : t("PDF dokumentai")}
             signature={
                 {
                     state: sign,
@@ -87,7 +84,7 @@ export const ViewPdfItem = (props: PdfItemProps) => {
 
     const [pdfData, setPdfData] = useState<PdfResponse>();
     const [showPdf, setShowPdf] = useState(false);
-    const [showEmail, setShowEmail] = useState(false);
+
     const [isLoading, setLoading] = useState(false);
 
     const onReset = () => {
@@ -139,15 +136,47 @@ export const ViewPdfItem = (props: PdfItemProps) => {
     }
 
     const onSend = async () => {
+        let options = {};
+        const extraData = {
+            id: props.id,
+            pdf: true,
+            schema: props.schema,
+            template: 'pdf',
+        };
+
         if (!pdfData) {
             setLoading(true);
             const _pdfData: PdfResponse = await loadPdfData(props.id, props.template);
             setLoading(false);
             setPdfData(_pdfData);
-            setShowEmail(true);
+
+            options = {
+                extraData: extraData,
+                files: [
+                    {
+                        name: _pdfData.fileName,
+                        link: _pdfData.viewUrl
+                    }
+                ]
+            }
         } else {
-            setShowEmail(true);
+            options = {
+                extraData: extraData,
+                files: [
+                    {
+                        name: pdfData.fileName,
+                        link: pdfData.viewUrl
+                    }
+                ]
+            }
         }
+        const event = new CustomEvent(
+            'SFSOpenEmailForm',
+            {
+                detail: options
+            }
+        );
+        window.dispatchEvent(event);
     }
 
     return (
@@ -162,30 +191,6 @@ export const ViewPdfItem = (props: PdfItemProps) => {
                         inPopup={true}
                     />
                 </PopupPdf>
-            }
-            {showEmail && !!pdfData &&
-                <PopupMail>
-                    <MailsForm
-                        onSend={() => setShowEmail(false)}
-                        onBack={() => setShowEmail(false)}
-                        extraData={
-                            {
-                                id: props.id,
-                                pdf: true,
-                                schema: props.schema,
-                                template: 'pdf',
-                            }
-                        }
-                        files={
-                            [
-                                {
-                                    name: pdfData.fileName,
-                                    link: pdfData.downloadUrl
-                                }
-                            ]
-                        }
-                    />
-                </PopupMail>
             }
         </Fragment>);
 }

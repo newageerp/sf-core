@@ -4,20 +4,20 @@ import { useTranslation } from 'react-i18next'
 
 import axios from 'axios'
 
-import {   dropzoneAcceptStyle,
-    dropzoneActiveStyle,
-    dropzoneBaseStyle,
-    dropzoneRejectStyle } from './OldFileUploadWidget'
+import {
+  dropzoneAcceptStyle,
+  dropzoneActiveStyle,
+  dropzoneBaseStyle,
+  dropzoneRejectStyle
+} from './OldFileUploadWidget'
 import { ContentWidgetProps } from '../utils'
 import { WhiteCard } from '@newageerp/v3.bundles.widgets-bundle'
 import OldLoaderLogo from './OldLoaderLogo';
 import { OldUiH5 } from './OldUiH5'
-import OldFilesContentItem from './OldFilesContentItem';
-import OldPopup from './OldPopup'
-import OldEmailForm from './OldEmailForm'
-import { getLinkForFile } from './OldFileFieldRo'
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper'
 import { Tooltip } from "@newageerp/v3.bundles.badges-bundle";
+
+import { FileLine } from '@newageerp/ui.components.element.file-line'
 
 const defaultActions = ['download', 'preview', 'mail']
 
@@ -31,9 +31,6 @@ interface IFileFromServer {
 }
 
 export default function OldFilesWidget(props: ContentWidgetProps) {
-  const [emailPopup, setEmailPopup] = useState(false)
-  const toggleEmailPopup = () => setEmailPopup(!emailPopup)
-
   const { t } = useTranslation()
   const [showDeleted, setShowDeleted] = useState(false)
   const toggleShowDeleted = () => setShowDeleted(!showDeleted)
@@ -143,6 +140,112 @@ export default function OldFilesWidget(props: ContentWidgetProps) {
     showDeleted ? f.deleted : !f.deleted
   )
 
+  const onDownload = (id: number) => {
+    const url = `/app/nae-core/files/viewById?id=${id}&download=true`;
+    window.open(url);
+  };
+  const onRemove = (id: number) => {
+    const url = `/app/nae-core/files/removeById`;
+    axios
+      .post(
+        url,
+        { id },
+        {
+          headers: {
+            // @ts-ignore
+            Authorization: localStorage.getItem('token'),
+          },
+        }
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          loadData();
+        }
+      });
+  };
+
+  const onApprove = (id: number) => {
+    const url = `/app/nae-core/files/toggleApproved`;
+    axios
+      .post(
+        url,
+        { id },
+        {
+          headers: {
+            // @ts-ignore
+            Authorization: localStorage.getItem('token'),
+          },
+        }
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          loadData();
+        }
+      });
+  };
+
+  const filesToRenderNew: any = filesToRender.map((file: IFileFromServer) => {
+    const viewUrl = `/app/nae-core/files/viewById?id=${file.id}&token=${window.localStorage.getItem('token')}`;
+
+    const canView = fileActions.indexOf('preview') >= 0;
+    const canDownload = fileActions.indexOf('download') >= 0;
+    const canRemove = fileActions.indexOf('remove') >= 0;
+    const canApprove = fileActions.indexOf('check') >= 0;
+    const canSend = fileActions.indexOf('send') >= 0;
+
+    const fileProps: any = {
+      folderInfo: {
+        parentEntity: folder,
+        parentElementId: props.element.id,
+        parentType: type,
+      },
+      props: {
+        title: file.filename,
+        isApproved: file.approved,
+        onDownload: canDownload
+          ? () => onDownload(file.id)
+          : undefined,
+        onRemove: canRemove ? () => onRemove(file.id) : undefined,
+        onApprove: canApprove ? () => onApprove(file.id) : undefined,
+        onView: canView
+          ? {
+            link: viewUrl,
+            ext: file.filename.split('.').pop(),
+            id: file.id,
+          }
+          : undefined,
+      },
+      file: file,
+    };
+    if (canSend) {
+      fileProps.props.onSend = () => {
+        const options = {
+          extraData: {
+            id: fileProps.props.onView.id,
+            schema: 'file',
+            parentSchema: fileProps.folderInfo.parentEntity,
+            parentElementId: fileProps.folderInfo.parentElementId,
+            template: fileProps.folderInfo.parentType,
+          },
+          files: [
+            {
+              name: fileProps.props.title,
+              link: fileProps.props.onView.link,
+            },
+          ]
+        }
+        const event = new CustomEvent(
+          'SFSOpenEmailForm',
+          {
+            detail: options
+          }
+        );
+        window.dispatchEvent(event);
+      }
+    }
+    return fileProps;
+  });
+
   return (
     <WhiteCard isCompact={true} className={className.join(' ')}>
       {props.options.skipHeader && isUploading && (
@@ -176,7 +279,30 @@ export default function OldFilesWidget(props: ContentWidgetProps) {
           )}
 
           {filesToRender.length > 1 && !showDeleted && (
-            <button onClick={toggleEmailPopup}>
+            <button onClick={() => {
+              const options = {
+                extraData: {
+                  id: -1,
+                  schema: 'file',
+                  parentSchema: props.schema,
+                  parentElementId: -1,
+                  template: 'folder-' + type,
+                },
+                files: filesToRenderNew.map((f: any) => {
+                  return ({
+                    name: f.props.title,
+                    link: f.props.onView.link,
+                  })
+                })
+              }
+              const event = new CustomEvent(
+                'SFSOpenEmailForm',
+                {
+                  detail: options
+                }
+              );
+              window.dispatchEvent(event);
+            }}>
               <i className={'fad fa-paper-plane text-nsecondary-600'} />
             </button>
           )}
@@ -199,41 +325,33 @@ export default function OldFilesWidget(props: ContentWidgetProps) {
       {isData && (
         <div className={'grid gap-1'}>
           {filesToRender.map((f: any, index: number) => {
+            const fileLineProps = filesToRenderNew[index].props;
             return (
-              <OldFilesContentItem
-                key={'file-' + props.element.id + '-' + f.id + '-' + index}
-                f={f}
-                reloadData={loadData}
-                otherFiles={filesToParse}
-                readOnly={isReadOnly}
-                type={type}
-                parentSchema={props.schema}
-                parentElementId={props.element.id}
-                fileActions={fileActions}
-                mailExtraData={props.options.mailExtraData}
-              />
+              <Fragment key={'file-' + props.element.id + '-' + f.id + '-' + index}>
+                <FileLine
+                  {...fileLineProps}
+                  onClick={() => {
+
+                    const options = {
+                      file: fileLineProps,
+                      otherFiles: filesToRenderNew.map((f: any) => f.props)
+                    }
+                    const event = new CustomEvent(
+                      'SFSOpenFilePreview',
+                      {
+                        detail: options
+                      }
+                    );
+                    window.dispatchEvent(event);
+                  }
+                  }
+                />
+              </Fragment>
             )
           })}
         </div>
       )}
 
-      <OldPopup visible={emailPopup} toggleVisible={toggleEmailPopup}>
-        <OldEmailForm
-          extraData={{
-            id: -1,
-            schema: props.schema,
-            template: 'folder-' + type,
-            ...props.options.mailExtraData
-          }}
-          files={filesToRender.map((f: IFileFromServer) => {
-            return {
-              name: f.filename,
-              link: getLinkForFile(f)
-            }
-          })}
-          onSend={toggleEmailPopup}
-        />
-      </OldPopup>
     </WhiteCard>
   )
 }
