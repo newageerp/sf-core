@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react'
 import { useTemplateLoader } from '../templates/TemplateLoader';
 import { useTranslation } from 'react-i18next';
 import { FilterListData } from "@newageerp/sfs.list-toolbar.filter.filter-list-data"
-import { CompactRow } from "@newageerp/ui.form.base.form-pack";
+import { WideRow } from "@newageerp/ui.form.base.form-pack";
 import { FieldLabel, FieldDateRangeFilter } from '@newageerp/v3.bundles.form-bundle'
 import { ToolbarButtonWithMenu } from '@newageerp/v3.bundles.buttons-bundle';
 
@@ -55,7 +55,7 @@ const ListToolbarQuickFiltersInner = (props: Props) => {
         </Fragment>
 
         if (props.showLabels) {
-          return <CompactRow key={`f-${fIndex}`} control={value} label={<FieldLabel>{filter.property?.title}</FieldLabel>} />
+          return <WideRow key={`f-${fIndex}`} control={value} label={<FieldLabel>{filter.property?.title}</FieldLabel>} />
         }
 
         return (

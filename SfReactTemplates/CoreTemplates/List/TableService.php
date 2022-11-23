@@ -160,9 +160,9 @@ class TableService
                 //         new ToolbarQuickFilters($quickFilters)
                 //     );
                 // }
-                $listDataSource->getToolbar()->getToolbarLeft()->addTemplate(
-                    new ToolbarQuickFilters($quickFilters)
-                );
+                $tqf = new ToolbarQuickFilters($quickFilters);
+                $tqf->setShowLabels(count($quickFilters) >= 3);
+                $listDataSource->getToolbar()->getToolbarLeft()->addTemplate($tqf);
             }
 
             // TABS SWITCH
