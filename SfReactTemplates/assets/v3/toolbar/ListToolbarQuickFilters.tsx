@@ -14,16 +14,12 @@ interface Props {
 
 export default function ListToolbarQuickFilters(props: Props) {
   const { t } = useTranslation();
-  const [showFilters, setShowFilters] = useState(props.filters.length > 2);
   const showButton = props.filters.length > 2;
-
-  const { data: tData } = useTemplateLoader();
-  const { onAddExtraFilter } = tData;
 
   if (showButton) {
     return (
       <ToolbarButtonWithMenu
-        button={{ iconName: 'filter-list' }}
+        button={{ iconName: 'filter-list', bgColor: 'tw3-bg-white', className: 'tw3-border tw3-border-slate-300' }}
         menu={{
           position: 'left',
           children: <Fragment>
