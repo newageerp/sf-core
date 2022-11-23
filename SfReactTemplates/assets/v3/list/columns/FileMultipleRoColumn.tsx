@@ -21,6 +21,6 @@ export default function FileMultipleRoColumn(props: Props) {
   }
 
   return (
-    <OldFileFieldMultipleRo files={file} />
+    <OldFileFieldMultipleRo files={file} short={true} />
   )
 }

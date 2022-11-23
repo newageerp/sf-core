@@ -21,6 +21,6 @@ export default function FileRoColumn(props: Props) {
   }
 
   return (
-    <OldFileFieldRo file={value} />
+    <OldFileFieldRo file={value} short={true} />
   )
 }

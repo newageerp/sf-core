@@ -49,7 +49,7 @@ export default function ViewPdfWidget(props: Props) {
     return (
         <PdfLinesContainer
             key={key}
-            title={props.title ? props.title : t("PDF dokumentai")}
+            title={props.title ? props.title : t("PDF documents")}
             signature={
                 {
                     state: sign,

@@ -6,7 +6,8 @@ import { FilesWindow } from '@newageerp/ui.files.files.files-window';
 interface Props {
   file: any
   width?: string
-  otherFiles?: any[]
+  otherFiles?: any[],
+  short?: boolean
 }
 
 export default function OldFileFieldRo(props: Props) {
@@ -20,13 +21,23 @@ export default function OldFileFieldRo(props: Props) {
     ext = _name[_name.length - 1]
   }
 
+  let width = 'tw3-w-96 tw3-max-w-96';
+  if (props.short) {
+    width = 'tw3-w-auto';
+  }
+  if (props.width) {
+    width = props.width;
+  }
+
   return (
     <div
-      className={`tw3-flex tw3-gap-2 tw3-items-center ${props.width ? props.width : 'tw3-w-96 tw3-max-w-96'
-        }`}
+      className={`tw3-flex tw3-gap-2 tw3-items-center ${width}`}
+      title={file.filename}
     >
       <Fragment>
-        <p className={'tw3-flex-grow tw3-truncate'}>{file.filename}</p>
+        {!props.short &&
+          <p className={'tw3-flex-grow tw3-truncate'}>{file.filename}</p>
+        }
 
         <ToolbarButton
           iconName='eye'

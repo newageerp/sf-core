@@ -8,7 +8,7 @@ import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 declare type Props = {
     schema: string,
     saveData: any,
-    elementId: number,
+    elementId: number | string,
     onSaveCallback?: () => void,
 } & MainButtonProps;
 
