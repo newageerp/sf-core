@@ -5,7 +5,7 @@ import { FilterListData } from "@newageerp/sfs.list-toolbar.filter.filter-list-d
 import { WideRow } from "@newageerp/ui.form.base.form-pack";
 import { FieldLabel, FieldDateRangeFilter } from '@newageerp/v3.bundles.form-bundle'
 import { ToolbarButtonWithMenu } from '@newageerp/v3.bundles.buttons-bundle';
-
+import { TextCardTitle } from '@newageerp/v3.typography.text-card-title';
 
 interface Props {
   filters: any[],
@@ -25,7 +25,11 @@ export default function ListToolbarQuickFilters(props: Props) {
       <ToolbarButtonWithMenu
         button={{ iconName: 'filter-list' }}
         menu={{
-          children: <ListToolbarQuickFiltersInner {...props} />
+          position: 'left',
+          children: <Fragment>
+            <TextCardTitle>{t('Filter')}</TextCardTitle>
+            <ListToolbarQuickFiltersInner {...props} />
+          </Fragment>
         }} />
     )
   }
