@@ -65,7 +65,7 @@ export default function OldPopoverConfirm(props: Props) {
       isOpen={isPopoverOpen}
       positions={["bottom", "top", "left", "right"]} // preferred positions by priority
       content={content}
-      containerClassName={"z-50"}
+      containerClassName={"z-250"}
     // parentElement={props.parentElement}
     >
       <CustomComponent onClick={() => setIsPopoverOpen(!isPopoverOpen)}>
