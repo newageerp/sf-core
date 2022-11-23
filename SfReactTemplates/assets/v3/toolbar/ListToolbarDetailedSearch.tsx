@@ -33,7 +33,7 @@ export default function ListToolbarDetailedSearch(props: Props) {
             iconName='filter'
             onClick={() => extendedSearch.onChange(!extendedSearch.value)}
         >
-            {t('Filter')}
+            {t('Advanced filter')}
         </ToolbarButton>
     )
 }

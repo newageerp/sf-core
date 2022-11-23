@@ -151,15 +151,18 @@ class TableService
                     $quickFilters
                 );
 
-                if (count($quickFilters) >= 3) {
-                    $tqf = new ToolbarQuickFilters($quickFilters);
-                    $tqf->setShowLabels(true);
-                    $listDataSource->getToolbarLine2()->getChildren()->addTemplate($tqf);
-                } else {
-                    $listDataSource->getToolbar()->getToolbarLeft()->addTemplate(
-                        new ToolbarQuickFilters($quickFilters)
-                    );
-                }
+                // if (count($quickFilters) >= 3) {
+                //     $tqf = new ToolbarQuickFilters($quickFilters);
+                //     $tqf->setShowLabels(true);
+                //     $listDataSource->getToolbarLine2()->getChildren()->addTemplate($tqf);
+                // } else {
+                //     $listDataSource->getToolbar()->getToolbarLeft()->addTemplate(
+                //         new ToolbarQuickFilters($quickFilters)
+                //     );
+                // }
+                $listDataSource->getToolbar()->getToolbarLeft()->addTemplate(
+                    new ToolbarQuickFilters($quickFilters)
+                );
             }
 
             // TABS SWITCH
