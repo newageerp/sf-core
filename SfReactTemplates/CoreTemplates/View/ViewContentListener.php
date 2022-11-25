@@ -20,6 +20,8 @@ class ViewContentListener implements EventSubscriberInterface
     public const MAINVIEWWIDGETMIDDLE = 'PageMainViewMiddleContent';
     public const MAINVIEWWIDGETBOTTOMEXTRA = 'PageMainViewBottomExtraContent';
 
+    public const MAINVIEWTOOLBARAFTER1LINE = 'PageMainViewToolbarAfter1Line';
+
     protected UService $uservice;
 
     protected EntitiesUtilsV3 $entitiesUtilsV3;
@@ -65,7 +67,8 @@ class ViewContentListener implements EventSubscriberInterface
                 self::MAINVIEWWIDGETRIGHT => $viewContent->getRightContent(),
                 self::MAINVIEWWIDGETBOTTOM => $viewContent->getBottomContent(),
                 self::MAINVIEWWIDGETBOTTOMEXTRA => $viewContent->getBottomExtraContent(),
-                self::MAINVIEWWIDGETMIDDLE => $viewContent->getMiddleContent()
+                self::MAINVIEWWIDGETMIDDLE => $viewContent->getMiddleContent(),
+                self::MAINVIEWTOOLBARAFTER1LINE => $viewContent->getElementToolbarAfter1Line(),
             ];
 
             $eventTemplateData = $event->getData();

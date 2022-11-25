@@ -156,6 +156,7 @@ import ListDataTotals from "../list/ListDataTotals";
 import { MenuFolder, MenuTitle, MenuItem } from "@newageerp/v3.bundles.menu-bundle";
 import AddButton from "../form/editable-fields/components/ArrayEditableField/AddButton";
 import ToolbarButtonListWithAction from "../buttons/ToolbarButtonListWithAction";
+import ElementBookmarkButton from "../element/ElementBookmarkButton";
 
 export interface Template {
   comp: string;
@@ -435,6 +436,8 @@ const componentsMap: any = {
   'main-menu.menu-title': MenuTitle,
   'main-menu.menu-folder': MenuFolder,
   'main-menu.menu-item': MenuItem,
+
+  'toolbar.element-bookmark-button': ElementBookmarkButton,
 
   ...CustomEditComponentsMap,
   ...CustomListComponentsMap,

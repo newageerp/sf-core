@@ -28,6 +28,8 @@ class ViewContent extends Template
     protected Placeholder $elementToolbarAfterFieldsContent;
     protected Placeholder $elementToolbarLine2BeforeContent;
 
+    protected Placeholder $elementToolbarAfter1Line;
+
     protected Placeholder $elementToolbarMoreMenuContent;
 
     protected ViewFormContent $formContent;
@@ -49,6 +51,8 @@ class ViewContent extends Template
         $this->elementToolbarLine2BeforeContent = new Placeholder();
         $this->elementToolbarMoreMenuContent = new Placeholder();
 
+        $this->elementToolbarAfter1Line = new Placeholder();
+
         $this->formContent = new ViewFormContent($schema, $type);
     }
 
@@ -67,6 +71,8 @@ class ViewContent extends Template
             'afterTitleBlockContent' => $this->getAfterTitleBlockContent()->toArray(),
             'elementToolbarAfterFieldsContent' => $this->getElementToolbarAfterFieldsContent()->toArray(),
             'elementToolbarLine2BeforeContent' => $this->getElementToolbarLine2BeforeContent()->toArray(),
+
+            'elementToolbarAfter1Line' => $this->getElementToolbarAfter1Line()->toArray(),
 
             'elementToolbarMoreMenuContent' => $this->getElementToolbarMoreMenuContent()->toArray(),
 
@@ -423,6 +429,30 @@ class ViewContent extends Template
     public function setLayoutRightColClassName(?string $layoutRightColClassName): self
     {
         $this->layoutRightColClassName = $layoutRightColClassName;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of elementToolbarAfter1Line
+     *
+     * @return Placeholder
+     */
+    public function getElementToolbarAfter1Line(): Placeholder
+    {
+        return $this->elementToolbarAfter1Line;
+    }
+
+    /**
+     * Set the value of elementToolbarAfter1Line
+     *
+     * @param Placeholder $elementToolbarAfter1Line
+     *
+     * @return self
+     */
+    public function setElementToolbarAfter1Line(Placeholder $elementToolbarAfter1Line): self
+    {
+        $this->elementToolbarAfter1Line = $elementToolbarAfter1Line;
 
         return $this;
     }
