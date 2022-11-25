@@ -31,7 +31,7 @@ export default function OldFileFieldRo(props: Props) {
         onView: {
           link: getLinkForFile(file),
           ext: ext,
-          id: file.id,
+          id: file.id ? file.id : 'file-' + file.filename,
         },
         onDownload: () => {
           const link = getLinkForFile(file)
@@ -44,7 +44,7 @@ export default function OldFileFieldRo(props: Props) {
           onView: {
             link: getLinkForFile(file),
             ext: ext,
-            id: file.id,
+            id: file.id ? file.id : 'file-' + file.filename,
           },
           onDownload: () => {
             const link = getLinkForFile(file)
