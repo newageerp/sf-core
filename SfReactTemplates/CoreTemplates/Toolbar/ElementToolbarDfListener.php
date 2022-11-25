@@ -10,7 +10,7 @@ use Newageerp\SfReactTemplates\CoreTemplates\View\ViewContentListener;
 use Newageerp\SfReactTemplates\Event\LoadTemplateEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class LeftMenuTemplateEvt implements EventSubscriberInterface
+class ElementToolbarDfListener implements EventSubscriberInterface
 {
     protected MenuItemFactory $menuItemFactory;
 
