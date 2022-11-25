@@ -10,6 +10,8 @@ services:
     arguments: [ ]
   Newageerp\SfBookmarks\Controller\BookmarksController:
     arguments: [ ]
+  Newageerp\SfApps\Controller\ProxyController:
+    arguments: [ ]
   
 
   Newageerp\SfControlpanel\Controller\:
