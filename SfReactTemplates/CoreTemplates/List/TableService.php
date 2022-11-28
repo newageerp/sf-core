@@ -7,6 +7,7 @@ use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
 use Newageerp\SfControlpanel\Console\TabsUtilsV3;
 use Newageerp\SfReactTemplates\CoreTemplates\Cards\WhiteCard;
+use Newageerp\SfReactTemplates\CoreTemplates\List\Toolbar\ToolbarBookmark;
 use Newageerp\SfReactTemplates\CoreTemplates\List\Toolbar\ToolbarDetailedSearch;
 use Newageerp\SfReactTemplates\CoreTemplates\List\Toolbar\ToolbarExport;
 use Newageerp\SfReactTemplates\CoreTemplates\List\Toolbar\ToolbarNewButton;
@@ -163,7 +164,6 @@ class TableService
                 $tqf = new ToolbarQuickFilters($quickFilters);
                 $tqf->setShowLabels(count($quickFilters) >= 3);
                 $listDataSource->getToolbar()->getToolbarLeft()->addTemplate($tqf);
-                
             }
 
             // TABS SWITCH
@@ -210,7 +210,7 @@ class TableService
                     $schema,
                     AuthService::getInstance()->getUser()->getId()
                 )
-            )
+            );
         }
 
         return $listDataSource;
