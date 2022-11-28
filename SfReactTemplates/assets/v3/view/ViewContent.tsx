@@ -40,6 +40,7 @@ interface Props {
   elementToolbarAfterFieldsContent: Template[];
   elementToolbarLine2BeforeContent: Template[];
   elementToolbarMoreMenuContent: Template[];
+  elementToolbarAfter1Line: Template[];
 
   layoutLeftColClassName?: string,
   layoutRightColClassName?: string,
@@ -64,6 +65,7 @@ export default function ViewContent(props: Props) {
     elementToolbarAfterFieldsContent,
     elementToolbarLine2BeforeContent,
     elementToolbarMoreMenuContent,
+    elementToolbarAfter1Line,
   } = props;
 
   const { isPopup } = useNaePopup();
@@ -187,11 +189,17 @@ export default function ViewContent(props: Props) {
             </Fragment>
           }
           contentAfter1Line={
-            <OldNeWidgets
-              type={WidgetType.viewMainTop1LineAfter}
-              schema={props.schema}
-              element={element}
-            />
+            <Fragment>
+              <OldNeWidgets
+                type={WidgetType.viewMainTop1LineAfter}
+                schema={props.schema}
+                element={element}
+              />
+              <TemplateLoader
+                templates={elementToolbarAfter1Line}
+                templateData={{ element: element }}
+              />
+            </Fragment>
           }
           contentAfter2Line={
             <OldNeWidgets
