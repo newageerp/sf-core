@@ -158,6 +158,7 @@ import { MenuFolder, MenuTitle, MenuItem } from "@newageerp/v3.bundles.menu-bund
 import AddButton from "../form/editable-fields/components/ArrayEditableField/AddButton";
 import ToolbarButtonListWithAction from "../buttons/ToolbarButtonListWithAction";
 import ElementBookmarkButton from "../element/ElementBookmarkButton";
+import ListToolbarBookmark from "../toolbar/ListToolbarBookmark";
 
 export interface Template {
   comp: string;
@@ -273,6 +274,7 @@ const componentsMap: any = {
   "list.toolbar.tabs-switch": ListToolbarTabsSwitch,// MOVED
   "list.toolbar.detailed-search": ListToolbarDetailedSearch,// MOVED
   "list.toolbar.filters": ListToolbarQuickFilters,// MOVED
+  "list.toolbar.bookmark": ListToolbarBookmark,
 
   "edit.content": EditContent,
   "edit.formcontent": EditFormContent,
