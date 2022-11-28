@@ -1,0 +1,8 @@
+{% for template in templates %}
+import {{ template.name }} from "./components/{{ template.componentName }}";
+{% endfor %}
+export const CustomViewComponentsMap: any = {
+{% for template in templates %}
+    'customview.{{ template.componentName }}': {{ template.name }},
+{% endfor %}
+}
