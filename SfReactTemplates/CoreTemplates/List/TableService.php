@@ -163,6 +163,7 @@ class TableService
                 $tqf = new ToolbarQuickFilters($quickFilters);
                 $tqf->setShowLabels(count($quickFilters) >= 3);
                 $listDataSource->getToolbar()->getToolbarLeft()->addTemplate($tqf);
+                
             }
 
             // TABS SWITCH
@@ -202,6 +203,14 @@ class TableService
             $listDataSource->getToolbar()->getToolbarRight()->addTemplate(
                 new ToolbarDetailedSearch($schema)
             );
+
+            // BOOKMARKS
+            $listDataSource->getToolbar()->getToolbarRight()->addTemplate(
+                new ToolbarBookmark(
+                    $schema,
+                    AuthService::getInstance()->getUser()->getId()
+                )
+            )
         }
 
         return $listDataSource;

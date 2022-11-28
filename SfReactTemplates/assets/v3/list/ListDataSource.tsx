@@ -277,6 +277,7 @@ export default function ListDataSource(props: Props) {
                     onChange: setSort,
                   },
                   filter: {
+                    extraFilter: dataState?.extraFilter,
                     prepareFilter,
                   },
                   extendedSearch: {
