@@ -242,6 +242,8 @@ export interface MainListViewField {
     relKeyExtraSelect?: string,
 
     lineGroup?: string,
+
+    extraFieldsToReturn?: string,
 }
 export interface MainListColumn {
     path: string,
@@ -280,6 +282,8 @@ export interface MainListEditField {
     arrayRelTab?: string,
 
     relKeyExtraSelect?: string,
+
+    extraFieldsToReturn?: string,
 }
 
 const configEditToINaeEditSettings = (
@@ -333,6 +337,12 @@ const configEditToINaeEditSettings = (
                 )
                 return tab
             }
+        }
+        if (f.extraFieldsToReturn) {
+            if (!prop.custom) {
+                prop.custom = {};
+            }
+            prop.custom.fieldsToReturn = JSON.parse(f.extraFieldsToReturn)
         }
 
         return prop
@@ -404,6 +414,12 @@ const configViewToINaeViewSettings = (
                 )
                 return tab
             }
+        }
+        if (f.extraFieldsToReturn) {
+            if (!prop.custom) {
+                prop.custom = {};
+            }
+            prop.custom.fieldsToReturn = JSON.parse(f.extraFieldsToReturn)
         }
         return prop
     }

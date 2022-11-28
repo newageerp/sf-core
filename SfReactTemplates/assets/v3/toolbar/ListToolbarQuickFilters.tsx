@@ -49,9 +49,9 @@ const ListToolbarQuickFiltersInner = (props: Props) => {
 
       {props.filters.map((filter: any, fIndex) => {
         const value = <Fragment>
-          {filter.type === 'date' && <FieldDateRangeFilter path={filter.path} onAddExtraFilter={onAddExtraFilter} />}
-          {filter.type === 'datetime' && <FieldDateRangeFilter path={filter.path} onAddExtraFilter={onAddExtraFilter} />}
-          {filter.type === 'object' && <FilterListData path={filter.path} onAddExtraFilter={onAddExtraFilter} schema={filter.property.typeFormat} field={"_viewTitle"} iconName={filter.iconName} sort={filter.sort} />}
+          {filter.type === 'date' && <FieldDateRangeFilter path={filter.path} onAddExtraFilter={onAddExtraFilter} extraFilter={tData.filter.extraFilter} />}
+          {filter.type === 'datetime' && <FieldDateRangeFilter path={filter.path} onAddExtraFilter={onAddExtraFilter} extraFilter={tData.filter.extraFilter} />}
+          {filter.type === 'object' && <FilterListData path={filter.path} onAddExtraFilter={onAddExtraFilter} schema={filter.property.typeFormat} field={"_viewTitle"} iconName={filter.iconName} sort={filter.sort} extraFilter={tData.filter.extraFilter} />}
         </Fragment>
 
         if (props.showLabels) {
