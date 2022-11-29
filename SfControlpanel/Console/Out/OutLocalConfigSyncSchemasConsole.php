@@ -32,6 +32,10 @@ class OutLocalConfigSyncSchemasConsole extends Command
 
         $docJsonData = $this->docsService->getDocJson();
 
+        var_dump($docJsonData);
+        var_dump($docJsonData['components']);
+        var_dump($docJsonData['components']['schemas']);
+
         $schemas = $docJsonData['components']['schemas'];
 
         foreach ($schemas as $schemasClass => $schemaData) {
