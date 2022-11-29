@@ -3,6 +3,7 @@
 namespace Newageerp\SfControlpanel\Console\Out;
 
 use Newageerp\SfControlpanel\Console\LocalConfigUtils;
+use Newageerp\SfControlpanel\Service\DocsService;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,9 +13,12 @@ class OutLocalConfigSyncSchemasConsole extends Command
 {
     protected static $defaultName = 'nae:localconfig:OutLocalConfigSyncSchemas';
 
-    public function __construct()
+    protected DocsService $docsService;
+
+    public function __construct(DocsService $docsService)
     {
         parent::__construct();
+        $this->docsService = $docsService;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -26,8 +30,7 @@ class OutLocalConfigSyncSchemasConsole extends Command
             $schemasDb[] = $entity['config']['slug'];
         }
 
-        $docJsonFile = LocalConfigUtils::getDocJsonPath();
-        $docJsonData = json_decode(file_get_contents($docJsonFile), true);
+        $docJsonData = $this->docsService->getDocJson();
 
         $schemas = $docJsonData['components']['schemas'];
 

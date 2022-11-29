@@ -29,7 +29,7 @@ export default function OldFileFieldRo(props: Props) {
       file: {
         title: file.filename,
         onView: {
-          link: getLinkForFile(file),
+          link: getViewLinkForFile(file),
           ext: ext,
           id: file.id ? file.id : 'file-' + file.filename,
         },
@@ -42,7 +42,7 @@ export default function OldFileFieldRo(props: Props) {
         ? props.otherFiles.map((file, fIndex: number) => ({
           title: file.filename,
           onView: {
-            link: getLinkForFile(file),
+            link: getViewLinkForFile(file),
             ext: ext,
             id: file.id ? file.id : 'file-' + file.filename,
           },
@@ -97,6 +97,24 @@ export const getLinkForFile = (f: any): string => {
   return (
     window.location.origin +
     '/app/nae-core/files/download?f=' +
+    encodeURIComponent(
+      JSON.stringify({
+        path: f.path,
+        name: f.filename
+      })
+    ) +
+    '&token=' +
+    window.localStorage.getItem('token')
+  )
+}
+
+export const getViewLinkForFile = (f: any): string => {
+  if (f.path.indexOf('http://') === 0 || f.path.indexOf('https://') === 0) {
+    return f.path;
+  }
+  return (
+    window.location.origin +
+    '/app/nae-core/files/view?f=' +
     encodeURIComponent(
       JSON.stringify({
         path: f.path,

@@ -17,11 +17,6 @@ class LocalConfigUtils
         return json_decode(file_get_contents($file), true);
     }
 
-    public static function getDocJsonPath()
-    {
-        return $_ENV['NAE_SFS_FRONT_URL'] . '/app/doc.json';
-    }
-
     // public static function getFrontendHooksPath()
     // {
     //     return self::getNaeSfsRootPath() . '/front-hooks';

@@ -2,8 +2,8 @@
 
 namespace Newageerp\SfControlpanel\Console\In;
 
-use Newageerp\SfControlpanel\Console\LocalConfigUtils;
 use Newageerp\SfControlpanel\Console\Utils;
+use Newageerp\SfControlpanel\Service\DocsService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -12,15 +12,17 @@ class InPathMapConsole extends Command
 {
     protected static $defaultName = 'nae:localconfig:InPathMap';
 
-    public function __construct()
+    protected DocsService $docsService;
+
+    public function __construct(DocsService $docsService)
     {
         parent::__construct();
+        $this->docsService = $docsService;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $docJsonFile = LocalConfigUtils::getDocJsonPath();
-        $docJsonData = json_decode(file_get_contents($docJsonFile), true);
+        $docJsonData = $this->docsService->getDocJson();
 
         $configPath = Utils::customFolderPath('config') . '/NaePaths.tsx';
 

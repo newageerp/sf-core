@@ -4,6 +4,7 @@ namespace Newageerp\SfControlpanel\Console\Out;
 
 use Newageerp\SfControlpanel\Console\LocalConfigUtils;
 use Doctrine\ORM\EntityManagerInterface;
+use Newageerp\SfControlpanel\Service\DocsService;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -14,13 +15,17 @@ class OutLocalConfigSyncPropertiesConsole extends Command
     protected static $defaultName = 'nae:localconfig:OutLocalConfigSyncProperties';
 
     protected EntityManagerInterface $em;
+    
+    protected DocsService $docsService;
 
     public function __construct(
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        DocsService $docsService,
     )
     {
         parent::__construct();
         $this->em = $em;
+        $this->docsService = $docsService;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -45,9 +50,7 @@ class OutLocalConfigSyncPropertiesConsole extends Command
             $dbPropertiesSlug[$property['config']['key'] . "-" . $property['config']['entity']] = $property['id'];
         }
 
-
-        $docJsonFile = LocalConfigUtils::getDocJsonPath();
-        $docJsonData = json_decode(file_get_contents($docJsonFile), true);
+        $docJsonData = $this->docsService->getDocJson();
 
         $schemas = $docJsonData['components']['schemas'];
 

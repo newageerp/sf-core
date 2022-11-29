@@ -1,67 +1,60 @@
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper'
 import React, { useState, useEffect, Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
-import { TitleOverTable } from '@newageerp/ui.texts.base.title-over-table'
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { UserSpaceWrapperToolbarState } from '../../layout/toolbar/UserSpaceWrapperToolbar'
 import TemplateLoader from '../../v3/templates/TemplateLoader';
-import { getKeysFromObject, getSchemaTitle } from '../../v3/utils'
+import { getSchemaTitle } from '../../v3/utils'
+import { TabContainer } from "@newageerp/ui.tabs.tab-container";
+import { WhiteCard } from '@newageerp/v3.bundles.widgets-bundle'
+import { axiosInstance } from '../../v3/api/config'
 
 interface IFollow {
     id: number
-    parentId: number
-    parentSchema: string
+    sourceId: number
+    sourceSchema: string
 }
 
 const defElement: IFollow = {
     id: 0,
-    parentId: 0,
-    parentSchema: ''
+    sourceId: 0,
+    sourceSchema: ''
 }
 
 export default function BookmarksPage() {
-    const [activeSchema, setActiveSchema] = useState('');
+    const userState: any = useRecoilValue(OpenApi.naeUserState);
 
     const { t } = useTranslation()
     const [, setToolbarTitle] = useRecoilState(UserSpaceWrapperToolbarState)
 
-    const [getData, getDataParams] = OpenApi.useUList<IFollow>(
-        'bookmark',
-        getKeysFromObject(defElement)
-    )
     const [listSchema, setListSchema] = useState<any>()
 
     const loadData = () => {
-        getData(
-            [
-                {
-                    and: [['i.creator', '=', 'CURRENT_USER', true]]
+        const url = '/app/proxy/bookmarks/get-for-user';
+        axiosInstance
+            .post(
+                url,
+                { data: { user: userState.id } }
+            )
+            .then((response) => {
+                if (response.status === 200) {
+                    let _listSchema: any = {}
+
+                    response.data.data.forEach((follow: IFollow) => {
+                        if (!(follow.sourceSchema in _listSchema)) {
+                            _listSchema[follow.sourceSchema] = []
+                        }
+                        _listSchema[follow.sourceSchema].push(follow.sourceId)
+                    })
+
+                    setListSchema(_listSchema)
+                } else {
+                    // UIConfig.toast.error(t('Klaida'))
                 }
-            ],
-            1,
-            100000,
-            [
-                {
-                    key: 'i.id',
-                    value: 'ASC'
-                }
-            ]
-        )
-    }
-    useEffect(loadData, [])
+            });
+    };
+    useEffect(loadData, []);
 
-    useEffect(() => {
-        let _listSchema: any = {}
-
-        getDataParams.data.data.forEach((follow: IFollow) => {
-            if (!(follow.parentSchema in _listSchema)) {
-                _listSchema[follow.parentSchema] = []
-            }
-            _listSchema[follow.parentSchema].push(follow.parentId)
-        })
-
-        setListSchema(_listSchema)
-    }, [getDataParams.data])
 
     const schemas = listSchema ? Object.keys(listSchema) : []
 
@@ -82,32 +75,33 @@ export default function BookmarksPage() {
     })
 
     useEffect(() => {
-        setToolbarTitle(t('Sekami'));
+        setToolbarTitle(t('Bookmarks'));
     }, []);
 
-    return (
-        <Fragment>
+    const items: any[] = [];
+    schemaComponents.forEach((comp: any, idX: number) => {
+        items.push(
+            {
+                content: (<TemplateLoader
+                    templateName="PageInlineList"
+                    data={
+                        {
+                            schema: comp.schema,
+                            type: "main",
+                            extraFilters: [comp.extraFilter]
+                        }
+                    }
+                />),
+                tab: {
+                    children: comp.title,
+                },
+            }
+        );
+    });
 
-            {schemaComponents.map((comp: any, idX: number) => {
-                return (
-                    <Fragment key={`bookmark-${idX}-${comp.schema}`}>
-                        <TitleOverTable>{comp.title}</TitleOverTable>
+    if (items.length === 0) {
+        return <Fragment />
+    }
 
-                        <TemplateLoader
-                            templateName="PageInlineList"
-                            data={
-                                {
-                                        schema: comp.schema,
-                                        type: "main",
-                                        extraFilters: [comp.extraFilter]
-                                }
-                            }
-                        />
-
-                    </Fragment>
-                )
-            })}
-
-        </Fragment>
-    )
+    return <WhiteCard isCompact={true}><TabContainer items={items} /></WhiteCard>;
 }

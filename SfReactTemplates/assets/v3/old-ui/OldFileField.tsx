@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import FileUploadWidget from './OldFileUploadWidget'
-import { getLinkForFile } from './OldFileFieldRo';
+import { getLinkForFile, getViewLinkForFile } from './OldFileFieldRo';
 import { ToolbarButton } from '@newageerp/v3.bundles.buttons-bundle';
 
 interface Props {
@@ -34,7 +34,7 @@ export default function OldFileField(props: Props) {
             file: {
                 title: props.val.filename,
                 onView: {
-                    link: getLinkForFile(props.val),
+                    link: getViewLinkForFile(props.val),
                     ext: ext,
                     id: props.val.id,
                 },
