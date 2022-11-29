@@ -30,21 +30,11 @@ class OutRunAll extends Command
         foreach ($commands as $commandName) {
             $output->writeln('Running command ' . $commandName);
 
-            $input = new ArrayInput([
-                'command' => $commandName,
-                // '--format' => 'json',
-                // '-v'
-            ]);
-
-            // $outputB = new BufferedOutput(BufferedOutput::VERBOSITY_QUIET);
-            $this->getApplication()->run($input, $output);
-
-            // $greetInput = new ArrayInput([]);
-
-            // $command = $this->getApplication()->find($commandName);
-            // $returnCode = $command->run($greetInput, $output);
+            shell_exec('bin/console '.$commandName);
 
             $output->writeln('Finnish command ' . $commandName);
+
+            
         }
 
         return Command::SUCCESS;
