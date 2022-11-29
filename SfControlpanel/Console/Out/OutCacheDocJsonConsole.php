@@ -23,7 +23,7 @@ class OutCacheDocJsonConsole extends Command
     {
         $docJsonData = $this->docsService->getDocJson();
 
-        var_dump($docJsonData);
+        var_dump(array_keys($docJsonData));
 
         return Command::SUCCESS;
     }
