@@ -36,8 +36,8 @@ class OutRunAll extends Command
                 // '-v'
             ]);
 
-            $output = new BufferedOutput(BufferedOutput::VERBOSITY_QUIET);
-            $this->getApplication()->run($input, $output);
+            $outputB = new BufferedOutput(BufferedOutput::VERBOSITY_QUIET);
+            $this->getApplication()->run($input, $outputB);
 
             // $greetInput = new ArrayInput([]);
 
