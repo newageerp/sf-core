@@ -30,7 +30,12 @@ class OutRunAll extends Command
         foreach ($commands as $commandName) {
             $output->writeln('Running command ' . $commandName);
 
-            shell_exec('bin/console '.$commandName);
+            $outputData = [];
+            exec('bin/console '.$commandName, $outputData);
+
+            foreach ($outputData as $l) {
+                $output->writeln($l);
+            }
 
             $output->writeln('Finnish command ' . $commandName);
 
