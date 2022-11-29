@@ -21,6 +21,10 @@ class OutCacheDocJsonConsole extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $docJsonData = $this->docsService->getDocJson();
+
+        var_dump($docJsonData);
+
         return Command::SUCCESS;
     }
 }
