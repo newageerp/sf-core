@@ -13,7 +13,7 @@ class MenuFolder extends Template
     protected string $menuFolderId = '';
 
     /**
-     * @var MenuItem[] $items
+     * @var array $items
      */
     protected array $items = [];
 
@@ -32,7 +32,7 @@ class MenuFolder extends Template
             'iconName' => $this->getIconName(),
             'menuFolderId' => $this->getMenuFolderId(),
             'items' => array_map(
-                function (MenuItem $item) {
+                function ($item) {
                     return $item->getProps();
                 },
                 $this->getItems(),
@@ -119,7 +119,7 @@ class MenuFolder extends Template
         return $this;
     }
 
-    public function addItem(MenuItem $item)
+    public function addItem($item)
     {
         $this->items[] = $item;
     }
