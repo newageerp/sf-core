@@ -12,6 +12,8 @@ class MenuFolder extends Template
 
     protected string $className = '';
 
+    protected string $contentClassName = '';
+
     protected string $menuFolderId = '';
 
     /**
@@ -31,6 +33,7 @@ class MenuFolder extends Template
     {
         return [
             'className' => $this->getClassName(),
+            'contentClassName' => $this->getContentClassName(),
             'children' => $this->getTitle(),
             'iconName' => $this->getIconName(),
             'menuFolderId' => $this->getMenuFolderId(),
@@ -171,6 +174,30 @@ class MenuFolder extends Template
     public function setClassName(string $className): self
     {
         $this->className = $className;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of contentClassName
+     *
+     * @return string
+     */
+    public function getContentClassName(): string
+    {
+        return $this->contentClassName;
+    }
+
+    /**
+     * Set the value of contentClassName
+     *
+     * @param string $contentClassName
+     *
+     * @return self
+     */
+    public function setContentClassName(string $contentClassName): self
+    {
+        $this->contentClassName = $contentClassName;
 
         return $this;
     }
