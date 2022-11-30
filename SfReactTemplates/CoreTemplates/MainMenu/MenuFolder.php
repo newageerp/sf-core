@@ -30,7 +30,7 @@ class MenuFolder extends Template
             'iconName' => $this->getIconName(),
             'items' => array_map(
                 function (MenuItem $item) {
-                    return $item->toArray();
+                    return $item->getProps();
                 },
                 $this->getItems(),
             )
