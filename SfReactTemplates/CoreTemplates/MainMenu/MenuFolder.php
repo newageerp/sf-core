@@ -2,7 +2,6 @@
 
 namespace Newageerp\SfReactTemplates\CoreTemplates\MainMenu;
 
-use Newageerp\SfReactTemplates\CoreTemplates\Modal\MenuItem;
 use Newageerp\SfReactTemplates\Template\Template;
 
 class MenuFolder extends Template
