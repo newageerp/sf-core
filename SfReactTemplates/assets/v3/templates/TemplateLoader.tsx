@@ -153,7 +153,7 @@ import NotesContent from "../content-widgets/NotesContent";
 import ListDataSummary from "../list/ListDataSummary";
 import ListDataTotals from "../list/ListDataTotals";
 
-import { MenuFolder, MenuTitle, MenuItem, MenuDivider } from "@newageerp/v3.bundles.menu-bundle";
+import { MenuFolder, MenuTitle, MenuItem, MenuDivider, MenuProvider } from "@newageerp/v3.bundles.menu-bundle";
 import AddButton from "../form/editable-fields/components/ArrayEditableField/AddButton";
 import ToolbarButtonListWithAction from "../buttons/ToolbarButtonListWithAction";
 import ElementBookmarkButton from "../element/ElementBookmarkButton";
@@ -437,6 +437,7 @@ const componentsMap: any = {
   'main-menu.menu-folder': MenuFolder,
   'main-menu.menu-item': MenuItem,
   'main-menu.menu-divider': MenuDivider,
+  'main-menu.menu-provider': MenuProvider,
 
   'toolbar.element-bookmark-button': ElementBookmarkButton,
 
