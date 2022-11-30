@@ -70,6 +70,7 @@ import RoForm from "../form/RoForm";
 import { FreeBgBadgeWidget } from "@newageerp/v3.templates.widgets.free-bg-badge-widget";
 import FormHint from "../form/FormHint";
 import { CustomEditComponentsMap } from "../../_custom/edit/CustomEditComponentsMap";
+import { CustomViewComponentsMap } from "../../_custom/view/CustomViewComponentsMap";
 import EditFormContent from "../edit/EditFormContent";
 import ViewFormContent from "../view/ViewFormContent";
 import RequestRecordProvider from "../db/RequestRecordProvider";
@@ -157,6 +158,7 @@ import { MenuFolder, MenuTitle, MenuItem, MenuDivider, MenuProvider } from "@new
 import AddButton from "../form/editable-fields/components/ArrayEditableField/AddButton";
 import ToolbarButtonListWithAction from "../buttons/ToolbarButtonListWithAction";
 import ElementBookmarkButton from "../element/ElementBookmarkButton";
+import ListToolbarBookmark from "../toolbar/ListToolbarBookmark";
 
 export interface Template {
   comp: string;
@@ -272,6 +274,7 @@ const componentsMap: any = {
   "list.toolbar.tabs-switch": ListToolbarTabsSwitch,// MOVED
   "list.toolbar.detailed-search": ListToolbarDetailedSearch,// MOVED
   "list.toolbar.filters": ListToolbarQuickFilters,// MOVED
+  "list.toolbar.bookmark": ListToolbarBookmark,
 
   "edit.content": EditContent,
   "edit.formcontent": EditFormContent,
@@ -442,6 +445,7 @@ const componentsMap: any = {
   'toolbar.element-bookmark-button': ElementBookmarkButton,
 
   ...CustomEditComponentsMap,
+  ...CustomViewComponentsMap,
   ...CustomListComponentsMap,
   ...PluginsMap,
 };

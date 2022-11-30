@@ -1,7 +1,6 @@
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 import React, { useState, useEffect } from 'react';
-import OldTextarea from './OldTextarea';
-
+import { FieldTextarea } from '@newageerp/v3.bundles.form-bundle';
 
 interface Props {
   elementId: number,
@@ -33,5 +32,5 @@ export default function OldTabTextareaField(props: Props) {
     setQ(props.value);
   }, [props.value]);
 
-  return <OldTextarea rows={2} value={q} onChange={(e) => setQ(e.target.value)} onBlur={saveElement} />;
+  return <FieldTextarea rows={2} value={q} onChange={(e) => setQ(e.target.value)} onBlur={saveElement} />;
 }
