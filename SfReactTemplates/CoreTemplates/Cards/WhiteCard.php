@@ -13,6 +13,8 @@ class WhiteCard extends Template
 
     protected ?string $title = null;
 
+    protected array $scopes = [];
+
     public function __construct(?Placeholder $children = null)
     {
         $this->children = $children ? $children : new Placeholder();
@@ -24,6 +26,7 @@ class WhiteCard extends Template
             'children' => $this->getChildren()->toArray(),
             'isCompact' => $this->getIsCompact(),
             'title' => $this->getTitle(),
+            'scopes' => $this->getScopes(),
         ];
     }
 
@@ -100,6 +103,30 @@ class WhiteCard extends Template
     public function setTitle(?string $title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of scopes
+     *
+     * @return array
+     */
+    public function getScopes(): array
+    {
+        return $this->scopes;
+    }
+
+    /**
+     * Set the value of scopes
+     *
+     * @param array $scopes
+     *
+     * @return self
+     */
+    public function setScopes(array $scopes): self
+    {
+        $this->scopes = $scopes;
 
         return $this;
     }
