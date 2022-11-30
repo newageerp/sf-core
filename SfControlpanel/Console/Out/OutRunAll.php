@@ -38,8 +38,6 @@ class OutRunAll extends Command
             }
 
             $output->writeln('Finnish command ' . $commandName);
-
-            
         }
 
         return Command::SUCCESS;

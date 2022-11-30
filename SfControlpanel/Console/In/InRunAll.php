@@ -42,16 +42,26 @@ class InRunAll extends Command
         ];
 
         foreach ($commands as $commandName) {
+            // $output->writeln('Running command ' . $commandName);
+
+            // $greetInput = new ArrayInput([]);
+
+            // shell_exec('rm -rf /tmp/*');
+
+            // $command = $this->getApplication()->find($commandName);
+            // $returnCode = $command->run($greetInput, $output);
+
+            // $output->writeln('Finnish command ' . $commandName . ' with status code ' . $returnCode);
             $output->writeln('Running command ' . $commandName);
 
-            $greetInput = new ArrayInput([]);
+            $outputData = [];
+            exec('bin/console '.$commandName, $outputData);
 
-            shell_exec('rm -rf /tmp/*');
+            foreach ($outputData as $l) {
+                $output->writeln($l);
+            }
 
-            $command = $this->getApplication()->find($commandName);
-            $returnCode = $command->run($greetInput, $output);
-
-            $output->writeln('Finnish command ' . $commandName . ' with status code ' . $returnCode);
+            $output->writeln('Finnish command ' . $commandName);
         }
 
         return Command::SUCCESS;

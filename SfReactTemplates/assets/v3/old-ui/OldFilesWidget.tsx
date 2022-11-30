@@ -19,7 +19,7 @@ import { Tooltip } from "@newageerp/v3.bundles.badges-bundle";
 
 import { FileLine } from '@newageerp/ui.components.element.file-line'
 
-const defaultActions = ['download', 'preview', 'mail']
+const defaultActions = ['download', 'preview', 'mail', 'remove']
 
 interface IFileFromServer {
   path: string
