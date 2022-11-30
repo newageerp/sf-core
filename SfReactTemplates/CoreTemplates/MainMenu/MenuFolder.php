@@ -10,6 +10,8 @@ class MenuFolder extends Template
 
     protected string $title = '';
 
+    protected string $className = '';
+
     protected string $menuFolderId = '';
 
     /**
@@ -28,6 +30,7 @@ class MenuFolder extends Template
     public function getProps(): array
     {
         return [
+            'className' => $this->getClassName(),
             'children' => $this->getTitle(),
             'iconName' => $this->getIconName(),
             'menuFolderId' => $this->getMenuFolderId(),
@@ -144,6 +147,30 @@ class MenuFolder extends Template
     public function setMenuFolderId(string $menuFolderId): self
     {
         $this->menuFolderId = $menuFolderId;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of className
+     *
+     * @return string
+     */
+    public function getClassName(): string
+    {
+        return $this->className;
+    }
+
+    /**
+     * Set the value of className
+     *
+     * @param string $className
+     *
+     * @return self
+     */
+    public function setClassName(string $className): self
+    {
+        $this->className = $className;
 
         return $this;
     }
