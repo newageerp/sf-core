@@ -15,6 +15,8 @@ class ViewFormContent extends Template
 
     protected bool $isCompact = false;
 
+    protected array $scopes = [];
+
     public function __construct(string $schema, string $type)
     {
         $this->schema = $schema;
@@ -30,6 +32,7 @@ class ViewFormContent extends Template
             'schema' => $this->getSchema(),
             'type' => $this->getType(),
             'isCompact' => $this->getIsCompact(),
+            'scopes' => $this->getScopes(),
         ];
     }
 
@@ -130,6 +133,30 @@ class ViewFormContent extends Template
     public function setIsCompact(bool $isCompact): self
     {
         $this->isCompact = $isCompact;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of scopes
+     *
+     * @return array
+     */
+    public function getScopes(): array
+    {
+        return $this->scopes;
+    }
+
+    /**
+     * Set the value of scopes
+     *
+     * @param array $scopes
+     *
+     * @return self
+     */
+    public function setScopes(array $scopes): self
+    {
+        $this->scopes = $scopes;
 
         return $this;
     }
