@@ -36,7 +36,8 @@ class MenuFolder extends Template
                     return $item->getProps();
                 },
                 $this->getItems(),
-            )
+            ),
+            'type' => 'menu-folder'
         ];
     }
 
