@@ -219,7 +219,7 @@ interface SelectFieldSchemaProps {
   addEmpty?: boolean
 }
 
-function SelectFieldSchema(props: SelectFieldSchemaProps) {
+export function SelectFieldSchema(props: SelectFieldSchemaProps) {
   const { tab } = props
 
   const [options, setOptions] = useState<any[]>([])
