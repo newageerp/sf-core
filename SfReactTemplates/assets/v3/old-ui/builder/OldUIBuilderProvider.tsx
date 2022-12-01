@@ -1,7 +1,6 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react'
 import { NaeWidgets } from '../../../_custom/widgets'
 import { getPropertyForPath, getTextAlignForProperty, INaeEditField, INaeEditSettings, INaeFormEditRow, INaeFormViewRow, INaeTab, INaeTabField, INaeViewField, INaeViewSettings, INaeWidget } from '../../utils'
-import { BuilderWidgetProvider } from './OldBuilderWidgetProvider'
 
 export interface UIBuilderProviderValue {
     config: IUIBuilderRecordItem[]
@@ -14,7 +13,6 @@ export interface UIBuilderProviderValue {
     getEditFieldsForSchema: (schema: string, type?: string) => any
     getViewFieldsForSchema: (schema: string, type?: string) => any
     getTabFromSchemaAndType: (schema: string, type?: string) => any
-    getTransformedWidgets: () => INaeWidget[],
 }
 
 export const UIBuilderProviderContext =
@@ -28,7 +26,6 @@ export const UIBuilderProviderContext =
         getEditFieldsForSchema: (schema: string, type?: string) => { },
         getViewFieldsForSchema: (schema: string, type?: string) => { },
         getTabFromSchemaAndType: (schema: string, type?: string) => { },
-        getTransformedWidgets: () => [],
     })
 
 export const useUIBuilder = () => useContext(UIBuilderProviderContext)
@@ -116,14 +113,6 @@ export const UIBuilderProvider = (props: UIBuilderProviderProps) => {
         };
     };
 
-    const getTransformedWidgets = () => {
-        return NaeWidgets.concat(
-            widgetData.map((w: IUIBuilderWidgetRecordItem) =>
-                configWidgetToINaeWidget(w)
-            )
-        )
-    }
-
     return (
         <UIBuilderProviderContext.Provider
             value={{
@@ -136,7 +125,6 @@ export const UIBuilderProvider = (props: UIBuilderProviderProps) => {
                 getEditFieldsForSchema: getEditFieldsForSchema,
                 getViewFieldsForSchema: getViewFieldsForSchema,
                 getTabFromSchemaAndType: getTabFromSchemaAndType,
-                getTransformedWidgets: getTransformedWidgets,
             }}
         >
             {loaded ? props.children : <Fragment />}
@@ -569,24 +557,4 @@ const configTabToInaeTab = (
     }
 
     return tabResponse
-}
-
-export const configWidgetToINaeWidget = (
-    w: IUIBuilderWidgetRecordItem
-): INaeWidget => {
-    return {
-        schema: w.config.schema,
-        type: w.config.type,
-        comp: BuilderWidgetProvider,
-        options: {
-            builderId: w.config.builderId
-        },
-        sort: w.config.sort,
-        hideScopes: w.config.hideScopes
-            ? JSON.parse(w.config.hideScopes)
-            : undefined,
-        showScopes: w.config.showScopes
-            ? JSON.parse(w.config.showScopes)
-            : undefined
-    }
 }
