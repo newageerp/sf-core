@@ -1,7 +1,6 @@
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
+import { FieldInput } from '@newageerp/v3.bundles.form-bundle';
 import React, { useState, useEffect } from 'react';
-
-import InputField from './OldInputField';
 
 interface Props {
     elementId: number,
@@ -33,5 +32,5 @@ export default function OldTabStringField(props: Props) {
         setQ(props.value);
     }, [props.value]);
 
-    return <InputField value={q} onChange={(e) => setQ(e.target.value)} onBlur={saveElement} />;
+    return <FieldInput value={q} onChange={(e) => setQ(e.target.value)} onBlur={saveElement} />;
 }
