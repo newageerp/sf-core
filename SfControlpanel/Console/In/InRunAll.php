@@ -41,13 +41,12 @@ class InRunAll extends Command
             // 'nae:localconfig:V3PropertiesTemplates'
         ];
 
+        shell_exec('rm -rf /tmp/*');
+
         foreach ($commands as $commandName) {
             // $output->writeln('Running command ' . $commandName);
 
             // $greetInput = new ArrayInput([]);
-
-            // shell_exec('rm -rf /tmp/*');
-
             // $command = $this->getApplication()->find($commandName);
             // $returnCode = $command->run($greetInput, $output);
 
