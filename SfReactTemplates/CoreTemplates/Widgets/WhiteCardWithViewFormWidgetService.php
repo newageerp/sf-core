@@ -20,7 +20,7 @@ class WhiteCardWithViewFormWidgetService
         ?string $title,
         ?string $editId,
         ?bool $isCompact,
-        ?array $editScopes
+        ?array $editScopes = null
     ) {
         [$schema, $type] = explode(":", $viewId);
 

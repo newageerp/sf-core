@@ -43,7 +43,7 @@ export default function WhiteCardWithViewFormWidget(props: Props) {
 
   return (
     <WhiteCard isCompact={props.isCompact}>
-      {(!!editId && isShowEdit) || !!title && (
+      {((!!editId && isShowEdit) || !!title) && (
         <div className="tw3-flex tw3-gap-2">
           <TextCardTitle className={"tw3-flex-grow"}>{title}</TextCardTitle>
           {!!editId && isShowEdit && <ToolbarButton onClick={onClick} iconName="edit" />}
