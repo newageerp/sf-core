@@ -8,19 +8,30 @@ import {
 } from "../templates/TemplateLoader";
 import { ToolbarButton } from "@newageerp/v3.bundles.buttons-bundle";
 import { SFSOpenEditModalWindowProps } from "@newageerp/v3.popups.mvc-popup";
+import { filterScopes } from "../utils";
+import { useRecoilValue } from 'recoil';
+import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 
 interface Props {
   title?: string;
   editId?: string;
   isCompact?: boolean;
   content: Template[];
+  editScopes?: string[],
 }
 
 export default function WhiteCardWithViewFormWidget(props: Props) {
   const { data: tData } = useTemplateLoader();
+  const userState = useRecoilValue(OpenApi.naeUserState);
 
   const { title, editId } = props;
   const editData = (editId ? editId : "").split(":");
+
+  const isShowEdit = filterScopes(
+    tData.element,
+    userState,
+    props.editScopes
+  );
 
   const onClick = () => {
     SFSOpenEditModalWindowProps({
@@ -32,10 +43,10 @@ export default function WhiteCardWithViewFormWidget(props: Props) {
 
   return (
     <WhiteCard isCompact={props.isCompact}>
-      {!!editId && !!title && (
+      {(!!editId && isShowEdit) || !!title && (
         <div className="tw3-flex tw3-gap-2">
           <TextCardTitle className={"tw3-flex-grow"}>{title}</TextCardTitle>
-          {!!editId && <ToolbarButton onClick={onClick} iconName="edit" />}
+          {!!editId && isShowEdit && <ToolbarButton onClick={onClick} iconName="edit" />}
         </div>
       )}
       <TemplatesParser templates={props.content} />

@@ -11,6 +11,7 @@ class WhiteCardWithViewFormWidget extends Template
     protected ?string $editId = '';
     protected bool $isCompact = false;
     protected Placeholder $content;
+    protected array $editScopes = [];
 
     public function __construct(
         ?string $title,
@@ -31,6 +32,7 @@ class WhiteCardWithViewFormWidget extends Template
         $props['title'] = $this->getTitle();
         $props['editId']  = $this->getEditId();
         $props['content'] = $this->getContent()->toArray();
+        $props['editScopes'] = $this->getEditScopes();
         return $props;
     }
 
@@ -155,6 +157,30 @@ class WhiteCardWithViewFormWidget extends Template
     public function setIsCompact(bool $isCompact): self
     {
         $this->isCompact = $isCompact;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of editScopes
+     *
+     * @return array
+     */
+    public function getEditScopes(): array
+    {
+        return $this->editScopes;
+    }
+
+    /**
+     * Set the value of editScopes
+     *
+     * @param array $editScopes
+     *
+     * @return self
+     */
+    public function setEditScopes(array $editScopes): self
+    {
+        $this->editScopes = $editScopes;
 
         return $this;
     }

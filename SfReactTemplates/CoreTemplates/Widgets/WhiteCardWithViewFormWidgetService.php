@@ -19,7 +19,8 @@ class WhiteCardWithViewFormWidgetService
         string $viewId,
         ?string $title,
         ?string $editId,
-        ?bool $isCompact
+        ?bool $isCompact,
+        ?array $editScopes
     ) {
         [$schema, $type] = explode(":", $viewId);
 
@@ -35,6 +36,9 @@ class WhiteCardWithViewFormWidgetService
             $editId,
             $isCompact
         );
+        if ($editScopes) {
+            $w->setEditScopes($editScopes);
+        }
         $w->getContent()->addTemplate($t);
 
         return $w;
