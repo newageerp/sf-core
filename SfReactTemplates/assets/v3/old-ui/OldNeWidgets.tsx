@@ -1,8 +1,8 @@
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper'
 import React, { Fragment } from 'react'
 import { useRecoilValue } from 'recoil'
+import { NaeWidgets } from '../../_custom/widgets'
 import { filterScopes, INaeWidget, WidgetType } from '../utils'
-import { useUIBuilder } from './builder/OldUIBuilderProvider'
 
 export interface WidgetProps {
   type: WidgetType
@@ -23,11 +23,9 @@ export interface ContentWidgetProps {
 }
 
 export default function OldNeWidgets(props: WidgetProps) {
-  const defaults = useUIBuilder();
-
   const userState: any = useRecoilValue<any>(OpenApi.naeUserState);
   const { type, schema, element } = props
-  const allWidgets: INaeWidget[] = defaults.getTransformedWidgets();
+  const allWidgets: INaeWidget[] = NaeWidgets;
 
   // console.log('ELDEBUG NEWidgets', {element});
 

@@ -18,9 +18,9 @@ import OldAlert, { AlertBgColor } from "../old-ui/OldAlert";
 import OldNeWidgets from "../old-ui/OldNeWidgets";
 import { useNaeRecord } from "../old-ui/OldNaeRecord";
 import { useNaePopup } from "../old-ui/OldPopupProvider";
-import { useUIBuilder } from "../old-ui/builder/OldUIBuilderProvider";
 import classNames from 'classnames';
 import { LogoLoader } from "@newageerp/ui.loaders.logo-loader";
+import { NaeWidgets } from "../../_custom/widgets";
 
 interface Props {
   schema: string;
@@ -48,8 +48,6 @@ interface Props {
 
 export default function ViewContent(props: Props) {
   const { data: tdata } = useTemplateLoader();
-
-  const defaults = useUIBuilder();
 
   const { t } = useTranslation();
   const userState = useRecoilValue(OpenApi.naeUserState);
@@ -119,7 +117,7 @@ export default function ViewContent(props: Props) {
     }
     : undefined;
 
-  const widgets = defaults.getTransformedWidgets();
+  const widgets = NaeWidgets;
 
   const middleWidgets = widgets.filter(
     (w: INaeWidget) =>
