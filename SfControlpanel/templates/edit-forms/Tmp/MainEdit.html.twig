@@ -238,18 +238,16 @@ export default function MainEdit(props: Props) {
             <Fragment>
               <TemplateLoader
                 templates={[tData.formContent]}
-                templateData={templateData}
+                templateData={{
+                  ...templateData,
+                  formDataError: saveDataParams.error
+                }}
               />
 
             </Fragment>
           ) : (
             <Fragment />
           )}
-
-
-          {!!saveDataParams.error && <AlertWidget color='danger'>
-            {transformErrorAlert(saveDataParams.error)}
-          </AlertWidget>}
 
           <OldNeWidgets
             type={WidgetType.editRight}

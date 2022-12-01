@@ -161,6 +161,7 @@ import ElementBookmarkButton from "../element/ElementBookmarkButton";
 import ListToolbarBookmark from "../toolbar/ListToolbarBookmark";
 import MenuItemWithAction from "../menu/MenuItemWithAction";
 import MenuItemWithLink from "../menu/MenuItemWithLink";
+import FormError from "../form/FormError";
 
 export interface Template {
   comp: string;
@@ -309,6 +310,7 @@ const componentsMap: any = {
 
   "form.rows.widerow": WideRow,
   "form.rows.compactrow": CompactRow,
+  "form.FormError": FormError,
 
   "form.editableform": EditableForm,
   "form.fieldlabel": FormFieldLabel,

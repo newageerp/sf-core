@@ -1,6 +1,7 @@
 import { WideToolbar } from '@newageerp/ui.form.base.form-pack';
 import classNames from 'classnames';
 import React, { Fragment } from 'react'
+import FormError from '../form/FormError';
 import TemplateLoader, { Template, useTemplateLoader } from '../templates/TemplateLoader'
 
 interface Props {
@@ -27,6 +28,7 @@ export default function EditFormContent(props: Props) {
                     templateData={templateData}
                 />
             </div>
+            <FormError />
             <WideToolbar
                 onSave={tData.onSave}
                 onCancel={tData.onBack}
