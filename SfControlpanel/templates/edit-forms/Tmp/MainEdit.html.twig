@@ -238,10 +238,12 @@ export default function MainEdit(props: Props) {
             <Fragment>
               <TemplateLoader
                 templates={[tData.formContent]}
-                templateData={{
-                  ...templateData,
-                  formDataError: saveDataParams.error
-                }}
+                templateData={
+                  {
+                    ...templateData,
+                    formDataError: saveDataParams.error
+                  }
+                }
               />
 
             </Fragment>
