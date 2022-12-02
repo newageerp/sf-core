@@ -122,9 +122,25 @@ class OaBaseController extends AbstractController
     {
         $token = $request->get('token') ? $request->get('token') : $request->headers->get('Authorization');
         if ($token) {
-            $decoded = (array)JWT::decode($token, $_ENV['AUTH_KEY'], array('HS256'));
+            $url = 'http://auth:3000/api/check';
 
-            return $this->userRepository->find($decoded['id']);
+            $ppData = [
+                'data' => [
+                    'token' => $token
+                ]
+            ];
+
+            $ch = curl_init($url);
+            $payload = json_encode($ppData);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type:application/json']);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $result = json_decode(curl_exec($ch), true);
+            curl_close($ch);
+
+            if ($result && isset($result['id'])) {
+                return $this->userRepository->find($result['id']);
+            }
         }
         return null;
     }

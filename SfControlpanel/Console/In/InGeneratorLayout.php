@@ -120,7 +120,7 @@ class InGeneratorLayout extends Command
             'layout/apps/tasks/TasksPage.html.twig' => ['apps/tasks', 'TasksPage'],
             'layout/apps/tasks/TasksWidget.html.twig' => ['apps/tasks', 'TasksWidget'],
 
-            'layout/auth/AuthLogin.html.twig' => ['auth', 'AuthLogin'],
+            // 'layout/auth/AuthLogin.html.twig' => ['auth', 'AuthLogin'],
 
             'layout/main/App.html.twig' => ['main', 'App'],
             //            'layout/main/AppRouting.html.twig' => ['main', 'AppRouting'],

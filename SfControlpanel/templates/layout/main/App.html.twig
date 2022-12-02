@@ -62,8 +62,8 @@ function App() {
                     noAuthRoutes={(isLoggedIn) => {
                         return (
                             <Fragment>
-                                <AuthLogin />
-                                {!isLoggedIn && <Redirect to='/login' />}
+                                {# <AuthLogin /> #}
+                                {!isLoggedIn && <Redirect to='/login/' />}
                             </Fragment>
                         )
                     }

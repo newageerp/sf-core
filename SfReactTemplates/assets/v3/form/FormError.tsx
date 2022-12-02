@@ -10,7 +10,7 @@ export default function FormError() {
     }
 
     return (
-        <AlertWidget color='danger'>
+        <AlertWidget color='danger' width='tw3-w-full'>
             {transformErrorAlert(tData.formDataError)}
         </AlertWidget>
     )
