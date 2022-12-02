@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment, useState } from "react";
 import { Toolbar } from "@newageerp/ui.layout.base.toolbar";
 import { TextToolbarTitle } from "@newageerp/v3.bundles.typography-bundle";
 import CustomToolbarBefore from "../../_custom/layout/CustomToolbarBefore";
@@ -13,6 +13,7 @@ import { Menu, MenuItem } from '@newageerp/sfs.modal.menu'
 import { Icon, IconType } from "@newageerp/ui.icons.base.icon";
 import { TwBackgroundColors, TwTextSizes } from "@newageerp/ui.styles.tailwind";
 import classNames from "classnames";
+import { Popup } from "@newageerp/v3.popups.popup";
 
 interface Props {
         children?: any
@@ -35,34 +36,41 @@ function UserSpaceWrapperToolbar(props: Props) {
                 window.location.href = "/";
         };
 
+        const showChangePassword = () => {
+                window.open(`/login/update?token=${window.localStorage.getItem('token')}`, '_blank')
+        }
+
         const toolbarTitle = useRecoilValue(UserSpaceWrapperToolbarState)
         return (
-                <Toolbar>
-                        <CustomToolbarBefore />
-                        <TextToolbarTitle>{toolbarTitle}</TextToolbarTitle>
-                        <span className="tw3-flex-grow"></span>
-                        <ActionsBar
-                                items={
-                                []
-                                }
-                        />
-                        <span className="tw3-relative tw3-ml-20 tw3-mr-20" ref={settingsVisibleData.ref} style={ { width: 200 } }>
-                                <div className="tw3-flex tw3-gap-2 tw3-items-center tw3-text-white tw3-cursor-pointer" onClick={() => settingsVisibleData.setIsComponentVisible(!settingsVisibleData.isComponentVisible)}>
-                                        <span className={classNames('tw3-flex tw3-items-center tw3-justify-center', TwBackgroundColors.orange, TwTextSizes.px12, 'tw3-rounded-full')} style={ {width: 24, height: 24, minWidth: 24,} }>
-                                        <Icon type={IconType.Regular} icon={IconList.user}/>
-                                        </span>
-                                        <p className="tw3-flex-grow">
-                                                {userState.fullName}
-                                        </p>
-                                        <Icon type={IconType.Regular} icon={IconList.angleDown} />
-                                </div>
-                                {!!settingsVisibleData.isComponentVisible && <Menu>
-                                        <MenuItem onClick={doLogout}>{t('Logout')}</MenuItem>
-                                </Menu>}
+                <Fragment>
+                        <Toolbar>
+                                <CustomToolbarBefore />
+                                <TextToolbarTitle>{toolbarTitle}</TextToolbarTitle>
+                                <span className="tw3-flex-grow"></span>
+                                <ActionsBar
+                                        items={
+                                                []
+                                        }
+                                />
+                                <span className="tw3-relative tw3-ml-20 tw3-mr-20" ref={settingsVisibleData.ref} style={{ width: 200 }}>
+                                        <div className="tw3-flex tw3-gap-2 tw3-items-center tw3-text-white tw3-cursor-pointer" onClick={() => settingsVisibleData.setIsComponentVisible(!settingsVisibleData.isComponentVisible)}>
+                                                <span className={classNames('tw3-flex tw3-items-center tw3-justify-center', TwBackgroundColors.orange, TwTextSizes.px12, 'tw3-rounded-full')} style={{ width: 24, height: 24, minWidth: 24, }}>
+                                                        <Icon type={IconType.Regular} icon={IconList.user} />
+                                                </span>
+                                                <p className="tw3-flex-grow">
+                                                        {userState.fullName}
+                                                </p>
+                                                <Icon type={IconType.Regular} icon={IconList.angleDown} />
+                                        </div>
+                                        {!!settingsVisibleData.isComponentVisible && <Menu>
+                                                <MenuItem onClick={showChangePassword}>{t('Update password')}</MenuItem>
+                                                <MenuItem onClick={doLogout}>{t('Logout')}</MenuItem>
+                                        </Menu>}
 
-                        </span>
-                        <CustomToolbarAfter />
-                </Toolbar>
+                                </span>
+                                <CustomToolbarAfter />
+                        </Toolbar>
+                </Fragment>
         );
 }
 
