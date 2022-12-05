@@ -49,7 +49,7 @@ class AuthController extends OaBaseController
             $ppData = [
                 'data' => [
                     'token' => $token,
-                    'forUserId' => $request->get('id'),
+                    'forUserId' => (int)$request->get('id'),
                 ]
             ];
 

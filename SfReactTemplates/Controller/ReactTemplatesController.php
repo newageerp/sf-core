@@ -30,11 +30,17 @@ class ReactTemplatesController extends OaBaseController
         AuthService::getInstance()->setUser($user);
 
         $templatesData = $request->get('data');
+        $templatesData['_token'] = $request->get('token');
+
         $templateName = $request->get('templateName');
 
         $placeholder = new Placeholder();
 
-        $event = new LoadTemplateEvent($placeholder, $templateName, $templatesData);
+        $event = new LoadTemplateEvent(
+            $placeholder,
+            $templateName,
+            $templatesData
+        );
         $this->getEventDispatcher()->dispatch($event, LoadTemplateEvent::NAME);
 
         return $this->json(['data' => $placeholder->toArray(), 'templatesData' => $placeholder->getTemplatesData(), 'success' => 1]);
