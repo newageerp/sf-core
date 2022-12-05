@@ -35,6 +35,9 @@ class AuthController extends OaBaseController
         $this->userRepository = $entityManager->getRepository($this->className);
     }
 
+    /**
+     * @Route(path="/password-update")
+     */
     public function generateUpdatePasswordLink(Request $request)
     {
         $link = '/login/update';
