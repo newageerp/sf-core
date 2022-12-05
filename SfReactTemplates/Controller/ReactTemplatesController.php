@@ -29,8 +29,10 @@ class ReactTemplatesController extends OaBaseController
         }
         AuthService::getInstance()->setUser($user);
 
+        $token = $request->get('token') ? $request->get('token') : $request->headers->get('Authorization');
+
         $templatesData = $request->get('data');
-        $templatesData['_token'] = $request->get('token');
+        $templatesData['_token'] = $token;
 
         $templateName = $request->get('templateName');
 
