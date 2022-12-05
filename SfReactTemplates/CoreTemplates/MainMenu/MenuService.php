@@ -6,6 +6,14 @@ use Newageerp\SfControlpanel\Console\LocalConfigUtils;
 use Newageerp\SfReactTemplates\Template\Placeholder;
 
 class MenuService {
+    protected MenuItemFactory $menuItemFactory;
+
+    public function __construct(MenuItemFactory $menuItemFactory)
+    {
+        $this->menuItemFactory = $menuItemFactory;
+    }
+
+    
     public function parseFolder(string $slug, Placeholder $placeholder)
     {
         $data = LocalConfigUtils::getCpConfigFileData('menu-cache');
