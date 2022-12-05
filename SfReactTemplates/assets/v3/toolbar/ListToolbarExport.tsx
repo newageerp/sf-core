@@ -7,7 +7,7 @@ import { ToolbarButtonWithMenu } from '@newageerp/v3.bundles.buttons-bundle'
 import { ToolbarButton } from '@newageerp/v3.bundles.buttons-bundle'
 import { useTemplateLoader } from '../templates/TemplateLoader';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
-import { MenuItem } from '@newageerp/v3.modal.menu-item'
+import { MenuItem } from '@newageerp/v3.bundles.modal-bundle'
 
 export type ExportContainerProps = {
     exports: ITabExport[];

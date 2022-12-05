@@ -1,5 +1,5 @@
 import React from 'react'
-import { MenuItem, MenuItemProps } from '@newageerp/v3.modal.menu-item'
+import { MenuItem, MenuItemProps } from '@newageerp/v3.bundles.modal-bundle'
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 
 declare type Props = {
