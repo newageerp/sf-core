@@ -202,3 +202,6 @@ services:
         event: "postRemove"
         priority: 600
         connection: "default"
+  Newageerp\SfAuth\Templates\UserTemplateEvt:
+    tags:
+      - {name: "kernel.event_listener"}
