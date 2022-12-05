@@ -51,6 +51,7 @@ class AuthController extends OaBaseController
         $userOrm->setId($user['id']);
         $userOrm->setFirstName($user['firstName']);
         $userOrm->setLastName($user['lastName']);
+        $userOrm->setPhone($user['phone']);
         $userOrm->setEmail($user['email']);
         $userOrm->setLogin($auth['username']);
         $this->getEm()->persist($userOrm);
