@@ -25,7 +25,7 @@ class InGeneratorMenu extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         // NEW
-        $url = 'http://local.767.lt:7671/api/projects?populate=deep,10&filters[Slug]=' . $_ENV['SFS_STRAPI_PROJECT'];
+        $url = 'http://local.767.lt:7671/api/projects?populate=deep,5&filters[Slug]=' . $_ENV['SFS_STRAPI_PROJECT'];
 
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
