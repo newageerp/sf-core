@@ -13,7 +13,7 @@ class MenuService {
         $this->menuItemFactory = $menuItemFactory;
     }
 
-    
+
     public function parseFolder(string $slug, Placeholder $placeholder)
     {
         $data = LocalConfigUtils::getCpConfigFileData('menu-cache');
@@ -46,6 +46,15 @@ class MenuService {
                 $menuTitle = new MenuTitle($item['Title']);
                 $placeholder->addTemplate($menuTitle);
             }
+            if ($item['__component'] === 'menu.menu-item') {
+                $menuItem = new MenuItem(
+                    $item['Title'],
+                    $item['Link'],
+                    $item['Icon']
+                );
+
+                $placeholder->addTemplate($menuItem);
+            }
             if ($item['__component'] === 'menu.menu-item-tab') {
                 $placeholder->addTemplate(
                     $this->menuItemFactory->linkForTab(
@@ -67,6 +76,16 @@ class MenuService {
         $folder->setMenuFolderId('folder-'.$id);
 
         foreach ($data['Content'] as $item) {
+            if ($item['__component'] === 'menu.menu-item') {
+                $menuItem = new MenuItem(
+                    $item['Title'],
+                    $item['Link'],
+                    $item['Icon']
+                );
+
+                $folder->addItem($menuItem);
+            }
+
             if ($item['__component'] === 'menu.menu-item-tab') {
                 $folder->addItem(
                     $this->menuItemFactory->linkForTab(
