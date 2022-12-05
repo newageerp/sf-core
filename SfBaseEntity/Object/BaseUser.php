@@ -307,4 +307,9 @@ class BaseUser implements IUser
     {
         return $this->getFullName();
     }
+
+    public function setId(int $id)
+    {
+        $this->id = $id;
+    }
 }

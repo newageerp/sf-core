@@ -40,7 +40,7 @@ export default function ListDataSummary(props: Props) {
 
   useEffect(() => {
     getData();
-  }, [props.schema, props.summary]);
+  }, [props.schema, props.summary, tData.filter.extraFilter]);
 
   const groupKeys = Object.keys(data);
 

@@ -97,7 +97,6 @@ class TableService
             } else {
                 $listDataSource->getChildren()->addTemplate($listTable);
 
-
                 if ($totals) {
                     $listTotals = new ListDataTotals($totals);
                     $listDataSource->getChildren()->addTemplate($listTotals);

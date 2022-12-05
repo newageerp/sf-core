@@ -36,6 +36,28 @@ class AuthController extends OaBaseController
     }
 
     /**
+     * @Route(path="/register-user")
+     */
+    public function registerUser(Request $request)
+    {
+        $request = $this->transformJsonBody($request);
+
+        $user = $request->get('user');
+        $auth = $request->get('auth');
+
+        $className = $this->className;
+
+        $userOrm = new $className();
+        $userOrm->setId($user['id']);
+        $userOrm->setFirstName($user['firstName']);
+        $userOrm->setLastName($user['lastName']);
+        $userOrm->setEmail($user['email']);
+        $userOrm->setLogin($auth['username']);
+        $this->getEm()->persist($userOrm);
+        $this->getEm()->flush();
+    }
+
+    /**
      * @Route(path="/password-update")
      */
     public function generateUpdatePasswordLink(Request $request)

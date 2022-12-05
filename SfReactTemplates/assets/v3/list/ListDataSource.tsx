@@ -317,6 +317,7 @@ export default function ListDataSource(props: Props) {
               onAddSelectButton: tData.onAddSelectButton,
               filter: {
                 prepareFilter,
+                extraFilter: dataState?.extraFilter,
               },
               dataTotals
             }}
