@@ -190,15 +190,20 @@ class PropertiesUtilsV3
         if (!isset($property['as'])) {
             $property['as'] = '';
         }
+        if (!isset($property['customAs'])) {
+            $property['customAs'] = '';
+        }
         if (!isset($column['type'])) {
             $column['type'] = '';
         }
 
-        $isHtmlEditor = $property['as'] === 'html-editor';
+        $fieldAs = $property['customAs'] ? $property['customAs'] : $property['as'];
+
+        $isHtmlEditor = $fieldAs === 'html-editor';
 
         $hasEnum = $this->propertyHasEnum($property);
 
-        $isStatus = $property['as'] === 'status' || $column['type'] === 'status';
+        $isStatus = $fieldAs === 'status' || $column['type'] === 'status';
 
         $isStringArray = $property['type'] === 'array' && $property['typeFormat'] === 'string';
         $isArray = $property['type'] === 'array' && !$isStringArray;
@@ -221,11 +226,11 @@ class PropertiesUtilsV3
         $isEnumString = $property['type'] === 'string' && $hasEnum;
         $isEnumInteger = ($property['type'] === 'integer' || $property['type'] === 'number') && $hasEnum;
 
-        $isFile = $property['as'] === 'file';
-        $isFileMultiple = $property['as'] === 'fileMultiple';
-        $isColor = $property['as'] === 'color';
-        $isImage = $property['as'] === 'image';
-        $isAudio = $property['as'] === 'audio';
+        $isFile = $fieldAs === 'file';
+        $isFileMultiple = $fieldAs === 'fileMultiple';
+        $isColor = $fieldAs === 'color';
+        $isImage = $fieldAs === 'image';
+        $isAudio = $fieldAs === 'audio';
 
         if ($column && isset($column['customTemplate']) && $column['customTemplate']) {
             return $column['customTemplate'];
@@ -278,11 +283,16 @@ class PropertiesUtilsV3
         if (!isset($property['as'])) {
             $property['as'] = '';
         }
+        if (!isset($property['customAs'])) {
+            $property['customAs'] = '';
+        }
         if (!isset($column['type'])) {
             $column['type'] = '';
         }
 
-        $isStatus = $property['as'] === 'status' || $column['type'] === 'status';
+        $fieldAs = $property['customAs'] ? $property['customAs'] : $property['as'];
+
+        $isStatus = $fieldAs === 'status' || $column['type'] === 'status';
 
         $isStringArray = $property['type'] === 'array' && $property['format'] === 'string';
         $isArray = $property['type'] === 'array' && !$isStringArray;
@@ -308,14 +318,17 @@ class PropertiesUtilsV3
             isset($property['enum']) && count($property['enum']) > 0;
         $isEnumInteger = ($property['type'] === 'integer' || $property['type'] === 'number') && isset($property['enum']) && count($property['enum']) > 0;
 
-        $isFile = $property['as'] === 'file';
-        $isFileMultiple = $property['as'] === 'fileMultiple';
-        $isColor = $property['as'] === 'color';
-        $isImage = $property['as'] === 'image';
-        $isAudio = $property['as'] === 'audio';
+        $isFile = $fieldAs === 'file';
+        $isFileMultiple = $fieldAs === 'fileMultiple';
+        $isColor = $fieldAs === 'color';
+        $isImage = $fieldAs === 'image';
+        $isAudio = $fieldAs === 'audio';
+        $isHtmlEditor = $fieldAs === 'html-editor';
 
         if ($column && isset($column['customTemplate'])) {
             return $column['customTemplate'];
+        } else if ($isHtmlEditor) {
+            return 'html-editor';
         } else if ($isStatus) {
             return 'status';
         } else if ($isFile) {
