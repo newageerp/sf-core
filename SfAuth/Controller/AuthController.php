@@ -56,6 +56,8 @@ class AuthController extends OaBaseController
         $userOrm->setLogin($auth['username']);
         $this->getEm()->persist($userOrm);
         $this->getEm()->flush();
+
+        return $this->json(['success' => 1]);
     }
 
     /**
