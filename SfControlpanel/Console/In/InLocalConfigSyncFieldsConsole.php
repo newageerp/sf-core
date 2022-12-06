@@ -103,7 +103,9 @@ class InLocalConfigSyncFieldsConsole extends Command
                 'isDb' => $prop['config']['isDb'] === 1 || $prop['config']['isDb'] === true,
                 'dbType' => $prop['config']['dbType']
             ];
-            if ($prop['config']['as']) {
+            if (isset($prop['config']['customAs']) && $prop['config']['customAs']) {
+                $propSet['as'] = $prop['config']['customAs'];
+            } else if ($prop['config']['as']) {
                 $propSet['as'] = $prop['config']['as'];
             }
 

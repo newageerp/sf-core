@@ -194,6 +194,8 @@ class PropertiesUtilsV3
             $column['type'] = '';
         }
 
+        $isHtmlEditor = $property['as'] === 'html-editor';
+
         $hasEnum = $this->propertyHasEnum($property);
 
         $isStatus = $property['as'] === 'status' || $column['type'] === 'status';
@@ -227,6 +229,8 @@ class PropertiesUtilsV3
 
         if ($column && isset($column['customTemplate']) && $column['customTemplate']) {
             return $column['customTemplate'];
+        } else if ($isHtmlEditor) {
+            return 'html-editor';
         } else if ($isStatus) {
             return 'status';
         } else if ($isFile) {
