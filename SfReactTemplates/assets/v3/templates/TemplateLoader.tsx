@@ -162,6 +162,7 @@ import ListToolbarBookmark from "../toolbar/ListToolbarBookmark";
 import MenuItemWithAction from "../menu/MenuItemWithAction";
 import MenuItemWithLink from "../menu/MenuItemWithLink";
 import FormError from "../form/FormError";
+import HtmlEditorEditableField from "../form/editable-fields/HtmlEditorEditableField";
 
 export interface Template {
   comp: string;
@@ -342,6 +343,7 @@ const componentsMap: any = {
   "form.editable.statusfield": StatusEditableField,
   "form.editable.stringarrayfield": StringArrayEditableField,
   "form.editable.stringfield": StringEditableField,
+  "form.editable.htmleditorfield": HtmlEditorEditableField,
 
   "form.ro.arrayfield": ArrayRoField,
   "form.ro.audiofield": AudioRoField,

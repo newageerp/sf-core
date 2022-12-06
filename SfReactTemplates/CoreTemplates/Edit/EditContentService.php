@@ -20,6 +20,7 @@ use Newageerp\SfReactTemplates\CoreTemplates\Form\EditableFields\EnumTextEditabl
 use Newageerp\SfReactTemplates\CoreTemplates\Form\EditableFields\FileEditableField;
 use Newageerp\SfReactTemplates\CoreTemplates\Form\EditableFields\FileMultipleEditableField;
 use Newageerp\SfReactTemplates\CoreTemplates\Form\EditableFields\FloatEditableField;
+use Newageerp\SfReactTemplates\CoreTemplates\Form\EditableFields\HtmlEditorEditableField;
 use Newageerp\SfReactTemplates\CoreTemplates\Form\EditableFields\ImageEditableField;
 use Newageerp\SfReactTemplates\CoreTemplates\Form\EditableFields\LargeTextEditableField;
 use Newageerp\SfReactTemplates\CoreTemplates\Form\EditableFields\NumberEditableField;
@@ -314,6 +315,9 @@ class EditContentService
                             }
                             if ($naeType === 'string') {
                                 $wideRow->getControlContent()->addTemplate(new StringEditableField($pathArray[1]));
+                            }
+                            if ($naeType === 'html-editor') {
+                                $wideRow->getControlContent()->addTemplate(new HtmlEditorEditableField($pathArray[1]));
                             }
 
                             $wideRow->setFieldVisibilityData([
