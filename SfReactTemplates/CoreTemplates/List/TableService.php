@@ -259,6 +259,13 @@ class TableService
             }
         }
 
+        // TOTALS
+        $totals = $this->tabsUtilsV3->getTabTotals($schema, $type);
+        if ($totals) {
+            $listTotals = new ListDataTotals($totals);
+            $listDataSource->getChildren()->addTemplate($listTotals);
+        }
+
         if ($wrapWithCard >= self::WRAPWITHCARD) {
             $whiteCard = new WhiteCard();
             if ($wrapWithCard === self::WRAPWITHCARDCOMPACT) {
