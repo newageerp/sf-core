@@ -8,13 +8,12 @@ import { ElementToolbar } from "@newageerp/ui.components.element.element-toolbar
 import { useRecoilValue } from "recoil";
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import { ToolbarButtonWithMenu } from "@newageerp/v3.bundles.buttons-bundle";
-import { WhiteCard } from "@newageerp/v3.bundles.widgets-bundle";
+import { AlertWidget, WhiteCard } from "@newageerp/v3.bundles.widgets-bundle";
 import {
   SFSOpenEditModalWindowProps,
   SFSOpenEditWindowProps,
 } from "@newageerp/v3.popups.mvc-popup";
 import { checkIsEditable, INaeWidget, WidgetType } from "../utils";
-import OldAlert, { AlertBgColor } from "../old-ui/OldAlert";
 import OldNeWidgets from "../old-ui/OldNeWidgets";
 import { useNaeRecord } from "../old-ui/OldNaeRecord";
 import { useNaePopup } from "../old-ui/OldPopupProvider";
@@ -370,9 +369,9 @@ export default function ViewContent(props: Props) {
         ) : reloading ? (
           <LogoLoader />
         ) : (
-          <OldAlert bgColor={AlertBgColor.red}>
-            {t("Neturite teisių matyti šį įrašą")}
-          </OldAlert>
+          <AlertWidget color="danger" width="tw3-w-full">
+            {t("You do not have permission to view this record")}
+          </AlertWidget>
         )}
       </div>
     </Fragment>
