@@ -5,8 +5,8 @@ import moment from 'moment'
 
 import axios from 'axios'
 import { WhiteCard } from '@newageerp/v3.bundles.widgets-bundle'
-import { OldUiH5 } from './OldUiH5'
 import OldLoaderLogo from './OldLoaderLogo'
+import { TextCardTitle } from '@newageerp/v3.bundles.typography-bundle'
 
 interface Props {
   type: string
@@ -74,9 +74,9 @@ export default function FileUploadWidget(props: Props) {
     }
   }, [acceptedFiles])
 
-  const titleComp = props.hideTitle ? <Fragment /> : <OldUiH5 className={'flex-grow'} icon={'fad fa-folders fa-fw'}>
+  const titleComp = props.hideTitle ? <Fragment /> : <TextCardTitle className={'flex-grow'}>
     {t('Failų įkėlimas')}
-  </OldUiH5>;
+  </TextCardTitle>;
 
   const WrapComp = props.hideCard ? Fragment : WhiteCard;
 
