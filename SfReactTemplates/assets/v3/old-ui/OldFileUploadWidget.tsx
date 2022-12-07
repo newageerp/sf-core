@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next'
 import moment from 'moment'
 
 import axios from 'axios'
-import OldLoaderComponent from './OldLoaderComponent'
 import { WhiteCard } from '@newageerp/v3.bundles.widgets-bundle'
 import { OldUiH5 } from './OldUiH5'
+import OldLoaderLogo from './OldLoaderLogo'
 
 interface Props {
   type: string
@@ -83,7 +83,7 @@ export default function FileUploadWidget(props: Props) {
   return (
     <WrapComp>
       {titleComp}
-      {isUploading && (<OldLoaderComponent size={20} />)}
+      {isUploading && (<OldLoaderLogo size={20} />)}
       <div className={'grid gap-1'}>
         <div {...getRootProps({ style })}>
           <Fragment>
