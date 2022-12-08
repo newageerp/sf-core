@@ -5,7 +5,8 @@ namespace Newageerp\SfReactTemplates\CoreTemplates\MainMenu;
 use Newageerp\SfControlpanel\Console\LocalConfigUtils;
 use Newageerp\SfReactTemplates\Template\Placeholder;
 
-class MenuService {
+class MenuService
+{
     protected MenuItemFactory $menuItemFactory;
 
     public function __construct(MenuItemFactory $menuItemFactory)
@@ -37,9 +38,11 @@ class MenuService {
                         $placeholder
                     );
                 } else {
-                    $placeholder->addTemplate(
-                        $this->folderFactory($item['menu_folder']['data']['attributes'], $item['menu_folder']['data']['id'])
-                    );
+                    if (isset($item['menu_folder']['data']['attributes']['Cotent'])) {
+                        $placeholder->addTemplate(
+                            $this->folderFactory($item['menu_folder']['data']['attributes'], $item['menu_folder']['data']['id'])
+                        );
+                    }
                 }
             }
             if ($item['__component'] === 'menu.title') {
@@ -73,7 +76,7 @@ class MenuService {
             $data['Title'],
             $data['Icon'],
         );
-        $folder->setMenuFolderId('folder-'.$id);
+        $folder->setMenuFolderId('folder-' . $id);
 
         foreach ($data['Content'] as $item) {
             if ($item['__component'] === 'menu.menu-item') {
@@ -101,9 +104,11 @@ class MenuService {
                 );
             }
             if ($item['__component'] === 'menu.folder') {
-                $subFolder = $this->folderFactory($item['menu_folder']['data']['attributes'], $item['menu_folder']['data']['id']);
-                $subFolder->setContentClassName('tw3-pl-4');
-                $folder->addItem($subFolder);
+                if (isset($item['menu_folder']['data']['attributes']['Content'])) {
+                    $subFolder = $this->folderFactory($item['menu_folder']['data']['attributes'], $item['menu_folder']['data']['id']);
+                    $subFolder->setContentClassName('tw3-pl-4');
+                    $folder->addItem($subFolder);
+                }
             }
         }
 
