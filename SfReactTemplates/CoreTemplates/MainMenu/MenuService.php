@@ -38,7 +38,7 @@ class MenuService
                         $placeholder
                     );
                 } else {
-                    if (isset($item['menu_folder']['data']['attributes']['Cotent'])) {
+                    if (isset($item['menu_folder']['data']['attributes']['Content'])) {
                         $placeholder->addTemplate(
                             $this->folderFactory($item['menu_folder']['data']['attributes'], $item['menu_folder']['data']['id'])
                         );
