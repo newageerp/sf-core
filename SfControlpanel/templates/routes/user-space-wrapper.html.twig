@@ -9,6 +9,8 @@ interface Props {
 }
 
 function UserSpaceWrapper(props: Props) {
+  const isDev = (!process.env.NODE_ENV || process.env.NODE_ENV === 'development');
+
   return (
     <LayoutLeftMenuToolbar
       leftSideContent={
@@ -20,6 +22,11 @@ function UserSpaceWrapper(props: Props) {
           }
           />
           <LeftMenu />
+          {isDev && 
+          <div>
+            <a className="text-white mt-20" href="/app/nae-core/config-menu/regenerate" target="_blank">Regenerate menu</a>
+          </div>
+          }
         </Fragment>
       }
       toolbar={<UserSpaceWrapperToolbar />}

@@ -2,6 +2,7 @@
 
 namespace Newageerp\SfControlpanel\Controller;
 
+use Newageerp\SfControlpanel\Service\Menu\CpMenuService;
 use Newageerp\SfControlpanel\Service\MenuService;
 use Symfony\Component\Routing\Annotation\Route;
 use OpenApi\Annotations as OA;
@@ -29,6 +30,14 @@ class ConfigMenuController extends ConfigBaseController
             $this->getLocalStorageFile(),
             json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT)
         );
+    }
+
+    /**
+     * @Route(path="/regenerate", methods={"GET"})
+     */
+    public function regenerate(CpMenuService $cpMenuService)
+    {
+        return $this->json(['success' => $cpMenuService->regenerate()]);
     }
 
     /**
