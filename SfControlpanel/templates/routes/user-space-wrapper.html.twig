@@ -15,12 +15,14 @@ function UserSpaceWrapper(props: Props) {
     <LayoutLeftMenuToolbar
       leftSideContent={
         <Fragment>
-          <TemplateLoader 
-          templateName="App.UserSpaceWrapper.LeftMenu" 
-          data={
-            {}
-          }
-          />
+          <div>
+            <TemplateLoader 
+            templateName="App.UserSpaceWrapper.LeftMenu" 
+            data={
+              {}
+            }
+            />
+          </div>
           <LeftMenu />
           {isDev && 
           <div>
