@@ -105,7 +105,15 @@ class MenuService
             }
             if ($item['__component'] === 'menu.folder') {
                 if (isset($item['menu_folder']['data']['attributes']['Content'])) {
-                    $subFolder = $this->folderFactory($item['menu_folder']['data']['attributes'], $item['menu_folder']['data']['id']);
+                    $folderAttributes = $item['menu_folder']['data']['attributes'];
+                    if (!isset($folderAttributes['Icon']) || !$folderAttributes['Icon']) {
+                        $folderAttributes['Icon'] = 'folder';
+                    }
+
+                    $subFolder = $this->folderFactory(
+                        $folderAttributes,
+                        $item['menu_folder']['data']['id']
+                    );
                     $subFolder->setContentClassName('tw3-pl-4');
                     $folder->addItem($subFolder);
                 }
