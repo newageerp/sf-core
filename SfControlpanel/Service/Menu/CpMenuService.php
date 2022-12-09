@@ -11,7 +11,7 @@ class CpMenuService {
         // NEW
         $host = isset($_ENV['STRAPI_URL']) ? $_ENV['STRAPI_URL'] : 'http://192.168.8.117:7671';
 
-        $url = $host.'/api/projects?populate=deep,10&filters[Slug]=' . $_ENV['SFS_STRAPI_PROJECT'];
+        $url = $host.'/api/projects?populate=deep,7&filters[Slug]=' . $_ENV['SFS_STRAPI_PROJECT'];
 
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
@@ -27,8 +27,8 @@ class CpMenuService {
         $menuFolder = array_filter(
             $result['data'][0]['attributes']['menu_folders']['data'],
             function ($item) {
-                // return true;
-                return isset($item['attributes']) && !!$item['attributes']['Slug'];
+                return true;
+                // return isset($item['attributes']) && !!$item['attributes']['Slug'];
             }
         );
 
@@ -37,9 +37,12 @@ class CpMenuService {
                 function ($item) {
                     $attrs = $item['attributes'];
                     $data = [
+                        'id' => $item['id'],
                         'design' => $attrs['Design'],
                         'slug' => $attrs['Slug'],
-                        'Content' => $attrs['Content']
+                        'Content' => $attrs['Content'],
+                        'Title' => $attrs['Title'],
+                        'Icon' => $attrs['Icon']
                     ];
 
                     return $data;

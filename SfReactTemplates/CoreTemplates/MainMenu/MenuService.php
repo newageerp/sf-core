@@ -12,19 +12,33 @@ class MenuService
     public function __construct(MenuItemFactory $menuItemFactory)
     {
         $this->menuItemFactory = $menuItemFactory;
+        $this->data = LocalConfigUtils::getCpConfigFileData('menu-cache');
     }
 
+    public function findFolderBySlug(string $slug)
+    {
+        foreach ($this->data as $item) {
+            if ($item['slug'] === $slug) {
+                return $item;
+            }
+        }
+    }
+
+    public function findFolderById(int $id)
+    {
+        foreach ($this->data as $item) {
+            if ($item['id'] === $id) {
+                return $item;
+            }
+        }
+    }
 
     public function parseFolder(string $slug, Placeholder $placeholder)
     {
-        $data = LocalConfigUtils::getCpConfigFileData('menu-cache');
+        $item = $this->findFolderBySlug($slug);
 
-        foreach ($data as $item) {
-            if ($item['slug'] === $slug) {
-                if ($item['design'] === 'Virtual') {
-                    $this->parseVirtualFolderContent($item['Content'], $placeholder);
-                }
-            }
+        if ($item && $item['design'] === 'Virtual') {
+            $this->parseVirtualFolderContent($item['Content'], $placeholder);
         }
     }
 
@@ -104,15 +118,17 @@ class MenuService
                 );
             }
             if ($item['__component'] === 'menu.folder') {
-                if (isset($item['menu_folder']['data']['attributes']['Content'])) {
-                    $folderAttributes = $item['menu_folder']['data']['attributes'];
-                    if (!isset($folderAttributes['Icon']) || !$folderAttributes['Icon']) {
-                        $folderAttributes['Icon'] = 'folder';
+                $folderId = $item['menu_folder']['data']['id'];
+                $contentFolder = $this->findFolderById($folderId);
+                
+                if ($contentFolder && isset($contentFolder['Content'])) {
+                    if (!isset($contentFolder['Icon']) || !$contentFolder['Icon']) {
+                        $contentFolder['Icon'] = 'folder';
                     }
 
                     $subFolder = $this->folderFactory(
-                        $folderAttributes,
-                        $item['menu_folder']['data']['id']
+                        $contentFolder,
+                        $contentFolder['id']
                     );
                     $subFolder->setContentClassName('tw3-pl-4');
                     $folder->addItem($subFolder);
