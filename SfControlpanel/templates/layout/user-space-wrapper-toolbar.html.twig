@@ -5,13 +5,10 @@ import CustomToolbarBefore from "../../_custom/layout/CustomToolbarBefore";
 import CustomToolbarAfter from "../../_custom/layout/CustomToolbarAfter";
 import { atom, useRecoilValue } from "recoil";
 import { ActionsBar } from '@newageerp/sfs.toolbar.actions-bar'
-import { IconList } from "@newageerp/ui.icons.base.icon-list";
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import { useTranslation } from 'react-i18next'
 import { useComponentVisible } from '@newageerp/hooks.use-component-visible'
 import { Menu, MenuItem } from '@newageerp/sfs.modal.menu'
-import { Icon, IconType } from "@newageerp/ui.icons.base.icon";
-import { TwBackgroundColors, TwTextSizes } from "@newageerp/ui.styles.tailwind";
 import classNames from "classnames";
 import { Popup } from "@newageerp/v3.popups.popup";
 
@@ -54,11 +51,11 @@ function UserSpaceWrapperToolbar(props: Props) {
                                 />
                                 <span className="tw3-relative tw3-ml-20 tw3-mr-20" ref={settingsVisibleData.ref} style={ { width: 200 } }>
                                         <div className="tw3-flex tw3-gap-2 tw3-items-center tw3-text-white tw3-cursor-pointer" onClick={() => settingsVisibleData.setIsComponentVisible(!settingsVisibleData.isComponentVisible)}>
-                                                <span className={classNames('tw3-flex tw3-items-center tw3-justify-center', TwBackgroundColors.orange, TwTextSizes.px12, 'tw3-rounded-full')} style={ { width: 24, height: 24, minWidth: 24, } }>
+                                                <span className={classNames('tw3-flex tw3-items-center tw3-justify-center', 'tw3-text-sky-50 tw3-bg-sky-50/50', 'tw3-tw3-text-xs', 'tw3-rounded-full')} style={ { width: 24, height: 24, minWidth: 24, } }>
                                                         <i className="fa-fw fa-regular fa-user" />
                                                 </span>
-                                                <p className="tw3-flex-grow tw3-text-xs">{userState.fullName}</p>
-                                                <i className="fa-fw fa-regular fa-angle-down tw3-text-xs"/>
+                                                <p className="tw3-flex-grow tw3-text-xs tw3-text-sky-50">{userState.fullName}</p>
+                                                <i className="fa-fw fa-regular fa-angle-down tw3-text-xs tw3-text-sky-50/50"/>
                                         </div>
                                         {!!settingsVisibleData.isComponentVisible && <Menu>
                                                 <MenuItem onClick={showChangePassword}>{t('Update password')}</MenuItem>
