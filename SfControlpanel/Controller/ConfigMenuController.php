@@ -37,7 +37,7 @@ class ConfigMenuController extends ConfigBaseController
      */
     public function regenerate(CpMenuService $cpMenuService)
     {
-        return $this->json(['success' => $cpMenuService->regenerate()]);
+        return $this->json(['success' => $cpMenuService->generate()]);
     }
 
     /**
