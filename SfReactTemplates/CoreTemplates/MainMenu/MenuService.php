@@ -91,6 +91,7 @@ class MenuService
             $data['Icon'],
         );
         $folder->setMenuFolderId('folder-' . $id);
+        $folder->setContentClassName('tw3-pl-2');
 
         foreach ($data['Content'] as $item) {
             if ($item['__component'] === 'menu.menu-item') {
@@ -130,7 +131,6 @@ class MenuService
                         $contentFolder,
                         $contentFolder['id']
                     );
-                    $subFolder->setContentClassName('tw3-pl-4');
                     $folder->addItem($subFolder);
                 }
             }
