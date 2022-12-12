@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ToolbarButton } from '@newageerp/v3.bundles.buttons-bundle'
 import { useTranslation } from 'react-i18next'
-import { useComponentVisible } from '@newageerp/hooks.use-component-visible';
+import { useComponentVisible } from '@newageerp/v3.bundles.hooks-bundle';
 import {
     SortController,
     SortingItemOption,
