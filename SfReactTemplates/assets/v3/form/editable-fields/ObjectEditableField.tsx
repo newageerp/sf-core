@@ -3,7 +3,7 @@ import TemplateLoader, { useTemplateLoader } from '../../templates/TemplateLoade
 import { ToolbarButton } from '@newageerp/v3.bundles.buttons-bundle';
 import { useTranslation } from 'react-i18next';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
-import { SFSOpenEditModalWindowProps } from '@newageerp/v3.bundles.popup-bundles';
+import { SFSOpenEditModalWindowProps } from '@newageerp/v3.bundles.popup-bundle';
 import { useUIBuilder } from '../../old-ui/builder/OldUIBuilderProvider';
 import classNames from 'classnames';
 import { FieldSelect } from '@newageerp/v3.bundles.form-bundle';
