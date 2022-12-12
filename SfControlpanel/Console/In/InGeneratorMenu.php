@@ -28,6 +28,7 @@ class InGeneratorMenu extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->cpMenuService->generate();
+        return;
 
         // OLD
         $fs = new Filesystem();
