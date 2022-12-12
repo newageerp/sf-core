@@ -184,12 +184,12 @@ export default function NoteLine(props: Props) {
               }}
               menu={{
                 children: <Fragment>
-                  {isCanEdit && (
+                  { isCanEdit && (
                     <MenuItem onClick={() => setShowEditForm(true)}>
                       {t("Update")}
                     </MenuItem>
                   )}
-                  {isCanAnswer && (
+                  { isCanAnswer && (
                     <MenuItem onClick={() => setShowAnswerForm(true)}>
                       {t("Reply")}
                     </MenuItem>
