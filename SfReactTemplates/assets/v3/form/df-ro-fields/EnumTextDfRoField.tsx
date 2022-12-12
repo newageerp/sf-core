@@ -1,4 +1,4 @@
-import { String } from '@newageerp/data.table.string';
+import { String } from '@newageerp/data.table.base';
 import React from 'react'
 import { useDfValue } from '../../hooks/useDfValue';
 import { getPropertyForPath } from '../../utils';

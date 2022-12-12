@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { useTemplateLoader } from '../../templates/TemplateLoader';
-import {Int} from '@newageerp/data.table.int';
+import {Int} from '@newageerp/data.table.base';
 interface Props {
   fieldKey: string;
   options: any[];

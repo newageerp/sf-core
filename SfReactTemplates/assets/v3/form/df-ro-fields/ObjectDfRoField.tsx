@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { useDfValue } from '../../hooks/useDfValue';
-import { String } from '@newageerp/data.table.string';
+import { String } from '@newageerp/data.table.base';
 import { RsButton } from '@newageerp/v3.bundles.buttons-bundle';
 import { getPropertyForPath } from '../../utils';
 

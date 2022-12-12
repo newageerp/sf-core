@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { useDfValue } from "../../hooks/useDfValue";
-import { String } from "@newageerp/data.table.string";
+import { String } from "@newageerp/data.table.base";
 
 interface Props {
   id: number;

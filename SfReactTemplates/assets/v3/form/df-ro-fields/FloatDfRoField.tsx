@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDfValue } from '../../hooks/useDfValue';
-import { Float } from '@newageerp/data.table.float'
+import { Float } from '@newageerp/data.table.base'
 
 interface Props {
   fieldKey: string;

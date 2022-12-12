@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text } from '@newageerp/data.table.text';
+import { Text } from '@newageerp/data.table.base';
 import { useDfValue } from '../../hooks/useDfValue';
 
 interface Props {

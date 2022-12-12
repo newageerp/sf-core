@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDfValue } from '../../hooks/useDfValue';
-import {Datetime} from '@newageerp/data.table.datetime'
+import {Datetime} from '@newageerp/data.table.base'
 
 interface Props {
   fieldKey: string;

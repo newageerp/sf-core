@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDfValue } from '../../hooks/useDfValue';
-import { Int } from '@newageerp/data.table.int';
+import { Int } from '@newageerp/data.table.base';
 import { getPropertyForPath } from '../../utils';
 
 

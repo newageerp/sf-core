@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { useTemplateLoader } from '../../templates/TemplateLoader';
-import { Float } from '@newageerp/data.table.float'
+import { Float } from '@newageerp/data.table.base'
 
 interface Props {
   fieldKey: string;
