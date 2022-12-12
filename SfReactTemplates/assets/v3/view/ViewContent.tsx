@@ -12,7 +12,7 @@ import { AlertWidget, WhiteCard } from "@newageerp/v3.bundles.widgets-bundle";
 import {
   SFSOpenEditModalWindowProps,
   SFSOpenEditWindowProps,
-} from "@newageerp/v3.popups.mvc-popup";
+} from "@newageerp/v3.bundles.popup-bundle";
 import { checkIsEditable, INaeWidget, WidgetType } from "../utils";
 import OldNeWidgets from "../old-ui/OldNeWidgets";
 import { useNaeRecord } from "../old-ui/OldNaeRecord";

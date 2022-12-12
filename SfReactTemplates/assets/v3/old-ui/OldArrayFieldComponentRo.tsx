@@ -8,7 +8,7 @@ import OldThead from './OldThead'
 import OldTable from './OldTable'
 import { useTranslation } from 'react-i18next';
 import { getThColums, tdBody } from './OldArrayFieldComponent'
-import { SFSOpenViewModalWindowProps } from '@newageerp/v3.popups.mvc-popup'
+import { SFSOpenViewModalWindowProps } from '@newageerp/v3.bundles.popup-bundle'
 interface Props {
     schema: string
     title: string

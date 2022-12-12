@@ -1,7 +1,7 @@
 import React from 'react'
 import { Template, TemplatesParser, useTemplateLoader } from '../templates/TemplateLoader'
 import { NaePopupProvider } from '../old-ui/OldPopupProvider';
-import { Popup } from '@newageerp/v3.popups.popup'
+import { Popup } from '@newageerp/v3.bundles.popup-bundle'
 
 interface Props {
   children: Template[],
