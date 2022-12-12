@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react'
 import { useTemplateLoader } from '../templates/TemplateLoader';
 import { useTranslation } from 'react-i18next';
-import { FilterListData } from "@newageerp/sfs.list-toolbar.filter.filter-list-data"
+import { FilterListData } from "@newageerp/ui.ui-bundle"
 import { WideRow } from "@newageerp/ui.form.base.form-pack";
 import { FieldLabel, FieldDateRangeFilter } from '@newageerp/v3.bundles.form-bundle'
 import { ToolbarButtonWithMenu } from '@newageerp/v3.bundles.buttons-bundle';
