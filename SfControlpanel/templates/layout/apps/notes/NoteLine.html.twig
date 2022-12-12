@@ -179,23 +179,23 @@ export default function NoteLine(props: Props) {
 
           {(isCanEdit || isCanAnswer) && (
             <ToolbarButtonWithMenu
-              button={{
+              button={ {
                 iconName: "circle-ellipsis-vertical"
-              }}
-              menu={{
+              } }
+              menu={ {
                 children: <Fragment>
-                  { isCanEdit && (
+                  {isCanEdit && (
                     <MenuItem onClick={() => setShowEditForm(true)}>
                       {t("Update")}
                     </MenuItem>
                   )}
-                  { isCanAnswer && (
+                  {isCanAnswer && (
                     <MenuItem onClick={() => setShowAnswerForm(true)}>
                       {t("Reply")}
                     </MenuItem>
                   )}
                 </Fragment>
-              }}
+              } }
             />
           )}
         </div>
