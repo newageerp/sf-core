@@ -1,6 +1,6 @@
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 import { InputFloat } from '@newageerp/ui.form.base.form-pack';
-import { useDidMount } from '@newageerp/v3.hooks.use-did-mount';
+import { useDidMount } from '@newageerp/v3.bundles.hooks-bundle';
 import React, { useState, useEffect } from 'react';
 
 
