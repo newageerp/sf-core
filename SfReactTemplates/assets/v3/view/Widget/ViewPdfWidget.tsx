@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react'
 import { PdfLinesContainer } from '@newageerp/ui.components.element.pdf-lines-container';
 import { PdfLine } from '@newageerp/ui.components.element.pdf-line';
 import axios from 'axios'
-import { PopupPdf } from '@newageerp/ui.popups.base.popup-pdf';
+import { Popup } from '@newageerp/v3.bundles.popup-bundle';
 import { PdfWindow } from '@newageerp/ui.files.pdf.pdf-window';
 import { useTranslation } from 'react-i18next';
 import { Template, useTemplateLoader } from '../../templates/TemplateLoader';
@@ -183,7 +183,7 @@ export const ViewPdfItem = (props: PdfItemProps) => {
         <Fragment>
             <PdfLine title={props.title} onReset={pdfData ? onReset : undefined} onDownload={onDownload} onPrint={onPrint} onClick={onClick} onSend={onSend} loading={isLoading} />
             {showPdf && !!pdfData &&
-                <PopupPdf onClose={() => setShowPdf(false)} title={props.title}>
+                <Popup onClick={() => setShowPdf(false)} title={props.title} className='tw3-w-[75%]' isPopup={true}>
                     <PdfWindow
                         pdf={pdfData}
                         onBack={() => setShowPdf(false)}
