@@ -1,6 +1,6 @@
 import React from "react";
 import { Template, TemplatesParser } from "../templates/TemplateLoader";
-import { TabContainer as TabContainerImpl } from "@newageerp/ui.tabs.tab-container";
+import { TabContainer as TabContainerImpl } from "@newageerp/ui.ui-bundle";
 
 type Props = {
   items: {

@@ -5,7 +5,7 @@ import { useComponentVisible } from '@newageerp/v3.bundles.hooks-bundle';
 import {
     SortController,
     SortingItemOption,
-} from '@newageerp/ui.components.list.sort-controller';
+} from '@newageerp/ui.ui-bundle';
 import axios from 'axios';
 import { useTemplateLoader } from '../templates/TemplateLoader';
 

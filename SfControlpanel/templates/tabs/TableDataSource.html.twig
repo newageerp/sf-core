@@ -2,25 +2,25 @@ import React, { useEffect, useState, useRef, Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 import { functions, UI, UIConfig } from '@newageerp/nae-react-ui';
-import { PageContainer, PageContainerMarginTop } from '@newageerp/ui.paging.base.page-container'
-import { SortingItem } from '@newageerp/ui.components.list.sort-controller';
+import { PageContainer, PageContainerMarginTop } from '@newageerp/ui.ui-bundle'
+import { SortingItem } from '@newageerp/ui.ui-bundle';
 import { useHistory } from 'react-router-dom'
 import DefaultSearchToolbar from "../DefaultSearchToolbar";
-import {TypeItemFilters} from '@newageerp/ui.components.list.filter-container'
-import { LayoutToolbar } from "@newageerp/ui.layout.base.layout-toolbar";
-import { Toolbar } from "@newageerp/ui.layout.base.toolbar";
-import { ToolbarTitle } from "@newageerp/ui.texts.base.toolbar-title";
+import {TypeItemFilters} from '@newageerp/ui.ui-bundle'
+import { LayoutToolbar } from "@newageerp/ui.ui-bundle";
+import { Toolbar } from "@newageerp/ui.ui-bundle";
+import { ToolbarTitle } from "@newageerp/ui.ui-bundle";
 import { useRecoilState } from "recoil";
 import { UserSpaceWrapperToolbarState } from "../../layout/toolbar/UserSpaceWrapperToolbar";
 import {FilterListData} from "@newageerp/sfs.list-toolbar.filter.filter-list-data"
 import {FilterListOptions} from "@newageerp/sfs.list-toolbar.filter.filter-list-options"
 import {FilterDate} from "@newageerp/sfs.list-toolbar.filter.filter-date"
 import { useLocationState } from 'use-location-state'
-import {initialStateItemsFilter} from '@newageerp/ui.components.list.filter-container'
-import { ServerFilterItem } from '@newageerp/ui.components.list.filter-container'
-import { Table } from "@newageerp/ui.table.base.table";
+import {initialStateItemsFilter} from '@newageerp/ui.ui-bundle'
+import { ServerFilterItem } from '@newageerp/ui.ui-bundle'
+import { Table } from "@newageerp/ui.ui-bundle";
 import TemplateLoader, { useTemplateLoader } from "../../v3/templates/TemplateLoader";
-import {FilterContainer} from '@newageerp/ui.components.list.filter-container';
+import {FilterContainer} from '@newageerp/ui.ui-bundle';
 
 {% if hasStatusFilter %}
 import { {{ schemaUC }}StatusesList } from "../../statuses/badges/{{ schemaUC }}Statuses";

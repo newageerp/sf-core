@@ -1,9 +1,9 @@
 import classNames from 'classnames'
 import React from 'react'
 import { Template, TemplatesParser, useTemplateLoader } from '../templates/TemplateLoader';
-import { Th } from '@newageerp/ui.table.base.table'
-import { ServerFilterItem } from '@newageerp/ui.components.list.filter-container'
-import { Icon, IconType } from '@newageerp/ui.icons.base.icon';
+import { Th } from '@newageerp/ui.ui-bundle'
+import { ServerFilterItem } from '@newageerp/ui.ui-bundle'
+import { Icon, IconType } from '@newageerp/ui.ui-bundle';
 
 interface Props {
   contents: Template[],

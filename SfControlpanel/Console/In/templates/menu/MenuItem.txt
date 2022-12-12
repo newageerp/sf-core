@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { MenuItem } from '@newageerp/ui.menu.base.menu'
+import { MenuItem } from '@newageerp/ui.ui-bundle'
 import { useHistory } from 'react-router';
 
 interface Props {

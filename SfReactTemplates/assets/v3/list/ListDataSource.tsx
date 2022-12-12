@@ -2,13 +2,13 @@ import React, { useEffect, useState, useRef, Fragment } from "react";
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import {
   PageContainer,
-} from "@newageerp/ui.paging.base.page-container";
-import { SortingItem } from "@newageerp/ui.components.list.sort-controller";
-import { TypeItemFilters } from "@newageerp/ui.components.list.filter-container";
+} from "@newageerp/ui.ui-bundle";
+import { SortingItem } from "@newageerp/ui.ui-bundle";
+import { TypeItemFilters } from "@newageerp/ui.ui-bundle";
 import { useLocationState } from "use-location-state";
-import { ServerFilterItem } from "@newageerp/ui.components.list.filter-container";
+import { ServerFilterItem } from "@newageerp/ui.ui-bundle";
 import TemplateLoader, { Template } from "../templates/TemplateLoader";
-import { FilterContainer } from '@newageerp/ui.components.list.filter-container';
+import { FilterContainer } from '@newageerp/ui.ui-bundle';
 import { useTemplateLoader } from '../templates/TemplateLoader';
 import { getTabFieldsToReturn } from "../utils";
 import { SFSSocketService } from "../navigation/NavigationComponent";

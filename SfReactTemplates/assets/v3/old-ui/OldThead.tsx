@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { TheadCol } from './OldTable'
-import {Th} from '@newageerp/ui.table.base.table'
+import {Th} from '@newageerp/ui.ui-bundle'
 
 interface TheadProps {
   columns: (TheadCol | undefined)[],

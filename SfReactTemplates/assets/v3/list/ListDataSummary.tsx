@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { axiosInstance } from "../api/config";
 import { useTemplateLoader } from "../templates/TemplateLoader";
-import { Table, Th, Td } from "@newageerp/ui.table.base.table";
+import { Table, Th, Td } from "@newageerp/ui.ui-bundle";
 import { Float } from "@newageerp/data.table.base";
 import { getPropertyForPath } from "../utils";
 import { Base } from "@newageerp/v2.element.status-badge.base";
 import { NaeSStatuses } from "../../_custom/config/NaeSStatuses";
-import { LogoLoader } from "@newageerp/ui.loaders.logo-loader";
+import { LogoLoader } from "@newageerp/ui.ui-bundle";
 
 type ISummary = {
   title: string;

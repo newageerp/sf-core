@@ -4,7 +4,7 @@ import TemplateLoader, { Template, useTemplateLoader } from "../templates/Templa
 import { fieldVisibility } from "../../_custom/fields/fieldVisibility";
 import { useTranslation } from "react-i18next";
 import TasksWidget from "../../apps/tasks/TasksWidget";
-import { ElementToolbar } from "@newageerp/ui.components.element.element-toolbar";
+import { ElementToolbar } from "@newageerp/ui.ui-bundle";
 import { useRecoilValue } from "recoil";
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import { ToolbarButtonWithMenu } from "@newageerp/v3.bundles.buttons-bundle";
@@ -18,7 +18,7 @@ import OldNeWidgets from "../old-ui/OldNeWidgets";
 import { useNaeRecord } from "../old-ui/OldNaeRecord";
 import { useNaePopup } from "../old-ui/OldPopupProvider";
 import classNames from 'classnames';
-import { LogoLoader } from "@newageerp/ui.loaders.logo-loader";
+import { LogoLoader } from "@newageerp/ui.ui-bundle";
 import { NaeWidgets } from "../../_custom/widgets";
 
 interface Props {

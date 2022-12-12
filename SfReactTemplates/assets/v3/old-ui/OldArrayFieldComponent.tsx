@@ -18,7 +18,7 @@ import OldTabFloatField from './OldTabFloatField'
 import OldTabTextareaField from './OldTabTextareaField'
 import OldTabStringField from './OldTabStringField'
 import { MainButton, RsButton, ToolbarButton } from '@newageerp/v3.bundles.buttons-bundle'
-import { Table, Td, Th } from '@newageerp/ui.table.base.table'
+import { Table, Td, Th } from '@newageerp/ui.ui-bundle'
 import TemplateLoader, { Template } from '../templates/TemplateLoader'
 
 interface Props {

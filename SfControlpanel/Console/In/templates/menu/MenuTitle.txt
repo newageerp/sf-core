@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { MenuTitle } from '@newageerp/ui.menu.base.menu'
+import { MenuTitle } from '@newageerp/ui.ui-bundle'
 
 export default function TP_COMP_NAME() {
     return (

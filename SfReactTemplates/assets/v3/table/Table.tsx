@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import React from 'react'
 import { Template, TemplatesParser } from '../templates/TemplateLoader'
-import { Table as TableTpl } from '@newageerp/ui.table.base.table'
+import { Table as TableTpl } from '@newageerp/ui.ui-bundle'
 
 interface Props {
     head: Template[],

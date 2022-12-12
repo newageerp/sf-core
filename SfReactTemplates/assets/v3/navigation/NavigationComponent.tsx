@@ -2,7 +2,7 @@ import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import React, { Fragment, useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { Popup } from "@newageerp/v3.bundles.popup-bundle";
-import { MailsForm } from "@newageerp/ui.mails.mails-form";
+import { MailsForm } from "@newageerp/ui.ui-bundle;
 import { useNaeWindow } from "../old-ui/OldNaeWindowProvider";
 import SocketService from "../SocketService";
 
@@ -10,7 +10,7 @@ import {
   ConfirmationPopup,
   ConfirmationPopupProps,
 } from "@newageerp/v3.bundles.popup-bundle";
-import { FilesWindow } from "@newageerp/ui.files.files.files-window";
+import { FilesWindow } from "@newageerp/ui.ui-bundle";
 
 export default function NavigationComponent() {
   const history = useHistory();

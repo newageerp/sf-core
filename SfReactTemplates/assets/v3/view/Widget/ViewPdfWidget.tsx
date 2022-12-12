@@ -1,9 +1,9 @@
 import React, { Fragment, useState } from 'react'
-import { PdfLinesContainer } from '@newageerp/ui.components.element.pdf-lines-container';
-import { PdfLine } from '@newageerp/ui.components.element.pdf-line';
+import { PdfLinesContainer } from '@newageerp/ui.ui-bundle';
+import { PdfLine } from '@newageerp/ui.ui-bundle';
 import axios from 'axios'
 import { Popup } from '@newageerp/v3.bundles.popup-bundle';
-import { PdfWindow } from '@newageerp/ui.files.pdf.pdf-window';
+import { PdfWindow } from '@newageerp/ui.ui-bundle';
 import { useTranslation } from 'react-i18next';
 import { Template, useTemplateLoader } from '../../templates/TemplateLoader';
 import TemplateLoader from '../../templates/TemplateLoader';

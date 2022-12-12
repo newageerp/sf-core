@@ -1,6 +1,6 @@
 import React from 'react'
 import { TableTdProps } from './OldTd'
-import { Td } from '@newageerp/ui.table.base.table'
+import { Td } from '@newageerp/ui.ui-bundle'
 
 export interface TrowCol {
   props: TableTdProps

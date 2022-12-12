@@ -1,4 +1,4 @@
-import { Table } from "@newageerp/ui.table.base.table";
+import { Table } from "@newageerp/ui.ui-bundle";
 import React from "react";
 import TemplateLoader, {
   Template,
