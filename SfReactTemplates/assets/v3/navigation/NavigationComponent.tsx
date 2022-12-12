@@ -2,7 +2,7 @@ import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import React, { Fragment, useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { Popup } from "@newageerp/v3.bundles.popup-bundle";
-import { MailsForm } from "@newageerp/ui.ui-bundle;
+import { MailsForm } from "@newageerp/ui.ui-bundle";
 import { useNaeWindow } from "../old-ui/OldNaeWindowProvider";
 import SocketService from "../SocketService";
 
