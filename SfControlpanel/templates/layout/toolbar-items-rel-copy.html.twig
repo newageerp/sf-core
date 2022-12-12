@@ -56,10 +56,12 @@ export default function {{ compName }}(props: Props) {
 
     return (
             <ToolbarButtonWithMenu
-                button={{
+                button={
+                    {
                     onClick: toggleComponentVisible,
                     iconName: "copy"
-                }}
+                    }
+                }
                 menu={
                     {
                         children: <Fragment>
