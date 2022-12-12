@@ -5,9 +5,10 @@ import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 import moment from 'moment';
 import { useRecoilState } from 'recoil';
 import { UserSpaceWrapperToolbarState } from '../../layout/toolbar/UserSpaceWrapperToolbar';
-import { TitleOverTable } from '@newageerp/ui.texts.base.title-over-table'
 import TemplateLoader from '../../v3/templates/TemplateLoader';
 import { getSchemaTitle } from '../../v3/utils';
+import { TabContainer } from "@newageerp/ui.tabs.tab-container";
+import { WhiteCard } from '@newageerp/v3.bundles.widgets-bundle'
 
 export default function FollowUpPage() {
     const { t } = useTranslation();
@@ -101,8 +102,29 @@ export default function FollowUpPage() {
     })
 
     useEffect(() => {
-        setToolbarTitle(t('Sekami'));
+        setToolbarTitle(t('Follow up'));
     }, []);
+
+    const items: any[] = [];
+    schemaComponents.forEach((comp: any, idX: number) => {
+        items.push(
+            {
+                content: (<TemplateLoader
+                    templateName="PageInlineList"
+                    data={
+                        {
+                            schema: comp.schema,
+                            type: "main",
+                            extraFilters: [comp.extraFilter]
+                        }
+                    }
+                />),
+                tab: {
+                    children: comp.title,
+                },
+            }
+        );
+    });
 
     return (
         <Fragment>
@@ -115,25 +137,9 @@ export default function FollowUpPage() {
                 }
             />
 
-            {schemaComponents.map((comp: any, idX: number) => {
-                return (
-                    <Fragment key={`follow-up-${idX}-${comp.schema}`}>
-                        <TitleOverTable>{comp.title}</TitleOverTable>
-
-                        <TemplateLoader
-                            templateName="PageInlineList"
-                            data={
-                                {
-                                    schema: comp.schema,
-                                    type: "main",
-                                    extraFilters: [comp.extraFilter]
-                                }
-                            }
-                        />
-
-                    </Fragment>
-                )
-            })}
+            {items.length > 0 && 
+                <WhiteCard isCompact={true}><TabContainer items={items} /></WhiteCard>
+            }
         </Fragment>
     )
 }
