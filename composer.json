@@ -10,7 +10,7 @@
   "require": {
     "ext-curl": "*",
     "doctrine/orm": "^2",
-    "nelmio/api-doc-bundle": "^4",
+    "nelmio/api-doc-bundle": "4.1",
     "symfony/framework-bundle": "^5.0",
     "firebase/php-jwt": "^5.4",
     "doctrine/annotations": "^1.13",
