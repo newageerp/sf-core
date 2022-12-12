@@ -190,7 +190,7 @@ export const ViewPdfItem = (props: PdfItemProps) => {
                         onEmail={onSend}
                         inPopup={true}
                     />
-                </PopupPdf>
+                </Popup>
             }
         </Fragment>);
 }

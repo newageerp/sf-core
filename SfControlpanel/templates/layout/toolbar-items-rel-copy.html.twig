@@ -1,5 +1,4 @@
-import React from 'react'
-import { useComponentVisible } from '@newageerp/hooks.use-component-visible'
+import React, {Fragment} from 'react'
 import { useTranslation } from 'react-i18next';
 import { SFSOpenEditModalWindowProps, SFSOpenEditWindowProps } from '@newageerp/v3.bundles.popup-bundle'
 import { useNaePopup } from '../../../v3/old-ui/OldPopupProvider'
@@ -58,7 +57,6 @@ export default function {{ compName }}(props: Props) {
             <ToolbarButtonWithMenu
                 button={
                     {
-                    onClick: toggleComponentVisible,
                     iconName: "copy"
                     }
                 }
