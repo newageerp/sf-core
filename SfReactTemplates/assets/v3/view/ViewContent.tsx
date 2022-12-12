@@ -147,7 +147,6 @@ export default function ViewContent(props: Props) {
             />
           }
           showRemind={true}
-          showBookmark={true}
           contentBefore1Line={
             <OldNeWidgets
               type={WidgetType.viewMainTop1LineBefore}

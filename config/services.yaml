@@ -8,8 +8,6 @@ services:
     arguments: [ ]
   Newageerp\SfAuth\Service\AuthService:
     arguments: [ ]
-  Newageerp\SfBookmarks\Controller\BookmarksController:
-    arguments: [ ]
   Newageerp\SfApps\Controller\ProxyController:
     arguments: [ ]
   
