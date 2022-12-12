@@ -196,7 +196,7 @@ export default function NoteLine(props: Props) {
               }
               />
               {!!isComponentVisible && (
-                <Menu>
+                <Menu isAbsolute={true}>
                   {isCanEdit && (
                     <MenuItem onClick={() => setShowEditForm(true)}>
                       {t("Update")}

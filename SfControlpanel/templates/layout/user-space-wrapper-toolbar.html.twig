@@ -57,7 +57,7 @@ function UserSpaceWrapperToolbar(props: Props) {
                                                 <p className="tw3-flex-grow tw3-text-xs tw3-text-sky-50">{userState.fullName}</p>
                                                 <i className="fa-fw fa-regular fa-angle-down tw3-text-xs tw3-text-sky-50/50"/>
                                         </div>
-                                        {!!settingsVisibleData.isComponentVisible && <Menu>
+                                        {!!settingsVisibleData.isComponentVisible && <Menu isAbsolute={true}>
                                                 <MenuItem onClick={showChangePassword}>{t('Update password')}</MenuItem>
                                                 <MenuItem onClick={doLogout}>{t('Logout')}</MenuItem>
                                         </Menu>}
