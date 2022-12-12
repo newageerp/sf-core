@@ -3,8 +3,7 @@ import { useTranslation } from "react-i18next";
 import { RichEditor } from "@newageerp/ui.form.base.rich-editor";
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import NotesContentMembers from "./NotesContentMembers";
-import { SquareButton } from "@newageerp/ui.buttons.base.square-button";
-import { TwBackgroundColors } from "@newageerp/ui.styles.tailwind";
+import { MainButton } from "@newageerp/v3.bundles.buttons-bundle";
 
 interface Props {
   parentElementId: number;
@@ -49,28 +48,28 @@ export default function NoteContentForm(props: Props) {
     });
   };
   return (
-    <div className="px-2">
+    <div className="tw3-px-2">
       <RichEditor
-      className="mb-2"
+      className="tw3-mb-2"
         setValue={setContent}
         value={content}
         extraContent={
           !!content && (
-            <div className={"p-2 flex items-center"}>
-              <span className={"w-72"}>
+            <div className={"tw3-p-2 tw3-flex tw3-items-center"}>
+              <span className={"tw3-w-72"}>
                 <NotesContentMembers
                   selected={selected}
                   setSelected={setSelected}
                 />
               </span>
-              <span className="flex-grow"></span>
-              <SquareButton
-                bgColor={TwBackgroundColors.sky}
+              <span className="tw3-flex-grow"></span>
+              <MainButton
+                color="sky"
                 onClick={doSend}
-                className={"w-32"}
+                className={"tw3-w-32"}
               >
                 {t("Send")}
-              </SquareButton>
+              </MainButton>
             </div>
           )
         }
