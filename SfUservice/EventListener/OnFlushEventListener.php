@@ -26,10 +26,15 @@ class OnFlushEventListener
     {
         $this->ajLogger = $ajLogger;
         $this->bus = $bus;
-        $this->options = json_decode(
-            file_get_contents(LocalConfigUtilsV3::getNaeSfsCpStoragePath() . '/entity-changes.json'),
-            true
-        );
+        $entityChangesFile = LocalConfigUtilsV3::getNaeSfsCpStoragePath() . '/entity-changes.json';
+
+        $this->options = [];
+        if (file_exists($entityChangesFile)) {
+            $this->options = json_decode(
+                file_get_contents($entityChangesFile),
+                true
+            );
+        }
         $this->insertions = [];
         $this->updates = [];
     }
