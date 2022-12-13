@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { useTemplateLoader } from '../../templates/TemplateLoader';
+import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 import { String } from '@newageerp/data.table.base';
 import { RsButton } from '@newageerp/v3.bundles.buttons-bundle';
 
@@ -16,7 +16,7 @@ interface Props {
 }
 
 export default function ObjectRoField(props: Props) {
-  const { data: tData } = useTemplateLoader();
+  const { data: tData } = useTemplatesLoader();
   const { element } = tData;
 
   if (!element) {

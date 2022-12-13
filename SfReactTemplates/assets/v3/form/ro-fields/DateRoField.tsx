@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { useTemplateLoader } from '../../templates/TemplateLoader';
+import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 import { Date } from '@newageerp/data.table.base'
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default function DateRoField(props: Props) {
-  const { data: tData } = useTemplateLoader();
+  const { data: tData } = useTemplatesLoader();
   const { element } = tData;
 
   if (!element) {

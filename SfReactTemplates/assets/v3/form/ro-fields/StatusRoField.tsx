@@ -1,6 +1,6 @@
 import { Base } from '@newageerp/v2.element.status-badge.base';
 import React, { Fragment } from 'react'
-import { useTemplateLoader } from '../../templates/TemplateLoader';
+import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 import { NaeSStatuses } from '../../../_custom/config/NaeSStatuses';
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default function StatusRoField(props: Props) {
-  const { data: tData } = useTemplateLoader();
+  const { data: tData } = useTemplatesLoader();
   const { element } = tData;
 
   if (!element) {
