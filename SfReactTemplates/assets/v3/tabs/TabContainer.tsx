@@ -1,5 +1,5 @@
 import React from "react";
-import { Template, TemplatesParser } from "../templates/TemplateLoader";
+import { Template, TemplatesParser } from '@newageerp/v3.templates.templates-core';
 import { TabContainer as TabContainerImpl } from "@newageerp/ui.ui-bundle";
 
 type Props = {

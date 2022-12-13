@@ -7,7 +7,7 @@ import {
     SortingItemOption,
 } from '@newageerp/ui.ui-bundle';
 import axios from 'axios';
-import { useTemplateLoader } from '../templates/TemplateLoader';
+import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 
 interface Props {
     schema: string,
@@ -15,7 +15,7 @@ interface Props {
 }
 
 export default function ListToolbarSort(props: Props) {
-    const { data: tData } = useTemplateLoader();
+    const { data: tData } = useTemplatesLoader();
     const { sort } = tData;
 
     const { t } = useTranslation();

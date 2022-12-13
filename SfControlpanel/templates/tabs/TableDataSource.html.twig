@@ -19,7 +19,7 @@ import { useLocationState } from 'use-location-state'
 import {initialStateItemsFilter} from '@newageerp/ui.ui-bundle'
 import { ServerFilterItem } from '@newageerp/ui.ui-bundle'
 import { Table } from "@newageerp/ui.ui-bundle";
-import TemplateLoader, { useTemplateLoader } from "../../v3/templates/TemplateLoader";
+import { useTemplatesLoader, TemplatesLoader } from "@newageerp/v3.templates.templates-core";
 import {FilterContainer} from '@newageerp/ui.ui-bundle';
 
 {% if hasStatusFilter %}
@@ -54,7 +54,7 @@ interface Props {
 export default function {{ tpCompName }}(props: Props) {
     const [extendedSearchOptions, setExtendedSearchOptions] = useState<any[]>([]);
 
-    const { data: tData } = useTemplateLoader();
+    const { data: tData } = useTemplatesLoader();
 
     const [itemsFilter, setItemsFilter] = useState<TypeItemFilters>([]);
     const [showExtendedSearch, setShowExtendedSearch] = useState(false);
@@ -385,7 +385,7 @@ export default function {{ tpCompName }}(props: Props) {
                     toolbarMiddleContent={<{{ tpCompName }}ToolbarMiddleContent onAddExtraFilter={onAddExtraFilter} loadData={loadData} prepareFilter={prepareFilter} />}
                     {% endif %}
                 /> #}
-                <TemplateLoader
+                <TemplatesLoader
                     templates={[tData.toolbar]}
                     templateData={
                         {
@@ -427,14 +427,14 @@ export default function {{ tpCompName }}(props: Props) {
                 className={`${dataResult.loading ? 'tw3-animate-pulse' : ''}`}
                 thead={
                     <thead>
-                        <TemplateLoader templates={tData.tableHeader} templateData={ { addNewBlockFilter } } />
+                        <TemplatesLoader templates={tData.tableHeader} templateData={ { addNewBlockFilter } } />
                     </thead>
                 }
                 tbody={
                     <tbody>
                         {dataToRender.map((item: any) => {
                             return (
-                                <TemplateLoader key={`row-${item?.id}`} templates={tData.tableRow} templateData={ { element: item, doReload: loadData } } />
+                                <TemplatesLoader key={`row-${item?.id}`} templates={tData.tableRow} templateData={ { element: item, doReload: loadData } } />
                             )
                         })}
                     </tbody>

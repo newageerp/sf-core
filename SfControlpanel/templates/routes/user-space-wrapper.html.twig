@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { LayoutLeftMenuToolbar } from "@newageerp/ui.ui-bundle";
 import LeftMenu from "../../_custom/menu/LeftMenu";
 import UserSpaceWrapperToolbar from "../../layout/toolbar/UserSpaceWrapperToolbar";
-import TemplateLoader from "../../v3/templates/TemplateLoader";
+import {TemplatesLoader} from '@newageerp/v3.templates.templates-core';
 
 interface Props {
   children?: any;
@@ -16,7 +16,7 @@ function UserSpaceWrapper(props: Props) {
       leftSideContent={
         <Fragment>
           <div>
-            <TemplateLoader 
+            <TemplatesLoader 
             templateName="App.UserSpaceWrapper.LeftMenu" 
             data={
               {}

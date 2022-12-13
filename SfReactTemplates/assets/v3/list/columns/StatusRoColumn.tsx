@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { NaeSStatuses } from "../../../_custom/config/NaeSStatuses";
-import { useTemplateLoader } from "../../templates/TemplateLoader";
+import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 import { StatusWidget, StatusWidgetColors } from '@newageerp/v3.bundles.widgets-bundle';
 
 
@@ -11,7 +11,7 @@ interface Props {
 }
 
 export default function StatusRoColumn(props: Props) {
-  const { data: tData } = useTemplateLoader();
+  const { data: tData } = useTemplatesLoader();
   const { element } = tData;
 
   if (!element) {

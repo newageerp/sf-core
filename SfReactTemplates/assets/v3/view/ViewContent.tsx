@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 // import { useTranslation } from 'react-i18next'
-import TemplateLoader, { Template, useTemplateLoader } from "../templates/TemplateLoader";
+import {TemplatesLoader, Template, useTemplatesLoader } from "@newageerp/v3.templates.templates-core";
 import { fieldVisibility } from "../../_custom/fields/fieldVisibility";
 import { useTranslation } from "react-i18next";
 import TasksWidget from "../../apps/tasks/TasksWidget";
@@ -46,7 +46,7 @@ interface Props {
 }
 
 export default function ViewContent(props: Props) {
-  const { data: tdata } = useTemplateLoader();
+  const { data: tdata } = useTemplatesLoader();
 
   const { t } = useTranslation();
   const userState = useRecoilValue(OpenApi.naeUserState);
@@ -163,7 +163,7 @@ export default function ViewContent(props: Props) {
                   }}
                   menu={{
                     children: (
-                      <TemplateLoader
+                      <TemplatesLoader
                         templates={elementToolbarMoreMenuContent}
                         templateData={{ element: element }}
                       />
@@ -172,7 +172,7 @@ export default function ViewContent(props: Props) {
                 />
               )}
 
-              <TemplateLoader
+              <TemplatesLoader
                 templates={elementToolbarLine2BeforeContent}
                 templateData={{ element: element }}
               />
@@ -191,7 +191,7 @@ export default function ViewContent(props: Props) {
                 schema={props.schema}
                 element={element}
               />
-              <TemplateLoader
+              <TemplatesLoader
                 templates={elementToolbarAfter1Line}
                 templateData={{ element: element }}
               />
@@ -205,7 +205,7 @@ export default function ViewContent(props: Props) {
             />
           }
           contentAfterFields2Line={
-            <TemplateLoader
+            <TemplatesLoader
               templates={elementToolbarAfterFieldsContent}
               templateData={{ element: element }}
             />
@@ -215,7 +215,7 @@ export default function ViewContent(props: Props) {
       <div className={"tw3-space-y-4"}>
         {canShowElement ? (
           <Fragment>
-            <TemplateLoader
+            <TemplatesLoader
               templates={afterTitleBlockContent}
               templateData={{ element: element }}
             />
@@ -224,7 +224,7 @@ export default function ViewContent(props: Props) {
               <div className={classNames(props.layoutLeftColClassName ? props.layoutLeftColClassName : "tw3-flex-grow", "tw3-space-y-2")}>
                 <WhiteCard className={"tw3-relative"}>
                   {element ? (
-                    <TemplateLoader
+                    <TemplatesLoader
                       templates={props.formContent}
                       templateData={{
                         element: element,
@@ -243,7 +243,7 @@ export default function ViewContent(props: Props) {
                   element={element}
                 />
 
-                <TemplateLoader
+                <TemplatesLoader
                   templates={bottomContent}
                   templateData={{
                     element: element,
@@ -257,7 +257,7 @@ export default function ViewContent(props: Props) {
                 <div style={{ width: 700, minWidth: 700, maxWidth: 700 }}>
                   {middleContent.length > 0 && (
                     <div className="tw3-space-y-2">
-                      <TemplateLoader
+                      <TemplatesLoader
                         templates={middleContent}
                         templateData={{
                           element: element,
@@ -331,7 +331,7 @@ export default function ViewContent(props: Props) {
                   />
 
                   <div className="tw3-space-y-2">
-                    <TemplateLoader
+                    <TemplatesLoader
                       templates={rightContent}
                       templateData={{
                         element: element,
@@ -348,7 +348,7 @@ export default function ViewContent(props: Props) {
 
             {bottomExtraContent.length > 0 && (
               <div className="tw3-space-y-2">
-                <TemplateLoader
+                <TemplatesLoader
                   templates={bottomExtraContent}
                   templateData={{
                     element: element,

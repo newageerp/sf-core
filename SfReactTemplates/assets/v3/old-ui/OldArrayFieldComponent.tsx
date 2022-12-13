@@ -19,7 +19,7 @@ import OldTabTextareaField from './OldTabTextareaField'
 import OldTabStringField from './OldTabStringField'
 import { MainButton, RsButton, ToolbarButton } from '@newageerp/v3.bundles.buttons-bundle'
 import { Table, Td, Th } from '@newageerp/ui.ui-bundle'
-import TemplateLoader, { Template } from '../templates/TemplateLoader'
+import { Template, TemplatesLoader } from '@newageerp/v3.templates.templates-core'
 
 interface Props {
   schema: string
@@ -143,7 +143,7 @@ export default function OldArrayFieldComponent(props: Props) {
           {/* <MainButton iconName='plus' onClick={toggleCreateNew}>
             {t('Add')}
           </MainButton> */}
-          <TemplateLoader
+          <TemplatesLoader
             templates={props.toolbar}
             templateData={{
               addElement,

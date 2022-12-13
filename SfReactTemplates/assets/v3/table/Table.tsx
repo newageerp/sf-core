@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import React from 'react'
-import { Template, TemplatesParser } from '../templates/TemplateLoader'
+import { Template, TemplatesParser } from '@newageerp/v3.templates.templates-core'
 import { Table as TableTpl } from '@newageerp/ui.ui-bundle'
 
 interface Props {

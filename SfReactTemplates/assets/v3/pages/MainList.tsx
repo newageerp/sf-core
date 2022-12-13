@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom';
-import TemplateLoader from '../templates/TemplateLoader';
+import {TemplatesLoader} from '@newageerp/v3.templates.templates-core';
 
 
 interface ParamTypes {
@@ -23,7 +23,7 @@ export default function MainList(props: Props) {
     const commonProps = { ...routeParams, ...props };
 
     return (
-        <TemplateLoader
+        <TemplatesLoader
             key={`${commonProps.schema}-${commonProps.type}`}
             templateName="PageMainList"
             data={commonProps}

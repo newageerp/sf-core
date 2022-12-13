@@ -1,6 +1,6 @@
 import { StatusWidget } from '@newageerp/v3.bundles.widgets-bundle';
 import React, { Fragment } from 'react'
-import { useTemplateLoader } from '../../templates/TemplateLoader';
+import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 import { useTranslation } from 'react-i18next';
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 export default function ColorRoColumn(props: Props) {
   const { t } = useTranslation();
 
-  const { data: tData } = useTemplateLoader();
+  const { data: tData } = useTemplatesLoader();
   const { element } = tData;
 
   if (!element) {

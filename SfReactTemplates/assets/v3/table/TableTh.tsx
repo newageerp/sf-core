@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import React from 'react'
-import { Template, TemplatesParser, useTemplateLoader } from '../templates/TemplateLoader';
+import { Template, TemplatesParser, useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 import { Th } from '@newageerp/ui.ui-bundle'
 import { ServerFilterItem } from '@newageerp/ui.ui-bundle'
 import { Icon, IconType } from '@newageerp/ui.ui-bundle';
@@ -13,7 +13,7 @@ interface Props {
 }
 
 export default function TableTh(props: Props) {
-  const { data: tData } = useTemplateLoader();
+  const { data: tData } = useTemplatesLoader();
 
   const hasFilter = !!props.filter;
 

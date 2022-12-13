@@ -1,5 +1,5 @@
 import React from "react";
-import TemplateLoader from "../templates/TemplateLoader";
+import {TemplatesLoader} from '@newageerp/v3.templates.templates-core';
 
 interface Props {
   schema: string;
@@ -12,7 +12,7 @@ interface Props {
 
 export default function EditContentInline(props: Props) {
   return (
-    <TemplateLoader
+    <TemplatesLoader
       key={`${props.schema}-${props.type}-${props.id}`}
       templateName="PageMainEdit"
       data={{ ...props }}

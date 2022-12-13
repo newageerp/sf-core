@@ -1,11 +1,11 @@
 import React from "react";
 import { WhiteCard } from "@newageerp/v3.bundles.widgets-bundle";
 import { TextCardTitle } from "@newageerp/v3.bundles.typography-bundle";
-import TemplateLoader, { Template } from "../templates/TemplateLoader";
+import { Template } from '@newageerp/v3.templates.templates-core';
 import {
   TemplatesParser,
-  useTemplateLoader,
-} from "../templates/TemplateLoader";
+  useTemplatesLoader,
+} from "@newageerp/v3.templates.templates-core";
 import { ToolbarButton } from "@newageerp/v3.bundles.buttons-bundle";
 import { SFSOpenEditModalWindowProps } from "@newageerp/v3.bundles.popup-bundle";
 import { filterScopes } from "../utils";
@@ -21,7 +21,7 @@ interface Props {
 }
 
 export default function WhiteCardWithViewFormWidget(props: Props) {
-  const { data: tData } = useTemplateLoader();
+  const { data: tData } = useTemplatesLoader();
   const userState = useRecoilValue(OpenApi.naeUserState);
 
   const { title, editId } = props;

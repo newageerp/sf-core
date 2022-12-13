@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { ToolbarButton } from '@newageerp/v3.bundles.buttons-bundle'
 import { useTranslation } from 'react-i18next';
-import { useTemplateLoader } from '../templates/TemplateLoader';
+import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 import axios from 'axios';
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 
 export default function ListToolbarDetailedSearch(props: Props) {
     const { t } = useTranslation();
-    const { data: tData } = useTemplateLoader();
+    const { data: tData } = useTemplatesLoader();
     const { extendedSearch } = tData;
 
     useEffect(() => {

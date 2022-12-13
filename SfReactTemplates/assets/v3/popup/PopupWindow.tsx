@@ -1,5 +1,5 @@
 import React from 'react'
-import { Template, TemplatesParser, useTemplateLoader } from '../templates/TemplateLoader'
+import { Template, TemplatesParser, useTemplatesLoader } from '@newageerp/v3.templates.templates-core'
 import { NaePopupProvider } from '../old-ui/OldPopupProvider';
 import { Popup } from '@newageerp/v3.bundles.popup-bundle'
 
@@ -10,7 +10,7 @@ interface Props {
 }
 
 export default function PopupWindow(props: Props) {
-  const { data: tdata } = useTemplateLoader();
+  const { data: tdata } = useTemplatesLoader();
 
   return (
     <NaePopupProvider isPopup={true} onClose={tdata.onBack}>

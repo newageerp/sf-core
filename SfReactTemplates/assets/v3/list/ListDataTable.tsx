@@ -1,10 +1,11 @@
 import { Table } from "@newageerp/ui.ui-bundle";
 import React from "react";
-import TemplateLoader, {
+import {
   Template,
+  TemplatesLoader,
   TemplatesParser,
-  useTemplateLoader,
-} from "../templates/TemplateLoader";
+  useTemplatesLoader,
+} from "@newageerp/v3.templates.templates-core";
 
 interface Props {
   header: Template[];
@@ -13,7 +14,7 @@ interface Props {
 }
 
 export default function ListDataTable(props: Props) {
-  const { data: tData } = useTemplateLoader();
+  const { data: tData } = useTemplatesLoader();
   return (
     <Table
       className={props.className}
@@ -26,7 +27,7 @@ export default function ListDataTable(props: Props) {
         <tbody>
           {tData.dataToRender.map((item: any) => {
             return (
-              <TemplateLoader
+              <TemplatesLoader
                 key={`item-${item.id}`}
                 templates={props.row}
                 templateData={{

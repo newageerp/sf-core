@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import TemplateLoader, { Template, useTemplateLoader } from '../templates/TemplateLoader'
+import {TemplatesLoader, Template, useTemplatesLoader } from '@newageerp/v3.templates.templates-core'
 import { filterScopes } from '../utils';
 import { useRecoilValue } from 'recoil';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
@@ -13,7 +13,7 @@ interface Props {
 }
 
 export default function ViewFormContent(props: Props) {
-    const { data: tData } = useTemplateLoader();
+    const { data: tData } = useTemplatesLoader();
     
     const userState = useRecoilValue(OpenApi.naeUserState);
     const templateData = {
@@ -32,7 +32,7 @@ export default function ViewFormContent(props: Props) {
 
 
     return (
-        <TemplateLoader
+        <TemplatesLoader
             templates={props.children}
             templateData={templateData}
         />

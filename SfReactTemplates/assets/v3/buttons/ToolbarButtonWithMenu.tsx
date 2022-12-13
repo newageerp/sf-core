@@ -1,6 +1,6 @@
 import React from 'react'
 import { ToolbarButtonWithMenu as ToolbarButtonWithMenuTpl } from '@newageerp/v3.bundles.buttons-bundle'
-import { Template, TemplatesParser } from '../templates/TemplateLoader';
+import { Template, TemplatesParser } from '@newageerp/v3.templates.templates-core';
 
 interface Props {
     button: {

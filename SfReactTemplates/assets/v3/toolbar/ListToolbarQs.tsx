@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Input } from "@newageerp/ui.form.base.form-pack";
-import { useTemplateLoader } from '../templates/TemplateLoader';
+import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 import { buildQsDictionary } from "../list/ListUtils"
 import { useTranslation } from 'react-i18next';
 
@@ -11,7 +11,7 @@ interface Props {
 export default function ListToolbarQs(props: Props) {
   const { t } = useTranslation();
 
-  const { data: tData } = useTemplateLoader();
+  const { data: tData } = useTemplatesLoader();
 
   const [value, setValue] = useState(tData?.defaults?.quickSearch);
   const updateValue = (e: any) => setValue(e.target.value);

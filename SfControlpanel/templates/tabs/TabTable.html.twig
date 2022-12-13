@@ -7,7 +7,7 @@ import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import { TwTextColors, TwBackgroundColors } from "@newageerp/ui.ui-bundle";
 import { Button } from "@newageerp/ui.ui-bundle";
 import { UI } from "@newageerp/nae-react-ui";
-import TemplateLoader, { useTemplateLoader } from "../../v3/templates/TemplateLoader";
+import { TemplatesLoader, useTemplatesLoader } from "@newageerp/v3.templates.templates-core";
 import { ServerFilterItem } from '@newageerp/ui.ui-bundle'
 
 {{ TP_IMPORT|raw }}
@@ -34,7 +34,7 @@ interface Props {
 }
 
 export default function {{ TP_COMP_NAME }}(props: Props) {
-    const { data: tData } = useTemplateLoader();
+    const { data: tData } = useTemplatesLoader();
 
     const { data, navigate } = props;
     const { t } = useTranslation();
@@ -97,14 +97,14 @@ export default function {{ TP_COMP_NAME }}(props: Props) {
             className={props.className}
             thead={
                 <thead>
-                    <TemplateLoader templates={tData.tableHeader} templateData={ { addNewBlockFilter: props.addNewBlockFilter } } />
+                    <TemplatesLoader templates={tData.tableHeader} templateData={ { addNewBlockFilter: props.addNewBlockFilter } } />
                 </thead>
             }
             tbody={
                 <tbody>
                     {data.map((item: any) => {
                         return (
-                            <TemplateLoader key={`row-${item?.id}`} templates={tData.tableRow} templateData={ { element: item, doReload: props.doReload } } />
+                            <TemplatesLoader key={`row-${item?.id}`} templates={tData.tableRow} templateData={ { element: item, doReload: props.doReload } } />
                         )
                     })}
                 </tbody>

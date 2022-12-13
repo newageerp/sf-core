@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { CompactRow as CompactRowT } from "@newageerp/ui.form.base.form-pack";
-import { Template, TemplatesParser, useTemplateLoader } from '../../templates/TemplateLoader';
+import { Template, TemplatesParser, useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 import { useRecoilValue } from "recoil";
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import { MainEditTemplateData } from "../../../v2/edit-forms/MainEdit";
@@ -21,7 +21,7 @@ interface Props {
 export default function CompactRow(props: Props) {
   const userState = useRecoilValue(OpenApi.naeUserState);
 
-  const { data: tData } = useTemplateLoader();
+  const { data: tData } = useTemplatesLoader();
   const mainTemplateData : MainEditTemplateData = tData;
   const { element, fieldVisibility, updateElement, parentElement, hasChanges, formType, pushHiddenFields } = mainTemplateData;
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { NaeRecordProvider } from "../old-ui/OldNaeRecord";
-import { Template, TemplatesParser } from "../templates/TemplateLoader";
+import { Template, TemplatesParser } from '@newageerp/v3.templates.templates-core';
 
 interface Props {
   schema: string;

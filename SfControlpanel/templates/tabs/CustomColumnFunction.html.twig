@@ -1,12 +1,12 @@
 import React from 'react'
-import { useTemplateLoader } from "../../../../v3/templates/TemplateLoader";
+import { useTemplatesLoader } from "@newageerp/v3.templates.templates-core";
 
 interface Props {
     fieldKey: string,
 }
 
 export default function {{ compName }}(props: Props) {
-    const { data: tData } = useTemplateLoader();
+    const { data: tData } = useTemplatesLoader();
     const { element } = tData;
 
     return (

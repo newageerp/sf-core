@@ -7,9 +7,8 @@ import { SortingItem } from "@newageerp/ui.ui-bundle";
 import { TypeItemFilters } from "@newageerp/ui.ui-bundle";
 import { useLocationState } from "use-location-state";
 import { ServerFilterItem } from "@newageerp/ui.ui-bundle";
-import TemplateLoader, { Template } from "../templates/TemplateLoader";
 import { FilterContainer } from '@newageerp/ui.ui-bundle';
-import { useTemplateLoader } from '../templates/TemplateLoader';
+import { useTemplatesLoader, TemplatesLoader, Template } from '@newageerp/v3.templates.templates-core';
 import { getTabFieldsToReturn } from "../utils";
 import { SFSSocketService } from "../navigation/NavigationComponent";
 import { useUIBuilder } from "../old-ui/builder/OldUIBuilderProvider";
@@ -40,7 +39,7 @@ interface Props {
 
 export default function ListDataSource(props: Props) {
   const { getTabFromSchemaAndType } = useUIBuilder();
-  const { data: tData } = useTemplateLoader();
+  const { data: tData } = useTemplatesLoader();
 
   const [extendedSearchOptions, setExtendedSearchOptions] = useState<any[]>([]);
 
@@ -232,7 +231,7 @@ export default function ListDataSource(props: Props) {
     <Fragment>
       {((!!props.toolbar && props.toolbar.length > 0) || (!!props.toolbarLine2 && props.toolbarLine2.length > 0)) &&
         <div className="tw3-space-y-2  tw3-py-4">
-          <TemplateLoader
+          <TemplatesLoader
             templates={props.toolbar}
             templateData={
               {
@@ -264,7 +263,7 @@ export default function ListDataSource(props: Props) {
 
           {!!props.toolbarLine2 &&
 
-            <TemplateLoader
+            <TemplatesLoader
               templates={props.toolbarLine2}
               templateData={
                 {
@@ -309,7 +308,7 @@ export default function ListDataSource(props: Props) {
 
       <div>
         <div style={{ margin: "0 -0.5rem" }}>
-          <TemplateLoader
+          <TemplatesLoader
             templates={props.children}
             templateData={{
               addNewBlockFilter: addNewBlockFilter,

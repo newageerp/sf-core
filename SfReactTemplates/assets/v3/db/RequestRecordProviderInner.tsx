@@ -1,6 +1,6 @@
 import React from "react";
 import { useNaeRecord } from "../old-ui/OldNaeRecord";
-import TemplateLoader, { Template } from "../templates/TemplateLoader";
+import {TemplatesLoader, Template } from '@newageerp/v3.templates.templates-core';
 
 interface Props {
   children: Template[];
@@ -10,7 +10,7 @@ export default function RequestRecordProviderInner(props: Props) {
   const { element } = useNaeRecord();
 
   return (
-    <TemplateLoader
+    <TemplatesLoader
       templates={props.children}
       templateData={{ element: element }}
     />

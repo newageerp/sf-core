@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { getHookForSchema } from '../../../_custom/models-cache-data/ModelFields';
-import { useTemplateLoader } from '../../templates/TemplateLoader';
+import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 import { Base } from '@newageerp/v2.element.status-badge.base';
 import { NaeSStatuses } from '../../../_custom/config/NaeSStatuses';
 import { useTranslation } from 'react-i18next';
@@ -13,7 +13,7 @@ interface Props {
 export default function ViewStatusWidget(props: Props) {
     const { t } = useTranslation();
 
-    const { data: tData } = useTemplateLoader();
+    const { data: tData } = useTemplatesLoader();
     const useHook = getHookForSchema(props.entity);
     const element = useHook(tData.element.id);
 

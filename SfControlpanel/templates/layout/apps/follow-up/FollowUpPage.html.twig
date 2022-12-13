@@ -5,7 +5,7 @@ import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 import moment from 'moment';
 import { useRecoilState } from 'recoil';
 import { UserSpaceWrapperToolbarState } from '../../layout/toolbar/UserSpaceWrapperToolbar';
-import TemplateLoader from '../../v3/templates/TemplateLoader';
+import {TemplatesLoader} from '@newageerp/v3.templates.templates-core';
 import { getSchemaTitle } from '../../v3/utils';
 import { TabContainer } from "@newageerp/ui.ui-bundle";
 import { WhiteCard } from '@newageerp/v3.bundles.widgets-bundle'
@@ -109,7 +109,7 @@ export default function FollowUpPage() {
     schemaComponents.forEach((comp: any, idX: number) => {
         items.push(
             {
-                content: (<TemplateLoader
+                content: (<TemplatesLoader
                     templateName="PageInlineList"
                     data={
                         {

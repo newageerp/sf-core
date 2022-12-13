@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory, useParams } from "react-router-dom";
-import TemplateLoader from "../templates/TemplateLoader";
+import {TemplatesLoader} from '@newageerp/v3.templates.templates-core';
 
 interface ParamTypes {
   schema: string;
@@ -24,7 +24,7 @@ export default function MainEdit(props: Props) {
 
   const commonProps = { ...routeParams, ...props };
 
-  return <TemplateLoader
+  return <TemplatesLoader
     key={`${commonProps.schema}-${commonProps.type}-${commonProps.id}`}
     templateName="PageMainEdit"
     data={commonProps}

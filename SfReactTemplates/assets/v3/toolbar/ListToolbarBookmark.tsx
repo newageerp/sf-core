@@ -1,7 +1,7 @@
 import { ToolbarButton } from '@newageerp/v3.bundles.buttons-bundle';
 import React, { Fragment, useEffect, useState } from 'react'
 import { axiosInstance } from '../api/config';
-import { useTemplateLoader } from '../templates/TemplateLoader';
+import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 
 type Props = {
     schema: string,
@@ -11,7 +11,7 @@ type Props = {
 export default function ListToolbarBookmark(props: Props) {
     const _path = `${props.schema}-${props.user}-bookmarks`;
 
-    const { data: tData } = useTemplateLoader();
+    const { data: tData } = useTemplatesLoader();
     const { onAddExtraFilter, filter } = tData;
 
     const [data, setData] = useState([]);

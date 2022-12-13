@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react'
-import { useTemplateLoader } from '../templates/TemplateLoader';
+import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 import { useTranslation } from 'react-i18next';
 import { FilterListData } from "@newageerp/ui.ui-bundle"
 import { WideRow } from "@newageerp/ui.form.base.form-pack";
@@ -41,7 +41,7 @@ export default function ListToolbarQuickFilters(props: Props) {
 }
 
 const ListToolbarQuickFiltersInner = (props: Props) => {
-  const { data: tData } = useTemplateLoader();
+  const { data: tData } = useTemplatesLoader();
   const { onAddExtraFilter } = tData;
 
   return (

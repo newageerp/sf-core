@@ -3,7 +3,7 @@ import { MenuItem, MenuItemProps } from '@newageerp/v3.bundles.modal-bundle'
 import { useRecoilValue } from 'recoil';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 import { filterScopes } from '../utils';
-import { useTemplateLoader } from '../templates/TemplateLoader';
+import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 
 declare type Props = {
     elementId: number,
@@ -14,7 +14,7 @@ declare type Props = {
 } & MenuItemProps;
 
 export default function MenuItemWithAction(props: Props) {
-    const {data: tData} = useTemplateLoader();
+    const {data: tData} = useTemplatesLoader();
 
     const userState = useRecoilValue(OpenApi.naeUserState);
     const [doReq, doReqParams] = OpenApi.useURequest(props.action);

@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react'
-import { useTemplateLoader } from '../templates/TemplateLoader';
+import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 
 type Props = {
     totals: any,
 }
 
 export default function ListDataTotals(props: Props) {
-    const { data: tData } = useTemplateLoader();
+    const { data: tData } = useTemplatesLoader();
     if (!tData.dataTotals) {
         return <Fragment />
     }

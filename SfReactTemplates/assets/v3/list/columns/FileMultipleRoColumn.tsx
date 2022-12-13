@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react'
 import OldFileFieldMultipleRo from '../../old-ui/OldFileFieldMultipleRo';
-import { useTemplateLoader } from '../../templates/TemplateLoader';
+import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 
 interface Props {
   fieldKey: string;
 }
 
 export default function FileMultipleRoColumn(props: Props) {
-  const { data: tData } = useTemplateLoader();
+  const { data: tData } = useTemplatesLoader();
   const { element } = tData;
 
   if (!element) {

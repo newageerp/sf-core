@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import React from 'react'
-import { Template, TemplatesParser, useTemplateLoader } from '../templates/TemplateLoader';
+import { Template, TemplatesParser, useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 import { Td } from '@newageerp/ui.ui-bundle'
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 }
 
 export default function TableTd(props: Props) {
-  const { data: tData } = useTemplateLoader();
+  const { data: tData } = useTemplatesLoader();
 
   return (
     <Td

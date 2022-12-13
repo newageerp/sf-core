@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react'
-import { useTemplateLoader } from '../../templates/TemplateLoader';
+import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 import { FieldTextarea } from '@newageerp/v3.bundles.form-bundle';
 import { showSuccessNotification } from '../../navigation/NavigationComponent';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
@@ -11,7 +11,7 @@ interface Props {
 }
 
 export default function LargeTextEditableColumn(props: Props) {
-  const { data: tData } = useTemplateLoader();
+  const { data: tData } = useTemplatesLoader();
   const { element } = tData;
 
   const [value, setValue] = useState(element ? element[props.fieldKey] : "");

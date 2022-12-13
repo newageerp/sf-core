@@ -5,8 +5,8 @@ import axios from 'axios'
 import { Popup } from '@newageerp/v3.bundles.popup-bundle';
 import { PdfWindow } from '@newageerp/ui.ui-bundle';
 import { useTranslation } from 'react-i18next';
-import { Template, useTemplateLoader } from '../../templates/TemplateLoader';
-import TemplateLoader from '../../templates/TemplateLoader';
+import { Template, useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
+import {TemplatesLoader} from '@newageerp/v3.templates.templates-core';
 
 type PdfResponse = {
     url: string,
@@ -54,7 +54,7 @@ export default function ViewPdfWidget(props: Props) {
                 }
             }
         >
-            <TemplateLoader
+            <TemplatesLoader
                 templateData={{ skipSign: !sign }}
                 templates={props.items}
             />
@@ -65,7 +65,7 @@ export default function ViewPdfWidget(props: Props) {
 
 
 export const ViewPdfItem = (props: PdfItemProps) => {
-    const { data: tData } = useTemplateLoader();
+    const { data: tData } = useTemplatesLoader();
 
     const skipStamp = tData.skipSign || props.skipStamp;
     const skipSign = tData.skipSign || props.skipSign;

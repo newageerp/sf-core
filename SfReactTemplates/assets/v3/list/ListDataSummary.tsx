@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { axiosInstance } from "../api/config";
-import { useTemplateLoader } from "../templates/TemplateLoader";
+import { useTemplatesLoader } from "@newageerp/v3.templates.templates-core";
 import { Table, Th, Td } from "@newageerp/ui.ui-bundle";
 import { Float } from "@newageerp/data.table.base";
 import { getPropertyForPath } from "../utils";
@@ -22,7 +22,7 @@ type Props = {
 
 export default function ListDataSummary(props: Props) {
   const [isLoading, setIsLoading] = useState(false);
-  const { data: tData } = useTemplateLoader();
+  const { data: tData } = useTemplatesLoader();
   const [data, setData] = useState<any>([]);
 
   const getData = () => {

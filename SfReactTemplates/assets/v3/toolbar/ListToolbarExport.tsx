@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ToolbarButtonWithMenu } from '@newageerp/v3.bundles.buttons-bundle'
 import { ToolbarButton } from '@newageerp/v3.bundles.buttons-bundle'
-import { useTemplateLoader } from '../templates/TemplateLoader';
+import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 import { MenuItem } from '@newageerp/v3.bundles.modal-bundle'
 
@@ -28,7 +28,7 @@ export type ITabExport = {
 };
 
 export function ListToolbarExport(props: ExportContainerProps) {
-    const { data: tData } = useTemplateLoader();
+    const { data: tData } = useTemplatesLoader();
 
     const ref = useRef();
 

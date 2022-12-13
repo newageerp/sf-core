@@ -1,5 +1,5 @@
 import React from "react";
-import { Template, TemplatesParser } from "../templates/TemplateLoader";
+import { Template, TemplatesParser } from '@newageerp/v3.templates.templates-core';
 import { RsButton as RsButtonTpl } from "@newageerp/v3.bundles.buttons-bundle";
 
 interface Props {
