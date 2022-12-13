@@ -111,7 +111,7 @@ class InGeneratorLayout extends Command
             'layout/apps/mails/MailsContent.html.twig' => ['apps/mails', 'MailsContent'],
 
             'layout/apps/notes/NoteContentForm.html.twig' => ['apps/notes', 'NoteContentForm'],
-            // 'layout/apps/notes/NoteEditForm.html.twig' => ['apps/notes', 'NoteEditForm'],
+            
             'layout/apps/notes/NoteLine.html.twig' => ['apps/notes', 'NoteLine'],
             'layout/apps/notes/NotesContent.html.twig' => ['apps/notes', 'NotesContent'],
             'layout/apps/notes/NotesContentMembers.html.twig' => ['apps/notes', 'NotesContentMembers'],
@@ -120,12 +120,7 @@ class InGeneratorLayout extends Command
             'layout/apps/tasks/TasksPage.html.twig' => ['apps/tasks', 'TasksPage'],
             'layout/apps/tasks/TasksWidget.html.twig' => ['apps/tasks', 'TasksWidget'],
 
-            // 'layout/auth/AuthLogin.html.twig' => ['auth', 'AuthLogin'],
-
             'layout/main/App.html.twig' => ['main', 'App'],
-            //            'layout/main/AppRouting.html.twig' => ['main', 'AppRouting'],
-            // 'layout/main/InitComponent.html.twig' => ['main', 'InitComponent'],
-
 
             'utils/useConvert.html.twig' => ['utils', 'useConvert'],
 
@@ -159,29 +154,6 @@ class InGeneratorLayout extends Command
                 Utils::writeOnChanges($fileName, $generatedContent);
             }
         }
-
-        // $templates = [
-        //     // 'config/fields/edit.html.twig' => ['fields', 'edit'],
-        //     // 'config/fields/fieldVisibility.html.twig' => ['fields', 'fieldVisibility'],
-        //     // 'config/fields/fieldDependencies.html.twig' => ['fields', 'fieldDependencies'],
-        //     // 'config/fields/onEditElementUpdate.html.twig' => ['fields', 'onEditElementUpdate'],
-        //     // 'config/fields/view.html.twig' => ['fields', 'view'],
-        //     // 'config/tabs/index.html.twig' => ['tabs', 'index'],
-
-        //     // 'config/widgets/widgets/base-entity.widgets.html.twig' => ['widgets/widgets', 'base-entity.widgets'],
-        //     // 'config/widgets/index.html.twig' => ['widgets', 'index'],
-
-        //     // 'config/lang/i18.html.twig' => ['lang', 'i18'],
-        // ];
-
-        // foreach ($templates as $template => $target) {
-        //     $ext = 'tsx';
-        //     $fileName = Utils::generatedConfigPath($target[0]) . '/' . $target[1] . '.' . $ext;
-        //     if (!file_exists($fileName)) {
-        //         $generatedContent = $twig->load($template)->render();
-        //         Utils::writeOnChanges($fileName, $generatedContent);
-        //     }
-        // }
 
         // getFrontendModelsCachePath
         $fileName = Utils::customFolderPath('models-cache-data') . '/NotesNameResolver.tsx';
