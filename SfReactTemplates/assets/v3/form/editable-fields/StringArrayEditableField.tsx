@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import { useTemplateLoader } from '../../templates/TemplateLoader';
+import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 import { useTranslation } from 'react-i18next';
 import { FieldTextarea } from '@newageerp/v3.bundles.form-bundle'
 import LargeTextEditableField from './LargeTextEditableField';
@@ -12,7 +12,7 @@ interface Props {
 export default function StringArrayEditableField(props: Props) {
   const { t } = useTranslation();
 
-  const { data: tData } = useTemplateLoader();
+  const { data: tData } = useTemplatesLoader();
   const { element, updateElement } = tData;
 
   const [localVal, setLocalVal] = useState(element ? element[props.fieldKey].join("\n") : '');

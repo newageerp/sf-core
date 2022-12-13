@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import TemplateLoader, { useTemplateLoader } from '../../templates/TemplateLoader';
+import { TemplatesLoader, useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 import { ToolbarButton } from '@newageerp/v3.bundles.buttons-bundle';
 import { useTranslation } from 'react-i18next';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
@@ -30,7 +30,7 @@ export default function ObjectEditableField(props: Props) {
   const { t } = useTranslation();
   const [isPopup, setIsPopup] = useState(false);
 
-  const { data: tData } = useTemplateLoader();
+  const { data: tData } = useTemplatesLoader();
   const { element, updateElement } = tData;
 
   const updateValue = (e: any) => updateElement(props.fieldKey, e)
@@ -175,7 +175,7 @@ export default function ObjectEditableField(props: Props) {
       </div>
       {isPopup &&
 
-        <TemplateLoader
+        <TemplatesLoader
           templateName="PageInlineList"
           data={{
             schema: props.relSchema,

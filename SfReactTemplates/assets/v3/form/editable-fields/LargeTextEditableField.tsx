@@ -1,6 +1,6 @@
 import { FieldTextarea } from '@newageerp/v3.bundles.form-bundle';
 import React, { Fragment, useEffect, useState } from 'react'
-import { useTemplateLoader } from '../../templates/TemplateLoader';
+import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 import { RichEditor } from '@newageerp/ui.form.base.form-pack';
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default function LargeTextEditableField(props: Props) {
-  const { data: tData } = useTemplateLoader();
+  const { data: tData } = useTemplatesLoader();
   const { element, updateElement } = tData;
 
   const [localVal, setLocalVal] = useState(element ? element[props.fieldKey] : '');

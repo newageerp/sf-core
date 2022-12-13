@@ -3,7 +3,7 @@ import { ElementToolbar } from '@newageerp/ui.ui-bundle';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 import { useRecoilValue } from 'recoil';
 import TasksWidget from '../../apps/tasks/TasksWidget';
-import TemplateLoader, { useTemplateLoader } from '../../v3/templates/TemplateLoader';
+import { TemplatesLoader, useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 import { WidgetType } from '../../v3/utils';
 import OldNeWidgets from '../../v3/old-ui/OldNeWidgets';
 
@@ -15,7 +15,7 @@ interface Props {
 
 export default function ViewTop(props: Props) {
     const userState = useRecoilValue(OpenApi.naeUserState);
-    const { data: tData } = useTemplateLoader();
+    const { data: tData } = useTemplatesLoader();
 
     return (
         <ElementToolbar
@@ -71,7 +71,7 @@ export default function ViewTop(props: Props) {
                 />
             }
             contentAfterFields2Line={
-                <TemplateLoader templates={tData.elementToolbarAfterFieldsContent} templateData={ {element: props.element} } />
+                <TemplatesLoader templates={tData.elementToolbarAfterFieldsContent} templateData={ {element: props.element} } />
             }
         />
     )

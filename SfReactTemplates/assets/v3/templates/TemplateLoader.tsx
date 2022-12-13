@@ -1,5 +1,4 @@
-import React, { Fragment, useContext, useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 import ViewContent from "../view/ViewContent";
 import PopupWindow from "../popup/PopupWindow";
 import ToolbarTitle from "../maintoolbar/ToolbarTitle";
@@ -63,7 +62,6 @@ import StringArrayRoField from "../form/ro-fields/StringArrayRoField";
 import StringRoField from "../form/ro-fields/StringRoField";
 import EditableForm from "../form/EditableForm";
 import FormFieldSeparator from "../form/FormFieldSeparator";
-import FormFieldTagCloud from "../form/FormFieldTagCloud";
 import FormLabel from "../form/FormLabel";
 import RoForm from "../form/RoForm";
 
@@ -164,108 +162,7 @@ import MenuItemWithLink from "../menu/MenuItemWithLink";
 import FormError from "../form/FormError";
 import HtmlEditorEditableField from "../form/editable-fields/HtmlEditorEditableField";
 
-export interface Template {
-  comp: string;
-  action: any;
-  props: any;
-}
-
-export interface TemplateLoaderProviderValue {
-  data: any;
-}
-
-export const TemplateLoaderContext =
-  React.createContext<TemplateLoaderProviderValue>({
-    data: {},
-  });
-
-export const useTemplateLoader = () => useContext(TemplateLoaderContext);
-
-interface Props {
-  templateName?: string;
-  data?: any;
-
-  templateData?: any;
-
-  templates?: Template[];
-}
-
-export const getTemplateLoaderData = (templateName: string, data: any) => {
-
-  const url = `/app/nae-core/react-templates/get/${templateName}`;
-  return axios
-    .post(
-      url,
-      { data: data },
-      {
-        headers: {
-          // @ts-ignore
-          Authorization: window.localStorage.getItem("token"),
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-}
-
-export default function TemplateLoader(props: Props) {
-  const [isLoaded, setIsLoaded] = useState(
-    !!props.templates && props.templates.length > 0 ? true : false
-  );
-
-  const [templates, setTemplates] = useState<Template[]>(
-    !!props.templates ? props.templates : []
-  );
-  const [templatesData, setTemplatesData] = useState(
-    props.templateData ? props.templateData : {}
-  );
-  const [remoteTemplatesData, setRemoteTemplatesData] = useState({});
-
-  const [allTemplatesData, setAllTemplatesData] = useState();
-
-  useEffect(() => {
-    setTemplatesData(props.templateData);
-  }, [props.templateData]);
-
-  const getData = () => {
-    if (props.templateName) {
-      getTemplateLoaderData(props.templateName, props.data)
-        .then((res) => {
-          if (res.status === 200) {
-            setIsLoaded(true);
-            setTemplates(res.data.data);
-            setRemoteTemplatesData(res.data.templatesData);
-          }
-        });
-    }
-  };
-
-  useEffect(() => {
-    setAllTemplatesData({ ...templatesData, ...remoteTemplatesData });
-  }, [templatesData, remoteTemplatesData]);
-
-
-
-  useEffect(() => {
-    getData();
-  }, [props.templateName]);
-
-  if (!isLoaded || !allTemplatesData) {
-    return <Fragment />;
-  }
-
-  return (
-    <TemplateLoaderContext.Provider
-      value={{
-        data: allTemplatesData,
-      }}
-    >
-      <TemplatesParser templates={templates} />
-    </TemplateLoaderContext.Provider>
-  );
-}
-
-const componentsMap: any = {
+export const componentsMap: any = {
   "view.content": ViewContent,
   "view.formcontent": ViewFormContent,
 
@@ -456,26 +353,4 @@ const componentsMap: any = {
   ...CustomViewComponentsMap,
   ...CustomListComponentsMap,
   ...PluginsMap,
-};
-interface TemplatesParserProps {
-  templates: Template[];
-  extraProps?: any;
-}
-
-export const TemplatesParser = (props: TemplatesParserProps) => {
-  const { templates } = props;
-
-  return (
-    <Fragment>
-      {templates.map((t: Template, tIndex: number) => {
-        let Comp = Fragment;
-        if (t.comp in componentsMap) {
-          Comp = componentsMap[t.comp];
-        } else {
-          return <div>NO TEMPLATE {t.comp}</div>;
-        }
-        return <Comp {...t.props} {...props.extraProps} key={`t-${tIndex}`} />;
-      })}
-    </Fragment>
-  );
 };

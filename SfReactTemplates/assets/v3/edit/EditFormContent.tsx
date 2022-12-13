@@ -2,7 +2,7 @@ import { WideToolbar } from '@newageerp/ui.form.base.form-pack';
 import classNames from 'classnames';
 import React, { Fragment } from 'react'
 import FormError from '../form/FormError';
-import TemplateLoader, { Template, useTemplateLoader } from '../templates/TemplateLoader'
+import { TemplatesLoader, Template, useTemplatesLoader } from '@newageerp/v3.templates.templates-core'
 
 interface Props {
     parentElement: any,
@@ -13,7 +13,7 @@ interface Props {
 }
 
 export default function EditFormContent(props: Props) {
-    const { data: tData } = useTemplateLoader();
+    const { data: tData } = useTemplatesLoader();
 
     const templateData = {
         ...tData,
@@ -23,7 +23,7 @@ export default function EditFormContent(props: Props) {
     return (
         <div className={classNames('tw3-space-y-4', { 'tw3-pb-44': !props.isCompact })}>
             <div className={'tw3-space-y-2'}>
-                <TemplateLoader
+                <TemplatesLoader
                     templates={props.children}
                     templateData={templateData}
                 />

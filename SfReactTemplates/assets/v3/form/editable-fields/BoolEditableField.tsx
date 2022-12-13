@@ -1,7 +1,7 @@
 import { FieldSelect } from "@newageerp/v3.bundles.form-bundle";
 import React, { Fragment } from "react";
 import { useTranslation } from "react-i18next";
-import { useTemplateLoader } from "../../templates/TemplateLoader";
+import { useTemplatesLoader } from "@newageerp/v3.templates.templates-core";
 
 interface Props {
   fieldKey: string;
@@ -9,7 +9,7 @@ interface Props {
 
 export default function BoolEditableField(props: Props) {
   const { t } = useTranslation();
-  const { data: tData } = useTemplateLoader();
+  const { data: tData } = useTemplatesLoader();
   const { element, updateElement } = tData;
 
   if (!element) {

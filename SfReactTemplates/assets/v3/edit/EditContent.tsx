@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import MainEdit from "../../v2/edit-forms/MainEdit";
 import { showSuccessNotification } from "../navigation/NavigationComponent";
 import { useNaePopup } from "../old-ui/OldPopupProvider";
-import { useTemplateLoader } from "../templates/TemplateLoader";
+import { useTemplatesLoader } from "@newageerp/v3.templates.templates-core";
 
 interface Props {
   schema: string;
@@ -23,7 +23,7 @@ interface Props {
 export default function EditContent(props: Props) {
   const history = useHistory();
   const { isPopup } = useNaePopup();
-  const { data: tdata } = useTemplateLoader();
+  const { data: tdata } = useTemplatesLoader();
 
   return (
     <Fragment>

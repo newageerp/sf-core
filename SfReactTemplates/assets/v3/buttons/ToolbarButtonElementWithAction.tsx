@@ -1,6 +1,5 @@
 import React from 'react'
 import { ToolbarButton as ToolbarButtonTpl } from '@newageerp/v3.bundles.buttons-bundle'
-import { Template, TemplatesParser, useTemplateLoader } from '../templates/TemplateLoader';
 import { axiosInstance } from '../api/config';
 
 interface Props {

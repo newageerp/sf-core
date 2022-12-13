@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { useUIBuilder } from '../../old-ui/builder/OldUIBuilderProvider';
 import OldArrayFieldComponent from '../../old-ui/OldArrayFieldComponent';
-import { Template, useTemplateLoader } from '../../templates/TemplateLoader';
+import { Template, useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 
 interface Props {
   fieldKey: string;
@@ -15,7 +15,7 @@ interface Props {
 export default function ArrayEditableField(props: Props) {
   const {getTabFromSchemaAndType} = useUIBuilder();
 
-  const { data: tData } = useTemplateLoader();
+  const { data: tData } = useTemplatesLoader();
   const { element, updateElement } = tData;
 
   if (!element) {

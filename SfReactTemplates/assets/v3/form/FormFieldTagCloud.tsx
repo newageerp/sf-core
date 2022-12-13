@@ -1,6 +1,5 @@
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 import React, { Fragment, useEffect, useState } from 'react'
-import { useTemplateLoader } from '../templates/TemplateLoader';
 import { Input } from "@newageerp/ui.form.base.form-pack";
 
 interface Props {

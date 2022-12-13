@@ -1,5 +1,5 @@
 import React, {Fragment} from "react";
-import { Template, TemplatesParser, useTemplateLoader } from "../templates/TemplateLoader";
+import { Template, TemplatesParser, useTemplatesLoader } from "@newageerp/v3.templates.templates-core";
 import { WhiteCard as WhiteCardTpl } from "@newageerp/v3.bundles.widgets-bundle";
 import { filterScopes } from "../utils";
 import { useRecoilValue } from 'recoil';
@@ -14,7 +14,7 @@ interface Props {
 }
 
 export default function WhiteCard(props: Props) {
-  const { data: tData } = useTemplateLoader();
+  const { data: tData } = useTemplatesLoader();
 
   const userState = useRecoilValue(OpenApi.naeUserState);
 

@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
 import {
   Template,
-  useTemplateLoader,
-} from "../templates/TemplateLoader";
+  useTemplatesLoader,
+} from "@newageerp/v3.templates.templates-core";
 import RsButton from "./RsButton";
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 }
 
 export default function RsButtonTemplate(props: Props) {
-  const { data: tData } = useTemplateLoader();
+  const { data: tData } = useTemplatesLoader();
   const { element } = tData;
 
   if (!element) {

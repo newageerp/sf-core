@@ -17,6 +17,8 @@ import {useDidMount} from '@newageerp/v3.bundles.hooks-bundle'
 import { UIBuilderProvider } from "../v3/old-ui/builder/OldUIBuilderProvider";
 import { store } from "../_custom/models/ormstore";
 import { DataCacheProvider } from "../_custom/hooks/DataCacheProvider";
+import { TemplatesCoreProvider } from "@newageerp/v3.templates.templates-core";
+import { componentsMap } from "../v3/templates/TemplateLoader";
 
 function App() {
     const [isLoaded, setIsLoaded] = useState(false);
@@ -37,41 +39,43 @@ function App() {
     }, [isLoaded]);
 
     return (
-        <Provider store={store}>
-            <RoutesWrapper>
-                <AppRouter
-                    authRoutes={
-                        <Fragment>
-                            <UIBuilderProvider>
-                                <DataCacheProvider>
-                                    <NaeWindowProvider>
-                                        <UserSpaceWrapper>
-                                            <Switch>
-                                                <AppRoutes />
-                                            </Switch>
-                                            <Switch>
-                                                <CustomUserWrapperRoutes />
-                                            </Switch>
-                                        </UserSpaceWrapper>
-                                        <NavigationComponent />
-                                    </NaeWindowProvider>
-                                </DataCacheProvider>
-                            </UIBuilderProvider>
-                        </Fragment>
-                    }
-                    noAuthRoutes={(isLoggedIn) => {
-                        return (
+        <TemplatesCoreProvider templatesMap={componentsMap}>
+            <Provider store={store}>
+                <RoutesWrapper>
+                    <AppRouter
+                        authRoutes={
                             <Fragment>
-                                {# <AuthLogin /> #}
-                                {!isLoggedIn && <Redirect to='/login/' />}
+                                <UIBuilderProvider>
+                                    <DataCacheProvider>
+                                        <NaeWindowProvider>
+                                            <UserSpaceWrapper>
+                                                <Switch>
+                                                    <AppRoutes />
+                                                </Switch>
+                                                <Switch>
+                                                    <CustomUserWrapperRoutes />
+                                                </Switch>
+                                            </UserSpaceWrapper>
+                                            <NavigationComponent />
+                                        </NaeWindowProvider>
+                                    </DataCacheProvider>
+                                </UIBuilderProvider>
                             </Fragment>
-                        )
-                    }
+                        }
+                        noAuthRoutes={(isLoggedIn) => {
+                            return (
+                                <Fragment>
+                                    {# <AuthLogin /> #}
+                                    {!isLoggedIn && <Redirect to='/login/' />}
+                                </Fragment>
+                            )
+                        }
 
-                    }
-                />
-            </RoutesWrapper>
-        </Provider>
+                        }
+                    />
+                </RoutesWrapper>
+            </Provider>
+        </TemplatesCoreProvider>
     );
 }
 

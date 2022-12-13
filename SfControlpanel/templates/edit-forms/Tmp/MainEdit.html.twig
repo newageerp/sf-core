@@ -2,9 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react'
 
 import { useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import TemplateLoader, {
-  useTemplateLoader,
-} from "../../v3/templates/TemplateLoader";
+import { TemplatesLoader, useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 import { fieldVisibility, IFieldVisibility, resetFieldsToDefValues } from "../../_custom/fields/fieldVisibility";
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper'
 import { AlertWidget, transformErrorAlert } from "@newageerp/v3.bundles.widgets-bundle";
@@ -54,7 +52,7 @@ interface Props {
 export default function MainEdit(props: Props) {
   const {getEditFieldsForSchema} = useUIBuilder();
   
-  const { data: tData } = useTemplateLoader();
+  const { data: tData } = useTemplatesLoader();
 
   let hiddenFields: any = []
   const { t } = useTranslation()
@@ -236,7 +234,7 @@ export default function MainEdit(props: Props) {
 
           {element ? (
             <Fragment>
-              <TemplateLoader
+              <TemplatesLoader
                 templates={[tData.formContent]}
                 templateData={
                   {

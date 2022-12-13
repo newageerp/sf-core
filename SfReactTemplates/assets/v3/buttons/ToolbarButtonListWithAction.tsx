@@ -1,6 +1,6 @@
 import React from 'react'
 import { ToolbarButton as ToolbarButtonTpl } from '@newageerp/v3.bundles.buttons-bundle'
-import { Template, TemplatesParser, useTemplateLoader } from '../templates/TemplateLoader';
+import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 import { axiosInstance } from '../api/config';
 
 interface Props {
@@ -18,7 +18,7 @@ interface Props {
 }
 
 export default function ToolbarButtonListWithAction(props: Props) {
-    const { data: tData } = useTemplateLoader();
+    const { data: tData } = useTemplatesLoader();
 
     const onClick = () => {
         axiosInstance.post(

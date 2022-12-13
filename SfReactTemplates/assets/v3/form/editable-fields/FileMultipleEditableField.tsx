@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { useTemplateLoader } from '../../templates/TemplateLoader';
+import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 import OldFileFieldMultiple from '../../old-ui/OldFileFieldMultiple';
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default function FileMultipleEditableField(props: Props) {
-  const { data: tData } = useTemplateLoader();
+  const { data: tData } = useTemplatesLoader();
   const { element, updateElement } = tData;
 
   if (!element) {

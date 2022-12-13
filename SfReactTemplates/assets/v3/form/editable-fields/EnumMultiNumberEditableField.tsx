@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import OldSelectFieldMulti from "../../old-ui/OldSelectFieldMulti";
-import { useTemplateLoader } from "../../templates/TemplateLoader";
+import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 
 interface Props {
   fieldKey: string;
@@ -8,7 +8,7 @@ interface Props {
 }
 
 export default function EnumMultiNumberEditableField(props: Props) {
-  const { data: tData } = useTemplateLoader();
+  const { data: tData } = useTemplatesLoader();
   const { element, updateElement } = tData;
 
   if (!element) {
