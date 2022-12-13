@@ -1,5 +1,5 @@
 import React from "react";
-import Select from "react-select";
+import { Select } from "@newageerp/ui.ui-bundle";
 import { useTranslation } from 'react-i18next';
 
 interface Props {

@@ -1,5 +1,5 @@
 import React, { Fragment, useMemo, useEffect, useState } from 'react'
-import { useDropzone } from 'react-dropzone'
+import { useDropzone } from '@newageerp/ui.ui-bundle'
 import { useTranslation } from 'react-i18next'
 import moment from 'moment'
 
