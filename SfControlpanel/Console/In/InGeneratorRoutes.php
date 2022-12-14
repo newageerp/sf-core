@@ -27,7 +27,6 @@ class InGeneratorRoutes extends Command
             'cache' => '/tmp',
         ]);
 
-        $editRoutesWrapperTemplate = $twig->load('routes/edit-route-wrapper.html.twig');
         $editRoutesTemplate = $twig->load('routes/app-routes.html.twig');
 
         $appRouterTemplate = $twig->load('routes/app-router.html.twig');
