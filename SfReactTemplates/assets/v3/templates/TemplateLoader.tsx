@@ -346,6 +346,8 @@ export const componentsMap: any = {
 
   'toolbar.element-bookmark-button': ElementBookmarkButton,
 
+  "buttons.rs-button": RsButton,
+
   ...CustomEditComponentsMap,
   ...CustomViewComponentsMap,
   ...CustomListComponentsMap,

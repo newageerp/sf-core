@@ -8,11 +8,11 @@ use Newageerp\SfReactTemplates\Template\Template;
 class RsButton extends Template
 {
     protected string $schema = '';
-    protected int $elementId = 0;
+    protected $elementId = 0;
     protected Placeholder $children;
     protected string $defaultClick = 'main';
 
-    public function __construct(string $schema, int $elementId)
+    public function __construct(string $schema, $elementId)
     {
         $this->schema = $schema;
         $this->elementId = $elementId;
@@ -62,24 +62,12 @@ class RsButton extends Template
         return $this;
     }
 
-    /**
-     * Get the value of elementId
-     *
-     * @return int
-     */
-    public function getElementId(): int
+    public function getElementId()
     {
         return $this->elementId;
     }
 
-    /**
-     * Set the value of elementId
-     *
-     * @param int $elementId
-     *
-     * @return self
-     */
-    public function setElementId(int $elementId): self
+    public function setElementId($elementId): self
     {
         $this->elementId = $elementId;
 
