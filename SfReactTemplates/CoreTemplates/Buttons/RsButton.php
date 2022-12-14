@@ -35,7 +35,7 @@ class RsButton extends Template
 
     public function getTemplateName(): string
     {
-        return 'buttons.rs-button';
+        return '_.ButtonsBundle.RsButton';
     }
 
     /**

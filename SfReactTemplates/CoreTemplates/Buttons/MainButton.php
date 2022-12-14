@@ -29,7 +29,7 @@ class MainButton extends Template
 
     public function getTemplateName(): string
     {
-        return 'buttons.main-button';
+        return '_.ButtonsBundle.MainButton';
     }
 
     /**
