@@ -159,12 +159,17 @@ import HtmlEditorEditableField from "../form/editable-fields/HtmlEditorEditableF
 import AppInner from "../app/AppInner";
 
 import * as ButtonsBundle from '@newageerp/v3.bundles.buttons-bundle';
+import * as ModalBundle from '@newageerp/v3.bundles.modal-bundle';
 
 export const componentsMap: any = {
   "App": AppInner,
   "ButtonsBundle": (comp: string) => {
     // @ts-ignore
     return ButtonsBundle[comp];
+  },
+  "ModalBundle": (comp: string) => {
+    // @ts-ignore
+    return ModalBundle[comp];
   },
 
   "view.content": ViewContent,

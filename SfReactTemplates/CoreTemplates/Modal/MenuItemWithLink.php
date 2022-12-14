@@ -30,7 +30,7 @@ class MenuItemWithLink extends MenuItem
 
     public function getTemplateName(): string
     {
-        return 'modal.menu-item';
+        return '_.ModalBundle.MenuItem';
     }
 
 
