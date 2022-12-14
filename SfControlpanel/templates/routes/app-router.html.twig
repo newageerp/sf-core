@@ -20,6 +20,7 @@ export interface AppRouterProps {
 }
 
 export default function AppRouter(props: AppRouterProps) {
+    const templateCore = useTemplatesCore();
     const isMount = useDidMount();
     const [userState, setUserState] = useRecoilState<any>(OpenApi.naeUserState)
 
