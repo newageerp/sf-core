@@ -1,14 +1,15 @@
 import React, { Fragment } from "react";
 import { LayoutLeftMenuToolbar } from "@newageerp/ui.ui-bundle";
-import LeftMenu from "../../_custom/menu/LeftMenu";
 import UserSpaceWrapperToolbar from "../../layout/toolbar/UserSpaceWrapperToolbar";
-import {TemplatesLoader} from '@newageerp/v3.templates.templates-core';
+import { TemplatesParser, useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
+import DataCacheSocketComponent from "../../_custom/hooks/DataCacheSocketComponent";
 
 interface Props {
   children?: any;
 }
 
 function UserSpaceWrapper(props: Props) {
+  const { data: tData } = useTemplatesLoader();
   const isDev = (!process.env.NODE_ENV || process.env.NODE_ENV === 'development');
 
   return (
@@ -16,19 +17,16 @@ function UserSpaceWrapper(props: Props) {
       leftSideContent={
         <Fragment>
           <div>
-            <TemplatesLoader 
-            templateName="App.UserSpaceWrapper.LeftMenu" 
-            data={
-              {}
-            }
+            <TemplatesParser
+              templates={tData.userSpaceWrapperLeft}
             />
           </div>
-          <LeftMenu />
-          {isDev && 
-          <div>
-            <a className="tw3-text-white tw3-mt-20 tw3-text-xs tw3-underline tw3-decoration-wavy" href="/app/nae-core/config-menu/regenerate" target="_blank">Regenerate menu</a>
-          </div>
+          {isDev &&
+            <div>
+              <a className="tw3-text-white tw3-mt-20 tw3-text-xs tw3-underline tw3-decoration-wavy" href="/app/nae-core/config-menu/regenerate" target="_blank">Regenerate menu</a>
+            </div>
           }
+          <DataCacheSocketComponent />
         </Fragment>
       }
       toolbar={<UserSpaceWrapperToolbar />}

@@ -32,7 +32,6 @@ class InGeneratorRoutes extends Command
         $appRouterTemplate = $twig->load('routes/app-router.html.twig');
         $routesWrapperTemplate = $twig->load('routes/routes-wrapper.html.twig');
         $userSpaceWrapperTemplate = $twig->load('routes/user-space-wrapper.html.twig');
-        $customLeftMenuTemplate = $twig->load('routes/custom-left-menu.html.twig');
 
         $customEmptyTemplate = $twig->load('common/empty.html.twig');
 
@@ -178,13 +177,6 @@ class InGeneratorRoutes extends Command
         $generatedContent = $userSpaceWrapperTemplate->render();
         $fileName = $generatedRoutesWrappersPath . '/UserSpaceWrapper.tsx';
         Utils::writeOnChanges($fileName, $generatedContent);
-
-        // Custom left menu
-        $customMenuFileName = $customMenuPath . '/LeftMenu.tsx';
-        if (!file_exists($customMenuFileName)) {
-            $generatedContent = $customLeftMenuTemplate->render();
-            Utils::writeOnChanges($customMenuFileName, $generatedContent);
-        }
 
         // UserSpaceWrapper TOOLBAR
 

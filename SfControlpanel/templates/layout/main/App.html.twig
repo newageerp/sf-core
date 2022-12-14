@@ -1,82 +1,12 @@
-import React, { Fragment, useEffect, useState } from "react";
-import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
-import { NaeApiFunctions } from "../_custom/config/NaePaths";
-import AppRouter from "../routes/wrappers/AppRouter";
-import { Provider } from 'react-redux';
-import '@newageerp/v3.app.main-bundle/dist/main-bundle.css'
-import { RoutesWrapper } from "../routes/wrappers/RoutesWrapper";
-import UserSpaceWrapper from "../routes/wrappers/UserSpaceWrapper";
-import AppRoutes from "../routes/AppRoutes";
-import { Switch } from "react-router-dom";
-import CustomUserWrapperRoutes from "../_custom/routes/CustomUserWrapperRoutes";
-import NavigationComponent, { SFSSocketService } from "../v3/navigation/NavigationComponent";
-import { NaeWindowProvider } from "../v3/old-ui/OldNaeWindowProvider";
-import {useDidMount} from '@newageerp/v3.bundles.hooks-bundle'
-import { UIBuilderProvider } from "../v3/old-ui/builder/OldUIBuilderProvider";
-import { store } from "../_custom/models/ormstore";
-import { DataCacheProvider } from "../_custom/hooks/DataCacheProvider";
-import { TemplatesCoreProvider } from "@newageerp/v3.templates.templates-core";
+import React from "react";
+import { TemplatesCoreProvider, TemplatesLoader } from "@newageerp/v3.templates.templates-core";
 import { componentsMap } from "../v3/templates/TemplateLoader";
 
 function App() {
-    const [isLoaded, setIsLoaded] = useState(false);
-
-    OpenApi.naePaths = NaeApiFunctions;
-    const isMount = useDidMount();
-
-    useEffect(() => {
-        if (isMount) {
-            setIsLoaded(true);
-        }
-    }, []);
-
-    useEffect(() => {
-        if (isLoaded) {
-            SFSSocketService.connect();
-        }
-    }, [isLoaded]);
-
-    const redirectToLogin = () => {
-        window.location.href = '/login/';
-        return <Fragment/>
-    }
-
+    
     return (
         <TemplatesCoreProvider templatesMap={componentsMap}>
-            <Provider store={store}>
-                <RoutesWrapper>
-                    <AppRouter
-                        authRoutes={
-                            <Fragment>
-                                <UIBuilderProvider>
-                                    <DataCacheProvider>
-                                        <NaeWindowProvider>
-                                            <UserSpaceWrapper>
-                                                <Switch>
-                                                    <AppRoutes />
-                                                </Switch>
-                                                <Switch>
-                                                    <CustomUserWrapperRoutes />
-                                                </Switch>
-                                            </UserSpaceWrapper>
-                                            <NavigationComponent />
-                                        </NaeWindowProvider>
-                                    </DataCacheProvider>
-                                </UIBuilderProvider>
-                            </Fragment>
-                        }
-                        noAuthRoutes={(isLoggedIn) => {
-                            return (
-                                <Fragment>
-                                    {!isLoggedIn && redirectToLogin()}
-                                </Fragment>
-                            )
-                        }
-
-                        }
-                    />
-                </RoutesWrapper>
-            </Provider>
+            <TemplatesLoader templateName="App" />
         </TemplatesCoreProvider>
     );
 }

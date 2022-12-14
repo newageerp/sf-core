@@ -157,9 +157,17 @@ import MenuItemWithAction from "../menu/MenuItemWithAction";
 import MenuItemWithLink from "../menu/MenuItemWithLink";
 import FormError from "../form/FormError";
 import HtmlEditorEditableField from "../form/editable-fields/HtmlEditorEditableField";
-import { MainButton, RsButton } from "@newageerp/v3.bundles.buttons-bundle";
+import AppInner from "../app/AppInner";
+
+import * as ButtonsBundle from '@newageerp/v3.bundles.buttons-bundle';
 
 export const componentsMap: any = {
+  "App": AppInner,
+  "ButtonsBundle": (comp: string) => {
+    // @ts-ignore
+    return ButtonsBundle[comp];
+  },
+
   "view.content": ViewContent,
   "view.formcontent": ViewFormContent,
 
@@ -312,7 +320,6 @@ export const componentsMap: any = {
   "view.pdf.container": ViewPdfWidget,
   "view.pdf.item": ViewPdfItem,
 
-  "buttons.main-button": MainButton,
   "buttons.toolbar-button-with-menu": ToolbarButtonWithMenu,
   'buttons.toolbar-button-element-with-action': ToolbarButtonElementWithAction,
   'buttons.toolbar-button-list-with-action': ToolbarButtonListWithAction,
@@ -343,8 +350,6 @@ export const componentsMap: any = {
   'main-menu.menu-provider': MenuProvider,
 
   'toolbar.element-bookmark-button': ElementBookmarkButton,
-
-  "buttons.rs-button": RsButton,
 
   ...CustomEditComponentsMap,
   ...CustomViewComponentsMap,
