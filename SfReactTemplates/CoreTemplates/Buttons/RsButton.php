@@ -24,7 +24,7 @@ class RsButton extends Template
         return [
             'schema' => $this->getSchema(),
             'id' => $this->getElementId(),
-            'children' => [
+            'button' => [
                 'children' => $this->getChildren()->toArray(),
                 'color' => 'white',
                 'skipPadding' => true,
