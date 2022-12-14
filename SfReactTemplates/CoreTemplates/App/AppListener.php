@@ -11,7 +11,11 @@ class AppListener implements EventSubscriberInterface
     public function onTemplate(LoadTemplateEvent $event)
     {
         if ($event->isTemplateForAnyEntity('App')) {
-            $event->getPlaceholder()->addTemplate(new App());
+            $app = new App();
+            $event->getPlaceholder()->addTemplate($app);
+
+            $userSpaceWrapperLeft = new LoadTemplateEvent($app->getUserSpaceWrapperLeft(), 'App.UserSpaceWrapper.LeftMenu', $event->getData());
+            $this->eventDispatcher->dispatch($userSpaceWrapperLeft, LoadTemplateEvent::NAME);
         }
     }
 
