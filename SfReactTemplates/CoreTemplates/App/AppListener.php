@@ -2,7 +2,7 @@
 
 namespace Newageerp\SfReactTemplates\CoreTemplates\App;
 
-use Newageerp\SfReactTemplates\CoreTemplates\MainMenu\MenuDivider;
+use Newageerp\SfReactTemplates\CoreTemplates\Modal\MenuDivider;
 use Newageerp\SfReactTemplates\CoreTemplates\Modal\MenuItemWithLink;
 use Newageerp\SfReactTemplates\Event\LoadTemplateEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
