@@ -23,7 +23,7 @@ class RsButton extends Template
     {
         return [
             'schema' => $this->getSchema(),
-            'elementId' => $this->getElementId(),
+            'id' => $this->getElementId(),
             'children' => [
                 'children' => $this->getChildren()->toArray(),
                 'color' => 'white',
