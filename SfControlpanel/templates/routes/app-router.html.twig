@@ -5,6 +5,7 @@ import { Redirect, useLocation } from 'react-router-dom'
 import axios from 'axios'
 import { atom, useRecoilState } from 'recoil';
 import {useDidMount} from '@newageerp/v3.bundles.hooks-bundle'
+import { useTemplatesCore } from '@newageerp/v3.templates.templates-core';
 
 export interface AppRouterRoute {
     path: string
@@ -29,6 +30,7 @@ export default function AppRouter(props: AppRouterProps) {
     }, [])
     useEffect(() => {
         if (!isMount) {
+            templateCore.setUserState(getUserDataParams.data);
             setUserState(getUserDataParams.data)
         }
     }, [getUserDataParams.data])

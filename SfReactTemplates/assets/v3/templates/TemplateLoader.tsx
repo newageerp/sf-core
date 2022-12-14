@@ -11,7 +11,7 @@ import EditContent from "../edit/EditContent";
 import ViewFilesWidget from "../view/Widget/ViewFilesWidget";
 
 import FlexRow from "../layout/FlexRow";
-import { NumberCardWidget } from "@newageerp/v3.bundles.widgets-bundle";
+import { NumberCardWidget, WhiteCard } from "@newageerp/v3.bundles.widgets-bundle";
 import ViewStatusWidget from "../view/Widget/ViewStatusWidget";
 import ToolbarActionButton from "../toolbar/ToolbarActionButton";
 import EditContentPopup from "../edit/EditContentPopup";
@@ -98,8 +98,6 @@ import PrimitiveString from "../primitives/PrimitiveString";
 
 
 import ViewPdfWidget, { ViewPdfItem } from "../view/Widget/ViewPdfWidget";
-import WhiteCard from "../cards/WhiteCard";
-import MainButton from "../buttons/MainButton";
 import { PluginsMap } from "../../../Plugins/PluginsMap";
 import ToolbarButtonWithMenu from "../buttons/ToolbarButtonWithMenu";
 import MenuItemWithCreate from "../menu/MenuItemWithCreate";
@@ -159,7 +157,7 @@ import MenuItemWithAction from "../menu/MenuItemWithAction";
 import MenuItemWithLink from "../menu/MenuItemWithLink";
 import FormError from "../form/FormError";
 import HtmlEditorEditableField from "../form/editable-fields/HtmlEditorEditableField";
-import { RsButton } from "@newageerp/v3.bundles.buttons-bundle";
+import { MainButton, RsButton } from "@newageerp/v3.bundles.buttons-bundle";
 
 export const componentsMap: any = {
   "view.content": ViewContent,
