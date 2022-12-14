@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import DefaultEditRouteWrapper from "./wrappers/DefaultEditRouteWrapper";
 {% for import in imports %}
 {{ import|raw }}
 {% endfor %}
@@ -45,19 +44,6 @@ export function EditRoutes() {
             <Route path={"/u/:schema/:type/edit/:id"}>
                 <MainEdit />
             </Route>
-            {# {% for component in editComponents %}
-                <Route path={"/u/{{ component.schema }}/{{ component.type }}/edit/:id"}>
-                    <DefaultEditRouteWrapper
-                            render={
-                            (
-                            id: string,
-                            onSave: (element: any, isNew: boolean, schema: string) => void,
-                        onCancel: () => void,
-                        ) => <{{ component.compName }} id={id} onSave={onSave} onCancel={onCancel} wrapWithCard={true} />
-                        }
-                        />
-                </Route>
-            {% endfor %} #}
         </Fragment>
     )
 }

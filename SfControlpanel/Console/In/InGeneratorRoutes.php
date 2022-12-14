@@ -165,11 +165,6 @@ class InGeneratorRoutes extends Command
         $fileName = $generatedRoutesPath . '/AppRoutes.tsx';
         Utils::writeOnChanges($fileName, $generatedContent);
 
-        // EDIT ROW WRAPPER
-        $generatedContent = $editRoutesWrapperTemplate->render();
-        $fileName = $generatedRoutesWrappersPath . '/DefaultEditRouteWrapper.tsx';
-        Utils::writeOnChanges($fileName, $generatedContent);
-
         // AppRouter
         $generatedContent = $appRouterTemplate->render();
         $fileName = $generatedRoutesWrappersPath . '/AppRouter.tsx';
