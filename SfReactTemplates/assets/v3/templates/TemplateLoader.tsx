@@ -124,8 +124,6 @@ import ObjectRoColumn from "../list/columns/ObjectRoColumn";
 import StatusRoColumn from "../list/columns/StatusRoColumn";
 import StringArrayRoColumn from "../list/columns/StringArrayRoColumn";
 import StringRoColumn from "../list/columns/StringRoColumn";
-import RsButton from "../buttons/RsButton";
-import RsButtonTemplate from "../buttons/RsButtonTemplate";
 import ToolbarButtonElementWithAction from "../buttons/ToolbarButtonElementWithAction"
 import ListDataSource from "../list/ListDataSource";
 import ListDataTable from "../list/ListDataTable";
@@ -161,6 +159,7 @@ import MenuItemWithAction from "../menu/MenuItemWithAction";
 import MenuItemWithLink from "../menu/MenuItemWithLink";
 import FormError from "../form/FormError";
 import HtmlEditorEditableField from "../form/editable-fields/HtmlEditorEditableField";
+import { RsButton } from "@newageerp/v3.bundles.buttons-bundle";
 
 export const componentsMap: any = {
   "view.content": ViewContent,
@@ -317,8 +316,6 @@ export const componentsMap: any = {
 
   "buttons.main-button": MainButton,
   "buttons.toolbar-button-with-menu": ToolbarButtonWithMenu,
-  "buttons.rs-button": RsButton,
-  "buttons.rs-button-template": RsButtonTemplate,
   'buttons.toolbar-button-element-with-action': ToolbarButtonElementWithAction,
   'buttons.toolbar-button-list-with-action': ToolbarButtonListWithAction,
 

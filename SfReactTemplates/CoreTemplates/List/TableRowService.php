@@ -5,6 +5,7 @@ namespace Newageerp\SfReactTemplates\CoreTemplates\List;
 use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
 use Newageerp\SfControlpanel\Console\TabsUtilsV3;
+use Newageerp\SfReactTemplates\CoreTemplates\Buttons\RsButton;
 use Newageerp\SfReactTemplates\CoreTemplates\Buttons\RsButtonTemplate;
 use Newageerp\SfReactTemplates\CoreTemplates\List\Columns\AudioColumn;
 use Newageerp\SfReactTemplates\CoreTemplates\List\Columns\BoolColumn;
@@ -228,7 +229,7 @@ class TableRowService
 
                         if ($tpl) {
                             if (isset($col['link']) && $col['link'] > 0 && $naeType !== 'object') {
-                                $rsButton = new RsButtonTemplate($prop['entity']);
+                                $rsButton = new RsButton($prop['entity'], 'tData.element.id');
                                 if ($forcePopup) {
                                     $rsButton->setDefaultClick('none');
                                 } else {
