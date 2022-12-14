@@ -4,9 +4,16 @@ namespace Newageerp\SfReactTemplates\CoreTemplates\App;
 
 use Newageerp\SfReactTemplates\Event\LoadTemplateEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class AppListener implements EventSubscriberInterface
 {
+    protected EventDispatcherInterface $eventDispatcher;
+
+    public function __construct(EventDispatcherInterface $eventDispatcher)
+    {
+        $this->eventDispatcher = $eventDispatcher;
+    }
 
     public function onTemplate(LoadTemplateEvent $event)
     {
