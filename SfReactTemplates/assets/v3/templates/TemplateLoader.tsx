@@ -154,7 +154,6 @@ import ToolbarButtonListWithAction from "../buttons/ToolbarButtonListWithAction"
 import ElementBookmarkButton from "../element/ElementBookmarkButton";
 import ListToolbarBookmark from "../toolbar/ListToolbarBookmark";
 import MenuItemWithAction from "../menu/MenuItemWithAction";
-import MenuItemWithLink from "../menu/MenuItemWithLink";
 import FormError from "../form/FormError";
 import HtmlEditorEditableField from "../form/editable-fields/HtmlEditorEditableField";
 import AppInner from "../app/AppInner";
@@ -327,7 +326,6 @@ export const componentsMap: any = {
   "modal.menu-item-with-create": MenuItemWithCreate,
   "modal.menu-item-with-edit": MenuItemWithEdit,
   'modal.menu-item-with-action': MenuItemWithAction,
-  'modal.menu-item-with-link': MenuItemWithLink,
 
   'list.list-data-source': ListDataSource,
   'list.list-data-table': ListDataTable,

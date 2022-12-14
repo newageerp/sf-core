@@ -22,7 +22,7 @@ class MenuItemWithLink extends MenuItem
     {
         $props = parent::getProps();
 
-        $props['link'] = $this->getLink();
+        $props['hrefNewWindow'] = $this->getLink();
         $props['scopes'] = $this->getScopes();
 
         return $props;
@@ -30,7 +30,7 @@ class MenuItemWithLink extends MenuItem
 
     public function getTemplateName(): string
     {
-        return 'modal.menu-item-with-link';
+        return 'modal.menu-item';
     }
 
 

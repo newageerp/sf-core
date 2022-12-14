@@ -8,10 +8,12 @@ use Newageerp\SfReactTemplates\Template\Template;
 class App extends Template
 {
     protected Placeholder $userSpaceWrapperLeft;
+    protected Placeholder $userSpaceWrapperToolbarMenu;
 
     public function __construct()
     {
         $this->userSpaceWrapperLeft = new Placeholder();
+        $this->userSpaceWrapperToolbarMenu = new Placeholder();
     }
 
     public function getTemplateName(): string
@@ -28,6 +30,7 @@ class App extends Template
     {
         return [
             'userSpaceWrapperLeft' => $this->userSpaceWrapperLeft->toArray(),
+            'userSpaceWrapperToolbarMenu' => $this->userSpaceWrapperToolbarMenu->toArray(),
         ];
     }
 
@@ -51,6 +54,30 @@ class App extends Template
     public function setUserSpaceWrapperLeft(Placeholder $userSpaceWrapperLeft): self
     {
         $this->userSpaceWrapperLeft = $userSpaceWrapperLeft;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of userSpaceWrapperToolbarMenu
+     *
+     * @return Placeholder
+     */
+    public function getUserSpaceWrapperToolbarMenu(): Placeholder
+    {
+        return $this->userSpaceWrapperToolbarMenu;
+    }
+
+    /**
+     * Set the value of userSpaceWrapperToolbarMenu
+     *
+     * @param Placeholder $userSpaceWrapperToolbarMenu
+     *
+     * @return self
+     */
+    public function setUserSpaceWrapperToolbarMenu(Placeholder $userSpaceWrapperToolbarMenu): self
+    {
+        $this->userSpaceWrapperToolbarMenu = $userSpaceWrapperToolbarMenu;
 
         return $this;
     }
