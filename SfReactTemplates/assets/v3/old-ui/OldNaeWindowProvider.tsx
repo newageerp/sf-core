@@ -1,6 +1,6 @@
 import React, { useContext, Fragment, useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import { editPopupBySchemaAndType } from '../../editforms/EditPopup'
+import { editPopupBySchemaAndType } from '../edit/EditPopup'
 
 import MainView from '../pages/MainView'
 

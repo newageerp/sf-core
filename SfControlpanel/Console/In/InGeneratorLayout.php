@@ -74,13 +74,6 @@ class InGeneratorLayout extends Command
 
             'layout/apps/tasks/TasksPage.html.twig' => ['apps/tasks', 'TasksPage'],
             'layout/apps/tasks/TasksWidget.html.twig' => ['apps/tasks', 'TasksWidget'],
-
-            'layout/main/App.html.twig' => ['main', 'App'],
-
-            'utils/useConvert.html.twig' => ['utils', 'useConvert'],
-
-
-
         ];
 
         $hasTasksApp = class_exists('App\Entity\Task');

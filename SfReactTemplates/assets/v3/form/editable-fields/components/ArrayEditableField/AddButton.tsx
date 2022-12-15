@@ -1,7 +1,7 @@
 import { MainButton } from '@newageerp/v3.bundles.buttons-bundle'
 import React, { Fragment, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { editPopupBySchemaAndType } from '../../../../../editforms/EditPopup'
+import { editPopupBySchemaAndType } from '../../../../edit/EditPopup'
 import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core'
 
 type Props = {

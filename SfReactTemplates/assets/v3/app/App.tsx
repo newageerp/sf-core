@@ -1,8 +1,8 @@
 import React from "react";
 import { TemplatesCoreProvider, TemplatesLoader } from "@newageerp/v3.templates.templates-core";
-import { componentsMap } from "../v3/templates/TemplateLoader";
-import { store } from "../_custom/models/ormstore";
-import i18n from "../_custom/lang/i18";
+import { componentsMap } from "../templates/TemplateLoader";
+import { store } from "../../_custom/models/ormstore";
+import i18n from "../../_custom/lang/i18";
 
 function App() {
     

@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { useHistory } from "react-router-dom";
-import MainEdit from "../../v2/edit-forms/MainEdit";
+import MainEdit from "./MainEdit";
 import { showSuccessNotification } from "../navigation/NavigationComponent";
 import { useNaePopup } from "../old-ui/OldPopupProvider";
 import { useTemplatesLoader } from "@newageerp/v3.templates.templates-core";

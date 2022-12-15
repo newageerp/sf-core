@@ -29,11 +29,8 @@ class InGeneratorRoutes extends Command
 
         $editRoutesTemplate = $twig->load('routes/app-routes.html.twig');
 
-        $appRouterTemplate = $twig->load('routes/app-router.html.twig');
-
         $customEmptyTemplate = $twig->load('common/empty.html.twig');
 
-        $generatedRoutesWrappersPath = Utils::generatedPath('routes/wrappers');
         $generatedRoutesPath = Utils::generatedPath('routes');
 
         $customRoutesPath = Utils::customFolderPath('routes');
@@ -158,11 +155,6 @@ class InGeneratorRoutes extends Command
             ]
         );
         $fileName = $generatedRoutesPath . '/AppRoutes.tsx';
-        Utils::writeOnChanges($fileName, $generatedContent);
-
-        // AppRouter
-        $generatedContent = $appRouterTemplate->render();
-        $fileName = $generatedRoutesWrappersPath . '/AppRouter.tsx';
         Utils::writeOnChanges($fileName, $generatedContent);
 
         // Custom toolbar

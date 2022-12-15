@@ -5,7 +5,7 @@ import { Switch } from "react-router-dom";
 import { useDidMount } from '@newageerp/v3.bundles.hooks-bundle'
 import { NaeApiFunctions } from "../../_custom/config/NaePaths";
 import NavigationComponent, { SFSSocketService } from "../navigation/NavigationComponent";
-import AppRouter from "../../routes/wrappers/AppRouter";
+import AppRouter from "./AppRouter";
 import { UIBuilderProvider } from "../old-ui/builder/OldUIBuilderProvider";
 import { DataCacheProvider } from "../../_custom/hooks/DataCacheProvider";
 import { NaeWindowProvider } from "../old-ui/OldNaeWindowProvider";

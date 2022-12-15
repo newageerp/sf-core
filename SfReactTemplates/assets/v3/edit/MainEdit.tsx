@@ -5,13 +5,12 @@ import { useTranslation } from 'react-i18next'
 import { TemplatesLoader, useTemplatesLoader, toast } from '@newageerp/v3.templates.templates-core';
 import { fieldVisibility, IFieldVisibility, resetFieldsToDefValues } from "../../_custom/fields/fieldVisibility";
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper'
-import { AlertWidget, transformErrorAlert } from "@newageerp/v3.bundles.widgets-bundle";
-import { getElementFieldsToReturn, INaeEditSettings, WidgetType } from '../../v3/utils'
-import OldNeWidgets from '../../v3/old-ui/OldNeWidgets'
+import { getElementFieldsToReturn, INaeEditSettings, WidgetType } from '../utils'
+import OldNeWidgets from '../old-ui/OldNeWidgets'
 import { getDepenciesForField } from '../../_custom/fields/fieldDependencies';
-import { useUIBuilder } from '../../v3/old-ui/builder/OldUIBuilderProvider';
+import { useUIBuilder } from '../old-ui/builder/OldUIBuilderProvider';
 import { onEditElementUpdate } from '../../_custom/fields/onEditElementUpdate';
-import { subscribe, unsubscribe } from '../../v2/utils/utils';
+import { subscribe, unsubscribe } from '@newageerp/v3.bundles.utils-bundle';
 
 export interface MainEditTemplateData {
   element: any,

@@ -62,18 +62,6 @@ class InGeneratorEditForms extends Command
             ['templates' => array_values($customComponents),]
         );
 
-        // EDIT POPUP
-        $editPopupMapT = new TemplateService('edit-forms/EditPopupMap.html.twig');
-        $editPopupMapT->writeToFileOnChanges(
-            Utils::generatedPath('editforms') . '/EditPopup.tsx',
-        );
-
-        // TMP
-        (new TemplateService('edit-forms/Tmp/MainEdit.html.twig'))->writeToFileOnChanges(
-            Utils::generatedV2Path('edit-forms') . '/MainEdit.tsx',
-            [],
-        );
-
         return Command::SUCCESS;
     }
 }

@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
 
 import {TemplatesLoader} from '@newageerp/v3.templates.templates-core';
-import { NaePopupProvider } from "../v3/old-ui/OldPopupProvider";
-import { MvcEditModalContentProps, MvcViewModalContentProps } from "../v3/old-ui/OldNaeWindowProvider";
+import { NaePopupProvider } from "../old-ui/OldPopupProvider";
+import { MvcEditModalContentProps, MvcViewModalContentProps } from "../old-ui/OldNaeWindowProvider";
 import { Popup } from '@newageerp/v3.bundles.popup-bundle'
 
 interface PopupProps {
