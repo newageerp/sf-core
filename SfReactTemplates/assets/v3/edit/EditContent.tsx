@@ -37,7 +37,7 @@ export default function EditContent(props: Props) {
         newStateOptions={props.newStateOptions}
         requiredFields={props.requiredFields}
         onSave={(_el, backFunc) => {
-          showSuccessNotification("Išsaugota");
+          showSuccessNotification("Saved");
           if (tdata.onSaveCallback) {
             tdata.onSaveCallback(_el, backFunc);
           } else {
