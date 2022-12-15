@@ -5,7 +5,7 @@ import { fieldVisibility } from "../../_custom/fields/fieldVisibility";
 import { useTranslation } from "react-i18next";
 import TasksWidget from "../../apps/tasks/TasksWidget";
 import { ElementToolbar } from "@newageerp/ui.ui-bundle";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue } from "@newageerp/v3.templates.templates-core";
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import { ToolbarButtonWithMenu } from "@newageerp/v3.bundles.buttons-bundle";
 import { AlertWidget, WhiteCard } from "@newageerp/v3.bundles.widgets-bundle";

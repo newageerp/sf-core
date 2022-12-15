@@ -2,7 +2,7 @@ import React from "react";
 import { TextToolbarTitle } from "@newageerp/v3.bundles.typography-bundle";
 import CustomToolbarBefore from "../../../_custom/layout/CustomToolbarBefore";
 import CustomToolbarAfter from "../../../_custom/layout/CustomToolbarAfter";
-import { atom, useRecoilValue } from "recoil";
+import { atom, useRecoilValue } from "@newageerp/v3.templates.templates-core";
 import { useComponentVisible } from '@newageerp/v3.bundles.hooks-bundle'
 import { Menu } from '@newageerp/v3.bundles.modal-bundle'
 import classNames from "classnames";

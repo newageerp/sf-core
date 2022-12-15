@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { CompactRow as CompactRowT } from "@newageerp/ui.form.base.form-pack";
 import { Template, TemplatesParser, useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
-import { useRecoilValue } from "recoil";
+import { useRecoilValue } from "@newageerp/v3.templates.templates-core";
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import { MainEditTemplateData } from "../../../v2/edit-forms/MainEdit";
 
