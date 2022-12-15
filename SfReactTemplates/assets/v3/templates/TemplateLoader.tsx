@@ -1,7 +1,6 @@
 import React from "react";
 import ViewContent from "../view/ViewContent";
 import PopupWindow from "../popup/PopupWindow";
-import ToolbarTitle from "../maintoolbar/ToolbarTitle";
 import ListContent from "../list/ListContent";
 import TableTr from "../table/TableTr";
 import Table from "../table/Table";
@@ -160,6 +159,7 @@ import AppInner from "../app/AppInner";
 
 import * as ButtonsBundle from '@newageerp/v3.bundles.buttons-bundle';
 import * as ModalBundle from '@newageerp/v3.bundles.modal-bundle';
+import * as LayoutBundle from '@newageerp/v3.bundles.layout-bundle';
 
 export const componentsMap: any = {
   "App": AppInner,
@@ -170,6 +170,10 @@ export const componentsMap: any = {
   "ModalBundle": (comp: string) => {
     // @ts-ignore
     return ModalBundle[comp];
+  },
+  "LayoutBundle": (comp: string) => {
+    // @ts-ignore
+    return LayoutBundle[comp];
   },
 
   "view.content": ViewContent,
@@ -190,7 +194,6 @@ export const componentsMap: any = {
   "edit.formcontent": EditFormContent,
 
   "popup.window": PopupWindow,
-  "maintoolbar.title": ToolbarTitle,
 
   "table.th": TableTh,
   "table.td": TableTd,

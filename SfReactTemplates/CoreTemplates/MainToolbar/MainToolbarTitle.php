@@ -27,6 +27,6 @@ class MainToolbarTitle extends Template
 
     public function getTemplateName(): string
     {
-        return 'maintoolbar.title';
+        return '_.LayoutBundle.MainToolbarTitle';
     }
 }
