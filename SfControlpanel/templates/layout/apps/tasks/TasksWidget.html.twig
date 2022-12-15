@@ -5,6 +5,7 @@ import { TwBackgroundColors } from '@newageerp/ui.ui-bundle'
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper'
 import { SFSOpenEditModalWindowProps, SFSOpenViewModalWindowProps } from '@newageerp/v3.bundles.popup-bundle'
 import { ContentWidgetProps, getKeysFromObject } from '../../v3/utils'
+import { toast } from '@newageerp/v3.templates.templates-core';
 
 interface IData {
   id: number
@@ -66,7 +67,7 @@ export default function TasksWidget(props: ContentWidgetProps) {
     }
     saveData({ completed }, id).then(() => {
       loadData()
-      OpenApi.toast.success(t('Išsaugota'))
+      toast.success(t('Išsaugota'))
     })
   }
 

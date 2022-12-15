@@ -5,7 +5,7 @@ import { Popup } from "@newageerp/v3.bundles.popup-bundle";
 import { MailsForm } from "@newageerp/ui.ui-bundle";
 import { useNaeWindow } from "../old-ui/OldNaeWindowProvider";
 import SocketService from "../SocketService";
-
+import { toast } from '@newageerp/v3.templates.templates-core';
 import {
   ConfirmationPopup,
   ConfirmationPopupProps,
@@ -207,17 +207,17 @@ export default function NavigationComponent() {
 }
 
 export const showTaskSentNotification = () => {
-  OpenApi.toast.success(
+  toast.success(
     "Užduotis išsiųsta apdorojimui. Po jos įvykdymo gausite pranešimą."
   );
 };
 
 export const showSuccessNotification = (text: string) => {
-  OpenApi.toast.success(text);
+  toast.success(text);
 };
 
 export const showErrorNotification = (text: string) => {
-  OpenApi.toast.error(text);
+  toast.error(text);
 };
 
 export const SFSSocketService = SocketService;

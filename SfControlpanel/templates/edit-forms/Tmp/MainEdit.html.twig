@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react'
 
 import { useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { TemplatesLoader, useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
+import { TemplatesLoader, useTemplatesLoader, toast } from '@newageerp/v3.templates.templates-core';
 import { fieldVisibility, IFieldVisibility, resetFieldsToDefValues } from "../../_custom/fields/fieldVisibility";
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper'
 import { AlertWidget, transformErrorAlert } from "@newageerp/v3.bundles.widgets-bundle";
@@ -143,9 +143,9 @@ export default function MainEdit(props: Props) {
     saveData({ ...element, skipRequiredCheck: props.skipRequiredCheck, requiredFields: props.requiredFields }, props.id).then((res: any) => {
       if (res) {
         if (res.error) {
-          OpenApi.toast.error(t("Klaida"));
+          toast.error(t("Klaida"));
         } else {
-          OpenApi.toast.success(t("Išsaugota"));
+          toast.success(t("Išsaugota"));
 
           const backFunction = () => {
             if (props.onBack) {
