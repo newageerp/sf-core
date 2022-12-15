@@ -1,6 +1,6 @@
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper'
 import React, { Fragment } from 'react'
-import { useRecoilValue } from 'recoil'
+import { useRecoilValue } from '@newageerp/v3.templates.templates-core'
 import { NaeWidgets } from '../../_custom/widgets'
 import { filterScopes, INaeWidget, WidgetType } from '../utils'
 

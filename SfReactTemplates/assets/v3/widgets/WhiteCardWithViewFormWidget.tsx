@@ -9,7 +9,7 @@ import {
 import { ToolbarButton } from "@newageerp/v3.bundles.buttons-bundle";
 import { SFSOpenEditModalWindowProps } from "@newageerp/v3.bundles.popup-bundle";
 import { filterScopes } from "../utils";
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue } from '@newageerp/v3.templates.templates-core';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 
 interface Props {

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { MenuItem, MenuItemProps } from '@newageerp/v3.bundles.modal-bundle'
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue } from '@newageerp/v3.templates.templates-core';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 import { filterScopes } from '../utils';
 import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';

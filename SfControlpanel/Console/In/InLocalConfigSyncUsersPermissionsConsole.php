@@ -29,7 +29,7 @@ class InLocalConfigSyncUsersPermissionsConsole extends Command
         $configPath = Utils::customFolderPath('config') . '/NaeSPermissions.tsx';
 
         $fileContent = "import React, { Fragment } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue } from '@newageerp/v3.templates.templates-core';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 
 export const checkUserPermission = (userState: any, permission: string) => {

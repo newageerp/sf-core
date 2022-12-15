@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import {TemplatesLoader, Template, useTemplatesLoader } from '@newageerp/v3.templates.templates-core'
 import { filterScopes } from '../utils';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue } from '@newageerp/v3.templates.templates-core';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 
 interface Props {

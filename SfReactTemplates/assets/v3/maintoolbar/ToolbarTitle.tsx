@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from 'react'
-import { useRecoilState } from 'recoil';
+import { useRecoilState } from '@newageerp/v3.templates.templates-core';
 import { UserSpaceWrapperToolbarState } from '../app/UserSpace/UserSpaceWrapperToolbar';
 
 interface Props {
