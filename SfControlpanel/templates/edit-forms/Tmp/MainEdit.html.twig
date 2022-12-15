@@ -143,9 +143,11 @@ export default function MainEdit(props: Props) {
     saveData({ ...element, skipRequiredCheck: props.skipRequiredCheck, requiredFields: props.requiredFields }, props.id).then((res: any) => {
       if (res) {
         if (res.error) {
-          toast.error(t("Klaida"));
+          // @ts-ignore
+          toast.error(t("Error"));
         } else {
-          toast.success(t("Išsaugota"));
+          // @ts-ignore
+          toast.success(t("Saved"));
 
           const backFunction = () => {
             if (props.onBack) {
