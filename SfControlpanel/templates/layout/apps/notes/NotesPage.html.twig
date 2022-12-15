@@ -1,9 +1,9 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { NotesPageToolbar } from '@newageerp/sfs.apps.apps-bundle'
-import { useRecoilState, useRecoilValue } from "@newageerp/v3.templates.templates-core";
+import { useRecoilValue } from "@newageerp/v3.templates.templates-core";
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
-import { UserSpaceWrapperToolbarState } from "../../v3/app/UserSpace/UserSpaceWrapperToolbar";
+import { MainToolbarTitle } from '@newageerp/v3.bundles.layout-bundle'
 import { LogoLoader } from "@newageerp/ui.ui-bundle";
 import NotesNameResolver, { NotesSchemaFix } from "../../_custom/models-cache-data/NotesNameResolver";
 import { PageContainer } from '@newageerp/ui.ui-bundle'
@@ -45,7 +45,6 @@ const defObject: IData = {
 
 
 export default function NotesPageContent() {
-    const [, setToolbarTitle] = useRecoilState(UserSpaceWrapperToolbarState)
     const userState: any = useRecoilValue(OpenApi.naeUserState);
 
     const [readAllR] = OpenApi.useURequest('NAENotesReadAll');
@@ -95,16 +94,13 @@ export default function NotesPageContent() {
         }
     }, [getDataParams.data]);
 
-    useEffect(() => {
-        setToolbarTitle(t('Comments'));
-    }, []);
-
     const parentElementCallack = (parentId: number, parentSchema: string) => {
         return (<NotesNameResolver parentId={parentId} parentSchema={parentSchema} />)
     }
 
     return (
         <Fragment>
+            <MainToolbarTitle title={t('Comments')} />
             <NotesPageToolbar
                 onReadAll={readAll}
                 onReload={loadData}

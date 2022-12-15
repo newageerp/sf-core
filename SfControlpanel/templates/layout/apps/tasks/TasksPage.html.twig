@@ -1,8 +1,7 @@
 import React, { useState, Fragment, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TasksPageToolbar } from '@newageerp/sfs.apps.apps-bundle'
-import { useRecoilState } from '@newageerp/v3.templates.templates-core';
-import { UserSpaceWrapperToolbarState } from '../../v3/app/UserSpace/UserSpaceWrapperToolbar';
+import { MainToolbarTitle } from '@newageerp/v3.bundles.layout-bundle'
 import moment from 'moment';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 import { Table, Th, Td } from '@newageerp/ui.ui-bundle';
@@ -93,15 +92,10 @@ const defObject: IData = {
 
 export default function TaskContent() {
     const { t } = useTranslation()
-    const [, setToolbarTitle] = useRecoilState(UserSpaceWrapperToolbarState)
 
     const [activeState, setActiveState] = useState(0)
     const [delegated, setDelegated] = useState(false);
     const [completed, setCompleted] = useState(0);
-
-    useEffect(() => {
-        setToolbarTitle(t('Užduotys'));
-    }, []);
 
     const [saveData, saveDataParams] = OpenApi.useUSave(moduleSchema)
     const onChange = (id: number, completed: boolean) => {
@@ -187,6 +181,7 @@ export default function TaskContent() {
 
     return (
         <Fragment>
+            <MainToolbarTitle title={t('Tasks')}/>
             {% if hasTasksApp %}
             <TasksPageToolbar
                 onCreate={createNewTask}

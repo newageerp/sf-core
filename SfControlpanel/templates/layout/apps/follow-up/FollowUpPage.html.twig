@@ -3,8 +3,7 @@ import { FollowupPageToolbar } from '@newageerp/sfs.apps.apps-bundle'
 import { useTranslation } from 'react-i18next';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 import moment from 'moment';
-import { useRecoilState } from '@newageerp/v3.templates.templates-core';
-import { UserSpaceWrapperToolbarState } from '../../v3/app/UserSpace/UserSpaceWrapperToolbar';
+import { MainToolbarTitle } from '@newageerp/v3.bundles.layout-bundle'
 import {TemplatesLoader} from '@newageerp/v3.templates.templates-core';
 import { getSchemaTitle } from '../../v3/utils';
 import { TabContainer } from "@newageerp/ui.ui-bundle";
@@ -13,7 +12,6 @@ import { WhiteCard } from '@newageerp/v3.bundles.widgets-bundle'
 export default function FollowUpPage() {
     const { t } = useTranslation();
     const [period, setPeriod] = useState(0);
-    const [, setToolbarTitle] = useRecoilState(UserSpaceWrapperToolbarState)
 
     const [getFollowUps, getFollowUpsData] = OpenApi.useUList("follow-up", ['parentId', 'onDate', 'parentSchema']);
     const [listSchema, setListSchema] = useState<any>()
@@ -101,10 +99,6 @@ export default function FollowUpPage() {
         )
     })
 
-    useEffect(() => {
-        setToolbarTitle(t('Follow up'));
-    }, []);
-
     const items: any[] = [];
     schemaComponents.forEach((comp: any, idX: number) => {
         items.push(
@@ -128,6 +122,7 @@ export default function FollowUpPage() {
 
     return (
         <Fragment>
+            <MainToolbarTitle title={t('Follow up')}/>
             <FollowupPageToolbar
                 period={
                 {

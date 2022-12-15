@@ -2,12 +2,12 @@ import { OpenApi } from '@newageerp/nae-react-auth-wrapper'
 import React, { useState, useEffect, Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useRecoilState, useRecoilValue } from '@newageerp/v3.templates.templates-core'
-import { UserSpaceWrapperToolbarState } from '../../v3/app/UserSpace/UserSpaceWrapperToolbar'
 import {TemplatesLoader} from '@newageerp/v3.templates.templates-core';
 import { getSchemaTitle } from '../../v3/utils'
 import { TabContainer } from "@newageerp/ui.ui-bundle";
 import { WhiteCard } from '@newageerp/v3.bundles.widgets-bundle'
 import { axiosInstance } from '../../v3/api/config'
+import { MainToolbarTitle } from '@newageerp/v3.bundles.layout-bundle'
 
 interface IFollow {
     id: number
@@ -25,8 +25,7 @@ export default function BookmarksPage() {
     const userState: any = useRecoilValue(OpenApi.naeUserState);
 
     const { t } = useTranslation()
-    const [, setToolbarTitle] = useRecoilState(UserSpaceWrapperToolbarState)
-
+    
     const [listSchema, setListSchema] = useState<any>()
 
     const loadData = () => {
@@ -74,10 +73,6 @@ export default function BookmarksPage() {
         )
     })
 
-    useEffect(() => {
-        setToolbarTitle(t('Bookmarks'));
-    }, []);
-
     const items: any[] = [];
     schemaComponents.forEach((comp: any, idX: number) => {
         items.push(
@@ -103,5 +98,10 @@ export default function BookmarksPage() {
         return <Fragment />
     }
 
-    return <WhiteCard isCompact={true}><TabContainer items={items} /></WhiteCard>;
+    return (<Fragment>
+        <MainToolbarTitle title={t('Bookmarks')} />
+        {items.length > 0 && 
+            <WhiteCard isCompact={true}><TabContainer items={items} /></WhiteCard>
+        }
+    </Fragment>);
 }
