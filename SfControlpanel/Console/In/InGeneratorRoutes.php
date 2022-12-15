@@ -31,14 +31,12 @@ class InGeneratorRoutes extends Command
 
         $appRouterTemplate = $twig->load('routes/app-router.html.twig');
         $routesWrapperTemplate = $twig->load('routes/routes-wrapper.html.twig');
-        $userSpaceWrapperTemplate = $twig->load('routes/user-space-wrapper.html.twig');
 
         $customEmptyTemplate = $twig->load('common/empty.html.twig');
 
         $generatedRoutesWrappersPath = Utils::generatedPath('routes/wrappers');
         $generatedRoutesPath = Utils::generatedPath('routes');
 
-        $customMenuPath = Utils::customFolderPath('menu');
         $customRoutesPath = Utils::customFolderPath('routes');
 
         $tabsFile = LocalConfigUtilsV3::getNaeSfsCpStoragePath() . '/tabs.json';
@@ -171,18 +169,6 @@ class InGeneratorRoutes extends Command
         // RoutesWrapper
         $generatedContent = $routesWrapperTemplate->render();
         $fileName = $generatedRoutesWrappersPath . '/RoutesWrapper.tsx';
-        Utils::writeOnChanges($fileName, $generatedContent);
-
-        // UserSpaceWrapper
-        $generatedContent = $userSpaceWrapperTemplate->render();
-        $fileName = $generatedRoutesWrappersPath . '/UserSpaceWrapper.tsx';
-        Utils::writeOnChanges($fileName, $generatedContent);
-
-        // UserSpaceWrapper TOOLBAR
-
-        $userSpaceWrapperToolbarTemplate = $twig->load('layout/user-space-wrapper-toolbar.html.twig');
-        $generatedContent = $userSpaceWrapperToolbarTemplate->render();
-        $fileName = Utils::generatedPath('layout/toolbar') . '/UserSpaceWrapperToolbar.tsx';
         Utils::writeOnChanges($fileName, $generatedContent);
 
         // Custom toolbar

@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from 'react'
 import { useRecoilState } from 'recoil';
-import { UserSpaceWrapperToolbarState } from '../../layout/toolbar/UserSpaceWrapperToolbar';
+import { UserSpaceWrapperToolbarState } from '../app/UserSpace/UserSpaceWrapperToolbar';
 
 interface Props {
     title: string;

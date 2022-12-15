@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
 import { LayoutLeftMenuToolbar } from "@newageerp/ui.ui-bundle";
-import UserSpaceWrapperToolbar from "../../layout/toolbar/UserSpaceWrapperToolbar";
+import UserSpaceWrapperToolbar from "./UserSpaceWrapperToolbar";
 import { TemplatesParser, useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
-import DataCacheSocketComponent from "../../_custom/hooks/DataCacheSocketComponent";
+import DataCacheSocketComponent from "../../../_custom/hooks/DataCacheSocketComponent";
 
 interface Props {
   children?: any;
