@@ -1,5 +1,4 @@
 import EventsHistoryWidget from "../../../apps/eventshistory/EventsHistoryWidget";
-import ViewTop from "../../../layout/view/ViewTop";
 import { INaeWidget, WidgetType } from "../../../v3/utils";
 
 export const BaseEntityWidgets: INaeWidget[] = [
@@ -9,12 +8,5 @@ export const BaseEntityWidgets: INaeWidget[] = [
         sort: 0,
         options: {},
         comp: EventsHistoryWidget
-    },
-    {
-        schema: 'all',
-        type: WidgetType.viewMainTop,
-        sort: 0,
-        options: {},
-        comp: ViewTop
     }
 ];

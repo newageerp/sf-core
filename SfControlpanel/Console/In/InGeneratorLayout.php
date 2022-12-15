@@ -50,17 +50,6 @@ class InGeneratorLayout extends Command
         $widgetsTemplate = $twig->load('layout/generated-widgets.html.twig');
         $widgetComponents = [];
 
-        // view top
-        $viewTopTemplate = $twig->load('layout/view-top.html.twig');
-        $generatedContent = $viewTopTemplate->render([
-            'showTasks' => class_exists('App\Entity\Task'),
-            'showRemind' => class_exists('App\Entity\FollowUp'),
-            'showBookmark' => class_exists('App\Entity\Bookmark'),
-        ]);
-        $fileName = Utils::generatedPath('layout/view') . '/ViewTop.tsx';
-        Utils::writeOnChanges($fileName, $generatedContent);
-
-
         // WIDGETS
 
         $fileName = Utils::generatedPath('layout') . '/GeneratedLayoutWidgets.tsx';
