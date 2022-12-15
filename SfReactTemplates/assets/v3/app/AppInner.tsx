@@ -5,7 +5,6 @@ import { Switch } from "react-router-dom";
 import { useDidMount } from '@newageerp/v3.bundles.hooks-bundle'
 import { NaeApiFunctions } from "../../_custom/config/NaePaths";
 import NavigationComponent, { SFSSocketService } from "../navigation/NavigationComponent";
-import { RoutesWrapper } from "../../routes/wrappers/RoutesWrapper";
 import AppRouter from "../../routes/wrappers/AppRouter";
 import { UIBuilderProvider } from "../old-ui/builder/OldUIBuilderProvider";
 import { DataCacheProvider } from "../../_custom/hooks/DataCacheProvider";
@@ -38,41 +37,36 @@ function AppInner() {
     }
 
     return (
-
-
-        <RoutesWrapper>
-            <AppRouter
-                authRoutes={
+        <AppRouter
+            authRoutes={
+                <Fragment>
+                    <UIBuilderProvider>
+                        <DataCacheProvider>
+                            <NaeWindowProvider>
+                                <UserSpaceWrapper>
+                                    <Switch>
+                                        <AppRoutes />
+                                    </Switch>
+                                    <Switch>
+                                        <CustomUserWrapperRoutes />
+                                    </Switch>
+                                </UserSpaceWrapper>
+                                <NavigationComponent />
+                            </NaeWindowProvider>
+                        </DataCacheProvider>
+                    </UIBuilderProvider>
+                </Fragment>
+            }
+            noAuthRoutes={(isLoggedIn) => {
+                return (
                     <Fragment>
-                        <UIBuilderProvider>
-                            <DataCacheProvider>
-                                <NaeWindowProvider>
-                                    <UserSpaceWrapper>
-                                        <Switch>
-                                            <AppRoutes />
-                                        </Switch>
-                                        <Switch>
-                                            <CustomUserWrapperRoutes />
-                                        </Switch>
-                                    </UserSpaceWrapper>
-                                    <NavigationComponent />
-                                </NaeWindowProvider>
-                            </DataCacheProvider>
-                        </UIBuilderProvider>
+                        {!isLoggedIn && redirectToLogin()}
                     </Fragment>
-                }
-                noAuthRoutes={(isLoggedIn) => {
-                    return (
-                        <Fragment>
-                            {!isLoggedIn && redirectToLogin()}
-                        </Fragment>
-                    )
-                }
+                )
+            }
 
-                }
-            />
-        </RoutesWrapper>
-
+            }
+        />
     );
 }
 

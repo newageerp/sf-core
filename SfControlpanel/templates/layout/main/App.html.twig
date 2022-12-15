@@ -2,11 +2,12 @@ import React from "react";
 import { TemplatesCoreProvider, TemplatesLoader } from "@newageerp/v3.templates.templates-core";
 import { componentsMap } from "../v3/templates/TemplateLoader";
 import { store } from "../_custom/models/ormstore";
+import i18n from "../_custom/lang/i18";
 
 function App() {
     
     return (
-        <TemplatesCoreProvider templatesMap={componentsMap} store={store}>
+        <TemplatesCoreProvider templatesMap={componentsMap} store={store} i18n={i18n}>
             <TemplatesLoader templateName="App" />
         </TemplatesCoreProvider>
     );
