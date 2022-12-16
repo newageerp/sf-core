@@ -23,13 +23,15 @@ class StaticEventsListener implements EventSubscriberInterface
     {
         $eventName = $event->getTemplateName();
 
-        foreach ($this->staticEvents as $staticEvent) {
-            if ($staticEvent['name'] === $eventName) {
-                $tpl = new CustomPluginTemplate(
-                    $staticEvent['template'],
-                    $staticEvent['data']
-                );
-                $event->getPlaceholder()->addTemplate($tpl);
+        foreach ($this->staticEvents as $staticEventGroup => $staticEvents) {
+            foreach ($staticEvents as $staticEvent) {
+                if ($staticEvent['name'] === $eventName) {
+                    $tpl = new CustomPluginTemplate(
+                        $staticEvent['template'],
+                        $staticEvent['data']
+                    );
+                    $event->getPlaceholder()->addTemplate($tpl);
+                }
             }
         }
     }
