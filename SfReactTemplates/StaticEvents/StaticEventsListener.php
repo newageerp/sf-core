@@ -29,7 +29,7 @@ class StaticEventsListener implements EventSubscriberInterface
                 if ($staticEvent['name'] === $eventName) {
                     $tpl = new CustomPluginTemplate(
                         $staticEvent['template'],
-                        $this->fixEventData($staticEvent['data'])
+                        $this->fixEventData($staticEvent['data'], $event->getData())
                     );
                     $event->getPlaceholder()->addTemplate($tpl);
                 }
