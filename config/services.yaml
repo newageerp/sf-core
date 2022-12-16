@@ -115,8 +115,8 @@ services:
   Newageerp\SfPushMessages\Service\FirebasePushService:
     arguments: []
 
-  Newageerp\SfReactTemplates\StaticTemplates\:
-    resource: '../SfReactTemplates/StaticTemplates/*'
+  Newageerp\SfReactTemplates\StaticEvents\:
+    resource: '../SfReactTemplates/StaticEvents/*'
     arguments: [ ]
 
 
