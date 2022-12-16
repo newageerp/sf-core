@@ -217,6 +217,15 @@ class TableService
                 ]
             );
             $this->eventDispatcher->dispatch($templateEvent, LoadTemplateEvent::NAME);
+
+            $templateEvent = new LoadTemplateEvent(
+                $listDataSource->getToolbar()->getToolbarRight(), 
+                'TableService.ToolbarRight.'.$schema,
+                [
+                    'schema' => $schema
+                ]
+            );
+            $this->eventDispatcher->dispatch($templateEvent, LoadTemplateEvent::NAME);
         }
 
         return $listDataSource;

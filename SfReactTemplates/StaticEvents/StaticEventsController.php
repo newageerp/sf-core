@@ -27,7 +27,6 @@ class StaticEventsController extends OaBaseController
         $data = $request->get('data');
         $groupName = $request->get('groupName');
 
-
         $staticEvents = LocalConfigUtilsV3::getCpConfigFileData('static-events');
         $staticEvents[$groupName] = $data;
 
