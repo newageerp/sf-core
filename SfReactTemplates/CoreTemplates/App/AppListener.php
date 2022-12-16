@@ -39,7 +39,7 @@ class AppListener implements EventSubscriberInterface
                     'event' => 'App.UserSpaceWrapper.ToolbarMenu'
                 ],
                 [
-                    'placeholder' => $app->getUserSpaceWrapperToolbarButtons(),
+                    'placeholder' => $app->getUserSpaceWrapperToolbarButtons()->getChildren(),
                     'event' => 'App.UserSpaceWrapper.ToolbarButtons'
                 ]
             ];
