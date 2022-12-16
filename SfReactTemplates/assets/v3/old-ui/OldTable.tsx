@@ -1,6 +1,6 @@
 import React from 'react'
 import { useMemo } from 'react'
-import { useLocation } from 'react-router-dom';
+import { useLocation } from '@newageerp/v3.templates.templates-core';
 
 
 interface Props {

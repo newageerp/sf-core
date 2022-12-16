@@ -14,6 +14,7 @@ class App extends Template
     {
         $this->userSpaceWrapperLeft = new Placeholder();
         $this->userSpaceWrapperToolbarMenu = new Placeholder();
+        $this->userSpaceWrapperToolbarButtons = new Placeholder();
     }
 
     public function getTemplateName(): string

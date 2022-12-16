@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams } from "@newageerp/v3.templates.templates-core";
 import {TemplatesLoader} from '@newageerp/v3.templates.templates-core';
 
 interface ParamTypes {

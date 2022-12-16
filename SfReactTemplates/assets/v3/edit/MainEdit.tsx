@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react'
 
-import { useLocation } from 'react-router-dom'
+import { useLocation } from '@newageerp/v3.templates.templates-core'
 import { useTranslation } from 'react-i18next'
 import { TemplatesLoader, useTemplatesLoader, toast } from '@newageerp/v3.templates.templates-core';
 import { fieldVisibility, IFieldVisibility, resetFieldsToDefValues } from "../../_custom/fields/fieldVisibility";

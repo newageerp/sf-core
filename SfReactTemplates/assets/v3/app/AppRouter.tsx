@@ -1,6 +1,6 @@
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 import React, { useEffect, useState } from 'react'
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Switch } from '@newageerp/v3.templates.templates-core';
 import axios from 'axios'
 import { useRecoilState } from '@newageerp/v3.templates.templates-core';
 import {useDidMount} from '@newageerp/v3.bundles.hooks-bundle'
