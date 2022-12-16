@@ -50,11 +50,13 @@ export default function ListToolbarBookmark(props: Props) {
         }
     }
 
-    if (data.length === 0) {
-        return <Fragment />
-    }
-
     return (
-        <ToolbarButton iconName='bookmark' bgColor={isActiveFilter ? 'tw3-bg-teal-50' : undefined} textColor={isActiveFilter ? 'tw3-text-teal-700' : undefined} onClick={toggleFilter} />
+        <ToolbarButton
+            iconName='bookmark'
+            bgColor={isActiveFilter ? 'tw3-bg-teal-50' : undefined}
+            textColor={isActiveFilter ? 'tw3-text-teal-700' : undefined}
+            onClick={toggleFilter} 
+            disabled={data.length === 0}
+            />
     )
 }

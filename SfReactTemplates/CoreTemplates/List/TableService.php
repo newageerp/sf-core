@@ -20,6 +20,8 @@ use Newageerp\SfReactTemplates\Template\Template;
 
 use Newageerp\SfReactTemplates\CoreTemplates\Tabs\TabContainer;
 use Newageerp\SfReactTemplates\CoreTemplates\Tabs\TabContainerItem;
+use Newageerp\SfReactTemplates\Event\LoadTemplateEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class TableService
 {
@@ -40,18 +42,22 @@ class TableService
 
     protected PropertiesUtilsV3 $propertiesUtilsV3;
 
+    protected EventDispatcherInterface $eventDispatcher;
+
     public function __construct(
         TableHeaderService $tableHeaderService,
         TableRowService $tableRowService,
         TabsUtilsV3 $tabsUtilsV3,
         EntitiesUtilsV3 $entitiesUtilsV3,
         PropertiesUtilsV3 $propertiesUtilsV3,
+        EventDispatcherInterface $eventDispatcher,
     ) {
         $this->tableHeaderService = $tableHeaderService;
         $this->tableRowService = $tableRowService;
         $this->tabsUtilsV3 = $tabsUtilsV3;
         $this->entitiesUtilsV3 = $entitiesUtilsV3;
         $this->propertiesUtilsV3 = $propertiesUtilsV3;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function buildListDataSourceWithToolbar(
@@ -210,6 +216,15 @@ class TableService
                     AuthService::getInstance()->getUser()->getId()
                 )
             );
+
+            $templateEvent = new LoadTemplateEvent(
+                $listDataSource->getToolbar()->getToolbarRight(), 
+                'TableService.ToolbarRight',
+                [
+                    'schema' => $schema
+                ]
+            );
+            $this->eventDispatcher->dispatch($templateEvent, LoadTemplateEvent::NAME);
         }
 
         return $listDataSource;

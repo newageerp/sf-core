@@ -2,6 +2,7 @@
 
 namespace Newageerp\SfReactTemplates\StaticEvents;
 
+use Newageerp\SfAuth\Service\AuthService;
 use Newageerp\SfControlpanel\Console\LocalConfigUtilsV3;
 use Newageerp\SfReactTemplates\CoreTemplates\CustomPluginTemplate;
 use Newageerp\SfReactTemplates\Event\LoadTemplateEvent;
@@ -28,12 +29,28 @@ class StaticEventsListener implements EventSubscriberInterface
                 if ($staticEvent['name'] === $eventName) {
                     $tpl = new CustomPluginTemplate(
                         $staticEvent['template'],
-                        $staticEvent['data']
+                        $this->fixEventData($staticEvent['data'])
                     );
                     $event->getPlaceholder()->addTemplate($tpl);
                 }
             }
         }
+    }
+
+    protected function fixEventData(array $data, array $eventData)
+    {
+        $_data = [];
+        foreach ($data as $key => $el) {
+            if (mb_strpos($el, '_eventData') !== false) {
+                $keyPart = explode('.', $el);
+                $_data[$key] = $eventData[$keyPart[1]];
+            } else if ($el === '_user.id') {
+                $_data[$key] = AuthService::getInstance()->getUser()->getId();
+            } else {
+                $_data[$key] = $el;
+            }
+        }
+        return $_data;
     }
 
     public static function getSubscribedEvents()
