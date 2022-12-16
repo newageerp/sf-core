@@ -43,7 +43,12 @@ class StaticEventsListener implements EventSubscriberInterface
         foreach ($data as $key => $el) {
             if (mb_strpos($el, '_eventData') !== false) {
                 $keyPart = explode('.', $el);
-                $_data[$key] = $eventData[$keyPart[1]];
+
+                if ($keyPart[1] === 'id') {
+                    $_data[$key] = (int)$eventData[$keyPart[1]];
+                } else {
+                    $_data[$key] = $eventData[$keyPart[1]];
+                }
             } else if ($el === '_user.id') {
                 $_data[$key] = AuthService::getInstance()->getUser()->getId();
             } else {
