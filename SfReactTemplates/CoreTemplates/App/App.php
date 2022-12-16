@@ -34,7 +34,7 @@ class App extends Template
         return [
             'userSpaceWrapperLeft' => $this->userSpaceWrapperLeft->toArray(),
             'userSpaceWrapperToolbarMenu' => $this->userSpaceWrapperToolbarMenu->toArray(),
-            'userSpaceWrapperToolbarButtons' => $this->userSpaceWrapperToolbarButtons->toArray(),
+            'userSpaceWrapperToolbarButtons' => [$this->userSpaceWrapperToolbarButtons->toArray()],
         ];
     }
 
