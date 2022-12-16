@@ -209,14 +209,6 @@ class TableService
                 new ToolbarDetailedSearch($schema)
             );
 
-            // BOOKMARKS
-            $listDataSource->getToolbar()->getToolbarRight()->addTemplate(
-                new ToolbarBookmark(
-                    $schema,
-                    AuthService::getInstance()->getUser()->getId()
-                )
-            );
-
             $templateEvent = new LoadTemplateEvent(
                 $listDataSource->getToolbar()->getToolbarRight(), 
                 'TableService.ToolbarRight',
