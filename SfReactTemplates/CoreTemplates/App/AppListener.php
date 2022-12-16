@@ -2,6 +2,7 @@
 
 namespace Newageerp\SfReactTemplates\CoreTemplates\App;
 
+use Newageerp\SfControlpanel\Console\LocalConfigUtilsV3;
 use Newageerp\SfReactTemplates\CoreTemplates\Modal\MenuDivider;
 use Newageerp\SfReactTemplates\CoreTemplates\Modal\MenuItemWithLink;
 use Newageerp\SfReactTemplates\CoreTemplates\Modal\MenuItemWithLogout;
@@ -36,6 +37,10 @@ class AppListener implements EventSubscriberInterface
                 [
                     'placeholder' => $app->getUserSpaceWrapperToolbarMenu(),
                     'event' => 'App.UserSpaceWrapper.ToolbarMenu'
+                ],
+                [
+                    'placeholder' => $app->getUserSpaceWrapperToolbarButtons(),
+                    'event' => 'App.UserSpaceWrapper.ToolbarButtons'
                 ]
             ];
 

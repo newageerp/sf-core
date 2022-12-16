@@ -4,6 +4,15 @@ namespace Newageerp\SfControlpanel\Console;
 
 class LocalConfigUtilsV3
 {
+    public static function getCpConfigFileData(string $file)
+    {
+        $file = self::getNaeSfsCpStoragePath() . '/' . $file . '.json';
+        if (!file_exists($file)) {
+            file_put_contents($file, json_encode([]));
+        }
+        return json_decode(file_get_contents($file), true);
+    }
+    
     public static function getConfigCpPath()
     {
         return self::getNaeSfsCpStoragePath();

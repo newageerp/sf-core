@@ -2,6 +2,7 @@
 
 namespace Newageerp\SfReactTemplates\CoreTemplates\App;
 
+use Newageerp\SfReactTemplates\CoreTemplates\MainToolbar\MainToolbarButtonsPlace;
 use Newageerp\SfReactTemplates\Template\Placeholder;
 use Newageerp\SfReactTemplates\Template\Template;
 
@@ -9,12 +10,13 @@ class App extends Template
 {
     protected Placeholder $userSpaceWrapperLeft;
     protected Placeholder $userSpaceWrapperToolbarMenu;
+    protected MainToolbarButtonsPlace $userSpaceWrapperToolbarButtons;
 
     public function __construct()
     {
         $this->userSpaceWrapperLeft = new Placeholder();
         $this->userSpaceWrapperToolbarMenu = new Placeholder();
-        $this->userSpaceWrapperToolbarButtons = new Placeholder();
+        $this->userSpaceWrapperToolbarButtons = new MainToolbarButtonsPlace();
     }
 
     public function getTemplateName(): string
@@ -32,6 +34,7 @@ class App extends Template
         return [
             'userSpaceWrapperLeft' => $this->userSpaceWrapperLeft->toArray(),
             'userSpaceWrapperToolbarMenu' => $this->userSpaceWrapperToolbarMenu->toArray(),
+            'userSpaceWrapperToolbarButtons' => $this->userSpaceWrapperToolbarButtons->toArray(),
         ];
     }
 
@@ -79,6 +82,30 @@ class App extends Template
     public function setUserSpaceWrapperToolbarMenu(Placeholder $userSpaceWrapperToolbarMenu): self
     {
         $this->userSpaceWrapperToolbarMenu = $userSpaceWrapperToolbarMenu;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of userSpaceWrapperToolbarButtons
+     *
+     * @return MainToolbarButtonsPlace
+     */
+    public function getUserSpaceWrapperToolbarButtons(): MainToolbarButtonsPlace
+    {
+        return $this->userSpaceWrapperToolbarButtons;
+    }
+
+    /**
+     * Set the value of userSpaceWrapperToolbarButtons
+     *
+     * @param MainToolbarButtonsPlace $userSpaceWrapperToolbarButtons
+     *
+     * @return self
+     */
+    public function setUserSpaceWrapperToolbarButtons(MainToolbarButtonsPlace $userSpaceWrapperToolbarButtons): self
+    {
+        $this->userSpaceWrapperToolbarButtons = $userSpaceWrapperToolbarButtons;
 
         return $this;
     }
