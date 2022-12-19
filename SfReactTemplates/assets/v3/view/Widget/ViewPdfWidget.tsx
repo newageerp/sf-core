@@ -141,7 +141,7 @@ export const ViewPdfItem = (props: PdfItemProps) => {
             id: props.id,
             pdf: true,
             schema: props.schema,
-            template: 'pdf',
+            template: props.template,
         };
 
         if (!pdfData) {

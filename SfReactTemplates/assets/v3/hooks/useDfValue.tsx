@@ -70,13 +70,13 @@ export function useDfValue(props: Props) {
       : -1
   );
 
-  if (depth === 3) {
-    console.log({
-      element,
-      element2,
-      element3,
-    })
-  }
+  // if (depth === 3) {
+  //   console.log({
+  //     element,
+  //     element2,
+  //     element3,
+  //   })
+  // }
 
   if (depth === 3) {
     if (!element3) {
@@ -107,70 +107,78 @@ export function useDfValue(props: Props) {
 interface DfValueViewProps extends Props {
   link?: boolean,
   extra?: any,
+  as?: string,
 }
 
 export function DfValueView(props: DfValueViewProps) {
 
   let component = <Fragment />
   const property = getPropertyForPath(props.path);
-  if (property?.naeType === 'status') {
+
+  if (!property) {
+    return <Fragment />
+  }
+
+  const naeType = props.as ? props.as : property?.naeType;
+
+  if (naeType === 'status') {
     component = <StatusDfRoField id={props.id} schema={property.schema} fieldKey={props.path} />
   }
-  if (property?.naeType === 'file') {
+  if (naeType === 'file') {
     component = <FileDfRoField id={props.id} fieldKey={props.path} />
   }
-  if (property?.naeType === 'fileMultiple') {
+  if (naeType === 'fileMultiple') {
     component = <FileMultipleDfRoField id={props.id} fieldKey={props.path} />
   }
-  if (property?.naeType === 'color') {
+  if (naeType === 'color') {
     component = <ColorDfRoField id={props.id} fieldKey={props.path} />
   }
-  if (property?.naeType === 'image') {
+  if (naeType === 'image') {
     component = <ImageDfRoField id={props.id} fieldKey={props.path} />
   }
-  if (property?.naeType === 'audio') {
+  if (naeType === 'audio') {
     component = <AudioDfRoField id={props.id} fieldKey={props.path} />
   }
-  if (property?.naeType === 'object') {
+  if (naeType === 'object') {
     component = <ObjectDfRoField id={props.id} fieldKey={props.path} />
   }
-  if (property?.naeType === 'string_array') {
+  if (naeType === 'string_array') {
     component = <StringArrayDfRoField id={props.id} fieldKey={props.path} />
   }
-  if (property?.naeType === 'float') {
+  if (naeType === 'float') {
     component = <FloatDfRoField id={props.id} fieldKey={props.path} />
   }
-  if (property?.naeType === 'number') {
+  if (naeType === 'number') {
     component = <NumberDfRoField id={props.id} fieldKey={props.path} />
   }
-  if (property?.naeType === 'date') {
+  if (naeType === 'date') {
     component = <DateDfRoField id={props.id} fieldKey={props.path} />
   }
-  if (property?.naeType === 'datetime') {
+  if (naeType === 'datetime') {
     component = <DateTimeDfRoField id={props.id} fieldKey={props.path} />
   }
-  if (property?.naeType === 'bool') {
+  if (naeType === 'bool') {
     component = <BoolDfRoField id={props.id} fieldKey={props.path} />
   }
-  if (property?.naeType === 'text') {
+  if (naeType === 'text') {
     component = <LargeTextDfRoField id={props.id} fieldKey={props.path} />
   }
-  if (property?.naeType === 'enum_multi_number') {
+  if (naeType === 'enum_multi_number') {
     component = <EnumMultiNumberDfRoField id={props.id} fieldKey={props.path} />
   }
-  if (property?.naeType === 'enum_multi_text') {
+  if (naeType === 'enum_multi_text') {
     component = <EnumMultiTextDfRoField id={props.id} fieldKey={props.path} />
   }
-  if (property?.naeType === 'enum_text') {
+  if (naeType === 'enum_text') {
     component = <EnumTextDfRoField id={props.id} fieldKey={props.path} />
   }
-  if (property?.naeType === 'enum_number') {
+  if (naeType === 'enum_number') {
     component = <EnumNumberDfRoField id={props.id} fieldKey={props.path} />
   }
-  if (property?.naeType === 'array') {
+  if (naeType === 'array') {
     component = <ArrayDfRoField id={props.id} fieldKey={props.path} />
   }
-  if (property?.naeType === 'string') {
+  if (naeType === 'string') {
     component = <StringDfRoField id={props.id} fieldKey={props.path} {...props.extra} />
   }
   if (!component) {

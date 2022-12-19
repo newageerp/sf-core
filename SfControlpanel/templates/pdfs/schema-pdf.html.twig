@@ -127,7 +127,7 @@ export const {{ compName }}Item = (props: {{ compName }}ItemProps) => {
                             id: props.id,
                             pdf: true,
                             schema: '{{ schema }}',
-                            template: 'pdf',
+                            template: props.template,
                         }
                     }
                     files={
