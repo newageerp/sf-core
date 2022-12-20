@@ -12,7 +12,6 @@ import { NaeWindowProvider } from "../old-ui/OldNaeWindowProvider";
 import UserSpaceWrapper from "./UserSpace/UserSpaceWrapper";
 import AppRoutes from "../../routes/AppRoutes";
 import CustomUserWrapperRoutes from "../../_custom/routes/CustomUserWrapperRoutes";
-import { NaeNavigationProvider } from "../../../core/navigation/NaeNavigation";
 
 function AppInner() {
     const [isLoaded, setIsLoaded] = useState(false);
@@ -45,14 +44,14 @@ function AppInner() {
                         <DataCacheProvider>
                             <NaeWindowProvider>
                                 <UserSpaceWrapper>
-                                    <NaeNavigationProvider>
-                                        <Switch>
-                                            <AppRoutes />
-                                        </Switch>
-                                        <Switch>
-                                            <CustomUserWrapperRoutes />
-                                        </Switch>
-                                    </NaeNavigationProvider>
+
+                                    <Switch>
+                                        <AppRoutes />
+                                    </Switch>
+                                    <Switch>
+                                        <CustomUserWrapperRoutes />
+                                    </Switch>
+
                                 </UserSpaceWrapper>
                                 <NavigationComponent />
                             </NaeWindowProvider>
@@ -61,10 +60,11 @@ function AppInner() {
                 </Fragment>
             }
             noAuthRoutes={(isLoggedIn) => {
+                if (!isLoggedIn) {
+                    redirectToLogin();
+                }
                 return (
-                    <Fragment>
-                        {!isLoggedIn && redirectToLogin()}
-                    </Fragment>
+                    <Fragment></Fragment>
                 )
             }
 
