@@ -81,6 +81,11 @@ class MenuService
                     )
                 );
             }
+            if ($item['__component'] === 'menu.divider') {
+                $placeholder->addTemplate(
+                    new MenuDivider()
+                );
+            }
         }
     }
 
