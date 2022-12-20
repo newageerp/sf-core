@@ -6,9 +6,13 @@ import i18n from "../../_custom/lang/i18";
 
 function App() {
     
+    const redirectToLogin = () => {
+        window.location.href = '/login/';
+    }
+
     return (
         <TemplatesCoreProvider templatesMap={componentsMap} store={store} i18n={i18n}>
-            <TemplatesLoader templateName="App" />
+            <TemplatesLoader templateName="App" onError={redirectToLogin} />
         </TemplatesCoreProvider>
     );
 }

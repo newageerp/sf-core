@@ -197,6 +197,7 @@ export default function NavigationComponent() {
 
       {!!confirmationProps && (
         <ConfirmationPopup
+          zIndex={450}
           {...confirmationProps}
           onClick={() => setConfirmationProps(undefined)}
           isPopup={true}
