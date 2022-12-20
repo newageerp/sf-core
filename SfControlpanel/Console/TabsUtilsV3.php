@@ -16,11 +16,13 @@ class TabsUtilsV3
 
     public function getTabToolbarTitle(string $schema, string $type): string
     {
+        $schemaTitle = $this->entitiesUtilsV3->getTitlePluralBySlug($schema);
+
         $tab = $this->getTabBySchemaAndType($schema, $type);
         if ($tab && isset($tab['title']) && $tab['title']) {
-            return $tab['title'];
+            return $schemaTitle . ' - ' . $tab['title'];
         }
-        return $this->entitiesUtilsV3->getTitlePluralBySlug($schema);
+        return $schemaTitle;
     }
 
     public function getTabBySchemaAndType(string $schema, string $type): ?array
