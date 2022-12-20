@@ -14,6 +14,15 @@ class TabsUtilsV3
         $this->tabs = LocalConfigUtils::getCpConfigFileData('tabs');
     }
 
+    public function getTabToolbarTitle(string $schema, string $type): string
+    {
+        $tab = $this->getTabBySchemaAndType($schema, $type);
+        if ($tab && isset($tab['title']) && $tab['title']) {
+            return $tab['title'];
+        }
+        return $this->entitiesUtilsV3->getTitlePluralBySlug($schema);
+    }
+
     public function getTabBySchemaAndType(string $schema, string $type): ?array
     {
         $tabsF = array_filter(

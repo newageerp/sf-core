@@ -2,19 +2,13 @@
 
 namespace Newageerp\SfReactTemplates\CoreTemplates\List;
 
-use Newageerp\SfAuth\Service\AuthService;
 use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 use Newageerp\SfControlpanel\Console\TabsUtilsV3;
 use Newageerp\SfReactTemplates\CoreTemplates\List\Toolbar\ToolbarDetailedSearch;
-use Newageerp\SfReactTemplates\CoreTemplates\List\Toolbar\ToolbarExport;
-use Newageerp\SfReactTemplates\CoreTemplates\List\Toolbar\ToolbarNewButton;
 use Newageerp\SfReactTemplates\CoreTemplates\List\Toolbar\ToolbarQs;
 use Newageerp\SfReactTemplates\CoreTemplates\List\Toolbar\ToolbarSort;
-use Newageerp\SfReactTemplates\CoreTemplates\List\Toolbar\ToolbarTabSwitch;
 use Newageerp\SfReactTemplates\CoreTemplates\MainToolbar\MainToolbarTitle;
 use Newageerp\SfReactTemplates\CoreTemplates\Popup\PopupWindow;
-use Newageerp\SfReactTemplates\CoreTemplates\Tabs\TabContainer;
-use Newageerp\SfReactTemplates\CoreTemplates\Tabs\TabContainerItem;
 use Newageerp\SfReactTemplates\Event\LoadTemplateEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -63,16 +57,16 @@ class ListContentListener implements EventSubscriberInterface
                 $event->getData()['type'],
             );
             $listDataSource->setScrollToHeaderOnLoad(true);
-            
+
             $pageMainListToolbarMiddleContent = new LoadTemplateEvent($listDataSource->getToolbar()->getToolbarMiddle(), 'PageMainListToolbarMiddleContent', $event->getData());
             $this->eventDispatcher->dispatch($pageMainListToolbarMiddleContent, LoadTemplateEvent::NAME);
-            
+
             $pageMainListToolbarLeftContent = new LoadTemplateEvent($listDataSource->getToolbar()->getToolbarLeft(), 'PageMainListToolbarLeftContent', $event->getData());
             $this->eventDispatcher->dispatch($pageMainListToolbarLeftContent, LoadTemplateEvent::NAME);
 
             $pageMainListToolbarRightContent = new LoadTemplateEvent($listDataSource->getToolbar()->getToolbarRight(), 'PageMainListToolbarRightContent', $event->getData());
             $this->eventDispatcher->dispatch($pageMainListToolbarRightContent, LoadTemplateEvent::NAME);
-            
+
             $listContent->getChildren()->addTemplate($listDataSource);
 
             if ($isPopup) {
@@ -82,7 +76,12 @@ class ListContentListener implements EventSubscriberInterface
             } else {
                 $event->getPlaceholder()->addTemplate($listContent);
 
-                $toolbarTitle = new MainToolbarTitle($this->entitiesUtilsV3->getTitlePluralBySlug($event->getData()['schema']));
+                $toolbarTitle = new MainToolbarTitle(
+                    $this->tabsUtilsV3->getTabToolbarTitle(
+                        $event->getData()['schema'],
+                        $event->getData()['type'],
+                    )
+                );
                 $event->getPlaceholder()->addTemplate($toolbarTitle);
             }
         }
