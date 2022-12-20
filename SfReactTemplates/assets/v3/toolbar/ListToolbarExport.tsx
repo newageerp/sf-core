@@ -37,6 +37,15 @@ export function ListToolbarExport(props: ExportContainerProps) {
 
     const [getData, getDataParams] = OpenApi.useURequest('NAEUExport');
 
+    let canUpload = false;
+    props.exports.forEach(m => {
+        m.columns.forEach(f => {
+            if (f.allowEdit) {
+                canUpload = true;
+            }
+        })
+    })
+
     const doDownload = (ex: ITabExport) => {
         let fieldsToReturn: string[] = [];
 
@@ -112,19 +121,22 @@ export function ListToolbarExport(props: ExportContainerProps) {
                 }}
             />
 
-            <ToolbarButton
-                iconName='file-import'
-                onClick={() => {
-                    if (ref && ref.current) {
-                        // @ts-ignore
-                        ref.current.click();
-                    }
-                }}
-                title={t('Importuoti')}
-            />
+            {!!canUpload && <Fragment>
+                <ToolbarButton
+                    iconName='file-import'
+                    onClick={() => {
+                        if (ref && ref.current) {
+                            // @ts-ignore
+                            ref.current.click();
+                        }
+                    }}
+                    title={t('Import')}
+                />
 
-            {/* @ts-ignore */}
-            <input ref={ref} type={'file'} onChange={doUpload} style={{ display: 'none' }} />
+                {/* @ts-ignore */}
+                <input ref={ref} type={'file'} onChange={doUpload} style={{ display: 'none' }} />
+            </Fragment>}
+
 
         </Fragment>
     );
