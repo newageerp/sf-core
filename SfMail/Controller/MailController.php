@@ -82,6 +82,9 @@ class MailController extends OaBaseController
             $extraData = $request->get('extraData');
 
             $type = $extraData['type'] ?? '';
+            if (!$type) {
+                $type = $extraData['template'] ?? '';
+            }
             $parentId = $extraData['id'] ?? 0;
             $parentSchema = $extraData['schema'] ?? 0;
 
