@@ -22,13 +22,13 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Newageerp\SfSocket\Service\SocketService;
 use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
 use Newageerp\SfS3Client\SfS3Client;
+use Newageerp\SfXlsx\Service\XlsxService;
+
 /**
  * @Route(path="/app/nae-core/export")
  */
 class ExportController extends UControllerBase
 {
-    protected array $letters = [];
-
     protected array $headerStyle = [
         'font' => [
             'bold' => true,
@@ -51,7 +51,6 @@ class ExportController extends UControllerBase
     public function __construct(EntityManagerInterface $em, EventDispatcherInterface $eventDispatcher, SocketService $socketService)
     {
         parent::__construct($em, $eventDispatcher, $socketService);
-        $this->letters = ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z'];
     }
 
     /**
@@ -145,13 +144,13 @@ class ExportController extends UControllerBase
                 }
 
                 $title = $field['title'];
-                $sheet->setCellValue($this->letters[$col] . '3', $title);
+                $sheet->setCellValue(XlsxService::getLetters()[$col] . '3', $title);
 
                 if (isset($field['allowEdit']) && $field['allowEdit']) {
-                    $sheet->setCellValue($this->letters[$col] . '2', $fieldKey);
+                    $sheet->setCellValue(XlsxService::getLetters()[$col] . '2', $fieldKey);
 
                     $sheet
-                        ->getStyle($this->letters[$col] . '2:' . $this->letters[$col] . ($recordsCount + 3))
+                        ->getStyle(XlsxService::getLetters()[$col] . '2:' . XlsxService::getLetters()[$col] . ($recordsCount + 3))
                         ->getFill()
                         ->setFillType(Fill::FILL_SOLID)
                         ->getStartColor()
@@ -198,12 +197,7 @@ class ExportController extends UControllerBase
                 $row++;
                 $pivotRow++;
             }
-
-            foreach ($this->letters as $letter) {
-                if ($letter) {
-                    $sheet->getColumnDimension($letter)->setAutoSize(true);
-                }
-            }
+            XlsxService::autoSizeSheet($sheet);
 
             if ($hasPivot) {
                 $pivotRowTitle = '';
@@ -211,7 +205,7 @@ class ExportController extends UControllerBase
                 $pivotTotalTitles = [];
                 $pivotTotalIndexes = [];
                 $pivotTotalTypes = [];
-                
+
 
                 $pivotRowIndex = -1;
                 $pivotColIndex = -1;
@@ -301,22 +295,10 @@ class ExportController extends UControllerBase
                         }
                     }
                 }
-
-                foreach ($this->letters as $letter) {
-                    if ($letter) {
-                        $pivotSheet->getColumnDimension($letter)->setAutoSize(true);
-                    }
-                }
+                XlsxService::autoSizeSheet($pivotSheet);
             }
-
-            $tmpFile = '/tmp/'.time().'.xlsx';
-
-            $writer = new Xlsx($spreadsheet);
-            $writer->save($tmpFile);
-
-            $contents = base64_encode(file_get_contents($tmpFile));
-            unlink($tmpFile);
-            $url = SfS3Client::saveBase64File('xlsx/export/tmp/'.$fileName, $contents, 'public-read');
+            
+            $url = XlsxService::saveSpreadsheetToFile($spreadsheet, $fileName);
 
             return $this->json([
                 'url' => $url
