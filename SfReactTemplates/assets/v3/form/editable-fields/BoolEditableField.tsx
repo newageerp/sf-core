@@ -22,11 +22,11 @@ export default function BoolEditableField(props: Props) {
   const options = [
     {
       value: 10,
-      label: t("Taip"),
+      label: t("Yes"),
     },
     {
       value: 20,
-      label: t("Ne"),
+      label: t("No"),
     },
   ];
 

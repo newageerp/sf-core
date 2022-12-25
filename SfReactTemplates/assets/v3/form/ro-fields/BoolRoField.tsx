@@ -20,6 +20,6 @@ export default function BoolRoField(props: Props) {
   const value = element[props.fieldKey];
 
   return (
-    <StatusWidget color={value ? "teal" : "slate"}>{value ? t("Taip") : t("Ne")}</StatusWidget>
+    <StatusWidget color={value ? "teal" : "slate"}>{value ? t("Yes") : t("No")}</StatusWidget>
   )
 }

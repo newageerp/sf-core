@@ -13,6 +13,6 @@ export default function BoolDfRoField(props: Props) {
   const { t } = useTranslation();
   
   return (
-    <StatusWidget color={value ? "teal" : "slate"}>{value ? t("Taip") : t("Ne")}</StatusWidget>
+    <StatusWidget color={value ? "teal" : "slate"}>{value ? t("Yes") : t("No")}</StatusWidget>
   )
 }
