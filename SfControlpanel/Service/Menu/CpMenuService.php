@@ -9,7 +9,7 @@ class CpMenuService {
 
     public function generate() {
         // NEW
-        $host = isset($_ENV['STRAPI_URL']) ? $_ENV['STRAPI_URL'] : 'http://192.168.8.117:7671';
+        $host = isset($_ENV['STRAPI_URL']) ? $_ENV['STRAPI_URL'] : 'http://192.168.0.117:7671';
 
         $url = $host.'/api/projects?populate=deep,10&filters[Slug]=' . $_ENV['SFS_STRAPI_PROJECT'];
 
