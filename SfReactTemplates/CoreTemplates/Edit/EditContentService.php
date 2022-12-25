@@ -283,7 +283,7 @@ class EditContentService
                             }
                             if ($naeType === 'object') {
                                 $objectProp = $this->propertiesUtilsV3->getPropertyForPath($field['path']);
-                                $propAs = $prop['customAs'] ? $prop['customAs'] : $prop['as'];
+                                $propAs = isset($prop['customAs']) && $prop['customAs'] ? $prop['customAs'] : $prop['as'];
 
                                 $objectField = new ObjectEditableField(
                                     $pathArray[1],
