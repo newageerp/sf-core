@@ -283,6 +283,7 @@ class EditContentService
                             }
                             if ($naeType === 'object') {
                                 $objectProp = $this->propertiesUtilsV3->getPropertyForPath($field['path']);
+                                $propAs = $prop['customAs'] ? $prop['customAs'] : $prop['as'];
 
                                 $objectField = new ObjectEditableField(
                                     $pathArray[1],
@@ -290,7 +291,7 @@ class EditContentService
                                     $pathArray[2],
                                     $objectProp['entity']
                                 );
-                                $objectField->setAs($prop['as']);
+                                $objectField->setAs($propAs);
                                 if (isset($field['fieldDependency']) && $field['fieldDependency']) {
                                     $objectField->setFieldDependency($field['fieldDependency']);
                                 }
