@@ -51,6 +51,17 @@ class SfSocketListener
                 'body' => time()
             ]
         );
+        $this->socketService->addToPool(
+            [
+                'room' => 'all',
+                'action' => 'data-update-all',
+                'body' => [
+                    'id' => $entity->getId(),
+                    'schema' => $class
+                ]
+
+            ]
+        );
     }
 
     public function postUpdate(LifecycleEventArgs $args)
