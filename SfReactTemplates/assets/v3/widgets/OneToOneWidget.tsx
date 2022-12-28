@@ -7,6 +7,7 @@ import { TemplatesLoader } from '@newageerp/v3.templates.templates-core';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 import { getPropertyForPath } from '../utils';
 import { useDfValue } from '../hooks/useDfValue';
+import { Tooltip } from '@newageerp/v3.bundles.badges-bundle';
 
 type Props = {
     path: string,
@@ -69,6 +70,7 @@ export default function OneToOneWidget(props: Props) {
         <WhiteCard isCompact={true}>
             <div className='tw3-flex tw3-items-center tw3-gap-2'>
                 <TextCardTitle className='tw3-flex-grow'>{t(property.title)}</TextCardTitle>
+                {!!property.description && <Tooltip text={property.description} />}
                 {!dfValue && <ToolbarButton iconName='plus' onClick={onCreate} />}
                 {!!dfValue && <ToolbarButton iconName='edit' onClick={onEdit} />}
                 {!!dfValue && <ToolbarButton loading={doRemoveParams.loading} confirmation={true} iconName='trash' onClick={onRemove} />}
