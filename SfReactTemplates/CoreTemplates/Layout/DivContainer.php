@@ -5,7 +5,7 @@ namespace Newageerp\SfReactTemplates\CoreTemplates\Layout;
 use Newageerp\SfReactTemplates\Template\Placeholder;
 use Newageerp\SfReactTemplates\Template\Template;
 
-class FlexRow extends Template
+class DivContainer extends Template
 {
     protected Placeholder $children;
 
