@@ -2,7 +2,6 @@
 
 namespace Newageerp\SfControlpanel\Console\In;
 
-use Newageerp\SfControlpanel\Console\LocalConfigUtilsV3;
 use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
 use Newageerp\SfControlpanel\Console\Utils;
 use Symfony\Component\Console\Command\Command;
@@ -35,85 +34,7 @@ class InGeneratorRoutes extends Command
 
         $customRoutesPath = Utils::customFolderPath('routes');
 
-        $tabsFile = LocalConfigUtilsV3::getNaeSfsCpStoragePath() . '/tabs.json';
-        $tabItems = [];
-        if (file_exists($tabsFile)) {
-            $tabItems = json_decode(
-                file_get_contents($tabsFile),
-                true
-            );
-        }
-        $editsFile = LocalConfigUtilsV3::getNaeSfsCpStoragePath() . '/edit.json';
-        $editItems = [];
-        if (file_exists($editsFile)) {
-            $editItems = json_decode(
-                file_get_contents($editsFile),
-                true
-            );
-        }
-
-        $viewsFile = LocalConfigUtilsV3::getNaeSfsCpStoragePath() . '/view.json';
-        $viewItems = [];
-        if (file_exists($viewsFile)) {
-            $viewItems = json_decode(
-                file_get_contents($viewsFile),
-                true
-            );
-        }
-
-        $listComponents = [];
-
         $imports = [];
-
-        foreach ($tabItems as $tabItem) {
-            if (isset($tabItem['config']['generateForRel']) && $tabItem['config']['generateForRel']) {
-                continue;
-            }
-            $dataSourceCompName = Utils::fixComponentName(
-                ucfirst($tabItem['config']['schema']) .
-                ucfirst($tabItem['config']['type']) . 'TableDataSource'
-            );
-            // $imports[] = 'import ' . $dataSourceCompName . ' from "../tabs/tables-data-source/' . $dataSourceCompName . '"';
-
-            $listComponents[] = [
-                'schema' => $tabItem['config']['schema'],
-                'type' => $tabItem['config']['type'],
-                'compName' => $dataSourceCompName
-            ];
-        }
-
-        $editComponents = [];
-        foreach ($editItems as $editItem) {
-            $compNameDataSource = Utils::fixComponentName(
-                ucfirst($editItem['config']['schema']) .
-                ucfirst($editItem['config']['type']) . 'FormDataSource'
-            );
-            // $imports[] = 'import ' . $compNameDataSource . ' from "../editforms/forms-data-source/' . $compNameDataSource . '"';
-
-            $editComponents[] = [
-                'schema' => $editItem['config']['schema'],
-                'type' => $editItem['config']['type'],
-                'compName' => $compNameDataSource
-            ];
-        }
-
-        $viewComponents = [];
-        foreach ($viewItems as $viewItem) {
-            $generateForWidget = isset($viewItem['config']['generateForWidget']) && $viewItem['config']['generateForWidget'];
-            if (!$generateForWidget) {
-//            $compNameDataSource = Utils::fixComponentName(
-//                ucfirst($editItem['config']['schema']) .
-//                ucfirst($editItem['config']['type']) . 'FormDataSource'
-//            );
-//            $imports[] = 'import ' . $compNameDataSource . ' from "../editforms/forms-data-source/' . $compNameDataSource . '"';
-
-                $viewComponents[] = [
-                    'schema' => $viewItem['config']['schema'],
-                    'type' => $viewItem['config']['type'],
-//                'compName' => $compNameDataSource
-                ];
-            }
-        }
 
         $appsComponents = [];
         if (class_exists('App\Entity\Bookmark')) {
@@ -148,9 +69,6 @@ class InGeneratorRoutes extends Command
         $generatedContent = $editRoutesTemplate->render(
             [
                 'imports' => $imports,
-                'listComponents' => $listComponents,
-                'editComponents' => $editComponents,
-                'viewComponents' => $viewComponents,
                 'appsComponents' => $appsComponents,
             ]
         );

@@ -160,6 +160,8 @@ import AppInner from "../app/AppInner";
 import * as ButtonsBundle from '@newageerp/v3.bundles.buttons-bundle';
 import * as ModalBundle from '@newageerp/v3.bundles.modal-bundle';
 import * as LayoutBundle from '@newageerp/v3.bundles.layout-bundle';
+import OneToOneWidget from "../widgets/OneToOneWidget";
+import DivContainer from "../layout/DivContainer";
 
 export const componentsMap: any = {
   "App": AppInner,
@@ -356,6 +358,9 @@ export const componentsMap: any = {
   'main-menu.menu-provider': MenuProvider,
 
   'toolbar.element-bookmark-button': ElementBookmarkButton,
+
+  'widgets.oneToOneWidget': OneToOneWidget,
+  'layout.div': DivContainer,
 
   ...CustomEditComponentsMap,
   ...CustomViewComponentsMap,

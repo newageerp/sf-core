@@ -29,11 +29,6 @@ export function ListRoutes() {
             <Route path={"/tpl/:templateName"}>
                 <TemplateRoute />
             </Route>
-            {# {% for component in listComponents %}
-                <Route path={"/u/{{ component.schema }}/{{ component.type }}/list/"}>
-                    <{{ component.compName }} />
-                </Route>
-            {% endfor %} #}
         </Fragment>
     )
 }
@@ -54,11 +49,6 @@ export function ViewRoutes() {
             <Route path={"/u/:schema/:type/view/:id"}>
                 <MainView />
             </Route>
-            {# {% for component in viewComponents %}
-                <Route path={"/u/{{ component.schema }}/{{ component.type }}/view/:id"}>
-                    <UI.RoutePoints.ViewEntry key={"{{ component.schema }}-{{ component.type }}"} schema="{{ component.schema }}" type="{{ component.type }}"/>
-                </Route>
-            {% endfor %} #}
         </Fragment>
     )
 }

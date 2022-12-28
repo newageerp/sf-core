@@ -38,7 +38,7 @@ interface QueueItem {
     fields: string[]
 }
 
-const cacheData = (userState: any) => ([
+export const cacheData = (userState: any) => ([
     {% if hasUsers %}
     {
         schema: NaeSSchemaMap.User.schema,
