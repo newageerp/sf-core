@@ -1,12 +1,15 @@
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 import React, { Fragment, useEffect, useState } from 'react'
 import { Input } from "@newageerp/ui.form.base.form-pack";
+import { useTranslation } from 'react-i18next';
+import classNames from 'classnames';
 
 interface Props {
   action: string,
+  element?: any,
 
-  value: string,
-  updateValue: (val: string) => void,
+  value: any,
+  updateValue: (val: any) => void,
 }
 
 interface IElement {
@@ -15,10 +18,13 @@ interface IElement {
 }
 
 export default function FormFieldTagCloud(props: Props) {
+  const { t } = useTranslation();
   const [search, setSearch] = useState('')
   const [getData, getDataParams] = OpenApi.useURequest<IElement>(props.action)
   useEffect(() => {
-    getData();
+    getData({
+      element: props.element
+    });
   }, [])
 
   const val = props.value;
@@ -31,6 +37,9 @@ export default function FormFieldTagCloud(props: Props) {
       }
       newVal += s
       props.updateValue(newVal);
+    } else if (settings.actionType === 'append-array') {
+      val.push(s);
+      props.updateValue(val);
     } else {
       props.updateValue(s);
     }
@@ -44,13 +53,20 @@ export default function FormFieldTagCloud(props: Props) {
     isShowActions = !!search
   }
 
-  const data: IElement[] = getDataParams.data.data
+  const data: IElement[] = getDataParams.data.data;
+
+  const styles : any = {
+    'xs': 'tw3-text-xs',
+    'sm': 'tw3-text-sm',
+    'base': 'tw3-text-base',
+  }
+  const style = settings.style ? settings.style : 'xs';
 
   return (
-    <div className='flex flex-wrap gap-2'>
+    <div className='tw3-flex tw3-flex-wrap tw3-gap-2'>
       {settings.showSearch && (
         <Input
-          placeholder='paieška...'
+          placeholder={`${t('search')}...`}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
@@ -73,7 +89,7 @@ export default function FormFieldTagCloud(props: Props) {
                   key={'b-' + sIndex}
                   onClick={() => onClick(s.text)}
                   title={s.text}
-                  className={'tw3-text-xs tw3-text-left hover:tw3-underline tw3-text-blue-800'}
+                  className={classNames('tw3-text-left hover:tw3-underline tw3-text-blue-800', styles[style])}
                 >
                   {s.title}
                 </button>

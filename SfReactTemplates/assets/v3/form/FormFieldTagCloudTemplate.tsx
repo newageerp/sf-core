@@ -17,6 +17,7 @@ export default function FormFieldTagCloudTemplate(props: Props) {
   const val = element[props.field] ? element[props.field] : '';
 
   return <FormFieldTagCloud
+    element={element}
     value={val}
     updateValue={(newVal) => updateElement(props.field, newVal)}
     action={props.action}

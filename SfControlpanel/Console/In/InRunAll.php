@@ -26,7 +26,7 @@ class InRunAll extends Command
             'nae:localconfig:InLocalConfigSyncEntities',
             'nae:localconfig:InLocalConfigSyncUsersPermissions',
             'nae:localconfig:InPathMap',
-            'nae:localconfig:InGeneratorMenu',
+            // 'nae:localconfig:InGeneratorMenu',
             'nae:localconfig:InGeneratorTabs',
             'nae:localconfig:InGeneratorStatuses',
             'nae:localconfig:InGeneratorEnums',
