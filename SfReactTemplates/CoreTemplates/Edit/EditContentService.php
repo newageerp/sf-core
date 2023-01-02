@@ -315,7 +315,11 @@ class EditContentService
                                 $wideRow->getControlContent()->addTemplate(new StringArrayEditableField($pathArray[1]));
                             }
                             if ($naeType === 'string') {
-                                $wideRow->getControlContent()->addTemplate(new StringEditableField($pathArray[1]));
+                                $propAs = isset($prop['customAs']) && $prop['customAs'] ? $prop['customAs'] : $prop['as'];
+
+                                $f = new StringEditableField($pathArray[1]);
+                                $f->setAs($propAs);
+                                $wideRow->getControlContent()->addTemplate($f);
                             }
                             if ($naeType === 'html-editor') {
                                 $wideRow->getControlContent()->addTemplate(new HtmlEditorEditableField($pathArray[1]));

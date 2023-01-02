@@ -4,6 +4,7 @@ import { Input } from "@newageerp/ui.form.base.form-pack";
 
 interface Props {
   fieldKey: string;
+  as?: string,
 }
 
 export default function StringEditableField(props: Props) {

@@ -14,10 +14,10 @@ export default function BoolEditableColumn(props: Props) {
   const { data: tData } = useTemplatesLoader();
   const { element } = tData;
 
-  const [value, setValue] = useState(element ? element[props.fieldKey] : "");
+  const [value, setValue] = useState(element ? element[props.fieldKey] : false);
   const updateValue = (e: any) => {
-    setValue(e.target.value);
-    saveElement();
+    setValue(e === 10);
+    saveElement(e === 10);
   }
 
   const { t } = useTranslation();
@@ -30,10 +30,10 @@ export default function BoolEditableColumn(props: Props) {
     return <Fragment />;
   }
 
-  const saveElement = () => {
+  const saveElement = (_v: boolean) => {
     doSave(
       {
-        [props.fieldKey]: value,
+        [props.fieldKey]: _v,
       },
       element.id
     ).then(() => {
@@ -54,7 +54,7 @@ export default function BoolEditableColumn(props: Props) {
 
   return (
     <FieldSelect
-      value={value}
+      value={value ? 10 : 20}
       onChange={updateValue}
       options={options}
       className="tw3-w-40"
