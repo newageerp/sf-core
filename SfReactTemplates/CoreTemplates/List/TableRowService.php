@@ -28,6 +28,7 @@ use Newageerp\SfReactTemplates\CoreTemplates\List\Columns\StatusColumn;
 use Newageerp\SfReactTemplates\CoreTemplates\List\Columns\StringArrayColumn;
 use Newageerp\SfReactTemplates\CoreTemplates\List\Columns\StringColumn;
 use Newageerp\SfReactTemplates\CoreTemplates\List\Columns\AddSelectButton;
+use Newageerp\SfReactTemplates\CoreTemplates\List\EditableColumns\BoolEditableColumn;
 use Newageerp\SfReactTemplates\CoreTemplates\List\EditableColumns\LargeTextEditableColumn;
 use Newageerp\SfReactTemplates\CoreTemplates\Table\TableTd;
 use Newageerp\SfReactTemplates\CoreTemplates\Table\TableTh;
@@ -112,7 +113,12 @@ class TableRowService
                             $tpl = new AudioColumn($pathArray[1]);
                         }
                         if ($naeType === 'bool') {
-                            $tpl = new BoolColumn($pathArray[1]);
+                            if (isset($col['editable']) && $col['editable']) {
+                                $tpl = new BoolEditableColumn($pathArray[1]);
+                                $tpl->setSchema($schema);
+                            } else {
+                                $tpl = new BoolColumn($pathArray[1]);
+                            }
                         }
                         if ($naeType === 'color') {
                             $tpl = new ColorColumn($pathArray[1]);

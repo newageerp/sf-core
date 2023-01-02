@@ -137,7 +137,8 @@ import ListToolbarDetailedSearch from "../toolbar/ListToolbarDetailedSearch";
 import AddSelectButton from "../list/actions/AddSelectButton";
 import MenuItemWithEdit from "../menu/MenuItemWithEdit";
 import ListToolbarQuickFilters from "../toolbar/ListToolbarQuickFilters";
-import LargeTextEditableColumn from "../list/editable-columns/LargeTextRoColumn";
+import LargeTextEditableColumn from "../list/editable-columns/LargeTextEditableColumn";
+import BoolEditableColumn from "../list/editable-columns/BoolEditableColumn"
 import FormFieldTagCloudTemplate from "../form/FormFieldTagCloudTemplate";
 
 import WhiteCardWithViewFormWidget from "../widgets/WhiteCardWithViewFormWidget";
@@ -320,6 +321,7 @@ export const componentsMap: any = {
   "list.ro.stringcolumn": StringRoColumn,
 
   "list.editable.largetextcolumn": LargeTextEditableColumn,
+  "list.editable.boolcolumn": BoolEditableColumn,
 
   "db.request.recordprovider": RequestRecordProvider,
   "db.request.recordprovider.inner": RequestRecordProviderInner,
