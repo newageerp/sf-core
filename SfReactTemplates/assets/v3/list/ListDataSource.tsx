@@ -318,22 +318,25 @@ export default function ListDataSource(props: Props) {
                 prepareFilter,
                 extraFilter: dataState?.extraFilter,
               },
-              dataTotals
+              dataTotals,
+              pagingContainer: <Fragment>
+                {!props.hidePaging && pages > 1 && (
+                  <PageContainer
+                    pages={pages}
+                    activePage={dataState.page}
+                    setActivePage={setActivePage}
+                    hidePageSelectionSelect={props.hidePageSelectionSelect}
+                  // marginTop={PageContainerMarginTop[]}
+                  />
+                )}
+              </Fragment>
             }}
           />
 
         </div>
       </div>
 
-      {!props.hidePaging && pages > 1 && (
-        <PageContainer
-          pages={pages}
-          activePage={dataState.page}
-          setActivePage={setActivePage}
-          hidePageSelectionSelect={props.hidePageSelectionSelect}
-        // marginTop={PageContainerMarginTop[]}
-        />
-      )}
+
     </Fragment>
   );
 }

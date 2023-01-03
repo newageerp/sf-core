@@ -137,52 +137,89 @@ class UService
 
         $groupedData = [];
         $groupedTotalData = [];
+        $summaryFields = [];
 
         foreach ($data as $result) {
-            foreach ($summary as $item) {
-                $fieldPath = explode(".", $item['field']);
-                $groupByPath = explode(".", $item['groupBy']);
+            foreach ($summary as $summaryKey => $item) {
+                $groupByA = explode(",", $item['groupBy']);
 
-                $fieldObj = $result;
-                foreach ($fieldPath as $p) {
-                    $getter = 'get' . ucfirst($p);
-                    $fieldObj = $fieldObj->$getter();
+                $itterate = [];
+                foreach ($groupByA as $key => $_g) {
+                    $itterate[] = [
+                        'field' => $item['field'],
+                        'groupBy' => $groupByA[0],
+                        'filter' => $key > 0 ? $_g : '',
+                    ];
                 }
+                foreach ($itterate as $itt) {
+                    $itemField = $itt['field'];
+                    $itemGroupBy = $itt['groupBy'];
+                    $itemFilter = $itt['filter'];
+                    $summaryFieldKey = $summaryKey . '_' . $itemField;
 
-                $groupByObj = $result;
-                foreach ($groupByPath as $p) {
-                    $getter = 'get' . ucfirst($p);
-                    $groupByObj = $groupByObj->$getter();
-                }
+                    $fieldPath = explode(".", $itemField);
+                    $groupByPath = explode(".", $itemGroupBy);
 
-                if (!isset($groupedData[$item['groupBy']])) {
-                    $groupedData[$item['groupBy']] = [];
-                }
-                if (!isset($groupedTotalData[$item['groupBy']])) {
-                    $groupedTotalData[$item['groupBy']] = [];
-                }
+                    if ($itemFilter) {
+                        $filterPath = explode(".", $itemFilter);
+                        $filterObj = $result;
+                        foreach ($filterPath as $p) {
+                            $getter = 'get' . ucfirst($p);
+                            $filterObj = $filterObj->$getter();
+                        }
+                        $itemField = $itt['field'] . ' (' . $filterObj . ')';
+                        $summaryFieldKey = $summaryKey . '_' . $itemField;
 
-                if (!isset($groupedData[$item['groupBy']][$groupByObj])) {
-                    $groupedData[$item['groupBy']][$groupByObj] = [];
-                }
-                if (!isset($groupedData[$item['groupBy']][$groupByObj][$item['field']])) {
-                    $groupedData[$item['groupBy']][$groupByObj][$item['field']] = 0;
-                }
-                if (!isset($groupedTotalData[$item['groupBy']][$item['field']])) {
-                    $groupedTotalData[$item['groupBy']][$item['field']] = 0;
-                }
+                        $summaryFields[$summaryFieldKey] = $item;
+                        $summaryFields[$summaryFieldKey]['field'] = $itemField;
+                        $summaryFields[$summaryFieldKey]['title'] = $item['title'] . ' (' . $filterObj . ')';
+                        $summaryFields[$summaryFieldKey]['groupBy'] = $itemGroupBy;
+                    } else {
+                        $summaryFields[$summaryFieldKey] = $item;
+                        $summaryFields[$summaryFieldKey]['groupBy'] = $itemGroupBy;
+                    }
 
-                if ($item['type'] === 'count') {
-                    $groupedData[$item['groupBy']][$groupByObj][$item['field']]++;
-                    $groupedTotalData[$item['groupBy']][$item['field']]++;
-                } else {
-                    $groupedData[$item['groupBy']][$groupByObj][$item['field']] += $fieldObj;
-                    $groupedTotalData[$item['groupBy']][$item['field']] += $fieldObj;
+                    $fieldObj = $result;
+                    foreach ($fieldPath as $p) {
+                        $getter = 'get' . ucfirst($p);
+                        $fieldObj = $fieldObj->$getter();
+                    }
+
+                    $groupByObj = $result;
+                    foreach ($groupByPath as $p) {
+                        $getter = 'get' . ucfirst($p);
+                        $groupByObj = $groupByObj->$getter();
+                    }
+
+                    if (!isset($groupedData[$itemGroupBy])) {
+                        $groupedData[$itemGroupBy] = [];
+                    }
+                    if (!isset($groupedTotalData[$itemGroupBy])) {
+                        $groupedTotalData[$itemGroupBy] = [];
+                    }
+
+                    if (!isset($groupedData[$itemGroupBy][$groupByObj])) {
+                        $groupedData[$itemGroupBy][$groupByObj] = [];
+                    }
+                    if (!isset($groupedData[$itemGroupBy][$groupByObj][$itemField])) {
+                        $groupedData[$itemGroupBy][$groupByObj][$itemField] = 0;
+                    }
+                    if (!isset($groupedTotalData[$itemGroupBy][$itemField])) {
+                        $groupedTotalData[$itemGroupBy][$itemField] = 0;
+                    }
+
+                    if ($item['type'] === 'count') {
+                        $groupedData[$itemGroupBy][$groupByObj][$itemField]++;
+                        $groupedTotalData[$itemGroupBy][$itemField]++;
+                    } else {
+                        $groupedData[$itemGroupBy][$groupByObj][$itemField] += $fieldObj;
+                        $groupedTotalData[$itemGroupBy][$itemField] += $fieldObj;
+                    }
                 }
             }
         }
-
-        return ['data' => $groupedData, 'total' => $groupedTotalData];
+        ksort($summaryFields);
+        return ['data' => $groupedData, 'total' => $groupedTotalData, 'summaryFields' => array_values($summaryFields)];
     }
 
     public function getListDataForSchema(

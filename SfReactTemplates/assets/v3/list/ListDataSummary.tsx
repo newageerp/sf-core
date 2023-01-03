@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { axiosInstance } from "../api/config";
 import { useTemplatesLoader } from "@newageerp/v3.templates.templates-core";
-import { Table, Th, Td } from "@newageerp/ui.ui-bundle";
+import { Table, Th, Td } from "@newageerp/v3.bundles.layout-bundle";
 import { Float } from "@newageerp/data.table.base";
 import { getPropertyForPath } from "../utils";
 import { Base } from "@newageerp/v2.element.status-badge.base";
 import { NaeSStatuses } from "../../_custom/config/NaeSStatuses";
 import { LogoLoader } from "@newageerp/ui.ui-bundle";
+import { t } from "i18next";
 
 type ISummary = {
   title: string;
@@ -24,6 +25,8 @@ export default function ListDataSummary(props: Props) {
   const [isLoading, setIsLoading] = useState(false);
   const { data: tData } = useTemplatesLoader();
   const [data, setData] = useState<any>([]);
+  const [totalData, setTotalData] = useState<any>([]);
+  const [dataSummaryFields, setDataSummaryFields] = useState<ISummary[]>([]);
 
   const getData = () => {
     setIsLoading(true);
@@ -33,7 +36,9 @@ export default function ListDataSummary(props: Props) {
         summary: props.summary,
       })
       .then((res) => {
-        setData(res.data);
+        setData(res.data.data);
+        setTotalData(res.data.total);
+        setDataSummaryFields(res.data.summaryFields);
         setIsLoading(false);
       });
   };
@@ -48,7 +53,7 @@ export default function ListDataSummary(props: Props) {
     <div className="tw3-space-y-4">
       {isLoading && <LogoLoader />}
       {groupKeys.map((groupField: string) => {
-        const summaryFields = props.summary.filter(
+        const summaryFields = dataSummaryFields.filter(
           (f) => f.groupBy === groupField
         );
         const rows = Object.keys(data[groupField]);
@@ -108,6 +113,17 @@ export default function ListDataSummary(props: Props) {
                     </tr>
                   );
                 })}
+                <tr className="total-row tw3-font-medium">
+                  <Td>{`${t('Total')}`}</Td>
+                  {summaryFields.map((t) => (
+                        <Td
+                          key={`th-${groupField}-${t.field}`}
+                          textAlignment={"tw3-text-right"}
+                        >
+                          <Float value={totalData[groupField][t.field]} />
+                        </Td>
+                      ))}
+                </tr>
               </tbody>
             }
           />
