@@ -136,7 +136,7 @@ class UService
         $data = $query->getResult();
 
         $groupedData = [];
-
+        $groupedTotalData = [];
 
         foreach ($data as $result) {
             foreach ($summary as $item) {
@@ -158,22 +158,31 @@ class UService
                 if (!isset($groupedData[$item['groupBy']])) {
                     $groupedData[$item['groupBy']] = [];
                 }
+                if (!isset($groupedTotalData[$item['groupBy']])) {
+                    $groupedTotalData[$item['groupBy']] = [];
+                }
+
                 if (!isset($groupedData[$item['groupBy']][$groupByObj])) {
                     $groupedData[$item['groupBy']][$groupByObj] = [];
                 }
                 if (!isset($groupedData[$item['groupBy']][$groupByObj][$item['field']])) {
                     $groupedData[$item['groupBy']][$groupByObj][$item['field']] = 0;
                 }
+                if (!isset($groupedTotalData[$item['groupBy']][$item['field']])) {
+                    $groupedTotalData[$item['groupBy']][$item['field']] = 0;
+                }
 
                 if ($item['type'] === 'count') {
                     $groupedData[$item['groupBy']][$groupByObj][$item['field']]++;
+                    $groupedTotalData[$item['groupBy']][$item['field']]++;
                 } else {
                     $groupedData[$item['groupBy']][$groupByObj][$item['field']] += $fieldObj;
+                    $groupedTotalData[$item['groupBy']][$item['field']] += $fieldObj;
                 }
             }
         }
 
-        return $groupedData;
+        return ['data' => $groupedData, 'total' => $groupedTotalData];
     }
 
     public function getListDataForSchema(

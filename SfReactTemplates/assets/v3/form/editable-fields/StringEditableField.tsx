@@ -1,6 +1,8 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 import { Input } from "@newageerp/ui.form.base.form-pack";
+import { FieldHexColor } from "@newageerp/v3.bundles.form-bundle";
+import { Field } from "redux-orm/fields";
 
 interface Props {
   fieldKey: string;
@@ -29,6 +31,19 @@ export default function StringEditableField(props: Props) {
       onBlur();
     }
   };
+
+  if (props.as === 'hex-color') {
+    return <FieldHexColor
+      className="tw3-w-full tw3-max-w-[500px]"
+      value={localVal}
+      onChange={(e) => {
+        updateValue(e);
+        updateElement(props.fieldKey, e.target.value)
+      }}
+      onBlur={onBlur}
+      onKeyDown={handleKeyDown}
+    />
+  }
 
   return <Input
     className="tw3-w-full tw3-max-w-[500px]"
