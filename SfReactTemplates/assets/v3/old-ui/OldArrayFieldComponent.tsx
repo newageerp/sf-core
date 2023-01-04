@@ -427,7 +427,7 @@ export const transformTdProps = (obj: any) => {
       column.content = val.toFixed(0)
     }
   } else if (isDate) {
-    column.props.className += ' whitespace-nowrap'
+    column.props.className += ' tw3-whitespace-nowrap'
     column.content = !!item[property.key]
       ? moment(item[property.key]).format('YYYY-MM-DD')
       : ''

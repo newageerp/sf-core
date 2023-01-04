@@ -247,7 +247,7 @@ export default function TaskContent() {
                                         >{task.description}</div>
                                     </Td>
                                     <Td className={classNames(
-                                        'whitespace-nowrap tw3-text-xs tw3-text-slate-400',
+                                        'tw3-whitespace-nowrap tw3-text-xs tw3-text-slate-400',
                                         {
                                             'tw3-text-red-600': moment().format("YYYYMMDD") >= moment(task.dueDate).format("YYYYMMDD"),
                                         }
@@ -265,8 +265,8 @@ export default function TaskContent() {
                                     <Td>{task.taskCategory ? <OldBadge className='inline-block' bgColor={bgColor} brightness={parseInt(brightness, 10)} size={'sm'}>
                                         {task.taskCategory.name}
                                     </OldBadge> : ''}</Td>
-                                    <Td className='whitespace-nowrap'>{task.creator ? task.creator.fullName : ''}</Td>
-                                    <Td className='whitespace-nowrap'>{task.doer ? task.doer.fullName : ''}</Td>
+                                    <Td className='tw3-whitespace-nowrap'>{task.creator ? task.creator.fullName : ''}</Td>
+                                    <Td className='tw3-whitespace-nowrap'>{task.doer ? task.doer.fullName : ''}</Td>
                                     <Td className='flex gap-2 items-center' style={ {width: 80} }>
                                         {!!task.files && task.files.length > 0 && (
                                             <Icon type={IconType.Solid} icon={"link"} title={t('Yra failas')} />

@@ -26,7 +26,7 @@ function UserSpaceWrapperToolbar(props: Props) {
                 <div className="tw3-h-[72px]">
                         <MainToolbar
                                 leftSideComponent={
-                                        <div className="tw3-pl-16">
+                                        <div className="tw3-pl-4 lg:tw3-pl-10 xl:tw3-pl-16">
                                                 <CustomToolbarBefore />
                                                 <TextToolbarTitle>{toolbarTitle}</TextToolbarTitle>
                                         </div>

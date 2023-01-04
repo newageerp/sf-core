@@ -18,7 +18,7 @@ export default function TableTh(props: Props) {
   const hasFilter = !!props.filter;
 
   return (
-    <Th className={classNames(props.className, {'whitespace-nowrap': hasFilter})} textAlignment={props.textAlignment ? props.textAlignment : undefined}>
+    <Th className={classNames(props.className, {'tw3-whitespace-nowrap': hasFilter})} textAlignment={props.textAlignment ? props.textAlignment : undefined}>
       <TemplatesParser templates={props.contents} />
       {hasFilter && <button onClick={() => tData.addNewBlockFilter(props.filter)} className={"tw3-ml-2"}>
         <Icon
