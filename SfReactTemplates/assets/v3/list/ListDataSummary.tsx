@@ -107,7 +107,8 @@ export default function ListDataSummary(props: Props) {
                           key={`th-${groupField}-${t.field}-${groupF}`}
                           textAlignment={"tw3-text-right"}
                         >
-                          <Float value={data[groupField][groupF][t.field]} />
+                          {t.type === 'count'?<Int value={data[groupField][groupF][t.field]} />:<Float value={data[groupField][groupF][t.field]} />}
+                          
                         </Td>
                       ))}
                     </tr>

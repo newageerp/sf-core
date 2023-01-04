@@ -145,12 +145,20 @@ class UService
 
                 $itterate = [];
                 foreach ($groupByA as $key => $_g) {
-                    $itterate[] = [
-                        'field' => $item['field'],
-                        'groupBy' => $groupByA[0],
-                        'filter' => $key > 0 ? $_g : '',
-                    ];
+                    if ($key > 0) {
+                        $itterate[] = [
+                            'field' => $item['field'],
+                            'groupBy' => $groupByA[0],
+                            'filter' => $key > 0 ? $_g : '',
+                        ];
+                    }
                 }
+                $itterate[] = [
+                    'field' => $item['field'],
+                    'groupBy' => $groupByA[0],
+                    'filter' => '',
+                ];
+
                 foreach ($itterate as $itt) {
                     $itemField = $itt['field'];
                     $itemGroupBy = $itt['groupBy'];
