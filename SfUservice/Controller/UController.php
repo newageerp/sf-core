@@ -134,9 +134,10 @@ class UController extends UControllerBase
 
             $schema = $request->get('schema');
             $filters = $request->get('filters') ? $request->get('filters') : [];
+            $sort = $request->get('sort') ? $request->get('sort') : [];
             $summary = $request->get('summary') ? $request->get('summary') : [];
 
-            return $this->json($uService->getGroupedListDataForSchema($schema, $filters, $summary));
+            return $this->json($uService->getGroupedListDataForSchema($schema, $filters, $sort, $summary));
         } catch (Exception $e) {
             $response = $this->json([
                 'description' => $e->getMessage(),

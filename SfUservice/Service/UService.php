@@ -77,6 +77,7 @@ class UService
     public function getGroupedListDataForSchema(
         string $schema,
         array $filters,
+        array $sort,
         array $summary,
         bool  $skipPermissionsCheck = false,
     ) {
@@ -129,6 +130,15 @@ class UService
 
         foreach ($joins as $join => $alias) {
             $qb->leftJoin($join, $alias);
+        }
+
+        foreach ($sort as $sortEl) {
+            [$subJoins, $mainAlias, $alias, $fieldKey, $uuid] = $this->joinsByKey($sortEl['key']);
+
+            $qb->addOrderBy($alias . '.' . $fieldKey, $sortEl['value']);
+            foreach ($subJoins as $join => $alias) {
+                $qb->leftJoin($join, $alias);
+            }
         }
 
         $query = $qb->getQuery();

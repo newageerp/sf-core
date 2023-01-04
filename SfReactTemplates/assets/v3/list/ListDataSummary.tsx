@@ -34,6 +34,7 @@ export default function ListDataSummary(props: Props) {
       .post(`/app/nae-core/u/groupedList/${props.schema}`, {
         filters: tData.filter.prepareFilter(),
         summary: props.summary,
+        sort: tData.sort,
       })
       .then((res) => {
         setData(res.data.data);

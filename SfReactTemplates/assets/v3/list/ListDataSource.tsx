@@ -318,6 +318,7 @@ export default function ListDataSource(props: Props) {
                 prepareFilter,
                 extraFilter: dataState?.extraFilter,
               },
+              sort: dataState?.sort,
               dataTotals,
               pagingContainer: <Fragment>
                 {!props.hidePaging && pages > 1 && (
