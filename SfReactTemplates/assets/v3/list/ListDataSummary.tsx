@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { axiosInstance } from "../api/config";
 import { useTemplatesLoader } from "@newageerp/v3.templates.templates-core";
 import { Table, Th, Td } from "@newageerp/v3.bundles.layout-bundle";
-import { Float } from "@newageerp/data.table.base";
+import { Float, Int } from "@newageerp/data.table.base";
 import { getPropertyForPath } from "../utils";
 import { Base } from "@newageerp/v2.element.status-badge.base";
 import { NaeSStatuses } from "../../_custom/config/NaeSStatuses";
@@ -107,8 +107,8 @@ export default function ListDataSummary(props: Props) {
                           key={`th-${groupField}-${t.field}-${groupF}`}
                           textAlignment={"tw3-text-right"}
                         >
-                          {t.type === 'count'?<Int value={data[groupField][groupF][t.field]} />:<Float value={data[groupField][groupF][t.field]} />}
-                          
+                          {t.type === 'count' ? <Int value={data[groupField][groupF][t.field]} /> : <Float value={data[groupField][groupF][t.field]} />}
+
                         </Td>
                       ))}
                     </tr>
@@ -117,13 +117,13 @@ export default function ListDataSummary(props: Props) {
                 <tr className="total-row tw3-font-medium">
                   <Td>{`${t('Total')}`}</Td>
                   {summaryFields.map((t) => (
-                        <Td
-                          key={`th-${groupField}-${t.field}`}
-                          textAlignment={"tw3-text-right"}
-                        >
-                          <Float value={totalData[groupField][t.field]} />
-                        </Td>
-                      ))}
+                    <Td
+                      key={`th-${groupField}-${t.field}`}
+                      textAlignment={"tw3-text-right"}
+                    >
+                      {t.type === 'count' ? <Int value={totalData[groupField][t.field]} /> : <Float value={totalData[groupField][t.field]} />}
+                    </Td>
+                  ))}
                 </tr>
               </tbody>
             }

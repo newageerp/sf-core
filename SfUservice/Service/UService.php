@@ -159,11 +159,11 @@ class UService
                     'filter' => '',
                 ];
 
-                foreach ($itterate as $itt) {
+                foreach ($itterate as $ittKey => $itt) {
                     $itemField = $itt['field'];
                     $itemGroupBy = $itt['groupBy'];
                     $itemFilter = $itt['filter'];
-                    $summaryFieldKey = $summaryKey . '_' . $itemField;
+                    $summaryFieldKey = $summaryKey . '_99999_' . $itemField;
 
                     $fieldPath = explode(".", $itemField);
                     $groupByPath = explode(".", $itemGroupBy);
@@ -176,7 +176,7 @@ class UService
                             $filterObj = $filterObj->$getter();
                         }
                         $itemField = $itt['field'] . ' (' . $filterObj . ')';
-                        $summaryFieldKey = $summaryKey . '_' . $itemField;
+                        $summaryFieldKey = $summaryKey . '_' . $ittKey . '_' . $itemField;
 
                         $summaryFields[$summaryFieldKey] = $item;
                         $summaryFields[$summaryFieldKey]['field'] = $itemField;
