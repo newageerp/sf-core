@@ -227,6 +227,9 @@ class EditContentService
                             }
                             if ($naeType === 'datetime') {
                                 $wideRow->getControlContent()->addTemplate(new DateTimeEditableField($pathArray[1]));
+                                if (!$wideRow->getControlClassName()) {
+                                    $wideRow->setControlClassName('tw3-w-96');
+                                }
                             }
                             if ($naeType === 'enum_multi_number') {
                                 $wideRow->getControlContent()->addTemplate(
