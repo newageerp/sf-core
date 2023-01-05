@@ -1,5 +1,6 @@
 import axios from "axios";
 import { toast } from '@newageerp/v3.templates.templates-core';
+import { transformErrorAlert } from "@newageerp/v3.bundles.widgets-bundle";
 
 export const axiosInstance = axios.create({
   baseURL: '',
@@ -12,7 +13,7 @@ export const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.response.use(undefined, function (error) {
-  toast.error('Something went wrong');
+  toast.error(transformErrorAlert(error));
 
   return Promise.reject(error);
 })
