@@ -21,6 +21,7 @@ export default function DateTimeEditableField(props: Props) {
     <FieldDateTime
       value={value}
       onChange={updateValue}
+      containerClassName='tw3-w-96'
       className='tw3-w-56'
     />
   )
