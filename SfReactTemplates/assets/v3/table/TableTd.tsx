@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import React from 'react'
 import { Template, TemplatesParser, useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
-import { Td } from '@newageerp/ui.ui-bundle'
+import { Td } from '@newageerp/v3.bundles.layout-bundle'
 
 interface Props {
   contents: Template[],

@@ -1,4 +1,4 @@
-import { Table } from "@newageerp/ui.ui-bundle";
+import { Table } from "@newageerp/v3.bundles.layout-bundle";
 import React, { Fragment } from "react";
 import {
   Template,

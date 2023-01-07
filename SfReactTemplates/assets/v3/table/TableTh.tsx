@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import React from 'react'
 import { Template, TemplatesParser, useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
-import { Th } from '@newageerp/ui.ui-bundle'
+import { Th } from '@newageerp/v3.bundles.layout-bundle'
 import { ServerFilterItem } from '@newageerp/ui.ui-bundle'
 import { Icon, IconType } from '@newageerp/ui.ui-bundle';
 
