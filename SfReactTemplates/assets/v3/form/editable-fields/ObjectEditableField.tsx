@@ -135,7 +135,7 @@ export default function ObjectEditableField(props: Props) {
   return (
     <Fragment>
 
-      <div className={"tw3-w-full tw3-max-w-[500px] tw3-border tw3-border-slate-300 tw3-rounded tw3-flex tw3-items-center tw3-gap-2 tw3-bg-white"}>
+      <div className={"tw3-w-full tw3-max-w-[500px] tw3-border tw3-border-slate-300 tw3-rounded tw3-flex tw3-items-center tw3-gap-2 tw3-bg-white dark:tw3-bg-gray-800"}>
 
         <button
           onClick={() => setIsPopup(true)}
@@ -143,7 +143,7 @@ export default function ObjectEditableField(props: Props) {
             'tw3-px-[10px] tw3-py-[9px] tw3-flex  tw3-items-center tw3-duration-150  tw3-rounded-md ',
             'hover:tw3-bg-sky-100 hover:tw3-text-sky-600',
             { 'tw3-text-slate-800': isValue, 'tw3-text-slate-500': !isValue },
-            'tw3-bg-white',
+            'tw3-bg-white dark:tw3-bg-gray-800',
             'tw3-w-full',
             'tw3-text-left',
             'tw3-truncate tw3-max-h-[38px]'
@@ -159,7 +159,7 @@ export default function ObjectEditableField(props: Props) {
           <ToolbarButton
             iconName='plus'
             onClick={onNew}
-            bgColor={'tw3-bg-white'}
+            bgColor={'tw3-bg-white dark:tw3-bg-gray-800'}
           />
         }
 
@@ -168,7 +168,7 @@ export default function ObjectEditableField(props: Props) {
             iconName='window-close'
             textColor='tw3-text-red-600'
             onClick={() => updateValue(null)}
-            bgColor={'tw3-bg-white'}
+            bgColor={'tw3-bg-white dark:tw3-bg-gray-800'}
           />
         }
 

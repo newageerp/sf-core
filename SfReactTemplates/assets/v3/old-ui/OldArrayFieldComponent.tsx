@@ -138,7 +138,7 @@ export default function OldArrayFieldComponent(props: Props) {
 
   return (
     <Fragment>
-      <div className='tw3-rounded tw3-border tw3-border-slate-300 tw3-p-2 tw3-bg-white'>
+      <div className='tw3-rounded tw3-border tw3-border-slate-300 tw3-p-2 tw3-bg-white dark:tw3-bg-gray-800'>
         <div className={'tw3-space-y-4'}>
           {/* <MainButton iconName='plus' onClick={toggleCreateNew}>
             {t('Add')}

@@ -19,7 +19,7 @@ export default function ListToolbarQuickFilters(props: Props) {
   if (showButton) {
     return (
       <ToolbarButtonWithMenu
-        button={{ iconName: 'filter-list', bgColor: 'tw3-bg-white', className: 'tw3-border tw3-border-slate-300' }}
+        button={{ iconName: 'filter-list', bgColor: 'tw3-bg-white dark:tw3-bg-gray-800', className: 'tw3-border tw3-border-slate-300' }}
         menu={{
           position: 'left',
           children: <Fragment>
