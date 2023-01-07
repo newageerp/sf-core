@@ -26,19 +26,19 @@ function UserSpaceWrapperToolbar(props: Props) {
                 if (localStorage.getItem('NAEDarkMode') === "dark") {
                         localStorage.setItem("NAEDarkMode", "light");
                 } else {
-                        localStorage.setItem("NAEDarkMode", "light");
+                        localStorage.setItem("NAEDarkMode", "dark");
                 }
                 checkDarkMode();
         }
 
         const checkDarkMode = () => {
                 if (localStorage.getItem('NAEDarkMode') === "dark") {
-                        window.document.querySelectorAll('body').forEach(i => {
-                                i.classList.add('dark');
+                        window.document.querySelectorAll('html').forEach(i => {
+                                i.classList.add('tw3-dark');
                         });
                 } else {
-                        window.document.querySelectorAll('body').forEach(i => {
-                                i.classList.remove('dark');
+                        window.document.querySelectorAll('html').forEach(i => {
+                                i.classList.remove('tw3-dark');
                         });
                 }
         }
