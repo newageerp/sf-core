@@ -330,7 +330,8 @@ export default function ListDataSource(props: Props) {
                   // marginTop={PageContainerMarginTop[]}
                   />
                 )}
-              </Fragment>
+              </Fragment>,
+              reloadData: loadData
             }}
           />
 

@@ -34,6 +34,7 @@ export default function ListDataTable(props: Props) {
                   templateData={{
                     element: item,
                     onAddSelectButton: tData.onAddSelectButton,
+                    reloadData: tData.reloadData,
                   }}
                 />
               );
