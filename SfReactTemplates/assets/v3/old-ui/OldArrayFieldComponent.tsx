@@ -20,6 +20,7 @@ import OldTabStringField from './OldTabStringField'
 import { MainButton, RsButton, ToolbarButton } from '@newageerp/v3.bundles.buttons-bundle'
 import { Table, Td, Th } from '@newageerp/ui.ui-bundle'
 import { Template, TemplatesLoader } from '@newageerp/v3.templates.templates-core'
+import BoolEditableColumn from '../list/editable-columns/BoolEditableColumn'
 
 interface Props {
   schema: string
@@ -432,11 +433,26 @@ export const transformTdProps = (obj: any) => {
       ? moment(item[property.key]).format('YYYY-MM-DD')
       : ''
   } else if (isBoolean) {
-    column.content = !!item[property.key] ? (
-      <i className='fad fa-check'></i>
-    ) : (
-      <i className='fad fa-ban'></i>
-    )
+    if (tabField.editable) {
+      column.content = <TemplatesLoader templates={[
+        {
+          comp: 'fragment',
+          props: {},
+          action: "",
+        }
+      ]} templateData={{ element: item }}>
+        <BoolEditableColumn
+          fieldKey={property.key}
+          schema={property.schema}
+        />
+      </TemplatesLoader>
+    } else {
+      column.content = !!item[property.key] ? (
+        <i className='fad fa-check'></i>
+      ) : (
+        <i className='fad fa-ban'></i>
+      )
+    }
   } else if (isLargeText) {
     if (tabField.editable) {
       column.content = (

@@ -639,8 +639,6 @@ export const getTextAlignForProperty = (
     return 'tw3-text-center'
   } else if (isNumber) {
     return 'tw3-text-right'
-  } else if (isBoolean) {
-    return 'tw3-text-center'
   } else {
     return 'tw3-text-left'
   }
