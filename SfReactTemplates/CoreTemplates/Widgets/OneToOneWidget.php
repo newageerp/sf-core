@@ -10,6 +10,11 @@ class OneToOneWidget extends Template
     protected int $id = 0;
     protected string $contentType = '';
 
+    protected array $createScopes = [];
+    protected array $removeScopes = [];
+    protected array $editScopes = [];
+    protected array $showScopes = [];
+
     public function __construct(
         int $id,
         string $path,
@@ -26,6 +31,11 @@ class OneToOneWidget extends Template
             'id' => $this->getId(),
             'path' => $this->getPath(),
             'contentType' => $this->getContentType(),
+
+            'showScopes' => $this->getShowScopes(),
+            'createScopes' => $this->getCreateScopes(),
+            'removeScopes' => $this->getRemoveScopes(),
+            'editScopes' => $this->getEditScopes(),
         ];
     }
 
@@ -102,6 +112,102 @@ class OneToOneWidget extends Template
     public function setContentType(string $contentType): self
     {
         $this->contentType = $contentType;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of createScopes
+     *
+     * @return array
+     */
+    public function getCreateScopes(): array
+    {
+        return $this->createScopes;
+    }
+
+    /**
+     * Set the value of createScopes
+     *
+     * @param array $createScopes
+     *
+     * @return self
+     */
+    public function setCreateScopes(array $createScopes): self
+    {
+        $this->createScopes = $createScopes;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of removeScopes
+     *
+     * @return array
+     */
+    public function getRemoveScopes(): array
+    {
+        return $this->removeScopes;
+    }
+
+    /**
+     * Set the value of removeScopes
+     *
+     * @param array $removeScopes
+     *
+     * @return self
+     */
+    public function setRemoveScopes(array $removeScopes): self
+    {
+        $this->removeScopes = $removeScopes;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of editScopes
+     *
+     * @return array
+     */
+    public function getEditScopes(): array
+    {
+        return $this->editScopes;
+    }
+
+    /**
+     * Set the value of editScopes
+     *
+     * @param array $editScopes
+     *
+     * @return self
+     */
+    public function setEditScopes(array $editScopes): self
+    {
+        $this->editScopes = $editScopes;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of showScopes
+     *
+     * @return array
+     */
+    public function getShowScopes(): array
+    {
+        return $this->showScopes;
+    }
+
+    /**
+     * Set the value of showScopes
+     *
+     * @param array $showScopes
+     *
+     * @return self
+     */
+    public function setShowScopes(array $showScopes): self
+    {
+        $this->showScopes = $showScopes;
 
         return $this;
     }
