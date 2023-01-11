@@ -29,24 +29,30 @@ class SfWsUpdateListener extends BaseListener
 
     public function onUpdateAll($entity, OnUpdateEvent $event)
     {
-        $event->addRequest(
-            new BgRequestEvent($this::class, $entity->getId(), ['entity' => $entity::class])
-        );
+        if (!method_exists($entity, 'skipEntityUpdateFromClass')) {
+            $event->addRequest(
+                new BgRequestEvent($this::class, $entity->getId(), ['entity' => $entity::class])
+            );
+        }
     }
     public function onInsertAll($entity, OnInsertEvent $event)
     {
-        $event->addRequest(
-            new BgRequestEvent($this::class, $entity->getId(), ['entity' => $entity::class])
-        );
+        if (!method_exists($entity, 'skipEntityUpdateFromClass')) {
+            $event->addRequest(
+                new BgRequestEvent($this::class, $entity->getId(), ['entity' => $entity::class])
+            );
+        }
     }
     public function onRemoveAll($entity, OnRemoveEvent $event)
     {
         // $event->addRequest(
         //     new BgRequestEvent($this::class, $event->getId(), ['entity' => $entity::class])
         // );
-        $this->wsUpdateService->onEntityUpdate($entity);
+        if (!method_exists($entity, 'skipEntityUpdateFromClass')) {
+            $this->wsUpdateService->onEntityUpdate($entity);
 
-        $this->socketService->sendPool();
+            $this->socketService->sendPool();
+        }
     }
 
     public function onBgCall(BgCallbackEvent $event)
