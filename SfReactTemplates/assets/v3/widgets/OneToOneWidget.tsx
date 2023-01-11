@@ -27,7 +27,15 @@ export default function OneToOneWidget(props: Props) {
     const userState = useRecoilValue(OpenApi.naeUserState);
 
     const property = getPropertyForPath(props.path);
+    const scopesPath = `${props.path}.scopes`;
+    const scopesProperty = getPropertyForPath(scopesPath);
+
     const dfValue = useDfValue({ path: `${props.path}.id`, id: props.id });
+    const dfScopesValue = useDfValue({ path: scopesPath, id: props.id });
+    
+    const elementScopes = dfScopesValue && !!scopesProperty ? dfScopesValue : [];
+    console.log({ elementScopes })
+
     const { t } = useTranslation();
 
     const relClass = property && property.format ? property.format : '-';
@@ -35,22 +43,22 @@ export default function OneToOneWidget(props: Props) {
     const [doRemove, doRemoveParams] = OpenApi.useURemove(relClass)
 
     const isShowScope = filterScopes(
-        { scopes: [] },
+        { scopes: elementScopes },
         userState,
         props.showScopes,
     );
     const isCreateScope = filterScopes(
-        { scopes: [] },
+        { scopes: elementScopes },
         userState,
         props.createScopes,
     );
     const isEditScope = filterScopes(
-        { scopes: [] },
+        { scopes: elementScopes },
         userState,
         props.editScopes,
     );
     const isRemoveScope = filterScopes(
-        { scopes: [] },
+        { scopes: elementScopes },
         userState,
         props.removeScopes,
     );
