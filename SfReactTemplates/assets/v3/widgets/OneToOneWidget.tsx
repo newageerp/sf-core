@@ -15,6 +15,8 @@ type Props = {
     id: number,
     contentType: string,
 
+    showOnExist: boolean,
+
     showScopes: any,
     createScopes: any,
     editScopes: any,
@@ -95,6 +97,9 @@ export default function OneToOneWidget(props: Props) {
         return <Fragment />
     }
     if (!isShowScope) {
+        return <Fragment />
+    }
+    if (!dfValue && props.showOnExist) {
         return <Fragment />
     }
 

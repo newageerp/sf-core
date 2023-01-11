@@ -15,6 +15,8 @@ class OneToOneWidget extends Template
     protected array $editScopes = [];
     protected array $showScopes = [];
 
+    protected bool $showOnExist = false;
+
     public function __construct(
         int $id,
         string $path,
@@ -36,6 +38,8 @@ class OneToOneWidget extends Template
             'createScopes' => $this->getCreateScopes(),
             'removeScopes' => $this->getRemoveScopes(),
             'editScopes' => $this->getEditScopes(),
+
+            'showOnExist' => $this->getShowOnExist(),
         ];
     }
 
@@ -208,6 +212,30 @@ class OneToOneWidget extends Template
     public function setShowScopes(array $showScopes): self
     {
         $this->showScopes = $showScopes;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of showOnExist
+     *
+     * @return bool
+     */
+    public function getShowOnExist(): bool
+    {
+        return $this->showOnExist;
+    }
+
+    /**
+     * Set the value of showOnExist
+     *
+     * @param bool $showOnExist
+     *
+     * @return self
+     */
+    public function setShowOnExist(bool $showOnExist): self
+    {
+        $this->showOnExist = $showOnExist;
 
         return $this;
     }
