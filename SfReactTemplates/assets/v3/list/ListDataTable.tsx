@@ -16,7 +16,7 @@ interface Props {
 export default function ListDataTable(props: Props) {
   const { data: tData } = useTemplatesLoader();
   return (
-    <div className="tw3-space-y-2 tw3-overflow-x-auto">
+    <div className="tw3-space-y-2">
       <Table
         className={props.className}
         thead={

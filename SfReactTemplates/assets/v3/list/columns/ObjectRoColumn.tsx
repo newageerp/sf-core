@@ -21,8 +21,6 @@ export default function ObjectRoColumn(props: Props) {
     return <Fragment />;
   }
 
-
-
   let value = "";
   try {
     value = props.fieldKey.split('.').reduce((previous, current) => previous[current], element);
