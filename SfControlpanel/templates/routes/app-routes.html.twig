@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from "@newageerp/v3.templates.
 import MainList from "../v3/pages/MainList";
 import TemplateRoute from "../v3/templates/TemplateRoute";
 import MainEdit from "../v3/pages/MainEdit";
-import MainView from "../v3/pages/MainView";
+import RoutePointMainView from "../v3/pages/RoutePointMainView";
 
 export function AppsRoutes() {
     return (
@@ -47,7 +47,7 @@ export function ViewRoutes() {
     return (
         <Fragment>
             <Route path={"/u/:schema/:type/view/:id"}>
-                <MainView />
+                <RoutePointMainView />
             </Route>
         </Fragment>
     )

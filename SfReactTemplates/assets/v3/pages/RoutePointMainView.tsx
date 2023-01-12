@@ -18,7 +18,7 @@ interface Props {
   onBack?: () => void,
 }
 
-export default function MainView(props: Props) {
+export default function RoutePointMainView(props: Props) {
   const [reloadKey, setReloadKey] = useState(0);
   const history = useHistory();
   const routeParams = useParams<ParamTypes>();
@@ -27,7 +27,7 @@ export default function MainView(props: Props) {
 
   return <TemplatesLoader
     key={`${commonProps.schema}-${commonProps.type}-${commonProps.id}-${reloadKey}`}
-    templateName="PageMainView"
+    templateName="RoutePointMainView"
     data={commonProps}
     templateData={{
       onBack: () => {
