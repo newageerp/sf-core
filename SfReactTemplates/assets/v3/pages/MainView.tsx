@@ -27,7 +27,7 @@ export default function MainView(props: Props) {
 
   return <TemplatesLoader
     key={`${commonProps.schema}-${commonProps.type}-${commonProps.id}-${reloadKey}`}
-    templateName="PageMainView"
+    templateName="RoutePointMainView"
     data={commonProps}
     templateData={{
       onBack: () => {
