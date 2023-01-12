@@ -84,8 +84,8 @@ class EditContentListener implements EventSubscriberInterface
             } else {
                 $event->getPlaceholder()->addTemplate($editContent);
 
-                $toolbarTitle = new MainToolbarTitle($this->entitiesUtilsV3->getTitleBySlug($schema));
-                $event->getPlaceholder()->addTemplate($toolbarTitle);
+                // $toolbarTitle = new MainToolbarTitle($this->entitiesUtilsV3->getTitleBySlug($schema));
+                // $event->getPlaceholder()->addTemplate($toolbarTitle);
             }
         }
     }

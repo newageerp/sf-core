@@ -111,8 +111,8 @@ class ViewContentListener implements EventSubscriberInterface
             } else {
                 $event->getPlaceholder()->addTemplate($requestRecordProvider);
 
-                $toolbarTitle = new MainToolbarTitle($this->entitiesUtilsV3->getTitleBySlug($event->getData()['schema']));
-                $event->getPlaceholder()->addTemplate($toolbarTitle);
+                // $toolbarTitle = new MainToolbarTitle($this->entitiesUtilsV3->getTitleBySlug($event->getData()['schema']));
+                // $event->getPlaceholder()->addTemplate($toolbarTitle);
             }
         }
     }

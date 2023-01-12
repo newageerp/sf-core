@@ -34,7 +34,6 @@ export default function OneToOneWidget(props: Props) {
     const dfScopesValue = useDfValue({ path: scopesPath, id: props.id });
     
     const elementScopes = dfScopesValue && !!scopesProperty ? dfScopesValue : [];
-    console.log({ elementScopes })
 
     const { t } = useTranslation();
 
