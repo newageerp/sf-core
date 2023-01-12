@@ -1,13 +1,25 @@
 <?php
 
-namespace Newageerp\SfReactTemplates\CoreTemplates\View;
+namespace Newageerp\SfReactTemplates\CoreTemplates\RoutePoints;
 
+use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 use Newageerp\SfReactTemplates\CoreTemplates\MainToolbar\MainToolbarTitle;
 use Newageerp\SfReactTemplates\Event\LoadTemplateEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class ViewContentListener implements EventSubscriberInterface
+class RoutePointMainView implements EventSubscriberInterface
 {
+    protected EntitiesUtilsV3 $entitiesUtilsV3;
+
+    protected EventDispatcherInterface $eventDispatcher;
+
+    public function __construct(EntitiesUtilsV3 $entitiesUtilsV3, EventDispatcherInterface $eventDispatcher)
+    {
+        $this->entitiesUtilsV3 = $entitiesUtilsV3;
+        $this->eventDispatcher = $eventDispatcher;
+    }
+    
     public function onTemplate(LoadTemplateEvent $event)
     {
         if ($event->isTemplateForAnyEntity('RoutePointMainView')) {
