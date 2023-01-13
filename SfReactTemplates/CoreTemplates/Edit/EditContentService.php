@@ -394,7 +394,7 @@ class EditContentService
             $blockContent->getChildren()->addTemplate($content);
         }
 
-        $editableForm->getChildren()->addTemplate($tabContainer);
+        $editableForm->getChildren()->addTemplate($blockContent);
 
         $editContent->getContent()->addTemplate($editableForm);
 
