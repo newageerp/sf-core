@@ -22,6 +22,13 @@ class Placeholder
         return $this;
     }
 
+    public function addPlaceholder(Placeholder $placeholder) : Placeholder {
+        foreach ($placeholder->getTemplates() as $tpl) {
+            $this->templates[] = $tpl;
+        }
+        return $this;
+    }
+
     /**
      * Get the value of templates
      *
