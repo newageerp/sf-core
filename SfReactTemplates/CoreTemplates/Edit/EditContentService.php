@@ -370,9 +370,17 @@ class EditContentService
 
             // stepsPlaceholder
         }
-
+        $blockContent = null;
         if (count($stepsPlaceholders) === 1) {
             $content = reset($stepsPlaceholders);
+            if ($isCompact) {
+                $blockContent = new Compact();
+                $blockContent->getChildren()->addTemplate($content);
+            } else {
+                $blockContent = new Wide();
+                $blockContent->getChildren()->addTemplate($content);
+            }
+
         } else {
             $tabContainer = new TabContainer();
             foreach ($stepsPlaceholders as $title => $placeholder) {
@@ -380,19 +388,21 @@ class EditContentService
                 $tabContainer->addItem(
                     $item
                 );
-                $item->getContent()->addPlaceholder($placeholder);
+
+                if ($isCompact) {
+                    $content = new Compact();
+                    $content->getChildren()->addPlaceholder($placeholder);
+                } else {
+                    $content = new Wide();
+                    $content->getChildren()->addPlaceholder($placeholder);
+                }
+
+                $item->getContent()->addTemplate($content);
             }
-            $content = $tabContainer;
+            $blockContent = $tabContainer;
         }
 
-        $blockContent = null;
-        if ($isCompact) {
-            $blockContent = new Compact();
-            $blockContent->getChildren()->addTemplate($content);
-        } else {
-            $blockContent = new Wide();
-            $blockContent->getChildren()->addTemplate($content);
-        }
+       
 
         $editableForm->getChildren()->addTemplate($blockContent);
 
