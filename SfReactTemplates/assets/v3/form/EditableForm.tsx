@@ -8,16 +8,14 @@ interface Props {
 }
 
 export default function EditableForm(props: Props) {
-  if (props.isCompact) {
-    return (
-      <Compact>
-        <TemplatesParser templates={props.children} />
-      </Compact>
-    );
-  }
+  // if (props.isCompact) {
+  //   return (
+  //     <Compact>
+  //       <TemplatesParser templates={props.children} />
+  //     </Compact>
+  //   );
+  // }
   return (
-    <Wide>
-      <TemplatesParser templates={props.children} />
-    </Wide>
+    <TemplatesParser templates={props.children} />
   );
 }

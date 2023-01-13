@@ -37,6 +37,7 @@ import ObjectEditableField from "../form/editable-fields/ObjectEditableField";
 import StatusEditableField from "../form/editable-fields/StatusEditableField";
 import StringArrayEditableField from "../form/editable-fields/StringArrayEditableField";
 
+import { Wide, Compact } from '@newageerp/v3.bundles.form-bundle';
 import WideRow from "../form/rows/WideRow";
 import CompactRow from "../form/rows/CompactRow";
 import ArrayRoField from "../form/ro-fields/ArrayRoField";
@@ -363,6 +364,9 @@ export const componentsMap: any = {
 
   'widgets.oneToOneWidget': OneToOneWidget,
   'layout.div': DivContainer,
+
+  'form.block.compact': Compact,
+  'form.block.wide': Wide,
 
   ...CustomEditComponentsMap,
   ...CustomViewComponentsMap,

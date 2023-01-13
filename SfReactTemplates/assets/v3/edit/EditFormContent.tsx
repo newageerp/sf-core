@@ -1,4 +1,4 @@
-import { WideToolbar } from '@newageerp/ui.form.base.form-pack';
+import { WideToolbar } from '@newageerp/v3.bundles.form-bundle';
 import classNames from 'classnames';
 import React, { Fragment } from 'react'
 import FormError from '../form/FormError';

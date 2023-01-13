@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react'
 import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 import { useTranslation } from 'react-i18next';
 import { FilterListData } from "@newageerp/ui.ui-bundle"
-import { WideRow } from "@newageerp/ui.form.base.form-pack";
+import { WideRow } from "@newageerp/v3.bundles.form-bundle";
 import { FieldLabel, FieldDateRangeFilter } from '@newageerp/v3.bundles.form-bundle'
 import { ToolbarButtonWithMenu } from '@newageerp/v3.bundles.buttons-bundle';
 import { TextCardTitle } from '@newageerp/v3.bundles.typography-bundle';

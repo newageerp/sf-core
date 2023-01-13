@@ -1,5 +1,5 @@
 import React from 'react'
-import {  Wide } from "@newageerp/ui.form.base.form-pack";
+import {  Wide } from "@newageerp/v3.bundles.form-bundle";
 import { Template, TemplatesParser } from '@newageerp/v3.templates.templates-core'
 
 interface Props {
