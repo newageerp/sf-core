@@ -13,7 +13,7 @@ class Compact extends Template
 
     public function __construct()
     {
-        
+        $this->children = new Placeholder();
     }
 
     public function getProps(): array

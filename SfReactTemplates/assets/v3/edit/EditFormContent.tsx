@@ -33,7 +33,7 @@ export default function EditFormContent(props: Props) {
                 onSave={tData.onSave}
                 onCancel={tData.onBack}
                 onExtraSave={tData.onExtraSave}
-                size={props.isCompact ? 'base' : 'xl'}
+                small={props.isCompact}
             />
         </div>
     )
