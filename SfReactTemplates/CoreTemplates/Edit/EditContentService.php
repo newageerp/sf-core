@@ -121,7 +121,7 @@ class EditContentService
                         if ($flexRow !== null) {
                             $flexRow->getChildren()->addTemplate($wideRow);
                         } else {
-                            $editableForm->getChildren()->addTemplate($wideRow);
+                            $stepsPlaceholder->addTemplate($wideRow);
                         }
                     } else if ($field['type'] === 'label') {
                         $formLabel = new FormLabel($field['text']);
@@ -139,7 +139,7 @@ class EditContentService
                         if ($flexRow !== null) {
                             $flexRow->getChildren()->addTemplate($wideRow);
                         } else {
-                            $editableForm->getChildren()->addTemplate($wideRow);
+                            $stepsPlaceholder->addTemplate($wideRow);
                         }
                     } else if ($field['type'] === 'hint') {
                         $wideRow = new WideRow();
@@ -152,10 +152,10 @@ class EditContentService
                         if ($flexRow !== null) {
                             $flexRow->getChildren()->addTemplate($wideRow);
                         } else {
-                            $editableForm->getChildren()->addTemplate($wideRow);
+                            $stepsPlaceholder->addTemplate($wideRow);
                         }
                     } else if ($field['type'] === 'separator') {
-                        $editableForm->getChildren()->addTemplate(new FormFieldSeparator());
+                        $stepsPlaceholder->addTemplate(new FormFieldSeparator());
                     } else {
                         $hideLabel = false;
                         if (isset($field['hideLabel'])) {
