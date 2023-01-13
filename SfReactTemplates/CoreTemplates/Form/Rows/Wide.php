@@ -5,7 +5,7 @@ namespace Newageerp\SfReactTemplates\CoreTemplates\Form\Rows;
 use Newageerp\SfReactTemplates\Template\Placeholder;
 use Newageerp\SfReactTemplates\Template\Template;
 
-class WideRow extends Template
+class Wide extends Template
 {
     protected Placeholder $children;
 

@@ -36,6 +36,8 @@ use Newageerp\SfReactTemplates\CoreTemplates\Form\FormHint;
 use Newageerp\SfReactTemplates\CoreTemplates\Form\FormLabel;
 use Newageerp\SfReactTemplates\CoreTemplates\Form\Rows\CompactRow;
 use Newageerp\SfReactTemplates\CoreTemplates\Form\Rows\WideRow;
+use Newageerp\SfReactTemplates\CoreTemplates\Form\Rows\Wide;
+use Newageerp\SfReactTemplates\CoreTemplates\Form\Rows\Compact;
 use Newageerp\SfReactTemplates\CoreTemplates\Layout\FlexRow;
 use Newageerp\SfReactTemplates\CoreTemplates\Tabs\TabContainer;
 use Newageerp\SfReactTemplates\CoreTemplates\Tabs\TabContainerItem;
@@ -370,7 +372,7 @@ class EditContentService
         }
 
         if (count($stepsPlaceholders) === 1) {
-            $editableForm->getChildren()->addPlaceholder(reset($stepsPlaceholders));
+            $content = reset($stepsPlaceholders);
         } else {
             $tabContainer = new TabContainer();
             foreach ($stepsPlaceholders as $title => $placeholder) {
@@ -380,9 +382,19 @@ class EditContentService
                 );
                 $item->getContent()->addPlaceholder($placeholder);
             }
-            $editableForm->getChildren()->addTemplate($tabContainer);
+            $content = $tabContainer;
         }
 
+        $blockContent = null;
+        if ($isCompact) {
+            $blockContent = new Compact();
+            $blockContent->getChildren()->addTemplate($content);
+        } else {
+            $blockContent = new Wide();
+            $blockContent->getChildren()->addTemplate($content);
+        }
+
+        $editableForm->getChildren()->addTemplate($tabContainer);
 
         $editContent->getContent()->addTemplate($editableForm);
 
