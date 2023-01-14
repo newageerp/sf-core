@@ -375,10 +375,10 @@ class EditContentService
             $content = reset($stepsPlaceholders);
             if ($isCompact) {
                 $blockContent = new Compact();
-                $blockContent->getChildren()->addTemplate($content);
+                $blockContent->getChildren()->addPlaceholder($content);
             } else {
                 $blockContent = new Wide();
-                $blockContent->getChildren()->addTemplate($content);
+                $blockContent->getChildren()->addPlaceholder($content);
             }
 
         } else {
