@@ -230,7 +230,7 @@ export default function ListDataSource(props: Props) {
   return (
     <Fragment>
       {((!!props.toolbar && props.toolbar.length > 0) || (!!props.toolbarLine2 && props.toolbarLine2.length > 0)) &&
-        <div className="tw3-space-y-2  tw3-py-4">
+        <div className="tw3-space-y-2 tw3-py-4">
           <TemplatesLoader
             templates={props.toolbar}
             templateData={

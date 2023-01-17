@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { MainButton } from '@newageerp/v3.bundles.buttons-bundle';
 import { useTranslation } from 'react-i18next';
 import { useNaePopup } from '../old-ui/OldPopupProvider';
@@ -30,13 +30,17 @@ export default function ListToolbarNewButton(props: Props) {
     }
 
     return (
-        <MainButton
-            onClick={onClick}
-            iconName='plus'
-            color='teal'
-            className='tw3-whitespace-nowrap'
-        >
-            {t('New record')}
-        </MainButton>
+        <Fragment>
+            <MainButton
+                onClick={onClick}
+                iconName='plus'
+                color='teal'
+                className='tw3-whitespace-nowrap'
+            >
+                <span className='tw3-hidden md:tw3-block'>
+                    {t('New record')}
+                </span>
+            </MainButton>
+        </Fragment>
     )
 }

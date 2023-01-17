@@ -12,7 +12,7 @@ export default function ListToolbar(props: Props) {
         return <Fragment />
     }
     return (
-        <div className='tw3-flex tw3-gap-6 tw3-items-center'>
+        <div className='tw3-flex tw3-gap-6 tw3-items-center tw3-flex-wrap lg:tw3-flex-nowrap'>
             <div className='tw3-flex tw3-gap-2 tw3-items-center'>
                 <TemplatesParser templates={props.toolbarLeft} />
             </div>

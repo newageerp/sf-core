@@ -36,7 +36,7 @@ export default function ListToolbarQs(props: Props) {
 
   return <Input
     iconName={"search"}
-    className="tw3-w-full tw3-max-w-[500px] tw3-min-w-[300px]"
+    className="tw3-w-full tw3-max-w-[150px] tw3-min-w-[150px] md:tw3-max-w-[500px] md:tw3-min-w-[300px]"
     value={value}
     onChange={updateValue}
     onBlur={onBlur}
