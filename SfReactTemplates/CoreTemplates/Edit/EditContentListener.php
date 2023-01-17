@@ -58,7 +58,7 @@ class EditContentListener implements EventSubscriberInterface
                 $entity
             );
             $isPopup = isset($event->getData()['isPopup']) && $event->getData()['isPopup'];
-            $isCompact = isset($event->getData()['isCompact']) && $event->getData()['isCompact'];
+            $isCompact = (isset($event->getData()['isCompact']) && $event->getData()['isCompact']) || $event->getData()['_isMobile'];
 
             $parentElement = isset($event->getData()['parentElement']) ? $event->getData()['parentElement'] : null;
             $newStateOptions = isset($event->getData()['newStateOptions']) ? $event->getData()['newStateOptions'] : null;
