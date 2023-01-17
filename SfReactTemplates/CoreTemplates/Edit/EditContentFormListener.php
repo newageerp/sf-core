@@ -46,7 +46,8 @@ class EditContentFormListener implements EventSubscriberInterface
                 $event->getData()['schema'],
                 $event->getData()['type']
             );
-            $isCompact = isset($event->getData()['isCompact']) && $event->getData()['isCompact'];
+            $isCompact = (isset($event->getData()['isCompact']) && $event->getData()['isCompact'])
+                || $event->getData()['_isMobile'];
 
             $parentElement = isset($event->getData()['parentElement']) ? $event->getData()['parentElement'] : null;
 
@@ -70,5 +71,4 @@ class EditContentFormListener implements EventSubscriberInterface
             LoadTemplateEvent::NAME => 'onTemplate'
         ];
     }
-
 }

@@ -31,8 +31,10 @@ class ReactTemplatesController extends OaBaseController
 
         $token = $request->get('token') ? $request->get('token') : $request->headers->get('Authorization');
 
+        $isMobile = $request->get('isMobile');
         $templatesData = $request->get('data');
         $templatesData['_token'] = $token;
+        $templatesData['_isMobile'] = $isMobile;
 
         $templateName = $request->get('templateName');
 
