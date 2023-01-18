@@ -26,6 +26,7 @@ class ConfigCacheController extends ConfigBaseController
             'defaults' => 'defaults.json',
             'edit' => 'edit.json',
             'view' => 'view.json',
+            'settings' => 'settings.json'
         ];
 
         $output = ['data' => []];
