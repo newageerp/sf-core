@@ -43,7 +43,7 @@ class ConfigCacheController extends ConfigBaseController
                     );
                 }
                 if (file_exists(LocalConfigUtilsV3::getUserStoragePath() . '/' . $file)) {
-                    $data = array_merge_recursive(
+                    $data = array_merge(
                         $data,
                         json_decode(
                             file_get_contents(LocalConfigUtilsV3::getUserStoragePath() . '/' . $file),
