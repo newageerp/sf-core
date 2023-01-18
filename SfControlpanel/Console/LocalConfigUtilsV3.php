@@ -12,7 +12,7 @@ class LocalConfigUtilsV3
         }
         return json_decode(file_get_contents($file), true);
     }
-    
+
     public static function getConfigCpPath()
     {
         return self::getNaeSfsCpStoragePath();
@@ -27,9 +27,14 @@ class LocalConfigUtilsV3
     {
         return isset($_ENV['NAE_SFS_CP_STORAGE_PATH']) ? $_ENV['NAE_SFS_CP_STORAGE_PATH'] : '/var/www/symfony/config-storage';
     }
-    
+
     public static function getFrontendGeneratedPath()
     {
         return self::getNaeSfsRootPath() . '/front-generated';
+    }
+
+    public static function getUserStoragePath(): string
+    {
+        return isset($_ENV['NAE_SFFILES_STORAGE_DIR']) ? $_ENV['NAE_SFFILES_STORAGE_DIR'] : '/var/www/symfony/storage';
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Newageerp\SfControlpanel\Controller;
 
+use Newageerp\SfControlpanel\Console\LocalConfigUtilsV3;
 use Symfony\Component\Routing\Annotation\Route;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class ConfigCacheController extends ConfigBaseController
 {
+
     /**
      * @Route(path="/getLocalConfig", methods={"GET"})
      * @OA\Post (operationId="NaeConfigLocalConfigList")
@@ -40,9 +42,17 @@ class ConfigCacheController extends ConfigBaseController
                         true
                     );
                 }
+                if (file_exists(LocalConfigUtilsV3::getUserStoragePath() . '/' . $file)) {
+                    $data = array_merge_recursive(
+                        $data,
+                        json_decode(
+                            file_get_contents(LocalConfigUtilsV3::getUserStoragePath() . '/' . $file),
+                            true
+                        )
+                    );
+                }
                 $output['data'][$key] = $data;
             }
-
         } catch (\Exception $e) {
             $output['e'] = $e->getMessage();
         }

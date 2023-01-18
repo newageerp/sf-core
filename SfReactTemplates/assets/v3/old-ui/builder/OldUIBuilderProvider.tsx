@@ -55,6 +55,10 @@ export const UIBuilderProvider = (props: UIBuilderProviderProps) => {
             .then((res) => {
                 setData(res.data)
                 setLoaded(true)
+
+                if (res.data.settings.pagetTitle) {
+                    window.document.title = res.data.settings.pagetTitle;
+                }
             })
     }, [])
 
