@@ -9,6 +9,7 @@ export interface UIBuilderProviderValue {
     edit: IUIBuilderEditItem[]
     view: IUIBuilderViewItem[]
     defaults: IUIBuilderDefaultsItem[],
+    settings: any,
 
     getEditFieldsForSchema: (schema: string, type?: string) => any
     getViewFieldsForSchema: (schema: string, type?: string) => any
@@ -26,6 +27,7 @@ export const UIBuilderProviderContext =
         getEditFieldsForSchema: (schema: string, type?: string) => { },
         getViewFieldsForSchema: (schema: string, type?: string) => { },
         getTabFromSchemaAndType: (schema: string, type?: string) => { },
+        settings: {},
     })
 
 export const useUIBuilder = () => useContext(UIBuilderProviderContext)
@@ -42,7 +44,8 @@ export const UIBuilderProvider = (props: UIBuilderProviderProps) => {
         tabs: [],
         edit: [],
         view: [],
-        defaults: []
+        defaults: [],
+        settings: {},
     })
 
     useEffect(() => {
@@ -125,6 +128,7 @@ export const UIBuilderProvider = (props: UIBuilderProviderProps) => {
                 getEditFieldsForSchema: getEditFieldsForSchema,
                 getViewFieldsForSchema: getViewFieldsForSchema,
                 getTabFromSchemaAndType: getTabFromSchemaAndType,
+                settings: data.settings
             }}
         >
             {loaded ? props.children : <Fragment />}
