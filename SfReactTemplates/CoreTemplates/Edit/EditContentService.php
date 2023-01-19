@@ -328,7 +328,11 @@ class EditContentService
                                     $wideRow->getControlContent()->addTemplate($objectField);
                                 }
                                 if ($naeType === 'status') {
-                                    $wideRow->getControlContent()->addTemplate(new StatusEditableField($pathArray[1]));
+                                    $statusEditableField = new StatusEditableField($pathArray[1]);
+                                    $statusEditableField->setOptions(
+                                        $this->propertiesUtilsV3->getPropertyStatusOptions($prop)
+                                    );
+                                    $wideRow->getControlContent()->addTemplate($statusEditableField);
                                 }
                                 if ($naeType === 'string_array') {
                                     $wideRow->getControlContent()->addTemplate(new StringArrayEditableField($pathArray[1]));
@@ -380,7 +384,6 @@ class EditContentService
                 $blockContent = new Wide();
                 $blockContent->getChildren()->addPlaceholder($content);
             }
-
         } else {
             $tabContainer = new TabContainer();
             foreach ($stepsPlaceholders as $title => $placeholder) {
@@ -402,7 +405,7 @@ class EditContentService
             $blockContent = $tabContainer;
         }
 
-       
+
 
         $editableForm->getChildren()->addTemplate($blockContent);
 

@@ -133,6 +133,30 @@ class PropertiesUtilsV3
         return $val;
     }
 
+    public function getPropertyStatusList(array $property)
+    {
+        return array_filter(
+            $this->statuses,
+            function ($item) use ($property) {
+                return $item['config']['entity'] === $property['entity'] && $item['config']['type'] === $property['key'];
+            }
+        );
+    }
+
+    public function getPropertyStatusOptions(array $prop)
+    {
+        $statusSchema = $this->getPropertyStatusList($prop);
+        
+        $output = [];
+        foreach ($statusSchema as $status) {
+            $output[] = [
+                'label' => $status['config']['text'],
+                'value' => $status['config']['status']
+            ];
+        }
+        return $output;
+    }
+
     public function getPropertyEnumsList(array $prop, ?bool $addEmpty = false)
     {
         $enumsList = array_filter(
@@ -438,12 +462,7 @@ class PropertiesUtilsV3
             case 'enum_multi_text':
                 return $this->getPropertyEnumsList($property);
             case 'status':
-                $statusSchema = array_filter(
-                    $this->statuses,
-                    function ($item) use ($property) {
-                        return $item['config']['entity'] === $property['entity'] && $item['config']['type'] === $property['key'];
-                    }
-                );
+                $statusSchema = $this->getPropertyStatusList($property);
 
                 $output = [
                     [
