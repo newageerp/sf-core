@@ -181,6 +181,9 @@ class ExportController extends UControllerBase
                     if ($propertiesUtilsV3->propertyHasEnum($prop)) {
                         $val = $propertiesUtilsV3->getPropertyEnumValue($schema, $fieldKey, $val);
                     }
+                    if ($prop['format'] === 'date') {
+                        $val = $val->format('Y-m-d');
+                    }
 
                     $sheet->getCellByColumnAndRow($col, $row)->setValue($val);
 
