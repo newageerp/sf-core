@@ -332,7 +332,7 @@ class EditContentService
                                     $statusEditableField = new StatusEditableField($pathArray[1]);
                                     $statusOptions = $this->propertiesUtilsV3->getPropertyStatusOptions($prop);
 
-                                    $event = new StatusEditableOptionsEvent($statusOptions);
+                                    $event = new StatusEditableOptionsEvent($statusOptions, $schema, $type, $pathArray[1]);
                                     $this->getEventDispatcher()->dispatch($event, StatusEditableOptionsEvent::NAME);
 
                                     $statusEditableField->setOptions($event->getOptions());
