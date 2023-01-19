@@ -56,7 +56,7 @@ export function ListToolbarExport(props: ExportContainerProps) {
         });
 
         getData({
-            exportOptions: { filter: tData.filter.prepareFilter(), fieldsToReturn: fieldsToReturn },
+            exportOptions: { filter: tData.filter.prepareFilter(), fieldsToReturn: fieldsToReturn, sort: tData.sort.value },
             schema: props.schema,
             columns: ex.columns,
             title: ex.title,
