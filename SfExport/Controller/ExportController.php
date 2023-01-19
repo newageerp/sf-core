@@ -184,7 +184,7 @@ class ExportController extends UControllerBase
                     if ($prop) {
                         $naeType = $propertiesUtilsV3->getPropertyNaeType($prop, []);
                         if ($naeType === 'date') {
-                            $val = $val->format('Y-m-d');
+                            $val = date('Y-m-d', strtotime($val));
                         }
                     }
 
