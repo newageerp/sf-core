@@ -42,6 +42,7 @@ use Newageerp\SfReactTemplates\CoreTemplates\Layout\FlexRow;
 use Newageerp\SfReactTemplates\CoreTemplates\Tabs\TabContainer;
 use Newageerp\SfReactTemplates\CoreTemplates\Tabs\TabContainerItem;
 use Newageerp\SfReactTemplates\Event\LoadTemplateEvent;
+use Newageerp\SfReactTemplates\Event\StatusEditableOptionsEvent;
 use Newageerp\SfReactTemplates\Template\Placeholder;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -329,9 +330,12 @@ class EditContentService
                                 }
                                 if ($naeType === 'status') {
                                     $statusEditableField = new StatusEditableField($pathArray[1]);
-                                    $statusEditableField->setOptions(
-                                        $this->propertiesUtilsV3->getPropertyStatusOptions($prop)
-                                    );
+                                    $statusOptions = $this->propertiesUtilsV3->getPropertyStatusOptions($prop);
+
+                                    $event = new StatusEditableOptionsEvent($statusOptions);
+                                    $this->getEventDispatcher()->dispatch($event, StatusEditableOptionsEvent::NAME);
+
+                                    $statusEditableField->setOptions($event->getOptions());
                                     $wideRow->getControlContent()->addTemplate($statusEditableField);
                                 }
                                 if ($naeType === 'string_array') {
