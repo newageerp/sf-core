@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 // import { useTranslation } from 'react-i18next'
-import {TemplatesLoader, Template, useTemplatesLoader } from "@newageerp/v3.templates.templates-core";
+import { TemplatesLoader, Template, useTemplatesLoader } from "@newageerp/v3.templates.templates-core";
 import { fieldVisibility } from "../../_custom/fields/fieldVisibility";
 import { useTranslation } from "react-i18next";
 import TasksWidget from "../../apps/tasks/TasksWidget";
@@ -20,6 +20,7 @@ import { useNaePopup } from "../old-ui/OldPopupProvider";
 import classNames from 'classnames';
 import { LogoLoader } from "@newageerp/ui.ui-bundle";
 import { NaeWidgets } from "../../_custom/widgets";
+import { useUIBuilder } from "../old-ui/builder/OldUIBuilderProvider";
 
 interface Props {
   schema: string;
@@ -47,6 +48,8 @@ interface Props {
 
 export default function ViewContent(props: Props) {
   const { data: tdata } = useTemplatesLoader();
+
+  const { settings } = useUIBuilder();
 
   const { t } = useTranslation();
   const userState = useRecoilValue(OpenApi.naeUserState);
@@ -139,14 +142,16 @@ export default function ViewContent(props: Props) {
           onEdit={onEdit}
           onRemove={onRemove}
           tasksContent={
-            <TasksWidget
-              element={element}
-              options={{}}
-              schema={props.schema}
-              userState={userState}
-            />
+            settings.apps?.tasks ?
+              <TasksWidget
+                element={element}
+                options={{}}
+                schema={props.schema}
+                userState={userState}
+              />
+              : undefined
           }
-          showRemind={true}
+          showRemind={settings.apps?.followUp}
           contentBefore1Line={
             <OldNeWidgets
               type={WidgetType.viewMainTop1LineBefore}

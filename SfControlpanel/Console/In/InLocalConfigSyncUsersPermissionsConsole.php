@@ -18,8 +18,7 @@ class InLocalConfigSyncUsersPermissionsConsole extends Command
 
     public function __construct(
         EntityManagerInterface $em
-    )
-    {
+    ) {
         parent::__construct();
         $this->em = $em;
     }
@@ -64,20 +63,35 @@ export const CheckUserPermissionComponent = (props: ICheckUserPermissionComponen
 ";
 
         $permissionsData = LocalConfigUtils::getCpConfigFileData('user-permissions');
+        $enumsData = array_filter(
+            LocalConfigUtils::getCpConfigFileData('enums'),
+            function ($item) {
+                return $item['config']['entity'] === 'user' && $item['config']['property'] === 'permissionGroup';
+            }
+        );
 
         $permissions[] = [
             'key' => 'default',
             'slug' => 'default',
             'title' => 'default',
         ];
-        foreach ($permissionsData as $permission) {
-            $permissions[] = [
-                'key' => LocalConfigUtils::transformKeyToCamelCase($permission['config']['slug']),
-                'slug' => $permission['config']['slug'],
-                'title' => $permission['config']['title'],
-            ];
+        if (!$permissionsData) {
+            foreach ($enumsData as $permission) {
+                $permissions[] = [
+                    'key' => LocalConfigUtils::transformKeyToCamelCase($permission['config']['value']),
+                    'slug' => $permission['config']['value'],
+                    'title' => $permission['config']['title'],
+                ];
+            }
+        } else {
+            foreach ($permissionsData as $permission) {
+                $permissions[] = [
+                    'key' => LocalConfigUtils::transformKeyToCamelCase($permission['config']['slug']),
+                    'slug' => $permission['config']['slug'],
+                    'title' => $permission['config']['title'],
+                ];
+            }
         }
-
         $enumText = '';
         $enumText .= 'export enum ENaeSPermissions {';
 
