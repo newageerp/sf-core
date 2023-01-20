@@ -10,10 +10,13 @@ class ToolbarExport extends Template
     
     protected array $exports = [];
 
-    public function __construct(string $schema, array $exports)
+    protected array $summary = [];
+
+    public function __construct(string $schema, array $exports, array $summary = [])
     {
         $this->schema = $schema;
         $this->exports = $exports;
+        $this->summary = $summary;
     }
 
     public function getProps(): array
@@ -21,6 +24,7 @@ class ToolbarExport extends Template
         return [
             'schema' => $this->getSchema(),
             'exports' => $this->getExports(),
+            'summary' => $this->getSummary(),
         ];
     }
 
@@ -74,6 +78,30 @@ class ToolbarExport extends Template
     public function setSchema(string $schema): self
     {
         $this->schema = $schema;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of summary
+     *
+     * @return array
+     */
+    public function getSummary(): array
+    {
+        return $this->summary;
+    }
+
+    /**
+     * Set the value of summary
+     *
+     * @param array $summary
+     *
+     * @return self
+     */
+    public function setSummary(array $summary): self
+    {
+        $this->summary = $summary;
 
         return $this;
     }

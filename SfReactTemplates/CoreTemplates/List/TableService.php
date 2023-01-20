@@ -189,7 +189,7 @@ class TableService
             // TABS EXPORT
             if (isset($tab['exports']) && $tab['exports']) {
                 $listDataSource->getToolbar()->getToolbarRight()->addTemplate(
-                    new ToolbarExport($schema, $tab['exports'])
+                    new ToolbarExport($schema, $tab['exports'], $tab['summary'])
                 );
             }
 
@@ -270,7 +270,7 @@ class TableService
             // TABS EXPORT
             if (isset($tab['exports']) && $tab['exports']) {
                 $listDataSource->getToolbar()->getToolbarRight()->addTemplate(
-                    new ToolbarExport($schema, $tab['exports'])
+                    new ToolbarExport($schema, $tab['exports'], $tab['summary'])
                 );
             }
         }

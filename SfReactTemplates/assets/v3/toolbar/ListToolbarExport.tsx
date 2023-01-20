@@ -8,11 +8,13 @@ import { ToolbarButton } from '@newageerp/v3.bundles.buttons-bundle'
 import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 import { MenuItem } from '@newageerp/v3.bundles.modal-bundle'
+import { ISummary } from '../list/ListDataSummary';
 
 export type ExportContainerProps = {
     exports: ITabExport[];
     schema: string;
     exportOptions?: any;
+    summary?: ISummary[];
 };
 
 export type ITabExportField = {
@@ -56,7 +58,12 @@ export function ListToolbarExport(props: ExportContainerProps) {
         });
 
         getData({
-            exportOptions: { filter: tData.filter.prepareFilter(), fieldsToReturn: fieldsToReturn, sort: tData.sort.value },
+            exportOptions: {
+                filter: tData.filter.prepareFilter(),
+                fieldsToReturn: fieldsToReturn,
+                sort: tData.sort.value,
+                summary: props.summary
+            },
             schema: props.schema,
             columns: ex.columns,
             title: ex.title,

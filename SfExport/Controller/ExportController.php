@@ -78,14 +78,18 @@ class ExportController extends UControllerBase
 
             $fieldsToReturn = $exportOptions['fieldsToReturn'] ?? ['id'];
 
+            $summary = $exportOptions['summary'] ?? [];
+            $filters = $exportOptions['filter'] ?? [];
+            $sort = $exportOptions['sort'] ?? [];
+
             $data = $uService->getListDataForSchema(
                 $schema,
                 1,
                 9999999,
                 $fieldsToReturn,
-                $exportOptions['filter'] ?? [],
+                $filters,
                 $exportOptions['extraData'] ?? [],
-                $exportOptions['sort'] ?? [],
+                $sort,
                 $exportOptions['totals'] ?? []
             )['data'];
             $recordsCount = count($data);
@@ -204,6 +208,15 @@ class ExportController extends UControllerBase
                 $pivotRow++;
             }
             XlsxService::autoSizeSheet($sheet);
+
+            // if ($summary) {
+            //     $summaryData = $uService->getGroupedListDataForSchema($schema, $filters, $sort, $summary);
+
+            //     $summarySheet = $spreadsheet->createSheet(1);
+            //     $summarySheet->setTitle('Summary');
+
+                
+            // }
 
             if ($hasPivot) {
                 $pivotRowTitle = '';

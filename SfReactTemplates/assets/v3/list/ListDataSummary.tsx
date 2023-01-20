@@ -8,8 +8,9 @@ import { Base } from "@newageerp/v2.element.status-badge.base";
 import { NaeSStatuses } from "../../_custom/config/NaeSStatuses";
 import { LogoLoader } from "@newageerp/ui.ui-bundle";
 import { t } from "i18next";
+import { ToolbarButton } from '@newageerp/v3.bundles.buttons-bundle'
 
-type ISummary = {
+export type ISummary = {
   title: string;
   field: string;
   type: string;
@@ -20,6 +21,40 @@ type Props = {
   summary: ISummary[];
   schema: string;
 };
+
+const uri = 'data:application/vnd.ms-excel;base64,';
+
+const template =
+  '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-mic' +
+  'rosoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><meta cha' +
+  'rset="UTF-8"><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:Exce' +
+  'lWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/>' +
+  '</x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></' +
+  'xml><![endif]--></head><body>{table}</body></html>';
+
+const base64 = (s: string) => {
+  return window.btoa(unescape(encodeURIComponent(s)));
+}
+
+const doFormat = (s: string, tableId: string) => {
+  const context = {
+    worksheet: 'Worksheet',
+    // @ts-ignore
+    table: window.document.getElementById(tableId).outerHTML,
+  };
+
+  // @ts-ignore
+  return s.replace(/{(\w+)}/g, (_m, p) => context[p]);
+}
+
+const doDownload = (tableId: string) => {
+  const element = window.document.createElement('a');
+  element.href = uri + base64(doFormat(template, tableId));
+  element.download = 'export.xls';
+  document.body.appendChild(element);
+  element.click();
+  document.body.removeChild(element);
+}
 
 export default function ListDataSummary(props: Props) {
   const [isLoading, setIsLoading] = useState(false);
@@ -59,13 +94,21 @@ export default function ListDataSummary(props: Props) {
         );
         const rows = Object.keys(data[groupField]);
 
+        const tId = `table-${groupField}`;
+
         return (
           <Table
-            key={`table-${groupField}`}
+            key={tId}
+            id={tId}
             thead={
               <thead>
                 <tr>
-                  <Th></Th>
+                  <Th>
+                    <ToolbarButton
+                      iconName={"file-excel"}
+                      onClick={() => doDownload(tId)}
+                    />
+                  </Th>
                   {summaryFields.map((t) => (
                     <Th
                       key={`th-${groupField}-${t.field}`}
