@@ -18,9 +18,14 @@ export const editPopupBySchemaAndType = (
 ) => {
   const { editProps } = props;
 
+  const onCloseWithPrompt = () => {
+    if (!window.confirm('Are you sure?')) return false;
+    props.onClose();
+  }
+
   return (
-    <NaePopupProvider isPopup={true} onClose={props.onClose}>
-      <Popup title="" isPopup={true} onClick={props.onClose} className={'tw3-min-w-[50vw]'}>
+    <NaePopupProvider isPopup={true} onClose={onCloseWithPrompt}>
+      <Popup title="" isPopup={true} onClick={onCloseWithPrompt} className={'tw3-min-w-[50vw]'}>
         <TemplatesLoader
           key={`${editProps.schema}-${editProps.type}-${editProps.id}`}
           templateName="PageMainEdit"
