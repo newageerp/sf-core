@@ -228,13 +228,17 @@ class ViewContentService
                                 );
                             }
                             if ($naeType === 'file') {
+                                $labelClassName = isset($field['labelClassName']) ? $field['labelClassName'] : '';
+                                
                                 $f = new FileRoField($pathArray[1]);
-                                $f->setShort(mb_strpos($field['labelClassName'], 'short') !== false);
+                                $f->setShort(mb_strpos($labelClassName, 'short') !== false);
                                 $wideRow->getControlContent()->addTemplate($f);
                             }
                             if ($naeType === 'fileMultiple') {
+                                $labelClassName = isset($field['labelClassName']) ? $field['labelClassName'] : '';
+
                                 $f = new FileMultipleRoField($pathArray[1]);
-                                $f->setShort(mb_strpos($field['labelClassName'], 'short') !== false);
+                                $f->setShort(mb_strpos($labelClassName, 'short') !== false);
                                 $wideRow->getControlContent()->addTemplate($f);
                             }
                             if ($naeType === 'float') {
