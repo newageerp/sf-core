@@ -8,8 +8,43 @@ use Newageerp\SfReactTemplates\Template\Template;
 
 class FileMultipleRoField extends FormBaseField
 {
+    protected bool $short = false;
+
+    public function getProps(): array
+    {
+        $props = parent::getProps();
+
+        $props['short'] = $this->getShort();
+
+        return $props;
+    }
+
     public function getTemplateName(): string
     {
         return 'form.ro.filemultiplefield';
+    }
+
+    /**
+     * Get the value of short
+     *
+     * @return bool
+     */
+    public function getShort(): bool
+    {
+        return $this->short;
+    }
+
+    /**
+     * Set the value of short
+     *
+     * @param bool $short
+     *
+     * @return self
+     */
+    public function setShort(bool $short): self
+    {
+        $this->short = $short;
+
+        return $this;
     }
 }

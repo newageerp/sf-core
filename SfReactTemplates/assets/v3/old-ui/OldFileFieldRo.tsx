@@ -16,7 +16,7 @@ export default function OldFileFieldRo(props: Props) {
     ext = _name[_name.length - 1]
   }
 
-  let width = 'tw3-w-96 tw3-max-w-96';
+  let width = 'tw3-w-auto tw3-max-w-96';
   if (props.short) {
     width = 'tw3-w-auto';
   }

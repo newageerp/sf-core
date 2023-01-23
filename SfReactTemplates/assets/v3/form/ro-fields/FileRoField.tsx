@@ -4,6 +4,7 @@ import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 
 interface Props {
   fieldKey: string;
+  short?: boolean;
 }
 
 export default function FileRoField(props: Props) {
@@ -21,6 +22,6 @@ export default function FileRoField(props: Props) {
   }
 
   return (
-    <OldFileFieldRo file={value} />
+    <OldFileFieldRo file={value} short={props.short} />
   )
 }

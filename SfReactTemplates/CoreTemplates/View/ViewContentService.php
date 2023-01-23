@@ -228,10 +228,14 @@ class ViewContentService
                                 );
                             }
                             if ($naeType === 'file') {
-                                $wideRow->getControlContent()->addTemplate(new FileRoField($pathArray[1]));
+                                $f = new FileRoField($pathArray[1]);
+                                $f->setShort(mb_strpos($field['labelClassName'], 'short') !== false);
+                                $wideRow->getControlContent()->addTemplate($f);
                             }
                             if ($naeType === 'fileMultiple') {
-                                $wideRow->getControlContent()->addTemplate(new FileMultipleRoField($pathArray[1]));
+                                $f = new FileMultipleRoField($pathArray[1]);
+                                $f->setShort(mb_strpos($field['labelClassName'], 'short') !== false);
+                                $wideRow->getControlContent()->addTemplate($f);
                             }
                             if ($naeType === 'float') {
                                 $wideRow->getControlContent()->addTemplate(new FloatRoField($pathArray[1]));

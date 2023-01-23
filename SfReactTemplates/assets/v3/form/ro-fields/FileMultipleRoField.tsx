@@ -4,6 +4,7 @@ import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 
 interface Props {
   fieldKey: string;
+  short?: boolean;
 }
 
 export default function FileMultipleRoField(props: Props) {
@@ -20,6 +21,6 @@ export default function FileMultipleRoField(props: Props) {
   }
 
   return (
-    <OldFileFieldMultipleRo files={file} />
+    <OldFileFieldMultipleRo files={file} short={props.short}/>
   )
 }
