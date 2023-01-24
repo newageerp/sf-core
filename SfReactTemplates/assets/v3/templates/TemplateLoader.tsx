@@ -164,6 +164,7 @@ import * as ModalBundle from '@newageerp/v3.bundles.modal-bundle';
 import * as LayoutBundle from '@newageerp/v3.bundles.layout-bundle';
 import OneToOneWidget from "../widgets/OneToOneWidget";
 import DivContainer from "../layout/DivContainer";
+import EditContentInline from "../edit/EditContentInline";
 
 export const componentsMap: any = {
   "App": AppInner,
@@ -219,6 +220,8 @@ export const componentsMap: any = {
 
   "toolbar.action-button": ToolbarActionButton,
   "edit.contentpopup": EditContentPopup,
+
+  "edit.contentinline": EditContentInline,
 
   "widgets.freebgbadgewidget": FreeBgBadgeWidget,
 
