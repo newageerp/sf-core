@@ -188,8 +188,9 @@ class TableService
 
             // TABS EXPORT
             if (isset($tab['exports']) && $tab['exports']) {
+                $summary = isset($tab['summary']) ? $tab['summary'] : [];
                 $listDataSource->getToolbar()->getToolbarRight()->addTemplate(
-                    new ToolbarExport($schema, $tab['exports'], $tab['summary'])
+                    new ToolbarExport($schema, $tab['exports'], $summary)
                 );
             }
 
@@ -210,7 +211,7 @@ class TableService
             );
 
             $templateEvent = new LoadTemplateEvent(
-                $listDataSource->getToolbar()->getToolbarRight(), 
+                $listDataSource->getToolbar()->getToolbarRight(),
                 'TableService.ToolbarRight',
                 [
                     'schema' => $schema
@@ -219,8 +220,8 @@ class TableService
             $this->eventDispatcher->dispatch($templateEvent, LoadTemplateEvent::NAME);
 
             $templateEvent = new LoadTemplateEvent(
-                $listDataSource->getToolbar()->getToolbarRight(), 
-                'TableService.ToolbarRight.'.$schema,
+                $listDataSource->getToolbar()->getToolbarRight(),
+                'TableService.ToolbarRight.' . $schema,
                 [
                     'schema' => $schema
                 ]
