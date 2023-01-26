@@ -6,6 +6,8 @@ import i18n from "../../_custom/lang/i18";
 import { useTranslation } from 'react-i18next';
 import { cacheData } from "../../_custom/hooks/DataCacheProviderCacheData";
 import { getDataCacheForSchema } from '../../_custom/hooks/DataCacheSocketMap';
+import { NaePathsMap } from "../../_custom/config/NaePaths";
+import { selectorBySchemaClassName, selectorBySchemaSlug } from "../../_custom/models/ormSelectors";
 
 
 function App() {
@@ -27,6 +29,11 @@ function App() {
             dataCache={{
                 cacheData: cacheData,
                 getDataCacheForSchema: getDataCacheForSchema,
+            }}
+            pathMap={NaePathsMap}
+            orm={{
+                selectorBySchemaClassName: selectorBySchemaClassName,
+                selectorBySchemaSlug: selectorBySchemaSlug
             }}
         >
             <TemplatesLoader templateName="App" onError={redirectToLogin} />

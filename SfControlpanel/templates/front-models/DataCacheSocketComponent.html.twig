@@ -1,14 +1,12 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { NaeSSchemaMap } from '../config/NaeSSchema';
-import { useDataCache } from './DataCacheProvider';
-import { useRecoilValue, useTemplatesCore } from '@newageerp/v3.templates.templates-core';
-import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
+import { useDataCache } from "@newageerp/v3.bundles.app-bundle";
+import { useTemplatesCore } from '@newageerp/v3.templates.templates-core';
 import { SFSSocketService } from '../../v3/navigation/NavigationComponent';
 import { getSchemaByClassName } from '../../v3/utils';
 
 export default function DataCacheSocketComponent() {
-    const { dataCache } = useTemplatesCore();
-    const userState: any = useRecoilValue(OpenApi.naeUserState);
+    const { dataCache, userState } = useTemplatesCore();
 
     const { addToQueue } = useDataCache();
     const [socketItem, setSocketItem] = useState();
@@ -68,7 +66,6 @@ export default function DataCacheSocketComponent() {
         };
     }, []);
 
-{% if hasNotes %}
     useEffect(() => {
         SFSSocketService.subscribe(`notes-${userState.id}`);
         SFSSocketService.subscribe(`notes-${userState.permissionGroup}`);
@@ -88,7 +85,6 @@ export default function DataCacheSocketComponent() {
             );
         };
     }, [userState]);
-{% endif %}
     return (
         <Fragment />
     )
