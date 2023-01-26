@@ -8,7 +8,7 @@ import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 import { filterScopes, getPropertyForPath } from '../utils';
 import { useDfValue } from '../hooks/useDfValue';
 import { Tooltip } from '@newageerp/v3.bundles.badges-bundle';
-import { useRecoilValue } from '@newageerp/v3.templates.templates-core';
+import { useTemplatesCore } from '@newageerp/v3.templates.templates-core';
 
 type Props = {
     path: string,

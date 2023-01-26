@@ -3,7 +3,7 @@ import { MenuItem, MenuItemProps } from '@newageerp/v3.bundles.modal-bundle'
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 import { filterScopes } from '../utils';
 import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
-import { useRecoilValue } from '@newageerp/v3.templates.templates-core';
+import { useTemplatesCore } from '@newageerp/v3.templates.templates-core';
 
 declare type Props = {
     elementId: number,

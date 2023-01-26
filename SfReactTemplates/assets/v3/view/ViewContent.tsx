@@ -20,7 +20,7 @@ import classNames from 'classnames';
 import { LogoLoader } from "@newageerp/ui.ui-bundle";
 import { NaeWidgets } from "../../_custom/widgets";
 import { useUIBuilder } from "../old-ui/builder/OldUIBuilderProvider";
-import { useRecoilValue } from '@newageerp/v3.templates.templates-core';
+import { useTemplatesCore } from '@newageerp/v3.templates.templates-core';
 
 interface Props {
   schema: string;

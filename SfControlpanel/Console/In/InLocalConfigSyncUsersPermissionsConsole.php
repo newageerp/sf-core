@@ -29,7 +29,7 @@ class InLocalConfigSyncUsersPermissionsConsole extends Command
 
         $fileContent = "import React, { Fragment } from 'react';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
-import { useRecoilValue } from '@newageerp/v3.templates.templates-core';
+import { useTemplatesCore } from '@newageerp/v3.templates.templates-core';
 
 export const checkUserPermission = (userState: any, permission: string) => {
     return userState.scopes.indexOf(permission) >= 0;

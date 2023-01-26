@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import {TemplatesLoader, Template, useTemplatesLoader } from '@newageerp/v3.templates.templates-core'
 import { filterScopes } from '../utils';
-import { useRecoilValue } from '@newageerp/v3.templates.templates-core';
+import { useTemplatesCore } from '@newageerp/v3.templates.templates-core';
 
 interface Props {
     isCompact: boolean,

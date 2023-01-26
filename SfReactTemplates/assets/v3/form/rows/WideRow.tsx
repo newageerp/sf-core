@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { WideRow as WideRowT } from "@newageerp/v3.bundles.form-bundle";
 import { Template, TemplatesParser, useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 import { MainEditTemplateData } from "../../edit/MainEdit";
-import { useRecoilValue } from '@newageerp/v3.templates.templates-core';
+import { useTemplatesCore } from '@newageerp/v3.templates.templates-core';
 
 interface Props {
   labelClassName?: string;

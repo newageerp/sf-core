@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { NaeWidgets } from '../../_custom/widgets'
 import { filterScopes, INaeWidget, WidgetType } from '../utils'
-import { useRecoilValue } from '@newageerp/v3.templates.templates-core';
+import { useTemplatesCore } from '@newageerp/v3.templates.templates-core';
 
 export interface WidgetProps {
   type: WidgetType
