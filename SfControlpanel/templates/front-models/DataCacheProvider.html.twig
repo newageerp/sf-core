@@ -134,10 +134,12 @@ export const DataCacheProvider = (props: DataCacheProps) => {
 
     return (
         <DataCacheContext.Provider
-            value={{
+            value={
+                {
                 queue,
                 addToQueue,
-            }}
+            }
+            }
         >
             {isCaching && isLoggedIn ?
 
