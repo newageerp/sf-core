@@ -408,7 +408,7 @@ import { " . $selectorsJoin . " } from '../models/ormSelectors';
         }';
 
         $componentsContent .= PHP_EOL . PHP_EOL;
-        
+
         $componentsContent .= 'export const getHookForSchema = (schema: string) => {
   let selector : any = useEmptyHook;';
 
@@ -425,20 +425,20 @@ import { " . $selectorsJoin . " } from '../models/ormSelectors';
 
         $componentsContent .= PHP_EOL . PHP_EOL;
 
-//         $componentsContent .= 'export const getSelectorForSchema = (schema: string) => {
-//   let selector : any;';
-//         foreach ($models as $m) {
-//             $s = $this->entitiesUtilsV3->getSlugByClassName($m);
-//             $componentsContent .= "
-//   if (schema === '" . $s . "') {
-//     return Selector" . $m . "Nae;
-//   }";
-//         }
-//         $componentsContent .= '
-//   return selector;
-// }';
+        //         $componentsContent .= 'export const getSelectorForSchema = (schema: string) => {
+        //   let selector : any;';
+        //         foreach ($models as $m) {
+        //             $s = $this->entitiesUtilsV3->getSlugByClassName($m);
+        //             $componentsContent .= "
+        //   if (schema === '" . $s . "') {
+        //     return Selector" . $m . "Nae;
+        //   }";
+        //         }
+        //         $componentsContent .= '
+        //   return selector;
+        // }';
 
-//         $componentsContent .= PHP_EOL . PHP_EOL;
+        //         $componentsContent .= PHP_EOL . PHP_EOL;
 
         // $pathByComponent = [];
 
@@ -587,17 +587,17 @@ import { " . $selectorsJoin . " } from '../models/ormSelectors';
             }
         }
 
-//         $componentsContent .= ' export const getFieldNaeViewByPath = (path: string, id: number) => {' . PHP_EOL;
+        //         $componentsContent .= ' export const getFieldNaeViewByPath = (path: string, id: number) => {' . PHP_EOL;
 
-//         foreach ($pathByComponent as $path => $comp) {
-//             $componentsContent .= '
-//     if (path === \'' . $path . '\') {
-//         return <' . $comp . ' id={id}/>;
-//     }';
-//         }
+        //         foreach ($pathByComponent as $path => $comp) {
+        //             $componentsContent .= '
+        //     if (path === \'' . $path . '\') {
+        //         return <' . $comp . ' id={id}/>;
+        //     }';
+        //         }
 
-//         $componentsContent .= '
-// }' . PHP_EOL;
+        //         $componentsContent .= '
+        // }' . PHP_EOL;
 
         file_put_contents($compFile, $componentsContent);
 
@@ -615,7 +615,7 @@ import { " . $selectorsJoin . " } from '../models/ormSelectors';
         );
         Utils::writeOnChanges($socketCheckFilePath, $socketFileContent);
 
-        
+
         $socketFileContent = $dataCacheSocketMapTemplate->render(
             [
                 'checks' => $models,
@@ -625,15 +625,8 @@ import { " . $selectorsJoin . " } from '../models/ormSelectors';
 
 
         $socketProviderFilePath = $hooksDir . '/DataCacheProvider.tsx';
-        $socketProviderFileContent = $dataCacheProviderTemplate->render(
-            [
-                'hasNotes' => $hasNotes,
-                'hasUsers' => $hasUsers,
-            ]
-        );
-        if (!file_exists($socketProviderFilePath)) {
-            Utils::writeOnChanges($socketProviderFilePath, $socketProviderFileContent);
-        }
+        $socketProviderFileContent = $dataCacheProviderTemplate->render([]);
+        Utils::writeOnChanges($socketProviderFilePath, $socketProviderFileContent);
 
 
         $socketProviderFilePath = $hooksDir . '/DataCacheProviderCacheData.tsx';

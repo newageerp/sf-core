@@ -4,8 +4,9 @@ import { componentsMap } from "../templates/TemplateLoader";
 import { store } from "../../_custom/models/ormstore";
 import i18n from "../../_custom/lang/i18";
 import { useTranslation } from 'react-i18next';
-import { cacheData } from '../../_custom/hooks/DataCacheProvider';
+import { cacheData } from "../../_custom/hooks/DataCacheProviderCacheData";
 import { getDataCacheForSchema } from '../../_custom/hooks/DataCacheSocketMap';
+
 
 function App() {
     const { t } = useTranslation();
