@@ -44,7 +44,7 @@ class InPathMapConsole extends Command
                     'path' => $path,
                     'parameters' => $methodData['parameters'] ?? []
                 ];
-                $urlMap[$method][$method] = $path;
+                $urlMap[$method][$methodData['operationId']] = $path;
             }
         }
 
