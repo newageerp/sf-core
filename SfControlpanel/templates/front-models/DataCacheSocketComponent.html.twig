@@ -1,12 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import { useSelector } from '@newageerp/v3.templates.templates-core';
-import { {% for schema in checks %}Selector{{ schema }}Nae,{% endfor %} } from "../models/ormSelectors"
 import { NaeSSchemaMap } from '../config/NaeSSchema';
 import { cacheData, useDataCache } from './DataCacheProvider';
 
-{% for schema in checks %}
-import { I{{ schema }}FieldsNae } from './use{{ schema }}HookNae';
-{% endfor %}
 
 import { useRecoilValue } from '@newageerp/v3.templates.templates-core';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
@@ -19,33 +14,24 @@ export default function DataCacheSocketComponent() {
     const { addToQueue } = useDataCache();
     const [socketItem, setSocketItem] = useState();
 
-    {% for schema in checks %}
-        const {{ schema }}DataNae = useSelector(state => Selector{{ schema }}Nae(state));
-    {% endfor %}
-
     const onSocketDoRequest = (data: any) => {
-        let fields = ['id'];
-        let dataToCheck = [];
         let schema = getSchemaByClassName(data.schema);
 
-        {% for schema in checks %}
-        if (data.schema === NaeSSchemaMap.{{ schema }}.className) {
-            dataToCheck = {{ schema }}DataNae;
-            fields = I{{ schema }}FieldsNae;
-        }
-        {% endfor %}
+        let result = getDataCacheForSchema(data.schema);
 
-        dataToCheck = dataToCheck.map((el: any) => el.id);
+        if (result) {
+            const dataToCheck = result.dataToCheck.map((el: any) => el.id);
 
-        const cacheDataProject : any = cacheData({}).find((el: any) => el.schema === schema)
+            const cacheDataProject: any = cacheData({}).find((el: any) => el.schema === schema)
 
-        if (dataToCheck.indexOf(data.id) >= 0 || (!!cacheDataProject && cacheDataProject.forceSync)) {
-            const item = {
-                elementId: data.id,
-                schema: schema,
-                fields: fields,
+            if (dataToCheck.indexOf(data.id) >= 0 || (!!cacheDataProject && cacheDataProject.forceSync)) {
+                const item = {
+                    elementId: data.id,
+                    schema: schema,
+                    fields: result.fields,
+                }
+                addToQueue(item);
             }
-            addToQueue(item);
         }
     }
 
