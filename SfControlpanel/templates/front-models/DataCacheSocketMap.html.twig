@@ -9,7 +9,7 @@ export const getDataCacheForSchema = (className: string) => {
     {% for schema in checks %}
 if (className === NaeSSchemaMap.{{ schema }}.className) {
             return {
-                dataToCheck: Selector{{ schema }}Nae(store.state),
+                dataToCheck: Selector{{ schema }}Nae(store.getState()),
                 fields: I{{ schema }}FieldsNae,    
             }
         }
