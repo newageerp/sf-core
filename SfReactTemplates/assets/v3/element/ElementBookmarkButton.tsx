@@ -1,6 +1,6 @@
 import { ToolbarButton } from '@newageerp/v3.bundles.buttons-bundle';
 import React, { useEffect, useState } from 'react'
-import { axiosInstance } from '../api/config';
+import { axiosInstance } from "@newageerp/v3.bundles.utils-bundle";
 
 type Props = {
   sourceSchema: string,

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { axiosInstance } from "../api/config";
+import { axiosInstance } from "@newageerp/v3.bundles.utils-bundle";
 import { useTemplatesLoader } from "@newageerp/v3.templates.templates-core";
 import { Table, Th, Td } from "@newageerp/v3.bundles.layout-bundle";
 import { Float, Int } from "@newageerp/data.table.base";

@@ -1,7 +1,7 @@
 import React from 'react'
 import { ToolbarButton as ToolbarButtonTpl } from '@newageerp/v3.bundles.buttons-bundle'
 import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
-import { axiosInstance } from '../api/config';
+import { axiosInstance } from "@newageerp/v3.bundles.utils-bundle";
 
 interface Props {
     button: {
