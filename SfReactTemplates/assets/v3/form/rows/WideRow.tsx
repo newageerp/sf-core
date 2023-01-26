@@ -1,9 +1,8 @@
 import React, { Fragment } from "react";
 import { WideRow as WideRowT } from "@newageerp/v3.bundles.form-bundle";
 import { Template, TemplatesParser, useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
-import { useRecoilValue } from "@newageerp/v3.templates.templates-core";
-import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import { MainEditTemplateData } from "../../edit/MainEdit";
+import { useRecoilValue } from '@newageerp/v3.templates.templates-core';
 
 interface Props {
   labelClassName?: string;
@@ -19,7 +18,7 @@ interface Props {
 }
 
 export default function WideRow(props: Props) {
-  const userState = useRecoilValue(OpenApi.naeUserState);
+  const {userState} = useTemplatesCore()
 
   const { data: tData } = useTemplatesLoader();
   const mainTemplateData : MainEditTemplateData = tData;

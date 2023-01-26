@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import UserSpaceWrapperToolbar from "./UserSpaceWrapperToolbar";
+import { UserHeader } from "@newageerp/v3.bundles.app-bundle";
 import { TemplatesParser, useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 import DataCacheSocketComponent from "../../../_custom/hooks/DataCacheSocketComponent";
 import { MainPage } from "@newageerp/v3.bundles.layout-bundle";
@@ -30,7 +30,7 @@ function UserSpaceWrapper(props: Props) {
           <DataCacheSocketComponent />
         </Fragment>
       }
-      header={<UserSpaceWrapperToolbar />}
+      header={<UserHeader />}
     >
       {props.children}
     </MainPage>

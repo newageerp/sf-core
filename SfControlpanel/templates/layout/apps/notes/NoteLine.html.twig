@@ -2,7 +2,6 @@ import React, { Fragment, useState } from "react";
 import { useTranslation } from "react-i18next";
 import parse from "html-react-parser";
 import { useSelector } from "@newageerp/v3.templates.templates-core";
-import { useRecoilValue } from "@newageerp/v3.templates.templates-core";
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import { useComponentVisible } from "@newageerp/v3.bundles.hooks-bundle";
 import {
@@ -15,6 +14,7 @@ import { SFSOpenViewModalWindowProps } from '@newageerp/v3.bundles.popup-bundle'
 import { getHookForSchema } from "../../_custom/models-cache-data/ModelFields";
 import { selectorBySchemaSlug } from "../../_custom/models/ormSelectors";
 import { MainButton, ToolbarButtonWithMenu } from "@newageerp/v3.bundles.buttons-bundle";
+import { useRecoilValue } from '@newageerp/v3.templates.templates-core';
 
 interface IData {
   id: number;
@@ -52,7 +52,7 @@ export default function NoteLine(props: Props) {
   const users = useSelector((state) => usersSelector(state));
 
   const { note, doReload } = props;
-  const userState: any = useRecoilValue(OpenApi.naeUserState);
+  const {userState} = useTemplatesCore()
   const { t } = useTranslation();
   const [showAnswerForm, setShowAnswerForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);

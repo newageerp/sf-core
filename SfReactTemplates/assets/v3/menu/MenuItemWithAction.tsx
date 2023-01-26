@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react'
 import { MenuItem, MenuItemProps } from '@newageerp/v3.bundles.modal-bundle'
-import { useRecoilValue } from '@newageerp/v3.templates.templates-core';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 import { filterScopes } from '../utils';
 import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
+import { useRecoilValue } from '@newageerp/v3.templates.templates-core';
 
 declare type Props = {
     elementId: number,
@@ -16,7 +16,8 @@ declare type Props = {
 export default function MenuItemWithAction(props: Props) {
     const {data: tData} = useTemplatesLoader();
 
-    const userState = useRecoilValue(OpenApi.naeUserState);
+    const {userState} = useTemplatesCore()
+
     const [doReq, doReqParams] = OpenApi.useURequest(props.action);
 
     const isShow = filterScopes(

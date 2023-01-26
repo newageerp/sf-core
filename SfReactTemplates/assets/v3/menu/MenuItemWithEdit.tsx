@@ -1,10 +1,9 @@
 import React, { Fragment } from 'react'
 import { MenuItem, MenuItemProps } from '@newageerp/v3.bundles.modal-bundle'
-import { useRecoilValue } from '@newageerp/v3.templates.templates-core';
-import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 import { filterScopes } from '../utils';
 import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 import { useNaePopup } from '../old-ui/OldPopupProvider';
+import { useRecoilValue } from '@newageerp/v3.templates.templates-core';
 
 declare type Props = {
     elementId: number,
@@ -20,7 +19,7 @@ declare type Props = {
 export default function MenuItemWithEdit(props: Props) {
     const {data: tData} = useTemplatesLoader();
 
-    const userState = useRecoilValue(OpenApi.naeUserState);
+    const {userState} = useTemplatesCore()
 
     const { isPopup } = useNaePopup();
     const openInPopup = isPopup || props.forcePopup;

@@ -9,7 +9,6 @@ import { getDataCacheForSchema } from '../../_custom/hooks/DataCacheSocketMap';
 import { NaePathsMap } from "../../_custom/config/NaePaths";
 import { selectorBySchemaClassName, selectorBySchemaSlug } from "../../_custom/models/ormSelectors";
 
-
 function App() {
     const { t } = useTranslation();
 

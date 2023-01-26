@@ -24,7 +24,7 @@ type Props = {
 }
 
 export default function OneToOneWidget(props: Props) {
-    const userState = useRecoilValue(OpenApi.naeUserState);
+    const {userState} = useTemplatesCore()
 
     const property = getPropertyForPath(props.path);
     const scopesPath = `${props.path}.scopes`;

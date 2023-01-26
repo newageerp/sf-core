@@ -1,13 +1,13 @@
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper'
 import React, { useState, useEffect, Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useRecoilState, useRecoilValue } from '@newageerp/v3.templates.templates-core'
 import {TemplatesLoader} from '@newageerp/v3.templates.templates-core';
 import { getSchemaTitle } from '../../v3/utils'
 import { TabContainer } from "@newageerp/ui.ui-bundle";
 import { WhiteCard } from '@newageerp/v3.bundles.widgets-bundle'
 import { axiosInstance } from "@newageerp/v3.bundles.utils-bundle";
 import { MainToolbarTitle } from '@newageerp/v3.bundles.layout-bundle'
+import { useRecoilValue } from '@newageerp/v3.templates.templates-core';
 
 interface IFollow {
     id: number
@@ -22,7 +22,7 @@ const defElement: IFollow = {
 }
 
 export default function BookmarksPage() {
-    const userState: any = useRecoilValue(OpenApi.naeUserState);
+    const {userState} = useTemplatesCore()
 
     const { t } = useTranslation()
     

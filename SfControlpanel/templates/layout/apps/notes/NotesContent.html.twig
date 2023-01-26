@@ -1,11 +1,11 @@
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import React, { useEffect, Fragment, useState } from "react";
-import { useRecoilValue } from "@newageerp/v3.templates.templates-core";
 import NoteContentForm from "./NoteContentForm";
 import NoteLine from "./NoteLine";
 import { getKeysFromObject } from "../../v3/utils";
 import { SFSSocketService } from "../../v3/navigation/NavigationComponent";
 import { PageContainer } from "@newageerp/ui.ui-bundle";
+import { useRecoilValue } from '@newageerp/v3.templates.templates-core';
 
 const moduleName = "note";
 
@@ -48,10 +48,10 @@ const defObject: INote = {
 const pageSize = 10;
 
 export default function NotesContent(props: Props) {
+  const {userState} = useTemplatesCore()
+
   const [pages, setPages] = useState(1);
   const [activePage, setActivePage] = useState(1);
-
-  const userState: any = useRecoilValue(OpenApi.naeUserState);
 
   const [getData, getDataParams] = OpenApi.useUList<INote>(
     moduleName,

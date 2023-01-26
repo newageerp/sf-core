@@ -28,8 +28,8 @@ class InLocalConfigSyncUsersPermissionsConsole extends Command
         $configPath = Utils::customFolderPath('config') . '/NaeSPermissions.tsx';
 
         $fileContent = "import React, { Fragment } from 'react';
-import { useRecoilValue } from '@newageerp/v3.templates.templates-core';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
+import { useRecoilValue } from '@newageerp/v3.templates.templates-core';
 
 export const checkUserPermission = (userState: any, permission: string) => {
     return userState.scopes.indexOf(permission) >= 0;
@@ -41,7 +41,7 @@ interface ICheckUserPermissionComponent {
     permissionsStr?: string,
 }
 export const CheckUserPermissionComponent = (props: ICheckUserPermissionComponent) => {
-    const userState = useRecoilValue(OpenApi.naeUserState);
+    const {userState} = useTemplatesCore()
 
     const permissions = props.permissions?props.permissions:(props.permissionsStr?JSON.parse(props.permissionsStr):undefined);
 

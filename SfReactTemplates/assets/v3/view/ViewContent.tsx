@@ -5,7 +5,6 @@ import { fieldVisibility } from "../../_custom/fields/fieldVisibility";
 import { useTranslation } from "react-i18next";
 import TasksWidget from "../../apps/tasks/TasksWidget";
 import { ElementToolbar } from "@newageerp/ui.ui-bundle";
-import { useRecoilValue } from "@newageerp/v3.templates.templates-core";
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import { ToolbarButtonWithMenu } from "@newageerp/v3.bundles.buttons-bundle";
 import { AlertWidget, WhiteCard } from "@newageerp/v3.bundles.widgets-bundle";
@@ -21,6 +20,7 @@ import classNames from 'classnames';
 import { LogoLoader } from "@newageerp/ui.ui-bundle";
 import { NaeWidgets } from "../../_custom/widgets";
 import { useUIBuilder } from "../old-ui/builder/OldUIBuilderProvider";
+import { useRecoilValue } from '@newageerp/v3.templates.templates-core';
 
 interface Props {
   schema: string;
@@ -52,7 +52,7 @@ export default function ViewContent(props: Props) {
   const { settings } = useUIBuilder();
 
   const { t } = useTranslation();
-  const userState = useRecoilValue(OpenApi.naeUserState);
+  const {userState} = useTemplatesCore()
 
   const { element, reloadData, reloading } = useNaeRecord();
 

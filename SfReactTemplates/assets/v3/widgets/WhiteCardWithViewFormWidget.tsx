@@ -10,7 +10,6 @@ import { ToolbarButton } from "@newageerp/v3.bundles.buttons-bundle";
 import { SFSOpenEditModalWindowProps } from "@newageerp/v3.bundles.popup-bundle";
 import { filterScopes } from "../utils";
 import { useRecoilValue } from '@newageerp/v3.templates.templates-core';
-import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 
 interface Props {
   title?: string;
@@ -22,7 +21,7 @@ interface Props {
 
 export default function WhiteCardWithViewFormWidget(props: Props) {
   const { data: tData } = useTemplatesLoader();
-  const userState = useRecoilValue(OpenApi.naeUserState);
+  const {userState} = useTemplatesCore()
 
   const { title, editId } = props;
   const editData = (editId ? editId : "").split(":");

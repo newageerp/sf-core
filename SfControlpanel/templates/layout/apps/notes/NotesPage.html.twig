@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { NotesPageToolbar } from '@newageerp/sfs.apps.apps-bundle'
-import { useRecoilValue } from "@newageerp/v3.templates.templates-core";
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import { MainToolbarTitle } from '@newageerp/v3.bundles.layout-bundle'
 import { LogoLoader } from "@newageerp/ui.ui-bundle";
@@ -10,6 +9,7 @@ import { PageContainer } from '@newageerp/ui.ui-bundle'
 import NoteLine from "./NoteLine";
 import { getKeysFromObject } from "../../v3/utils";
 import { showTaskSentNotification } from "../../v3/navigation/NavigationComponent";
+import { useRecoilValue } from '@newageerp/v3.templates.templates-core';
 
 const pageSize = 20;
 
@@ -45,7 +45,7 @@ const defObject: IData = {
 
 
 export default function NotesPageContent() {
-    const userState: any = useRecoilValue(OpenApi.naeUserState);
+    const {userState} = useTemplatesCore()
 
     const [readAllR] = OpenApi.useURequest('NAENotesReadAll');
 
