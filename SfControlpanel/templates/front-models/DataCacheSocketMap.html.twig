@@ -1,12 +1,15 @@
 {% for schema in checks %}
 import { I{{ schema }}FieldsNae } from './use{{ schema }}HookNae';
 {% endfor %}
+import { {% for schema in checks %}Selector{{ schema }}Nae,{% endfor %} } from "../models/ormSelectors"
+import { NaeSSchemaMap } from '../config/NaeSSchema';
+import { store } from '../models/ormstore';
 
-export const getDataCacheDataForSchema = (className: string) => {
+export const getDataCacheForSchema = (className: string) => {
     {% for schema in checks %}
-        if (className === NaeSSchemaMap.{{ schema }}.className) {
+if (className === NaeSSchemaMap.{{ schema }}.className) {
             return {
-                dataToCheck: {{ schema }}DataNae,
+                dataToCheck: Selector{{ schema }}Nae(store.state),
                 fields: I{{ schema }}FieldsNae,    
             }
         }
