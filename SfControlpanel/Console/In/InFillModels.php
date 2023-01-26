@@ -39,6 +39,8 @@ class InFillModels extends Command
         $ormjsTemplate = $twig->load('front-models/ormjs.html.twig');
 
         $dataCacheSocketTemplate = $twig->load('front-models/DataCacheSocketComponent.html.twig');
+        $dataCacheSocketMapTemplate = $twig->load('front-models/DataCacheSocketMap.html.twig');
+
         $dataCacheProviderTemplate = $twig->load('front-models/DataCacheProvider.html.twig');
         $queueModelTemplate = $twig->load('front-models/QueueModel.html.twig');
 
@@ -610,6 +612,15 @@ import { " . $selectorsJoin . " } from '../models/ormSelectors';
             ]
         );
         Utils::writeOnChanges($socketCheckFilePath, $socketFileContent);
+
+        
+        $socketFileContent = $dataCacheSocketMapTemplate->render(
+            [
+                'checks' => $models,
+            ]
+        );
+        Utils::writeOnChanges($hooksDir . '/DataCacheSocketMap.tsx', $socketFileContent);
+        
 
         $socketProviderFilePath = $hooksDir . '/DataCacheProvider.tsx';
         $socketProviderFileContent = $dataCacheProviderTemplate->render(
