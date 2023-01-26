@@ -22,7 +22,7 @@ export default function DataCacheSocketComponent() {
         if (result) {
             const dataToCheck = result.dataToCheck.map((el: any) => el.id);
 
-            const cacheDataProject: any = cacheData({}).find((el: any) => el.schema === schema)
+            const cacheDataProject: any = dataCache,cacheData({}).find((el: any) => el.schema === schema)
 
             if (dataToCheck.indexOf(data.id) >= 0 || (!!cacheDataProject && cacheDataProject.forceSync)) {
                 const item = {
