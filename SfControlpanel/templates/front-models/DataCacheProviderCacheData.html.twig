@@ -1,0 +1,29 @@
+export const cacheData = (userState: any) => ([
+    {% if hasUsers %}
+    {
+        schema: NaeSSchemaMap.User.schema,
+        page: 1,
+        pageSize: 200,
+    },
+    {% endif %}
+    {% if hasNotes %}
+    {
+        schema: NaeSSchemaMap.Note.schema,
+        page: 1,
+        pageSize: 200,
+        filters: [
+            userState && ('id' in userState) ?{
+                "and": [
+                    {
+                        "or": [
+                            ['i.notify', 'JSON_CONTAINS', userState.id.toString(), true],
+                            ['i.notify', 'JSON_CONTAINS', `"${userState.permissionGroup}"`, true],
+                        ]
+                    },
+                    ['i.notifyAccept', 'JSON_NOT_CONTAINS', userState.id.toString(), true],
+                ]
+            } : {}
+        ]
+    },
+    {% endif %}
+]);

@@ -1,13 +1,14 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { NaeSSchemaMap } from '../config/NaeSSchema';
-import { cacheData, useDataCache } from './DataCacheProvider';
-import { useRecoilValue } from '@newageerp/v3.templates.templates-core';
+import { useDataCache } from './DataCacheProvider';
+import { useRecoilValue, useTemplatesCore } from '@newageerp/v3.templates.templates-core';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 import { SFSSocketService } from '../../v3/navigation/NavigationComponent';
 import { getSchemaByClassName } from '../../v3/utils';
 import { getDataCacheForSchema } from './DataCacheSocketMap';
 
 export default function DataCacheSocketComponent() {
+    const { dataCache } = useTemplatesCore();
     const userState: any = useRecoilValue(OpenApi.naeUserState);
 
     const { addToQueue } = useDataCache();
@@ -16,7 +17,7 @@ export default function DataCacheSocketComponent() {
     const onSocketDoRequest = (data: any) => {
         let schema = getSchemaByClassName(data.schema);
 
-        let result = getDataCacheForSchema(data.schema);
+        let result = dataCache.getDataCacheForSchema(data.schema);
 
         if (result) {
             const dataToCheck = result.dataToCheck.map((el: any) => el.id);
@@ -36,7 +37,7 @@ export default function DataCacheSocketComponent() {
 
     const onForceSocketDoRequest = (data: any) => {
         if (data.schema === NaeSSchemaMap.Note.className) {
-            let result = getDataCacheForSchema('Note');
+            let result = dataCache.getDataCacheForSchema('Note');
             if (result) {
                 const item = {
                     elementId: data.id,

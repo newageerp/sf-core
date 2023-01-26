@@ -42,6 +42,8 @@ class InFillModels extends Command
         $dataCacheSocketMapTemplate = $twig->load('front-models/DataCacheSocketMap.html.twig');
 
         $dataCacheProviderTemplate = $twig->load('front-models/DataCacheProvider.html.twig');
+        $dataCacheProviderCacheDataTemplate = $twig->load('front-models/DataCacheProviderCacheData.html.twig');
+
         $queueModelTemplate = $twig->load('front-models/QueueModel.html.twig');
 
         $ormSelectorsJsTemplate = new TemplateService('front-models/ormSelectorsJs.html.twig');
@@ -620,10 +622,22 @@ import { " . $selectorsJoin . " } from '../models/ormSelectors';
             ]
         );
         Utils::writeOnChanges($hooksDir . '/DataCacheSocketMap.tsx', $socketFileContent);
-        
+
 
         $socketProviderFilePath = $hooksDir . '/DataCacheProvider.tsx';
         $socketProviderFileContent = $dataCacheProviderTemplate->render(
+            [
+                'hasNotes' => $hasNotes,
+                'hasUsers' => $hasUsers,
+            ]
+        );
+        if (!file_exists($socketProviderFilePath)) {
+            Utils::writeOnChanges($socketProviderFilePath, $socketProviderFileContent);
+        }
+
+
+        $socketProviderFilePath = $hooksDir . '/DataCacheProviderCacheData.tsx';
+        $socketProviderFileContent = $dataCacheProviderCacheDataTemplate->render(
             [
                 'hasNotes' => $hasNotes,
                 'hasUsers' => $hasUsers,

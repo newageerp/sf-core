@@ -4,6 +4,8 @@ import { componentsMap } from "../templates/TemplateLoader";
 import { store } from "../../_custom/models/ormstore";
 import i18n from "../../_custom/lang/i18";
 import { useTranslation } from 'react-i18next';
+import { cacheData } from '../../_custom/hooks/DataCacheProvider';
+import { getDataCacheForSchema } from '../../_custom/hooks/DataCacheSocketMap';
 
 function App() {
     const { t } = useTranslation();
@@ -17,7 +19,15 @@ function App() {
     }, []);
 
     return (
-        <TemplatesCoreProvider templatesMap={componentsMap} store={store} i18n={i18n}>
+        <TemplatesCoreProvider
+            templatesMap={componentsMap}
+            store={store}
+            i18n={i18n}
+            dataCache={{
+                cacheData: cacheData,
+                getDataCacheForSchema: getDataCacheForSchema,
+            }}
+        >
             <TemplatesLoader templateName="App" onError={redirectToLogin} />
         </TemplatesCoreProvider>
     );
