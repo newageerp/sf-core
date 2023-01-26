@@ -28,6 +28,10 @@ class InPathMapConsole extends Command
 
         $paths = $docJsonData['paths'];
 
+        $urlMap = [
+            'get' => [],
+            'post' => [],
+        ];
         $map = [];
         foreach ($paths as $path => $data) {
             foreach ($data as $method => $methodData) {
@@ -40,6 +44,7 @@ class InPathMapConsole extends Command
                     'path' => $path,
                     'parameters' => $methodData['parameters'] ?? []
                 ];
+                $urlMap[$method][$method] = $path;
             }
         }
 
@@ -51,6 +56,9 @@ import { axiosInstance } from "../../v3/api/config";
 
         $fileContent .= '
 export const NaePaths = ' . json_encode($map, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+
+$fileContent .= '
+export const NaePathsMap = ' . json_encode($urlMap, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
         $fileContent .= '
 
