@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import { NaeSSchemaMap } from '../config/NaeSSchema';
 import { useDataCache } from "@newageerp/v3.bundles.app-bundle";
 import { useTemplatesCore } from '@newageerp/v3.templates.templates-core';
 import { SFSSocketService } from '../../v3/navigation/NavigationComponent';
@@ -33,12 +32,12 @@ export default function DataCacheSocketComponent() {
     }
 
     const onForceSocketDoRequest = (data: any) => {
-        if (data.schema === NaeSSchemaMap.Note.className) {
+        if (data.schema === 'Note') {
             let result = dataCache.getDataCacheForSchema('Note');
             if (result) {
                 const item = {
                     elementId: data.id,
-                    schema: NaeSSchemaMap.Note.schema,
+                    schema: 'note',
                     fields: result.fields,
                 }
                 addToQueue(item);

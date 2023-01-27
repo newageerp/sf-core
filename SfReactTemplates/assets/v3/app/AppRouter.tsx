@@ -1,9 +1,6 @@
-import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Switch } from '@newageerp/v3.templates.templates-core';
-import axios from 'axios'
-import { useRecoilState } from '@newageerp/v3.templates.templates-core';
-import {useDidMount} from '@newageerp/v3.bundles.hooks-bundle'
+import {useDidMount, useURequest} from '@newageerp/v3.bundles.hooks-bundle'
 import { useTemplatesCore } from '@newageerp/v3.templates.templates-core';
 
 export interface AppRouterRoute {
@@ -21,9 +18,8 @@ export interface AppRouterProps {
 export default function AppRouter(props: AppRouterProps) {
     const templateCore = useTemplatesCore();
     const isMount = useDidMount();
-    const [userState, setUserState] = useRecoilState<any>(OpenApi.naeUserState)
 
-    const [getUserData, getUserDataParams] = OpenApi.useURequest('NAEauthGetProfile')
+    const [getUserData, getUserDataParams] = useURequest(templateCore.pathMap.post['NAEauthGetProfile'])
 
     useEffect(() => {
         getUserData();
@@ -31,13 +27,12 @@ export default function AppRouter(props: AppRouterProps) {
     useEffect(() => {
         if (!isMount) {
             templateCore.setUserState(getUserDataParams.data);
-            setUserState(getUserDataParams.data)
         }
     }, [getUserDataParams.data])
 
-    const isRequestFinished = !!userState && ('id' in userState);
+    const isRequestFinished = !!templateCore.userState && ('id' in templateCore.userState);
 
-    const isLoggedIn = isRequestFinished && userState.id > 0;
+    const isLoggedIn = isRequestFinished && templateCore.userState.id > 0;
 
     if (!isRequestFinished) {
         return <div>Loading...</div>

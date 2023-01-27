@@ -270,8 +270,10 @@ class TableService
         if ($tab) {
             // TABS EXPORT
             if (isset($tab['exports']) && $tab['exports']) {
+                $summary = isset($tab['summary']) ? $tab['summary'] : [];
+
                 $listDataSource->getToolbar()->getToolbarRight()->addTemplate(
-                    new ToolbarExport($schema, $tab['exports'], $tab['summary'])
+                    new ToolbarExport($schema, $tab['exports'], $summary)
                 );
             }
         }
