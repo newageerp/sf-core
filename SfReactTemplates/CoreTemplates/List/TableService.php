@@ -276,6 +276,22 @@ class TableService
                     new ToolbarExport($schema, $tab['exports'], $summary)
                 );
             }
+
+            // SORT
+            $sort = $this->getTabsUtilsV3()->getTabSort(
+                $schema,
+                $type,
+            );
+            if (count($sort) > 0) {
+                $listDataSource->getToolbar()->getToolbarRight()->addTemplate(
+                    new ToolbarSort($schema, $sort)
+                );
+            }
+
+            // DETAILED SEARCH
+            $listDataSource->getToolbar()->getToolbarRight()->addTemplate(
+                new ToolbarDetailedSearch($schema)
+            );
         }
 
         // TOTALS

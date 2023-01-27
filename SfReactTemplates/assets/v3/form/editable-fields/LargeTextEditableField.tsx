@@ -25,6 +25,13 @@ export default function LargeTextEditableField(props: Props) {
     updateElement(props.fieldKey, localVal)
   };
 
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      updateElement(props.fieldKey, localVal)
+    }, 500)
+    return () => clearTimeout(delayDebounceFn)
+  }, [localVal])
+
   const handleKeyDown = (event: any) => {
     if (event.key === 'Enter' && event.shiftKey) {
       onBlur();

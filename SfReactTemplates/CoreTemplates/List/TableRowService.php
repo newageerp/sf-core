@@ -33,7 +33,9 @@ use Newageerp\SfReactTemplates\CoreTemplates\List\EditableColumns\LargeTextEdita
 use Newageerp\SfReactTemplates\CoreTemplates\Table\TableTd;
 use Newageerp\SfReactTemplates\CoreTemplates\Table\TableTh;
 use Newageerp\SfReactTemplates\CoreTemplates\Table\TableTr;
+use Newageerp\SfReactTemplates\Event\TableTdRenderEvent;
 use Newageerp\SfUservice\Service\UService;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class TableRowService
 {
@@ -45,16 +47,20 @@ class TableRowService
 
     protected UService $uservice;
 
+    protected EventDispatcherInterface $eventDispatcher;
+
     public function __construct(
         PropertiesUtilsV3 $propertiesUtilsV3,
         TabsUtilsV3 $tabsUtilsV3,
         UService $uservice,
-        EntitiesUtilsV3 $entitiesUtilsV3
+        EntitiesUtilsV3 $entitiesUtilsV3,
+        EventDispatcherInterface $eventDispatcher,
     ) {
         $this->propertiesUtilsV3 = $propertiesUtilsV3;
         $this->tabsUtilsV3 = $tabsUtilsV3;
         $this->uservice = $uservice;
         $this->entitiesUtilsV3 = $entitiesUtilsV3;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function buildDataRow(string $schema, string $type, ?bool $addSelectButton = false): TableTr
@@ -250,6 +256,9 @@ class TableRowService
                         }
                     }
                 }
+
+                $event = new TableTdRenderEvent($schema, $type, $td, $col);
+                $this->eventDispatcher->dispatch($event, TableTdRenderEvent::NAME);
 
                 $tr->getContents()->addTemplate($td);
             }
