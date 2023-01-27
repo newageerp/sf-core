@@ -37,28 +37,28 @@ class InGeneratorRoutes extends Command
         $imports = [];
 
         $appsComponents = [];
-        if (class_exists('App\Entity\Bookmark')) {
+        if (class_exists('App\Entity\Bookmark', false)) {
             $imports[] = 'import BookmarksPage from "../apps/bookmarks/BookmarksPage";';
             $appsComponents[] = [
                 'name' => 'bookmarks',
                 'compName' => 'BookmarksPage'
             ];
         }
-        if (class_exists('App\Entity\Task')) {
+        if (class_exists('App\Entity\Task', false)) {
             $imports[] = 'import TasksPage from "../apps/tasks/TasksPage";';
             $appsComponents[] = [
                 'name' => 'tasks',
                 'compName' => 'TasksPage'
             ];
         }
-        if (class_exists('App\Entity\Note')) {
+        if (class_exists('App\Entity\Note', false)) {
             $imports[] = 'import NotesPage from "../apps/notes/NotesPage";';
             $appsComponents[] = [
                 'name' => 'notes',
                 'compName' => 'NotesPage'
             ];
         }
-        if (class_exists('App\Entity\FollowUp')) {
+        if (class_exists('App\Entity\FollowUp', false)) {
             $imports[] = 'import FollowUpPage from "../apps/follow-up/FollowUpPage";';
             $appsComponents[] = [
                 'name' => 'follow-up',

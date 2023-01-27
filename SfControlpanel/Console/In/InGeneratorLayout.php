@@ -76,7 +76,7 @@ class InGeneratorLayout extends Command
             'layout/apps/tasks/TasksWidget.html.twig' => ['apps/tasks', 'TasksWidget'],
         ];
 
-        $hasTasksApp = class_exists('App\Entity\Task');
+        $hasTasksApp = class_exists('App\Entity\Task', false);
 
         $settings = LocalConfigUtils::getCpConfigFileData('settings');
 
