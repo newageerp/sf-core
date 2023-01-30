@@ -826,7 +826,7 @@ class UService
             }
         }
         if (count($requiredError) > 0) {
-            throw new \Exception('Užpildykite būtinus laukus');
+            throw new \Exception('Fill in the required fields');
         }
 
         $this->em->persist($element);
