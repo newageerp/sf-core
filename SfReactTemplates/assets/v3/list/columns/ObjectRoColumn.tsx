@@ -23,7 +23,7 @@ export default function ObjectRoColumn(props: Props) {
     return <Fragment />;
   }
 
-  let value = "";
+  let value : any = "";
   try {
     value = props.fieldKey.split('.').reduce((previous, current) => previous[current], element);
   } catch (e) {
