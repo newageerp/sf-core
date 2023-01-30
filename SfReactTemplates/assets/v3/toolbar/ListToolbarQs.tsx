@@ -14,7 +14,7 @@ export default function ListToolbarQs(props: Props) {
   const { data: tData } = useTemplatesLoader();
 
   const [value, setValue] = useState(tData?.defaults?.quickSearch);
-  const updateValue = (e: any) => setValue(e.target.value);
+  const updateValue = (e: any) => setValue(e.target.value.trim());
 
   const onBlur = () => {
     if (tData.onAddExtraFilter) {
