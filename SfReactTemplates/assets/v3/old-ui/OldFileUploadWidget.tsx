@@ -3,10 +3,11 @@ import { useDropzone } from '@newageerp/ui.ui-bundle'
 import { useTranslation } from 'react-i18next'
 import moment from 'moment'
 
-import axios from 'axios'
+
 import { WhiteCard } from '@newageerp/v3.bundles.widgets-bundle'
 import OldLoaderLogo from './OldLoaderLogo'
 import { TextCardTitle } from '@newageerp/v3.bundles.typography-bundle'
+import { axiosInstance } from '@newageerp/v3.bundles.utils-bundle'
 
 interface Props {
   type: string
@@ -58,7 +59,7 @@ export default function FileUploadWidget(props: Props) {
         fData.append('f-' + index, file)
       })
 
-      axios
+      axiosInstance
         .post('/app/nae-core/files/upload', fData, {
           headers: {
             Authorization: token,

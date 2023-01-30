@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { ToolbarButton } from '@newageerp/v3.bundles.buttons-bundle'
 import { useTranslation } from 'react-i18next';
 import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
-import axios from 'axios';
+import { axiosInstance } from '@newageerp/v3.bundles.utils-bundle';
 
 interface Props {
     schema: string,
@@ -16,7 +16,7 @@ export default function ListToolbarDetailedSearch(props: Props) {
 
     useEffect(() => {
         if (extendedSearch.value && extendedSearch.properties.value.length === 0) {
-            axios
+            axiosInstance
                 .post(`/app/nae-core/config-properties/for-filter`, {
                     schema: props.schema,
                 })

@@ -49,8 +49,6 @@ class InPathMapConsole extends Command
         }
 
         $fileContent = '
-// @ts-nocheck
-import axios from "axios";
 import { axiosInstance } from "@newageerp/v3.bundles.utils-bundle";
 ';
 

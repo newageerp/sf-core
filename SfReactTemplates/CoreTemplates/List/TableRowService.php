@@ -93,10 +93,13 @@ class TableRowService
                         )
                     );
                 } else {
+                    $filterPath = isset($col['filterPath']) && $col['filterPath'] ? str_replace('i.', $schema . '.', $col['filterPath']) : $col['path'];
+                    $filterProp = $this->getPropertiesUtilsV3()->getPropertyForPath($filterPath);
+
                     $prop = $this->getPropertiesUtilsV3()->getPropertyForPath($level1Path);
 
                     if ($prop) {
-                        $alignment = $this->getPropertiesUtilsV3()->getPropertyTableAlignment($prop, $col);
+                        $alignment = $this->getPropertiesUtilsV3()->getPropertyTableAlignment($filterProp, $col);
                         if ($alignment !== 'tw3-text-left') {
                             $td->setTextAlignment($alignment);
                         }
@@ -188,6 +191,7 @@ class TableRowService
                         }
                         if ($naeType === 'object') {
                             $objectProp = $this->propertiesUtilsV3->getPropertyForPath($col['path']);
+                            $objectNaeType = $this->propertiesUtilsV3->getPropertyNaeType($objectProp, $col);
 
                             $fieldPath = $pathArray;
                             unset($fieldPath[0]);
@@ -203,6 +207,7 @@ class TableRowService
                                 $idKey,
                                 $objectProp['entity']
                             );
+                            $objectField->setFieldType($objectNaeType);
                             $objectField->setAs($prop['as']);
 
                             if (isset($col['link']) && $col['link'] > 0) {

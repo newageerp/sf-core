@@ -22,6 +22,7 @@ interface Props {
   fieldsExtraSelect?: string[];
 
   allowCreateRel?: boolean
+
 }
 
 export default function ObjectEditableField(props: Props) {

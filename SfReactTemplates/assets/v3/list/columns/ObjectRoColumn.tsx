@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
-import { String } from "@newageerp/data.table.base";
+import { String, Int, Float } from "@newageerp/data.table.base";
 import { RsButton } from "@newageerp/v3.bundles.buttons-bundle";
 
 interface Props {
@@ -11,6 +11,8 @@ interface Props {
   as?: string;
 
   hasLink?: undefined | ("main" | "modal" | "new");
+
+  fieldType: string,
 }
 
 export default function ObjectRoColumn(props: Props) {
@@ -35,6 +37,12 @@ export default function ObjectRoColumn(props: Props) {
   }
 
   if (!props.hasLink) {
+    if (props.fieldType === 'float') {
+      return <Float value={value} />;  
+    }
+    if (props.fieldType === 'number') {
+      return <Int value={value} />;  
+    }
     return <String value={value} />;
   }
 

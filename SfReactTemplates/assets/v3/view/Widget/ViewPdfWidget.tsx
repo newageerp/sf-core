@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react'
 import { PdfLinesContainer } from '@newageerp/ui.ui-bundle';
 import { PdfLine } from '@newageerp/ui.ui-bundle';
-import axios from 'axios'
+import { axiosInstance } from '@newageerp/v3.bundles.utils-bundle';
 import { Popup } from '@newageerp/v3.bundles.popup-bundle';
 import { PdfWindow } from '@newageerp/ui.ui-bundle';
 import { useTranslation } from 'react-i18next';
@@ -78,7 +78,7 @@ export const ViewPdfItem = (props: PdfItemProps) => {
         if (skipSign) {
             url += '&skipSign=true'
         }
-        const res = await axios.get(url);
+        const res = await axiosInstance.get(url);
         return res.data;
     }
 

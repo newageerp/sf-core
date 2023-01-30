@@ -1,4 +1,4 @@
-import axios from "axios";
+import { axiosInstance } from "@newageerp/v3.bundles.utils-bundle";
 import { useState } from "react";
 import { PropsId } from "../../_custom/models-cache-data/types";
 
@@ -33,7 +33,7 @@ export function usePdfData(props: PdfProps) {
     if (skipSign) {
       url += "&skipSign=true";
     }
-    const res = await axios.get(url);
+    const res = await axiosInstance.get(url);
     return res.data;
   };
 

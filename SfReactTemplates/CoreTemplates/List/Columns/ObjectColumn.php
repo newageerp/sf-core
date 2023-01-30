@@ -9,6 +9,7 @@ class ObjectColumn extends ListBaseColumn {
     protected string $relSchema = '';
     protected ?string $as = null;
     protected ?string $hasLink = null;
+    protected string $fieldType = '';
 
     public function __construct(string $key, string $idKey, string $relSchema)
     {
@@ -25,6 +26,7 @@ class ObjectColumn extends ListBaseColumn {
         $props['relSchema'] = $this->getRelSchema();
         $props['as'] = $this->getAs();
         $props['hasLink'] = $this->getHasLink();
+        $props['fieldType'] = $this->getFieldType();
 
         return $props;
     }
@@ -127,6 +129,30 @@ class ObjectColumn extends ListBaseColumn {
     public function setIdKey(string $idKey): self
     {
         $this->idKey = $idKey;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of fieldType
+     *
+     * @return string
+     */
+    public function getFieldType(): string
+    {
+        return $this->fieldType;
+    }
+
+    /**
+     * Set the value of fieldType
+     *
+     * @param string $fieldType
+     *
+     * @return self
+     */
+    public function setFieldType(string $fieldType): self
+    {
+        $this->fieldType = $fieldType;
 
         return $this;
     }

@@ -6,8 +6,9 @@ import {
     SortController,
     SortingItemOption,
 } from '@newageerp/ui.ui-bundle';
-import axios from 'axios';
+
 import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
+import { axiosInstance } from '@newageerp/v3.bundles.utils-bundle';
 
 interface Props {
     schema: string,
@@ -31,7 +32,7 @@ export default function ListToolbarSort(props: Props) {
 
     useEffect(() => {
         if (isComponentVisible && sortOptions.length === 0) {
-            axios
+            axiosInstance
                 .post(`/app/nae-core/config-properties/for-sort`, {
                     schema: props.schema,
                 })

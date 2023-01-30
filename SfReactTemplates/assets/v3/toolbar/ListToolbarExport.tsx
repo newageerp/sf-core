@@ -9,6 +9,7 @@ import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 import { MenuItem } from '@newageerp/v3.bundles.modal-bundle'
 import { ISummary } from '../list/ListDataSummary';
+import { axiosInstance } from '@newageerp/v3.bundles.utils-bundle';
 
 export type ExportContainerProps = {
     exports: ITabExport[];
@@ -87,7 +88,7 @@ export function ListToolbarExport(props: ExportContainerProps) {
         // @ts-ignore
         const token: string = window.localStorage.getItem('token');
 
-        axios
+        axiosInstance
             .post('/app/nae-core/import/mainImport', fData, {
                 headers: {
                     Authorization: token,

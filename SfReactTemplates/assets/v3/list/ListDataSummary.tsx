@@ -7,7 +7,7 @@ import { getPropertyForPath } from "../utils";
 import { Base } from "@newageerp/v2.element.status-badge.base";
 import { NaeSStatuses } from "../../_custom/config/NaeSStatuses";
 import { LogoLoader } from "@newageerp/ui.ui-bundle";
-import { t } from "i18next";
+import { useTranslation } from 'react-i18next'
 import { ToolbarButton } from '@newageerp/v3.bundles.buttons-bundle'
 
 export type ISummary = {
@@ -57,6 +57,8 @@ const doDownload = (tableId: string) => {
 }
 
 export default function ListDataSummary(props: Props) {
+  const { t } = useTranslation()
+  
   const [isLoading, setIsLoading] = useState(false);
   const { data: tData } = useTemplatesLoader();
   const [data, setData] = useState<any>([]);
