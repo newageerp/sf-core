@@ -1,6 +1,7 @@
 import React from 'react'
 import { useMemo } from 'react'
 import { useLocation } from '@newageerp/v3.templates.templates-core';
+import { Table } from '@newageerp/v3.bundles.layout-bundle';
 
 
 interface Props {
@@ -29,11 +30,12 @@ export default function OldTable(props: Props) {
 
     return (
         <div className={`${props.containerClassName ? props.containerClassName : `tw3-w-full ${showOverflowClass ? 'tw3-overflow-x-auto' : ''}`}`}>
-            <table className={className.join(' ')} id={props.id}>
-                {props.thead && props.thead}
-                {props.tbody && props.tbody}
-                {props.tfooter && props.tfooter}
-            </table>
+            <Table
+                className={className.join(' ')} id={props.id}
+                thead={props.thead}
+                tbody={props.tbody}
+            />
+
         </div>
     )
 }

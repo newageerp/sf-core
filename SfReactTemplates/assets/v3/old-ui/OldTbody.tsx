@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { groupMap } from '@newageerp/v3.bundles.utils-bundle'
 import Trow, { TrowProps } from './OldTrow'
-import { Td } from '@newageerp/ui.ui-bundle'
+import { Td } from '@newageerp/v3.bundles.layout-bundle'
 
 export interface TbodyProps<Type> {
   data: Type[]

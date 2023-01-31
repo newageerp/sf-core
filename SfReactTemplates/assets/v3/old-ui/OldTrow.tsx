@@ -1,6 +1,6 @@
 import React from 'react'
 import { TableTdProps } from './OldTd'
-import { Td } from '@newageerp/ui.ui-bundle'
+import { Td } from '@newageerp/v3.bundles.layout-bundle'
 
 export interface TrowCol {
   props: TableTdProps
@@ -26,7 +26,7 @@ export default function OldTrow(props: TrowProps) {
       {props.extraContentStart}
       {props.columns.map((col, index: number) => {
         return (
-          <Td key={'col-' + index} {...col.props}>
+          <Td key={'col-' + index}>
             {col.content}
           </Td>
         )

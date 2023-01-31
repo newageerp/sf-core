@@ -58,6 +58,11 @@ class AppListener implements EventSubscriberInterface
 
         $app->getUserSpaceWrapperToolbarMenu()->addTemplate(new MenuDivider());
 
+        $menuItem = new MenuItemWithLink('Support', 'https://sfslt.freshdesk.com/lt/support/home');
+        $app->getUserSpaceWrapperToolbarMenu()->addTemplate($menuItem);
+
+        $app->getUserSpaceWrapperToolbarMenu()->addTemplate(new MenuDivider());
+
         $menuItem = new MenuItemWithLogout('Logout');
         $app->getUserSpaceWrapperToolbarMenu()->addTemplate($menuItem);
     }

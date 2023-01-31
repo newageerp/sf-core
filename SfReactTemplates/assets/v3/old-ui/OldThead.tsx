@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { TheadCol } from './OldTable'
-import {Th} from '@newageerp/ui.ui-bundle'
+import {Th} from '@newageerp/v3.bundles.layout-bundle'
 
 interface TheadProps {
   columns: (TheadCol | undefined)[],
@@ -19,7 +19,7 @@ export default function OldThead(props: TheadProps) {
             return <Fragment  key={'col-' + index}/>
           }
           return (
-            <Th key={'col-' + index} {...col.props}>
+            <Th key={'col-' + index}>
               {col.content}
             </Th>
           )
