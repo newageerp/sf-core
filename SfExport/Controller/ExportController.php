@@ -221,11 +221,10 @@ class ExportController extends UControllerBase
             }
             $col = 1;
             foreach ($parseColumns as $field) {
-                $col++;
                 if ($field['naeType'] === 'float') {
                     $sheet->getCellByColumnAndRow($col, $row)->setValue(round($totals[$field['fieldKey']], 2));
-                    
                 }
+                $col++;
             }
             XlsxService::autoSizeSheet($sheet);
 
