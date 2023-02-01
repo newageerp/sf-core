@@ -226,6 +226,7 @@ class ExportController extends UControllerBase
                 }
                 $col++;
             }
+            $this->applyStyleToRow($sheet, $row, $this->headerStyle);
             XlsxService::autoSizeSheet($sheet);
 
             // if ($summary) {
