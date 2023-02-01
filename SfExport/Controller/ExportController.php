@@ -82,7 +82,7 @@ class ExportController extends UControllerBase
             $filters = $exportOptions['filter'] ?? [];
             $sort = $exportOptions['sort'] ?? [];
 
-            $totals = 0;
+            $totals = [];
 
             $data = $uService->getListDataForSchema(
                 $schema,
