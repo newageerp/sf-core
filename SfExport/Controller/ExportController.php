@@ -82,6 +82,8 @@ class ExportController extends UControllerBase
             $filters = $exportOptions['filter'] ?? [];
             $sort = $exportOptions['sort'] ?? [];
 
+            $totals = 0;
+
             $data = $uService->getListDataForSchema(
                 $schema,
                 1,
@@ -111,7 +113,7 @@ class ExportController extends UControllerBase
                 return $field;
             }, $fields);
 
-            $parseColumns = array_map(function ($field) use ($propertiesUtilsV3) {
+            $parseColumns = array_map(function ($field) use ($propertiesUtilsV3, &$totals) {
                 $pathArray = explode(".", $field['path']);
                 $relName = null;
                 if (count($pathArray) === 3) {
@@ -122,6 +124,11 @@ class ExportController extends UControllerBase
 
                 $property = $propertiesUtilsV3->getPropertyForSchema($schema, $fieldKey);
 
+                $naeType = $propertiesUtilsV3->getPropertyNaeType($property, []);
+
+                $totals[$fieldKey] = 0;
+
+                $field['naeType'] = $naeType;
                 $field['schema'] = $schema;
                 $field['fieldKey'] = $fieldKey;
                 $field['title'] = isset($field['customTitle']) && $field['customTitle'] ? $field['customTitle'] : $property['title'];
@@ -185,6 +192,11 @@ class ExportController extends UControllerBase
                     if ($propertiesUtilsV3->propertyHasEnum($prop)) {
                         $val = $propertiesUtilsV3->getPropertyEnumValue($schema, $fieldKey, $val);
                     }
+
+                    if ($field['naeType'] === 'float') {
+                        $totals[$field['fieldKey']] += $val;
+                    }
+
                     if ($prop) {
                         $naeType = $propertiesUtilsV3->getPropertyNaeType($prop, []);
                         if ($naeType === 'date') {
@@ -206,6 +218,13 @@ class ExportController extends UControllerBase
                 }
                 $row++;
                 $pivotRow++;
+            }
+            $col = 1;
+            foreach ($parseColumns as $field) {
+                if ($field['naeType'] === 'float') {
+                    $col++;
+                    $sheet->getCellByColumnAndRow($col, $row)->setValue(round($totals[$field['fieldKey']], 2));
+                }
             }
             XlsxService::autoSizeSheet($sheet);
 
