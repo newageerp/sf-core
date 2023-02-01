@@ -110,6 +110,8 @@ class PdfController extends OaBaseController
         $fileName = 'Failas-' . date('Y-m-d') . '.pdf';
         if (method_exists($data, 'getPdfFileName')) {
             $fileName = $data->getPdfFileName();
+        } else if (method_exists($data, 'getSerialNumber')) {
+            $fileName = $data->getSerialNumber();
         }
 
         $pdfParams = [
