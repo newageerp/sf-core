@@ -256,7 +256,8 @@ export default function ListDataSource(props: Props) {
                   }
 
                 },
-                reloadData: loadData
+                reloadData: loadData,
+                reloading: dataResult.loading,
               }
             }
           />

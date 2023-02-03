@@ -69,7 +69,7 @@ export default function MailsContent(props: Props) {
     getFiles({ folder }).then((f: any) => {
       const sFiles = !!f && !!f.data && !!f.data.data ? f.data.data : [];
       setFiles(sFiles);
-      const fileIds = [-1, ...sFiles.map((_f: any) => _f.id)];
+      const fileIds = [-2, ...sFiles.map((_f: any) => _f.id)];
 
       getData(
         [
