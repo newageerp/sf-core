@@ -33,7 +33,6 @@ export default function ListDataTable(props: Props) {
                   templates={props.row}
                   templateData={{
                     element: item,
-                    onAddSelectButton: tData.onAddSelectButton,
                     reloadData: tData.reloadData,
                   }}
                 />

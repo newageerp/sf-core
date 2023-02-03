@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, Fragment } from "react";
+import React, { useEffect, useState, useRef, Fragment, createContext, useContext } from "react";
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import {
   PageContainer,
@@ -12,6 +12,30 @@ import { useTemplatesLoader, TemplatesLoader, Template } from '@newageerp/v3.tem
 import { getTabFieldsToReturn } from "../utils";
 import { SFSSocketService } from "../navigation/NavigationComponent";
 import { useUIBuilder } from "../old-ui/builder/OldUIBuilderProvider";
+
+type ProviderValueData = {
+  selection: {
+    items: number[],
+    addElement: (element: any) => void,
+  }
+}
+
+type ProviderValue = {
+  data: ProviderValueData,
+}
+
+const ProviderContext = createContext<ProviderValue>({
+  data: {
+    selection: {
+      items: [],
+      addElement: () => { }
+    }
+
+  }
+});
+
+export const useListDataSource = () => useContext(ProviderContext);
+
 interface Props {
   children: Template[];
   hidePaging?: boolean;
@@ -38,8 +62,20 @@ interface Props {
 }
 
 export default function ListDataSource(props: Props) {
-  const { getTabFromSchemaAndType } = useUIBuilder();
   const { data: tData } = useTemplatesLoader();
+
+  // SELECTED ITEMS START
+  const [selectedItems, setSelectedItems] = useState<number[]>(tData?.data?.selection?.items ? tData?.data?.selection?.items : []);
+  const addSelectedItem = (element: any) => {
+    const _selectedItems: number[] = JSON.parse(JSON.stringify(selectedItems));
+    setSelectedItems([..._selectedItems, element.id]);
+    tData.onAddSelectButton(element);
+  }
+
+  // SELECTED ITEMS FINISH
+
+  const { getTabFromSchemaAndType } = useUIBuilder();
+
 
   const [extendedSearchOptions, setExtendedSearchOptions] = useState<any[]>([]);
 
@@ -228,7 +264,15 @@ export default function ListDataSource(props: Props) {
   const dataToRender = dataResult.data.data;
 
   return (
-    <Fragment>
+    <ProviderContext.Provider
+      value={{
+        data: {
+          selection: {
+            items: selectedItems,
+            addElement: addSelectedItem
+          }
+        }
+      }}>
       {((!!props.toolbar && props.toolbar.length > 0) || (!!props.toolbarLine2 && props.toolbarLine2.length > 0)) &&
         <div className="tw3-space-y-2 tw3-py-4">
           <TemplatesLoader
@@ -314,7 +358,6 @@ export default function ListDataSource(props: Props) {
             templateData={{
               addNewBlockFilter: addNewBlockFilter,
               dataToRender: dataToRender,
-              onAddSelectButton: tData.onAddSelectButton,
               filter: {
                 prepareFilter,
                 extraFilter: dataState?.extraFilter,
@@ -340,6 +383,6 @@ export default function ListDataSource(props: Props) {
       </div>
 
 
-    </Fragment>
+    </ProviderContext.Provider>
   );
 }

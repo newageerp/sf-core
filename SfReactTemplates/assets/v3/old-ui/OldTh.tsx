@@ -35,7 +35,7 @@ export default function OldTh(props: TableThProps) {
   delete tdProps.size;
 
   return (
-    <Th {...tdProps} className={className.join(' ')}>
+    <Th className={className.join(' ')}>
       {props.children}
     </Th>
   )
