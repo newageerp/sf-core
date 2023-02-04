@@ -79,6 +79,7 @@ class EditContentListener implements EventSubscriberInterface
 
             if ($isPopup) {
                 $popupWindow = new PopupWindow();
+                $popupWindow->setClassName('tw3-min-w-[50vw]');
                 $popupWindow->getChildren()->addTemplate($editContent);
                 $event->getPlaceholder()->addTemplate($popupWindow);
             } else {
