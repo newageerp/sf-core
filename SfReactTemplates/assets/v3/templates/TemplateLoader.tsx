@@ -99,7 +99,6 @@ import PrimitiveString from "../primitives/PrimitiveString";
 
 import ViewPdfWidget, { ViewPdfItem } from "../view/Widget/ViewPdfWidget";
 import { PluginsMap } from "../../../Plugins/PluginsMap";
-import ToolbarButtonWithMenu from "../buttons/ToolbarButtonWithMenu";
 import MenuItemWithCreate from "../menu/MenuItemWithCreate";
 import TableTd from "../table/TableTd";
 import ArrayRoColumn from "../list/columns/ArrayRoColumn";
@@ -122,7 +121,6 @@ import ObjectRoColumn from "../list/columns/ObjectRoColumn";
 import StatusRoColumn from "../list/columns/StatusRoColumn";
 import StringArrayRoColumn from "../list/columns/StringArrayRoColumn";
 import StringRoColumn from "../list/columns/StringRoColumn";
-import ToolbarButtonElementWithAction from "../buttons/ToolbarButtonElementWithAction"
 import ListDataSource from "../list/ListDataSource";
 import ListDataTable from "../list/ListDataTable";
 import ViewStatusWidgetWithActions from "../view/Widget/ViewStatusWidgetWithActions";
@@ -135,26 +133,22 @@ import ListToolbarSort from "../toolbar/ListToolbarSort";
 import { ListToolbarExport } from "../toolbar/ListToolbarExport";
 import ListToolbarTabsSwitch from "../toolbar/ListToolbarTabsSwitch";
 import ListToolbarDetailedSearch from "../toolbar/ListToolbarDetailedSearch";
-import AddSelectButton from "../list/actions/AddSelectButton";
 import MenuItemWithEdit from "../menu/MenuItemWithEdit";
 import ListToolbarQuickFilters from "../toolbar/ListToolbarQuickFilters";
 import LargeTextEditableColumn from "../list/editable-columns/LargeTextEditableColumn";
 import BoolEditableColumn from "../list/editable-columns/BoolEditableColumn"
 import FormFieldTagCloudTemplate from "../form/FormFieldTagCloudTemplate";
-
 import WhiteCardWithViewFormWidget from "../widgets/WhiteCardWithViewFormWidget";
 import TabContainer from "../tabs/TabContainer";
 import MailsContent from "../content-widgets/MailsContent";
 import NotesContent from "../content-widgets/NotesContent";
 import ListDataSummary from "../list/ListDataSummary";
 import ListDataTotals from "../list/ListDataTotals";
-
 import { MenuFolder, MenuTitle, MenuItem, MenuDivider, MenuProvider } from "@newageerp/v3.bundles.menu-bundle";
 import AddButton from "../form/editable-fields/components/ArrayEditableField/AddButton";
-import ToolbarButtonListWithAction from "../buttons/ToolbarButtonListWithAction";
 import ElementBookmarkButton from "../element/ElementBookmarkButton";
 import ListToolbarBookmark from "../toolbar/ListToolbarBookmark";
-import MenuItemWithAction from "../menu/MenuItemWithAction";
+
 import FormError from "../form/FormError";
 import HtmlEditorEditableField from "../form/editable-fields/HtmlEditorEditableField";
 import AppInner from "../app/AppInner";
@@ -165,6 +159,7 @@ import * as LayoutBundle from '@newageerp/v3.bundles.layout-bundle';
 import OneToOneWidget from "../widgets/OneToOneWidget";
 import DivContainer from "../layout/DivContainer";
 import EditContentInline from "../edit/EditContentInline";
+import { ListSelectButton } from "@newageerp/v3.bundles.app-bundle";
 
 export const componentsMap: any = {
   "App": AppInner,
@@ -335,20 +330,20 @@ export const componentsMap: any = {
   "view.pdf.container": ViewPdfWidget,
   "view.pdf.item": ViewPdfItem,
 
-  "buttons.toolbar-button-with-menu": ToolbarButtonWithMenu,
-  'buttons.toolbar-button-element-with-action': ToolbarButtonElementWithAction,
-  'buttons.toolbar-button-list-with-action': ToolbarButtonListWithAction,
+  "buttons.toolbar-button-with-menu": ButtonsBundle.ToolbarButtonWithMenu,
+  'buttons.toolbar-button-element-with-action': ButtonsBundle.ToolbarButtonElementWithAction,
+  'buttons.toolbar-button-list-with-action': ButtonsBundle.ToolbarButtonListWithAction,
 
   "modal.menu-item-with-create": MenuItemWithCreate,
   "modal.menu-item-with-edit": MenuItemWithEdit,
-  'modal.menu-item-with-action': MenuItemWithAction,
+  'modal.menu-item-with-action': ModalBundle.MenuItemWithAction,
 
   'list.list-data-source': ListDataSource,
   'list.list-data-table': ListDataTable,
   'list.list-data-summary': ListDataSummary,
   'list.list-data-totals': ListDataTotals,
 
-  'list.action.add-select-button': AddSelectButton,
+  'list.action.add-select-button': ListSelectButton,
 
   'tabs.TabContainer': TabContainer,
 

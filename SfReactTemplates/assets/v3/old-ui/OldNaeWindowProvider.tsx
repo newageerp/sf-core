@@ -1,8 +1,7 @@
 import React, { useContext, Fragment, useState, useEffect } from 'react'
 import { useLocation } from '@newageerp/v3.templates.templates-core'
-import { editPopupBySchemaAndType } from '../edit/EditPopup'
 
-import MainView from '../pages/MainView'
+import { MainView, MainEdit } from '@newageerp/v3.bundles.app-bundle'
 
 
 export interface NaeWindowProviderValue {
@@ -79,6 +78,7 @@ export const NaeWindowProvider = ({ children }: NaeWindowProviderProps) => {
         }
     }
     const closeEditPopup = () => {
+        if (!window.confirm('Are you sure?')) return false;
         setEditProps(null)
     }
 
@@ -101,19 +101,25 @@ export const NaeWindowProvider = ({ children }: NaeWindowProviderProps) => {
                 {children}
                 {!!viewProps && (
                     <Fragment>
-                        {viewPopupBySchemaAndType(viewProps.schema, viewProps.type ? viewProps.type : 'main', {
-                            onClose: closeViewPopup,
-                            viewProps: viewProps
-                        })}
+                        <MainView
+                            isPopup={true}
+                            schema={viewProps.schema}
+                            type={viewProps.type}
+                            id={viewProps.id}
+                            onBack={closeViewPopup}
+                        />
                     </Fragment>
                 )}
                 {!!editProps && (
                     <Fragment>
-                        {editPopupBySchemaAndType(editProps.schema, editProps.type ? editProps.type : 'main', {
-                            onClose: closeEditPopup,
-                            editProps: editProps,
-                            setViewProps: setViewProps,
-                        })}
+                        <MainEdit
+                            isPopup={true}
+                            schema={editProps.schema}
+                            type={(editProps.type ? editProps.type : 'main')}
+                            id={editProps.id}
+                            onBack={closeEditPopup}
+                        />
+
                     </Fragment>
                 )}
             </Fragment>
@@ -121,34 +127,30 @@ export const NaeWindowProvider = ({ children }: NaeWindowProviderProps) => {
     )
 }
 
-const viewPopupBySchemaAndType = (schema: string, type: string, props: any) => {
-    return <MainView isPopup={true} schema={schema} type={type} id={props.viewProps.id} onBack={props.onClose} />
-}
-
 // WINDOW
 export interface MvcViewModalProps extends MvcViewModalContentProps {
-  isOpen: boolean
-  onClose: () => void
+    isOpen: boolean
+    onClose: () => void
 }
 
 export interface MvcViewModalContentProps {
-  schema: string
-  id: string | number
-  popupId?: string
-  type?: string
+    schema: string
+    id: string | number
+    popupId?: string
+    type?: string
 }
 
 export interface MvcEditModalProps extends MvcEditModalContentProps {
-  isOpen: boolean
-  onClose: () => void
+    isOpen: boolean
+    onClose: () => void
 }
 export interface MvcEditModalContentProps {
-  schema: string
-  id: string | number
-  newStateOptions?: any
-  onSaveCallback?: (el: any, backFunc: any) => void
-  parentElement?: any
-  type?: string
-  skipHiddenCheck?: boolean,
-  fieldsToReturnOnSave?: string[],
+    schema: string
+    id: string | number
+    newStateOptions?: any
+    onSaveCallback?: (el: any, backFunc: any) => void
+    parentElement?: any
+    type?: string
+    skipHiddenCheck?: boolean,
+    fieldsToReturnOnSave?: string[],
 }

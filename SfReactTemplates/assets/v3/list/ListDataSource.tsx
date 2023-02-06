@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, Fragment, createContext, useContext } from "react";
+import React, { useEffect, useState, useRef, Fragment } from "react";
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import {
   PageContainer,
@@ -12,29 +12,7 @@ import { useTemplatesLoader, TemplatesLoader, Template } from '@newageerp/v3.tem
 import { getTabFieldsToReturn } from "../utils";
 import { SFSSocketService } from "../navigation/NavigationComponent";
 import { useUIBuilder } from "../old-ui/builder/OldUIBuilderProvider";
-
-type ProviderValueData = {
-  selection: {
-    items: number[],
-    addElement: (element: any) => void,
-  }
-}
-
-type ProviderValue = {
-  data: ProviderValueData,
-}
-
-const ProviderContext = createContext<ProviderValue>({
-  data: {
-    selection: {
-      items: [],
-      addElement: () => { }
-    }
-
-  }
-});
-
-export const useListDataSource = () => useContext(ProviderContext);
+import { ListDataSourceProviderContext } from "@newageerp/v3.bundles.app-bundle";
 
 interface Props {
   children: Template[];
@@ -264,13 +242,15 @@ export default function ListDataSource(props: Props) {
   const dataToRender = dataResult.data.data;
 
   return (
-    <ProviderContext.Provider
+    <ListDataSourceProviderContext.Provider
       value={{
         data: {
           selection: {
             items: selectedItems,
             addElement: addSelectedItem
-          }
+          },
+          doReload: loadData,
+          reloading: dataResult.loading,
         }
       }}>
       {((!!props.toolbar && props.toolbar.length > 0) || (!!props.toolbarLine2 && props.toolbarLine2.length > 0)) &&
@@ -383,6 +363,6 @@ export default function ListDataSource(props: Props) {
       </div>
 
 
-    </ProviderContext.Provider>
+    </ListDataSourceProviderContext.Provider>
   );
 }

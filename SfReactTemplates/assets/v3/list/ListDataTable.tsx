@@ -6,6 +6,7 @@ import {
   TemplatesParser,
   useTemplatesLoader,
 } from "@newageerp/v3.templates.templates-core";
+import { ListTableRow } from "@newageerp/v3.bundles.app-bundle";
 
 interface Props {
   header: Template[];
@@ -28,14 +29,19 @@ export default function ListDataTable(props: Props) {
           <tbody>
             {tData.dataToRender.map((item: any) => {
               return (
-                <TemplatesLoader
+                <ListTableRow
                   key={`item-${item.id}`}
-                  templates={props.row}
-                  templateData={{
-                    element: item,
-                    reloadData: tData.reloadData,
-                  }}
-                />
+                  element={item}
+                >
+                  <TemplatesLoader
+
+                    templates={props.row}
+                    templateData={{
+                      element: item,
+                      reloadData: tData.reloadData,
+                    }}
+                  />
+                </ListTableRow>
               );
             })}
           </tbody>
