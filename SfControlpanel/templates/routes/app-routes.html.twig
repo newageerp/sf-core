@@ -1,12 +1,11 @@
 import React, { Fragment } from "react";
-import { BrowserRouter as Router, Route, Switch } from "@newageerp/v3.templates.templates-core";
-{% for import in imports %}
-{{ import|raw }}
-{% endfor %}
-import MainList from "../v3/pages/MainList";
+import { Route } from "@newageerp/v3.templates.templates-core";
+import TasksPage from "../apps/tasks/TasksPage";
+import NotesPage from "../apps/notes/NotesPage";
+import FollowUpPage from "../apps/follow-up/FollowUpPage";
 import TemplateRoute from "../v3/templates/TemplateRoute";
-import MainEdit from "../v3/pages/MainEdit";
-import RoutePointMainView from "../v3/pages/RoutePointMainView";
+import { MainEdit, MainList, MainViewRoutepoint } from "@newageerp/v3.bundles.app-bundle";
+
 
 export function AppsRoutes() {
     return (
@@ -47,7 +46,7 @@ export function ViewRoutes() {
     return (
         <Fragment>
             <Route path={"/u/:schema/:type/view/:id"}>
-                <RoutePointMainView />
+                <MainViewRoutepoint />
             </Route>
         </Fragment>
     )
