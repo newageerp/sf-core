@@ -8,6 +8,8 @@ class MenuItemWithCreate extends MenuItem
 {
     protected int $elementId = 0;
     protected string $targetSchema = '';
+
+    protected string $targetType = 'main';
     protected string $sourceSchema = '';
     protected ?bool $forcePopup = null;
     protected array $createOptions = [];
@@ -34,6 +36,7 @@ class MenuItemWithCreate extends MenuItem
 
         $props['elementId'] = $this->getElementId();
         $props['targetSchema'] = $this->getTargetSchema();
+        $props['targetType'] = $this->getTargetType();
         $props['sourceSchema'] = $this->getSourceSchema();
         $props['forcePopup'] = $this->getForcePopup();
         $props['createOptions'] = $this->getCreateOptions();
@@ -187,6 +190,26 @@ class MenuItemWithCreate extends MenuItem
     public function setScopes(array $scopes): self
     {
         $this->scopes = $scopes;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of targetType
+     */ 
+    public function getTargetType()
+    {
+        return $this->targetType;
+    }
+
+    /**
+     * Set the value of targetType
+     *
+     * @return  self
+     */ 
+    public function setTargetType($targetType)
+    {
+        $this->targetType = $targetType;
 
         return $this;
     }

@@ -8,6 +8,7 @@ import { useTemplatesCore } from '@newageerp/v3.templates.templates-core';
 declare type Props = {
     elementId: number,
     targetSchema: string,
+    targetType?: string,
     sourceSchema: string,
     forcePopup: boolean,
     createOptions?: any,
@@ -15,9 +16,9 @@ declare type Props = {
 } & MenuItemProps;
 
 export default function MenuItemWithCreate(props: Props) {
-    const {data: tData} = useTemplatesLoader();
+    const { data: tData } = useTemplatesLoader();
 
-    const {userState} = useTemplatesCore()
+    const { userState } = useTemplatesCore()
 
     const { isPopup } = useNaePopup();
     const openInPopup = isPopup || props.forcePopup;
@@ -35,6 +36,7 @@ export default function MenuItemWithCreate(props: Props) {
             {
                 detail: {
                     schema: props.targetSchema,
+                    type: props.targetType ? props.targetType : 'main',
                     id: "new",
                     options: {
                         createOptions: {

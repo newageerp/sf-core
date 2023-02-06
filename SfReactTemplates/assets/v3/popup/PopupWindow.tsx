@@ -12,9 +12,11 @@ interface Props {
 export default function PopupWindow(props: Props) {
   const { data: tdata } = useTemplatesLoader();
 
+  const onClosePopup = tdata.onWindowClose?tdata.onWindowClose:tdata.onBack;
+
   return (
-    <NaePopupProvider isPopup={true} onClose={tdata.onBack}>
-      <Popup className={props.className} isPopup={true} onClick={tdata.onBack} title={props.title ? props.title : ''}>
+    <NaePopupProvider isPopup={true} onClose={onClosePopup}>
+      <Popup className={props.className} isPopup={true} onClick={onClosePopup} title={props.title ? props.title : ''}>
         <TemplatesParser templates={props.children} />
       </Popup>
     </NaePopupProvider>

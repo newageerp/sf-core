@@ -78,6 +78,9 @@ export const NaeWindowProvider = ({ children }: NaeWindowProviderProps) => {
         }
     }
     const closeEditPopup = () => {
+        setEditProps(null)
+    }
+    const closeEditPopupWithPrompt = () => {
         if (!window.confirm('Are you sure?')) return false;
         setEditProps(null)
     }
@@ -118,6 +121,9 @@ export const NaeWindowProvider = ({ children }: NaeWindowProviderProps) => {
                             type={(editProps.type ? editProps.type : 'main')}
                             id={editProps.id}
                             onBack={closeEditPopup}
+                            onWindowClose={closeEditPopupWithPrompt}
+                            onSaveCallback={editProps.onSaveCallback}
+                            newStateOptions={editProps.newStateOptions}
                         />
 
                     </Fragment>
