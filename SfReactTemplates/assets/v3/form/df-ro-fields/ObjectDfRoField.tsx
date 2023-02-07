@@ -9,6 +9,10 @@ interface Props {
   idPath?: string,
   fieldKey: string;
   relSchema?: string;
+
+  as?: string;
+
+  disableLink?: boolean;
 }
 
 export default function ObjectDfRoField(props: Props) {
@@ -39,6 +43,10 @@ export default function ObjectDfRoField(props: Props) {
 
   if (!idValue) {
     return <Fragment />
+  }
+
+  if (props.as === 'select' || props.disableLink) {
+    return <String value={value} />
   }
 
   return (

@@ -14,6 +14,8 @@ class ObjectDfRoField extends FormDfBaseField
     protected string $relSchema = '';
     protected ?string $as = null;
 
+    protected bool $disableLink = false;
+
     public function __construct(string $key, int $id, string $fieldSchema, string $relKey, string $relSchema)
     {
         parent::__construct($key, $id);
@@ -37,6 +39,7 @@ class ObjectDfRoField extends FormDfBaseField
         $props['relKey'] = $this->getRelKey();
         $props['relSchema'] = $this->getRelSchema();
         $props['as'] = $this->getAs();
+        $props['disableLink'] = $this->getDisableLink();
 
         return $props;
     }
@@ -162,6 +165,26 @@ class ObjectDfRoField extends FormDfBaseField
     public function setIdPath(string $idPath): self
     {
         $this->idPath = $idPath;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of disableLink
+     */ 
+    public function getDisableLink()
+    {
+        return $this->disableLink;
+    }
+
+    /**
+     * Set the value of disableLink
+     *
+     * @return  self
+     */ 
+    public function setDisableLink($disableLink)
+    {
+        $this->disableLink = $disableLink;
 
         return $this;
     }
