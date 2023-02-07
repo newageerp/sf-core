@@ -196,6 +196,11 @@ export default function ListDataSource(props: Props) {
         filter.push(f);
       });
     }
+    if (tData.listExtraFilters) {
+      tData.listExtraFilters.forEach((f: any) => {
+        filter.push(f);
+      });
+    }
 
     return filter;
   };
