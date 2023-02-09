@@ -167,7 +167,7 @@ class TableService
                 //     );
                 // }
                 $tqf = new ToolbarQuickFilters($quickFilters);
-                $tqf->setShowLabels(count($quickFilters) >= 3);
+                $tqf->setShowLabels(true);
                 $listDataSource->getToolbar()->getToolbarLeft()->addTemplate($tqf);
             }
 

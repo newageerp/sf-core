@@ -1,6 +1,5 @@
 import React, { ReactNode, useRef } from 'react';
 import { Fragment } from 'react';
-import axios from 'axios';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ToolbarButtonWithMenu } from '@newageerp/v3.bundles.buttons-bundle'
