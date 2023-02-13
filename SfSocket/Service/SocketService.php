@@ -8,9 +8,9 @@ use PhpAmqpLib\Message\AMQPMessage;
 
 class SocketService
 {
-    protected AMQPStreamConnection $connection;
+    protected ?AMQPStreamConnection $connection = null;
 
-    protected AMQPChannel $channel;
+    protected ?AMQPChannel $channel = null;
 
     protected $pool = [];
 

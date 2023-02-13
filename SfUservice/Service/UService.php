@@ -556,6 +556,8 @@ class UService
                             $statement = "JSON_CONTAINS(" . $alias . '.' . $fieldKey . ", :" . $uuid . ", '$') != 1";
                         } else if (isset($st[1]) && $st[1] === 'JSON_SEARCH') {
                             $statement = "JSON_SEARCH(" . $alias . '.' . $fieldKey . ", 'one', :" . $uuid . ") IS NOT NULL";
+                        } else if (isset($st[1]) && $st[1] === 'deq') {
+                            $statement = 'date(' . $alias . '.' . $fieldKey . ') = date(:' . $uuid . ')';
                         } else {
                             $statement = $alias . '.' . $fieldKey . ' ' . $op . ' ';
                             if ($needBrackets) {

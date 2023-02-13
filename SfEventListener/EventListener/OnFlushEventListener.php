@@ -22,9 +22,9 @@ class OnFlushEventListener
 
     protected EventDispatcherInterface $evtd;
 
-    protected AMQPStreamConnection $connection;
+    protected ?AMQPStreamConnection $connection = null;
 
-    protected AMQPChannel $channel;
+    protected ?AMQPChannel $channel = null;
 
     protected array $insertions = [];
     protected array $updates = [];
