@@ -9,6 +9,9 @@ import { getDataCacheForSchema } from '../../_custom/hooks/DataCacheSocketMap';
 import { NaePathsMap } from "../../_custom/config/NaePaths";
 import { selectorBySchemaClassName, selectorBySchemaSlug } from "../../_custom/models/ormSelectors";
 
+// CSS LOAD
+import 'react-toastify/dist/ReactToastify.css'
+
 function App() {
     const { t } = useTranslation();
 

@@ -16,23 +16,30 @@ class SocketService
 
     public function __construct()
     {
-        $this->connect();
     }
 
-    public function connect() {
-        $this->connection = new AMQPStreamConnection(
-            $_ENV['NAE_SFS_RBQ_HOST'],
-            (int)$_ENV['NAE_SFS_RBQ_PORT'],
-            $_ENV['NAE_SFS_RBQ_USER'],
-            $_ENV['NAE_SFS_RBQ_PASSWORD']
-        );
-        $this->channel = $this->connection->channel();
+    public function getChannel()
+    {
+        if (!$this->channel) {
+            $this->connection = new AMQPStreamConnection(
+                $_ENV['NAE_SFS_RBQ_HOST'],
+                (int)$_ENV['NAE_SFS_RBQ_PORT'],
+                $_ENV['NAE_SFS_RBQ_USER'],
+                $_ENV['NAE_SFS_RBQ_PASSWORD']
+            );
+            $this->channel = $this->connection->channel();
+        }
+        return $this->channel;
     }
 
     public function __destruct()
     {
-        $this->channel->close();
-        $this->connection->close();
+        if ($this->channel) {
+            $this->channel->close();
+        }
+        if ($this->connection) {
+            $this->connection->close();
+        }
     }
 
     public function sendTo($room, $action, $data)
@@ -49,7 +56,8 @@ class SocketService
         );
     }
 
-    public function addToPool($data) {
+    public function addToPool($data)
+    {
         $this->pool[] = $data;
     }
 
@@ -64,7 +72,7 @@ class SocketService
 
         foreach ($this->pool as $el) {
             $msg = new AMQPMessage(json_encode($el));
-            $this->channel->basic_publish($msg, '', $_ENV['NAE_SFS_RBQ_QUEUE']);
+            $this->getChannel()->basic_publish($msg, '', $_ENV['NAE_SFS_RBQ_QUEUE']);
         }
 
         $this->clearPool();

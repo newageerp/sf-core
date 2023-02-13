@@ -32,8 +32,12 @@ class OnFlushEventListener
 
     public function __destruct()
     {
-        $this->channel->close();
-        $this->connection->close();
+        if ($this->channel) {
+            $this->channel->close();
+        }
+        if ($this->connection) {
+            $this->connection->close();
+        }
     }
 
     public function __construct(
@@ -43,17 +47,23 @@ class OnFlushEventListener
         $this->ajLogger = $ajLogger;
         $this->evtd = $evtd;
 
-        $this->connection = new AMQPStreamConnection(
-            $_ENV['NAE_SFS_RBQ_HOST'],
-            (int)$_ENV['NAE_SFS_RBQ_PORT'],
-            $_ENV['NAE_SFS_RBQ_USER'],
-            $_ENV['NAE_SFS_RBQ_PASSWORD']
-        );
-        $this->channel = $this->connection->channel();
-
         $this->insertions = [];
         $this->updates = [];
         $this->removes = [];
+    }
+
+
+    public function getChannel() {
+        if (!$this->channel) {
+            $this->connection = new AMQPStreamConnection(
+                $_ENV['NAE_SFS_RBQ_HOST'],
+                (int)$_ENV['NAE_SFS_RBQ_PORT'],
+                $_ENV['NAE_SFS_RBQ_USER'],
+                $_ENV['NAE_SFS_RBQ_PASSWORD']
+            );
+            $this->channel = $this->connection->channel();
+        }
+        return $this->channel;
     }
 
     public function onFlush(OnFlushEventArgs $onFlushEventArgs)
@@ -124,7 +134,7 @@ class OnFlushEventListener
 
         foreach ($requests as $request) {
             $msg = new AMQPMessage((string)$request);
-            $this->channel->basic_publish($msg, '', 'erp.callback');
+            $this->getChannel()->basic_publish($msg, '', 'erp.callback');
         }
     }
 }

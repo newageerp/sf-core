@@ -44,6 +44,7 @@ export default function ListToolbarQs(props: Props) {
       onBlur={onBlur}
       onKeyDown={handleKeyDown}
       placeholder={t('Search')}
+      type={"search"}
     />
     <ToolbarButton
       iconName='arrows-rotate'
