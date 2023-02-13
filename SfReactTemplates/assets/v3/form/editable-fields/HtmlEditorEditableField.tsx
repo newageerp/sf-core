@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
-import { FieldHtmlEditor } from "@newageerp/v3.bundles.form-bundle";
+import { FieldHtmlEditor } from "@newageerp/v3.form.field-html-editor";
 
 interface Props {
   fieldKey: string;
