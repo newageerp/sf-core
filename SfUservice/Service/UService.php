@@ -504,6 +504,7 @@ class UService
                     } else if (isset($st[1]) && $st[1] === 'deq') {
                         $op = '=';
                         $value = new \DateTime($st[2]);
+                        $skipParams = true;
                     } else if (isset($st[1]) && $st[1] === 'not_deq') {
                         if ($fieldDirectSelect) {
                             $op = '!=';
@@ -557,7 +558,15 @@ class UService
                         } else if (isset($st[1]) && $st[1] === 'JSON_SEARCH') {
                             $statement = "JSON_SEARCH(" . $alias . '.' . $fieldKey . ", 'one', :" . $uuid . ") IS NOT NULL";
                         } else if (isset($st[1]) && $st[1] === 'deq') {
-                            $statement = 'date(' . $alias . '.' . $fieldKey . ') = date(:' . $uuid . ')';
+
+                            $valueG = new \DateTime($st[2] . ' 00:00:00');
+                            $valueL = new \DateTime($st[2] . ' 23:59:59');
+
+
+                            $params[$uuid.'Min'] = $valueG;
+                            $params[$uuid.'Max'] = $valueL;
+
+                            $statement = '' . $alias . '.' . $fieldKey . ' BETWEEN :'.$uuid.'Min AND :'.$uuid.'Max';
                         } else {
                             $statement = $alias . '.' . $fieldKey . ' ' . $op . ' ';
                             if ($needBrackets) {
