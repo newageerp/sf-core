@@ -33,6 +33,9 @@ services:
   Newageerp\SfControlpanel\Console\PdfsUtilsV3:
     arguments: [ ]
 
+  Newageerp\SfConfig\Service\ConfigService:
+    arguments: [ ]
+
   Newageerp\SfControlpanel\Console\Maker\MakePluginWithServiceAndMessageHandler:
     tags:
       - { name: 'console.command' }
