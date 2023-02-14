@@ -17,7 +17,7 @@ import OldNeWidgets from "../old-ui/OldNeWidgets";
 import { useNaeRecord } from "../old-ui/OldNaeRecord";
 import { useNaePopup } from "../old-ui/OldPopupProvider";
 import classNames from 'classnames';
-import { LogoLoader } from "@newageerp/ui.ui-bundle";
+import { LogoLoader } from "@newageerp/v3.bundles.layout-bundle";
 import { NaeWidgets } from "../../_custom/widgets";
 import { useUIBuilder } from "../old-ui/builder/OldUIBuilderProvider";
 import { useTemplatesCore } from '@newageerp/v3.templates.templates-core';

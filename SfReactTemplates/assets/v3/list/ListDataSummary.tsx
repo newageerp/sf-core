@@ -6,7 +6,7 @@ import { Float, Int } from "@newageerp/data.table.base";
 import { getPropertyForPath } from "../utils";
 import { Base } from "@newageerp/v2.element.status-badge.base";
 import { NaeSStatuses } from "../../_custom/config/NaeSStatuses";
-import { LogoLoader } from "@newageerp/ui.ui-bundle";
+import { LogoLoader } from "@newageerp/v3.bundles.layout-bundle";
 import { useTranslation } from 'react-i18next'
 import { ToolbarButton } from '@newageerp/v3.bundles.buttons-bundle'
 import { useListDataSource } from "@newageerp/v3.bundles.app-bundle";
@@ -90,8 +90,8 @@ export default function ListDataSummary(props: Props) {
   const groupKeys = Object.keys(data);
 
   return (
-    <div className="tw3-space-y-4">
-      {isLoading && <LogoLoader />}
+    <div className="tw3-space-y-4 tw3-relative">
+       {isLoading && <LogoLoader size={50} className={"tw3-mx-auto"}/>}
       {groupKeys.map((groupField: string) => {
         const summaryFields = dataSummaryFields.filter(
           (f) => f.groupBy === groupField

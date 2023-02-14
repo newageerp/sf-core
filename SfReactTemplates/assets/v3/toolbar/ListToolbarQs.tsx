@@ -4,6 +4,7 @@ import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 import { buildQsDictionary } from "../list/ListUtils"
 import { useTranslation } from 'react-i18next';
 import { ToolbarButton } from '@newageerp/v3.bundles.buttons-bundle';
+import { useListDataSource } from '@newageerp/v3.bundles.app-bundle';
 
 interface Props {
   fields: any[],
@@ -11,6 +12,7 @@ interface Props {
 
 export default function ListToolbarQs(props: Props) {
   const { t } = useTranslation();
+  const listDataSource = useListDataSource();
 
   const { data: tData } = useTemplatesLoader();
 
@@ -48,8 +50,8 @@ export default function ListToolbarQs(props: Props) {
     />
     <ToolbarButton
       iconName='arrows-rotate'
-      onClick={tData.reloadData}
-      loading={tData.reloading}
+      onClick={listDataSource.data.reload.do}
+      loading={listDataSource.data.reload.reloading}
     />
   </Fragment>;
 }
