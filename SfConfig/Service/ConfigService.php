@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ConfigService
 {
-    public function getConfig(string $file)
+    public static function getConfig(string $file)
     {
         $localStorage = LocalConfigUtilsV3::getNaeSfsCpStoragePath();
         $userStorage = LocalConfigUtilsV3::getUserStoragePath();
