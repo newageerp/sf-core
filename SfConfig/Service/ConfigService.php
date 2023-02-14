@@ -10,8 +10,10 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ConfigService
 {
-    public static function getConfig(string $file)
+    public static function getConfig(string $config)
     {
+        $file = $config . '.json';
+        
         $localStorage = LocalConfigUtilsV3::getNaeSfsCpStoragePath();
         $userStorage = LocalConfigUtilsV3::getUserStoragePath();
 
