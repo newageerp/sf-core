@@ -13,7 +13,8 @@ class InGeneratorEditForms extends Command
 {
     protected static $defaultName = 'nae:localconfig:InGeneratorEditForms';
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -49,16 +50,17 @@ class InGeneratorEditForms extends Command
                         );
                     }
 
-                    $customComponents[] = [
+                    $k = $customComponentName . mb_substr(md5($field['componentName']), 0, 5);
+                    $customComponents[$k] = [
                         'componentName' => $field['componentName'],
-                        'name' => $customComponentName.mb_substr(md5($field['componentName']), 0, 5),
+                        'name' => $k,
                     ];
                 }
             }
         }
 
         $customEfFunctionTemplateMap->writeToFileOnChanges(
-            Utils::customFolderPath('edit').'/CustomEditComponentsMap.ts',
+            Utils::customFolderPath('edit') . '/CustomEditComponentsMap.ts',
             ['templates' => array_values($customComponents),]
         );
 
