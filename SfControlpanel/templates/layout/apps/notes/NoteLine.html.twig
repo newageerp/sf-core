@@ -94,14 +94,14 @@ export default function NoteLine(props: Props) {
   const unread = forMe && note.notifyAccept.indexOf(userState.id) === -1;
 
   if (unread) {
-    extraClassName.push(`${TwBackgroundColors.sky50} "border border-sky"`);
+    extraClassName.push(`tw3-bg-sky-50 "tw3-border tw3-border-sky"`);
   } else if (forMe) {
-    extraClassName.push("border " + TwBorderColors.sky);
+    extraClassName.push("tw3-border tw3-border-sky-500");
   } else {
-    extraClassName.push("border " + TwBorderColors.slate200);
+    extraClassName.push("tw3-border tw3-border-slate-200");
   }
 
-  const parentElementName = t("Atidaryti elementą");
+  const parentElementName = t("Open");
   // if (!!note.salesOrder) {
   //   parentElementName =
   //     note.salesOrder.serialNumber + " (" + note.salesOrder.soClientName + ")";
@@ -117,17 +117,17 @@ export default function NoteLine(props: Props) {
   const isCanEdit = isCreator && (!note.notify || note.notify.length === 0);
 
   return (
-    <div key={"note-" + note.id} className={"flex w-full"}>
+    <div key={"note-" + note.id} className={"tw3-flex tw3-w-full"}>
       {isCreator && <span style={ { width: "10%" } }></span>}
       <div
         style={ { width: "90%" } }
-        className={"px-1 py-1  rounded-sm " + extraClassName.join(" ")}
+        className={"tw3-px-1 tw3-py-1 tw3-rounded-sm " + extraClassName.join(" ")}
       >
-        <div className={"flex w-full items-center gap-1"}>
-          <i className={"fad fa-comments-alt text-nsecondary"} />
-          <div className={"text-gray-400 text-xs"}>{note.createdAt}</div>
-          <div className={"text-gray-600 text-xs flex-grow"}>
-            {note.creator ? note.creator.fullName : "Sistema"}
+        <div className={"tw3-flex tw3-w-full tw3-items-center tw3-gap-1"}>
+          <i className={"fad fa-comments-alt tw3-text-sky-800"} />
+          <div className={"tw3-text-gray-400 tw3-text-xs"}>{note.createdAt}</div>
+          <div className={"tw3-text-gray-600 tw3-text-xs tw3-flex-grow"}>
+            {note.creator ? note.creator.fullName : "System"}
             {note.notify.length > 0 && (
               <Fragment>
                 {" -> "}
@@ -157,7 +157,7 @@ export default function NoteLine(props: Props) {
             <MainButton
               onClick={toggleShowPopup}
               color={"white"}
-              className={"underline hover:no-underline"}
+              className={"tw3-underline hover:tw3-no-underline"}
             >
               {props.parentElementCallack
                 ? props.parentElementCallack(note.parentId, note.parentSchema)
@@ -169,7 +169,7 @@ export default function NoteLine(props: Props) {
             <MainButton
               color={"whiteandpurple"}
               onClick={hideNote}
-              className={"underline hover:no-underline"}
+              className={"tw3-underline hover:tw3-no-underline"}
             >
               {saveDataParams.loading ? t("Sending") : t("Mark as read")}
             </MainButton>
@@ -198,7 +198,7 @@ export default function NoteLine(props: Props) {
           )}
         </div>
         {!!note.replyTo && <NotesQuoteTextSelector id={note.replyTo} selector={getHookForSchema(moduleName)} />}
-        <div className={"w-full text-sm"}>{parse(note.content)}</div>
+        <div className={"tw3-w-full tw3-text-sm"}>{parse(note.content)}</div>
         {showAnswerForm && (
           <NotesAnswerForm
             options={
