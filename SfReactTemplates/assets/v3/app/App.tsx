@@ -11,6 +11,7 @@ import { selectorBySchemaClassName, selectorBySchemaSlug } from "../../_custom/m
 
 // CSS LOAD
 import 'react-toastify/dist/ReactToastify.css'
+import { MainBundle } from "@newageerp/v3.app.main-bundle";
 
 function App() {
     const { t } = useTranslation();
@@ -24,22 +25,24 @@ function App() {
     }, []);
 
     return (
-        <TemplatesCoreProvider
-            templatesMap={componentsMap}
-            store={store}
-            i18n={i18n}
-            dataCache={{
-                cacheData: cacheData,
-                getDataCacheForSchema: getDataCacheForSchema,
-            }}
-            pathMap={NaePathsMap}
-            orm={{
-                selectorBySchemaClassName: selectorBySchemaClassName,
-                selectorBySchemaSlug: selectorBySchemaSlug
-            }}
-        >
-            <TemplatesLoader templateName="App" onError={redirectToLogin} />
-        </TemplatesCoreProvider>
+        <MainBundle>
+            <TemplatesCoreProvider
+                templatesMap={componentsMap}
+                store={store}
+                i18n={i18n}
+                dataCache={{
+                    cacheData: cacheData,
+                    getDataCacheForSchema: getDataCacheForSchema,
+                }}
+                pathMap={NaePathsMap}
+                orm={{
+                    selectorBySchemaClassName: selectorBySchemaClassName,
+                    selectorBySchemaSlug: selectorBySchemaSlug
+                }}
+            >
+                <TemplatesLoader templateName="App" onError={redirectToLogin} />
+            </TemplatesCoreProvider>
+        </MainBundle>
     );
 }
 
