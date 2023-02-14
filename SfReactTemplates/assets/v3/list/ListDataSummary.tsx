@@ -9,6 +9,7 @@ import { NaeSStatuses } from "../../_custom/config/NaeSStatuses";
 import { LogoLoader } from "@newageerp/ui.ui-bundle";
 import { useTranslation } from 'react-i18next'
 import { ToolbarButton } from '@newageerp/v3.bundles.buttons-bundle'
+import { useListDataSource } from "@newageerp/v3.bundles.app-bundle";
 
 export type ISummary = {
   title: string;
@@ -58,7 +59,8 @@ const doDownload = (tableId: string) => {
 
 export default function ListDataSummary(props: Props) {
   const { t } = useTranslation()
-  
+  const listDataSource = useListDataSource();
+
   const [isLoading, setIsLoading] = useState(false);
   const { data: tData } = useTemplatesLoader();
   const [data, setData] = useState<any>([]);
@@ -83,7 +85,7 @@ export default function ListDataSummary(props: Props) {
 
   useEffect(() => {
     getData();
-  }, [props.schema, props.summary, tData.filter.extraFilter]);
+  }, [props.schema, props.summary, tData.filter.extraFilter, listDataSource.data.reload.key]);
 
   const groupKeys = Object.keys(data);
 

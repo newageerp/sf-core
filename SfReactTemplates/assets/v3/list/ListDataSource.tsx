@@ -41,6 +41,7 @@ interface Props {
 
 export default function ListDataSource(props: Props) {
   const { data: tData } = useTemplatesLoader();
+  const [reloadKey, setReloadKey] = useState<any>();
 
   // SELECTED ITEMS START
   const [selectedItems, setSelectedItems] = useState<number[]>(tData?.data?.selection?.items ? tData?.data?.selection?.items : []);
@@ -254,8 +255,15 @@ export default function ListDataSource(props: Props) {
             items: selectedItems,
             addElement: addSelectedItem
           },
-          doReload: loadData,
-          reloading: dataResult.loading,
+          reload: {
+            do: () => {
+              setReloadKey(new Date().getTime());
+              loadData();
+            },
+            reloading: dataResult.loading,  
+            key: reloadKey,
+          }
+          
         }
       }}>
       {((!!props.toolbar && props.toolbar.length > 0) || (!!props.toolbarLine2 && props.toolbarLine2.length > 0)) &&
