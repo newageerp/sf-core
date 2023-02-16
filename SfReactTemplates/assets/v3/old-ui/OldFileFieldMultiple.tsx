@@ -34,13 +34,13 @@ export default function OldFileFieldMultiple(props: Props) {
   return (
     <div
       className={
-        'flex flex-col gap-1 items-center w-96 rounded-md border border-gray-300 px-2 py-1'
+        'tw3-flex tw3-flex-col tw3-gap-1 tw3-items-center tw3-w-96 tw3-rounded-md tw3-border tw3-border-gray-300 tw3-px-2 tw3-py-1'
       }
     >
       {files.map((f: any, fIndex: number) => {
         return (
           <FileField
-            width={'w-full'}
+            width={'tw3-w-full'}
             key={'file-' + fIndex}
             val={f}
             onChange={(f: any) => changeFile(f, fIndex)}
@@ -49,7 +49,7 @@ export default function OldFileFieldMultiple(props: Props) {
         )
       })}
       <FileField
-        width={'w-full'}
+        width={'tw3-w-full'}
         key={'file-new'}
         val={[]}
         onChange={addFile}

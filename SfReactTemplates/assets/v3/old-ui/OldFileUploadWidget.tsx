@@ -5,9 +5,9 @@ import moment from 'moment'
 
 
 import { WhiteCard } from '@newageerp/v3.bundles.widgets-bundle'
-import OldLoaderLogo from './OldLoaderLogo'
 import { TextCardTitle } from '@newageerp/v3.bundles.typography-bundle'
 import { axiosInstance } from '@newageerp/v3.bundles.utils-bundle'
+import { LogoLoader } from '@newageerp/v3.bundles.layout-bundle'
 
 interface Props {
   type: string
@@ -84,12 +84,12 @@ export default function FileUploadWidget(props: Props) {
   return (
     <WrapComp>
       {titleComp}
-      {isUploading && (<OldLoaderLogo size={20} />)}
-      <div className={'grid gap-1'}>
+      {isUploading && (<LogoLoader size={20} />)}
+      <div className={'tw3-grid tw3-gap-1'}>
         <div {...getRootProps({ style })}>
           <Fragment>
             <input {...getInputProps()} />
-            <p>{t('Tempkite failus arba paspauskite')}</p>
+            <p>{t('Drag files or click to choose')}</p>
           </Fragment>
         </div>
       </div>

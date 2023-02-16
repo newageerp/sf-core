@@ -3,15 +3,22 @@
 namespace Newageerp\SfReactTemplates\CoreTemplates\MainMenu;
 
 use Newageerp\SfControlpanel\Console\LocalConfigUtils;
+use Newageerp\SfReactTemplates\Event\MenuItemTabParseEvent;
 use Newageerp\SfReactTemplates\Template\Placeholder;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class MenuService
 {
     protected MenuItemFactory $menuItemFactory;
 
-    public function __construct(MenuItemFactory $menuItemFactory)
-    {
+    protected EventDispatcherInterface $eventDispatcher;
+
+    public function __construct(
+        MenuItemFactory $menuItemFactory,
+        EventDispatcherInterface $eventDispatcher,
+    ) {
         $this->menuItemFactory = $menuItemFactory;
+        $this->eventDispatcher = $eventDispatcher;
         $this->data = LocalConfigUtils::getCpConfigFileData('menu-cache');
     }
 
@@ -73,13 +80,18 @@ class MenuService
                 $placeholder->addTemplate($menuItem);
             }
             if ($item['__component'] === 'menu.menu-item-tab') {
-                $placeholder->addTemplate(
-                    $this->menuItemFactory->linkForTab(
-                        $item['Scheme'],
-                        $item['Type'],
-                        $item['Icon']
-                    )
-                );
+                $event = new MenuItemTabParseEvent($item['Scheme'], $item['Type'], $item['Icon']);
+                $this->eventDispatcher->dispatch($event, MenuItemTabParseEvent::NAME);
+
+                if ($event->getEnable()) {
+                    $placeholder->addTemplate(
+                        $this->menuItemFactory->linkForTab(
+                            $event->getSchema(),
+                            $event->getType(),
+                            $event->getIcon(),
+                        )
+                    );
+                }
             }
             if ($item['__component'] === 'menu.divider') {
                 $placeholder->addTemplate(
@@ -110,13 +122,18 @@ class MenuService
             }
 
             if ($item['__component'] === 'menu.menu-item-tab') {
-                $folder->addItem(
-                    $this->menuItemFactory->linkForTab(
-                        $item['Scheme'],
-                        $item['Type'],
-                        $item['Icon']
-                    )
-                );
+                $event = new MenuItemTabParseEvent($item['Scheme'], $item['Type'], $item['Icon']);
+                $this->eventDispatcher->dispatch($event, MenuItemTabParseEvent::NAME);
+
+                if ($event->getEnable()) {
+                    $folder->addItem(
+                        $this->menuItemFactory->linkForTab(
+                            $event->getSchema(),
+                            $event->getType(),
+                            $event->getIcon()
+                        )
+                    );
+                }
             }
             if ($item['__component'] === 'menu.divider') {
                 $folder->addItem(
@@ -126,7 +143,7 @@ class MenuService
             if ($item['__component'] === 'menu.folder') {
                 $folderId = $item['menu_folder']['data']['id'];
                 $contentFolder = $this->findFolderById($folderId);
-                
+
                 if ($contentFolder && isset($contentFolder['Content'])) {
                     if (!isset($contentFolder['Icon']) || !$contentFolder['Icon']) {
                         $contentFolder['Icon'] = 'folder';
