@@ -10,7 +10,7 @@ class MenuItemTabParseEvent extends Event
 {
     public const NAME = 'sfreacttemplates.MenuItemTabParseEvent';
 
-    protected string $enable = true;
+    protected bool $enable = true;
 
     protected string $schema;
 
@@ -26,26 +26,6 @@ class MenuItemTabParseEvent extends Event
         $this->schema = $schema;
         $this->type = $type;
         $this->icon = $icon;
-    }
-
-    /**
-     * Get the value of enable
-     */ 
-    public function getEnable()
-    {
-        return $this->enable;
-    }
-
-    /**
-     * Set the value of enable
-     *
-     * @return  self
-     */ 
-    public function setEnable($enable)
-    {
-        $this->enable = $enable;
-
-        return $this;
     }
 
     /**
@@ -104,6 +84,26 @@ class MenuItemTabParseEvent extends Event
     public function setIcon($icon)
     {
         $this->icon = $icon;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of enable
+     */ 
+    public function getEnable()
+    {
+        return $this->enable;
+    }
+
+    /**
+     * Set the value of enable
+     *
+     * @return  self
+     */ 
+    public function setEnable($enable)
+    {
+        $this->enable = $enable;
 
         return $this;
     }
