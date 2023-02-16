@@ -2,6 +2,7 @@
 
 namespace Newageerp\SfControlpanel\Console\In;
 
+use Newageerp\SfConfig\Service\ConfigService;
 use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
 use Newageerp\SfControlpanel\Console\Utils;
 use Symfony\Component\Console\Command\Command;
@@ -21,6 +22,8 @@ class InGeneratorRoutes extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $settings = ConfigService::getConfig('settings');
+
         $loader = new \Twig\Loader\FilesystemLoader(dirname(__DIR__, 2) . '/templates');
         $twig = new \Twig\Environment($loader, [
             'cache' => '/tmp',
@@ -37,28 +40,28 @@ class InGeneratorRoutes extends Command
         $imports = [];
 
         $appsComponents = [];
-        if (class_exists('App\Entity\Bookmark', false)) {
+        if (isset($settings['apps']['bookmarks'])) {
             $imports[] = 'import BookmarksPage from "../apps/bookmarks/BookmarksPage";';
             $appsComponents[] = [
                 'name' => 'bookmarks',
                 'compName' => 'BookmarksPage'
             ];
         }
-        if (class_exists('App\Entity\Task', false)) {
+        if (isset($settings['apps']['tasks'])) {
             $imports[] = 'import TasksPage from "../apps/tasks/TasksPage";';
             $appsComponents[] = [
                 'name' => 'tasks',
                 'compName' => 'TasksPage'
             ];
         }
-        if (class_exists('App\Entity\Note', false)) {
+        if (isset($settings['apps']['notes'])) {
             $imports[] = 'import NotesPage from "../apps/notes/NotesPage";';
             $appsComponents[] = [
                 'name' => 'notes',
                 'compName' => 'NotesPage'
             ];
         }
-        if (class_exists('App\Entity\FollowUp', false)) {
+        if (isset($settings['apps']['followUp'])) {
             $imports[] = 'import FollowUpPage from "../apps/follow-up/FollowUpPage";';
             $appsComponents[] = [
                 'name' => 'follow-up',
