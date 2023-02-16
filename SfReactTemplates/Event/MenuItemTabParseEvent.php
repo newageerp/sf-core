@@ -16,22 +16,49 @@ class MenuItemTabParseEvent extends Event
 
     protected string $type;
 
-    protected string $icon;
+    protected ?string $icon;
 
     public function __construct(
         string $schema,
         string $type,
-        string $icon,
+        ?string $icon,
     ) {
         $this->schema = $schema;
         $this->type = $type;
         $this->icon = $icon;
     }
 
+
+    /**
+     * Get the value of enable
+     *
+     * @return bool
+     */
+    public function getEnable(): bool
+    {
+        return $this->enable;
+    }
+
+    /**
+     * Set the value of enable
+     *
+     * @param bool $enable
+     *
+     * @return self
+     */
+    public function setEnable(bool $enable): self
+    {
+        $this->enable = $enable;
+
+        return $this;
+    }
+
     /**
      * Get the value of schema
-     */ 
-    public function getSchema()
+     *
+     * @return string
+     */
+    public function getSchema(): string
     {
         return $this->schema;
     }
@@ -39,9 +66,11 @@ class MenuItemTabParseEvent extends Event
     /**
      * Set the value of schema
      *
-     * @return  self
-     */ 
-    public function setSchema($schema)
+     * @param string $schema
+     *
+     * @return self
+     */
+    public function setSchema(string $schema): self
     {
         $this->schema = $schema;
 
@@ -50,8 +79,10 @@ class MenuItemTabParseEvent extends Event
 
     /**
      * Get the value of type
-     */ 
-    public function getType()
+     *
+     * @return string
+     */
+    public function getType(): string
     {
         return $this->type;
     }
@@ -59,9 +90,11 @@ class MenuItemTabParseEvent extends Event
     /**
      * Set the value of type
      *
-     * @return  self
-     */ 
-    public function setType($type)
+     * @param string $type
+     *
+     * @return self
+     */
+    public function setType(string $type): self
     {
         $this->type = $type;
 
@@ -70,8 +103,10 @@ class MenuItemTabParseEvent extends Event
 
     /**
      * Get the value of icon
-     */ 
-    public function getIcon()
+     *
+     * @return ?string
+     */
+    public function getIcon(): ?string
     {
         return $this->icon;
     }
@@ -79,31 +114,13 @@ class MenuItemTabParseEvent extends Event
     /**
      * Set the value of icon
      *
-     * @return  self
-     */ 
-    public function setIcon($icon)
+     * @param ?string $icon
+     *
+     * @return self
+     */
+    public function setIcon(?string $icon): self
     {
         $this->icon = $icon;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of enable
-     */ 
-    public function getEnable()
-    {
-        return $this->enable;
-    }
-
-    /**
-     * Set the value of enable
-     *
-     * @return  self
-     */ 
-    public function setEnable($enable)
-    {
-        $this->enable = $enable;
 
         return $this;
     }
