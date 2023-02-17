@@ -206,7 +206,11 @@ class UService
                     $groupByObj = $result;
                     foreach ($groupByPath as $p) {
                         $getter = 'get' . ucfirst($p);
-                        $groupByObj = $groupByObj->$getter();
+                        if ($groupByObj && method_exists($groupByObj, $getter)) {
+                            $groupByObj = $groupByObj->$getter();
+                        } else {
+                            $groupByObj = '';
+                        }
                     }
 
                     if (!isset($groupedData[$itemGroupBy])) {
@@ -563,10 +567,10 @@ class UService
                             $valueL = new \DateTime($st[2] . ' 23:59:59');
 
 
-                            $params[$uuid.'Min'] = $valueG;
-                            $params[$uuid.'Max'] = $valueL;
+                            $params[$uuid . 'Min'] = $valueG;
+                            $params[$uuid . 'Max'] = $valueL;
 
-                            $statement = '' . $alias . '.' . $fieldKey . ' BETWEEN :'.$uuid.'Min AND :'.$uuid.'Max';
+                            $statement = '' . $alias . '.' . $fieldKey . ' BETWEEN :' . $uuid . 'Min AND :' . $uuid . 'Max';
                         } else {
                             $statement = $alias . '.' . $fieldKey . ' ' . $op . ' ';
                             if ($needBrackets) {
