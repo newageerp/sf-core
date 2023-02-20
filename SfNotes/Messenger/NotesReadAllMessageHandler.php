@@ -86,7 +86,7 @@ class NotesReadAllMessageHandler
         $this->em->flush();
 
         $note = new $noteClass();
-        $note->setContent('Užduotis "Perskaityti visus komentarus" įvykdyta');
+        $note->setContent('Task "Mark all as read" completed');
         $note->setNotify([$userId]);
         $this->em->persist($note);
         $this->em->flush();

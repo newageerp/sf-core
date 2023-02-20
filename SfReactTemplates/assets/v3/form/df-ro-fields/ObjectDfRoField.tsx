@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react'
 import { useDfValue } from '../../hooks/useDfValue';
-import { String } from '@newageerp/data.table.base';
+import { Bool, String } from '@newageerp/data.table.base';
 import { RsButton } from '@newageerp/v3.bundles.buttons-bundle';
 import { getPropertyForPath } from '../../utils';
+import { StatusWidget } from '@newageerp/v3.bundles.widgets-bundle';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   id: number,
@@ -12,10 +14,13 @@ interface Props {
 
   as?: string;
 
+  fieldType: string,
   disableLink?: boolean;
 }
 
 export default function ObjectDfRoField(props: Props) {
+  const { t } = useTranslation();
+
   let idPath = props.idPath;
   if (!idPath) {
     const fA = props.fieldKey.split(".");
@@ -43,6 +48,10 @@ export default function ObjectDfRoField(props: Props) {
 
   if (!idValue) {
     return <Fragment />
+  }
+
+  if (props.fieldType === 'bool') {
+    return <StatusWidget color={value ? "teal" : "slate"}>{value ? t("Yes") : t("No")}</StatusWidget>
   }
 
   if (props.as === 'select' || props.disableLink) {
