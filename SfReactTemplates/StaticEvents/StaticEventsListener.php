@@ -38,7 +38,7 @@ class StaticEventsListener implements EventSubscriberInterface
         }
 
         usort($events, function ($a, $b) {
-            return $a <=> $b;
+            return $a['sort'] <=> $b['sort'];
         });
 
         foreach ($events as $staticEvent) {
