@@ -255,6 +255,7 @@ class ViewDfContentService
                             }
                             if ($naeType === 'object') {
                                 $objectProp = $this->propertiesUtilsV3->getPropertyForPath($field['path'], $id);
+                                $objectNaeType = $this->propertiesUtilsV3->getPropertyNaeType($objectProp, $field);
 
                                 $objectField = new ObjectDfRoField(
                                     $field['path'],
@@ -263,6 +264,7 @@ class ViewDfContentService
                                     $pathArray[2],
                                     $objectProp['entity']
                                 );
+                                $objectField->setFieldType($objectNaeType);
                                 $objectField->setAs($prop['as']);
 
                                 if (isset($field['disableLink'])) {
