@@ -24,16 +24,29 @@ class StaticEventsListener implements EventSubscriberInterface
     {
         $eventName = $event->getTemplateName();
 
+        $events = [];
+
         foreach ($this->staticEvents as $staticEventGroup => $staticEvents) {
             foreach ($staticEvents as $staticEvent) {
                 if ($staticEvent['name'] === $eventName) {
-                    $tpl = new CustomPluginTemplate(
-                        $staticEvent['template'],
-                        $this->fixEventData($staticEvent['data'], $event->getData())
-                    );
-                    $event->getPlaceholder()->addTemplate($tpl);
+                    if (!isset($staticEvent['sort'])) {
+                        $staticEvent['sort'] = 999;
+                    }
+                    $events[] = $staticEvent;
                 }
             }
+        }
+
+        usort($events, function ($a, $b) {
+            return $a <=> $b;
+        });
+
+        foreach ($events as $ev) {
+            $tpl = new CustomPluginTemplate(
+                $staticEvent['template'],
+                $this->fixEventData($staticEvent['data'], $event->getData())
+            );
+            $event->getPlaceholder()->addTemplate($tpl);
         }
     }
 
