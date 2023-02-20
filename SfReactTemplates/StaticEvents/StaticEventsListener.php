@@ -41,7 +41,7 @@ class StaticEventsListener implements EventSubscriberInterface
             return $a <=> $b;
         });
 
-        foreach ($events as $ev) {
+        foreach ($events as $staticEvent) {
             $tpl = new CustomPluginTemplate(
                 $staticEvent['template'],
                 $this->fixEventData($staticEvent['data'], $event->getData())
