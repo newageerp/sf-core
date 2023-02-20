@@ -2,6 +2,7 @@
 
 namespace Newageerp\SfControlpanel\Console\In;
 
+use Newageerp\SfConfig\Service\ConfigService;
 use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 use Newageerp\SfControlpanel\Console\LocalConfigUtils;
 use Newageerp\SfControlpanel\Console\LocalConfigUtilsV3;
@@ -32,6 +33,8 @@ class InFillModels extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $settings = ConfigService::getConfig('settings');
+        
         $loader = new \Twig\Loader\FilesystemLoader(dirname(__DIR__, 2) . '/templates');
         $twig = new \Twig\Environment($loader, [
             'cache' => '/tmp/smarty',
@@ -600,7 +603,7 @@ import { " . $selectorsJoin . " } from '../models/ormSelectors';
 
         file_put_contents($compFile, $componentsContent);
 
-        $hasNotes = class_exists('App\Entity\Note');
+        $hasNotes = isset($settings['apps']['notes']);
         $hasUsers = class_exists('App\Entity\User');
 
         $hooksDir = Utils::customFolderPath('hooks');

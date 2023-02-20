@@ -32,6 +32,7 @@ export default function DataCacheSocketComponent() {
     }
 
     const onForceSocketDoRequest = (data: any) => {
+        {% if hasNotes %}
         if (data.schema === 'Note') {
             let result = dataCache.getDataCacheForSchema('Note');
             if (result) {
@@ -43,6 +44,7 @@ export default function DataCacheSocketComponent() {
                 addToQueue(item);
             }
         }
+        {% endif %}
     }
 
     useEffect(() => {
