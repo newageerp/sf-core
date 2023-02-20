@@ -603,7 +603,7 @@ import { " . $selectorsJoin . " } from '../models/ormSelectors';
 
         file_put_contents($compFile, $componentsContent);
 
-        $hasNotes = isset($settings['apps']['notes']);
+        $hasNotes = isset($settings['apps']['notes']) && $settings['apps']['notes'];
         $hasUsers = class_exists('App\Entity\User');
 
         $hooksDir = Utils::customFolderPath('hooks');
