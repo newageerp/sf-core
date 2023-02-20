@@ -241,7 +241,12 @@ class TableRowService
                             $tpl = new StringArrayColumn($pathArray[1]);
                         }
                         if ($naeType === 'string') {
-                            $tpl = new StringColumn($pathArray[1]);
+                            if (isset($col['editable']) && $col['editable']) {
+                                $tpl = new LargeTextEditableColumn($pathArray[1], isset($prop['as']) ? $prop['as'] : '');
+                                $tpl->setSchema($schema);
+                            } else {
+                                $tpl = new StringColumn($pathArray[1]);
+                            }
                         }
 
                         if ($tpl) {
