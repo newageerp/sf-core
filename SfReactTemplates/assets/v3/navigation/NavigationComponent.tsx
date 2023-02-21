@@ -1,10 +1,9 @@
-import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import React, { Fragment, useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { Popup } from "@newageerp/v3.bundles.popup-bundle";
 import { MailsForm } from "@newageerp/ui.ui-bundle";
 import { useNaeWindow } from "../old-ui/OldNaeWindowProvider";
-import SocketService from "../SocketService";
+import { SocketService } from "@newageerp/v3.bundles.utils-bundle";
 import { toast } from '@newageerp/v3.templates.templates-core';
 import {
   ConfirmationPopup,
@@ -209,7 +208,7 @@ export default function NavigationComponent() {
 
 export const showTaskSentNotification = () => {
   toast.success(
-    "Užduotis išsiųsta apdorojimui. Po jos įvykdymo gausite pranešimą."
+    "The job has been sent for processing. You will receive a notification after its completion."
   );
 };
 

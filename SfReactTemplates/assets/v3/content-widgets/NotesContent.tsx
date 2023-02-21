@@ -1,5 +1,5 @@
 import React from 'react'
-import NotesContentTpl from '../../apps/notes/NotesContent';
+import { NotesContent as NotesContentTpl } from "@newageerp/v3.bundles.notes-bundle";
 
 interface Props {
     showOnlyMy?: boolean;

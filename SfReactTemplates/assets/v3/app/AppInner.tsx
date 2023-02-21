@@ -12,6 +12,7 @@ import { NaeWindowProvider } from "../old-ui/OldNaeWindowProvider";
 import UserSpaceWrapper from "./UserSpace/UserSpaceWrapper";
 import AppRoutes from "../../routes/AppRoutes";
 import CustomUserWrapperRoutes from "../../_custom/routes/CustomUserWrapperRoutes";
+import { getHookForSchema } from "../../_custom/models-cache-data/ModelFields";
 
 function AppInner() {
     const [isLoaded, setIsLoaded] = useState(false);
@@ -41,7 +42,7 @@ function AppInner() {
             authRoutes={
                 <Fragment>
                     <UIBuilderProvider>
-                        <DataCacheProvider>
+                        <DataCacheProvider getHookForSchema={getHookForSchema}>
                             <NaeWindowProvider>
                                 <UserSpaceWrapper>
 
