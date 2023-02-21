@@ -3,8 +3,9 @@ import { useTranslation } from 'react-i18next'
 import { TaskContainer } from '@newageerp/sfs.apps.apps-bundle'
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper'
 import { SFSOpenEditModalWindowProps, SFSOpenViewModalWindowProps } from '@newageerp/v3.bundles.popup-bundle'
-import { ContentWidgetProps, getKeysFromObject } from '../../v3/utils'
+import { ContentWidgetProps } from '../../v3/utils'
 import { toast } from '@newageerp/v3.templates.templates-core';
+import { getKeysFromObject } from "@newageerp/v3.bundles.utils-bundle";
 
 interface IData {
   id: number

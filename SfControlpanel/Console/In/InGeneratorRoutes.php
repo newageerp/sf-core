@@ -54,13 +54,6 @@ class InGeneratorRoutes extends Command
                 'compName' => 'TasksPage'
             ];
         }
-        if (isset($settings['apps']['notes']) && $settings['apps']['notes']) {
-            $imports[] = 'import NotesPage from "../apps/notes/NotesPage";';
-            $appsComponents[] = [
-                'name' => 'notes',
-                'compName' => 'NotesPage'
-            ];
-        }
         if (isset($settings['apps']['followUp'])) {
             $imports[] = 'import FollowUpPage from "../apps/follow-up/FollowUpPage";';
             $appsComponents[] = [

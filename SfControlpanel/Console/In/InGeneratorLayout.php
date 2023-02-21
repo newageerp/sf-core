@@ -65,12 +65,12 @@ class InGeneratorLayout extends Command
             'layout/apps/follow-up/FollowUpPage.html.twig' => ['apps/follow-up', 'FollowUpPage'],
             'layout/apps/mails/MailsContent.html.twig' => ['apps/mails', 'MailsContent'],
 
-            'layout/apps/notes/NoteContentForm.html.twig' => ['apps/notes', 'NoteContentForm'],
+            // 'layout/apps/notes/NoteContentForm.html.twig' => ['apps/notes', 'NoteContentForm'],
             
-            'layout/apps/notes/NoteLine.html.twig' => ['apps/notes', 'NoteLine'],
-            'layout/apps/notes/NotesContent.html.twig' => ['apps/notes', 'NotesContent'],
-            'layout/apps/notes/NotesContentMembers.html.twig' => ['apps/notes', 'NotesContentMembers'],
-            'layout/apps/notes/NotesPage.html.twig' => ['apps/notes', 'NotesPage'],
+            // 'layout/apps/notes/NoteLine.html.twig' => ['apps/notes', 'NoteLine'],
+            // 'layout/apps/notes/NotesContent.html.twig' => ['apps/notes', 'NotesContent'],
+            // 'layout/apps/notes/NotesContentMembers.html.twig' => ['apps/notes', 'NotesContentMembers'],
+            // 'layout/apps/notes/NotesPage.html.twig' => ['apps/notes', 'NotesPage'],
 
             'layout/apps/tasks/TasksPage.html.twig' => ['apps/tasks', 'TasksPage'],
             'layout/apps/tasks/TasksWidget.html.twig' => ['apps/tasks', 'TasksWidget'],

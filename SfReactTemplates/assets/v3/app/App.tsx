@@ -37,7 +37,7 @@ function App() {
                 pathMap={NaePathsMap}
                 orm={{
                     selectorBySchemaClassName: selectorBySchemaClassName,
-                    selectorBySchemaSlug: selectorBySchemaSlug
+                    selectorBySchemaSlug: selectorBySchemaSlug,
                 }}
             >
                 <TemplatesLoader templateName="App" onError={redirectToLogin} />

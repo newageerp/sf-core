@@ -1,10 +1,9 @@
 import React, { Fragment } from "react";
-import { Route } from "@newageerp/v3.templates.templates-core";
+import { Route, TemplateParseRoute, TemplateRoute } from "@newageerp/v3.templates.templates-core";
 {% for importr in imports %}
 {{ importr|raw }}
 {% endfor %}
 
-import TemplateRoute from "../v3/templates/TemplateRoute";
 import { MainEdit, MainList, MainViewRoutepoint } from "@newageerp/v3.bundles.app-bundle";
 
 
@@ -28,6 +27,9 @@ export function ListRoutes() {
             </Route>
             <Route path={"/tpl/:templateName"}>
                 <TemplateRoute />
+            </Route>
+            <Route path={"/tplp/:templateName"}>
+                <TemplateParseRoute />
             </Route>
         </Fragment>
     )
