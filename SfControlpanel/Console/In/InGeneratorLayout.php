@@ -69,6 +69,8 @@ class InGeneratorLayout extends Command
         $hasMails = isset($settings['apps']['mails']) && $settings['apps']['mails'];
         $hasTasks = isset($settings['apps']['tasks']) && $settings['apps']['tasks'];
 
+        $templates = [];
+        
         if ($hasBookmarks) {
             $templates['layout/apps/bookmarks/BookmarksPage.html.twig'] = ['apps/bookmarks', 'BookmarksPage'];
         }
