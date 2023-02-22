@@ -37,6 +37,9 @@ class RelsCreateListener implements EventSubscriberInterface
         if (isset($el['targetType'])) {
             $item->setTargetType($el['targetType']);
         }
+        if (isset($el['icon'])) {
+            $item->setIconName($el['icon']);
+        }
         $scopes = [];
         if (isset($el['showScopes'])) {
             $scopes['showScopes'] = $el['showScopes'];
