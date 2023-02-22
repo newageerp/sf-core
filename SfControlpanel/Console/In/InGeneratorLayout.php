@@ -62,7 +62,7 @@ class InGeneratorLayout extends Command
         );
         Utils::writeOnChanges($fileName, $generatedContent);
 
-        $hasBookmarks = isset($settings['apps']['bookmarks']) && $settings['apps']['bookmarks'];
+        // $hasBookmarks = isset($settings['apps']['bookmarks']) && $settings['apps']['bookmarks'];
         $hasFollowUp = isset($settings['apps']['followUp']) && $settings['apps']['followUp'];
 
         $hasNotes = isset($settings['apps']['notes']) && $settings['apps']['notes'];
@@ -71,9 +71,9 @@ class InGeneratorLayout extends Command
 
         $templates = [];
         
-        if ($hasBookmarks) {
-            $templates['layout/apps/bookmarks/BookmarksPage.html.twig'] = ['apps/bookmarks', 'BookmarksPage'];
-        }
+        // if ($hasBookmarks) {
+        //     $templates['layout/apps/bookmarks/BookmarksPage.html.twig'] = ['apps/bookmarks', 'BookmarksPage'];
+        // }
         if ($hasFollowUp) {
             $templates['layout/apps/follow-up/FollowUpPage.html.twig'] = ['apps/follow-up', 'FollowUpPage'];
         }
