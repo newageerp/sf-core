@@ -140,8 +140,6 @@ import BoolEditableColumn from "../list/editable-columns/BoolEditableColumn"
 import FormFieldTagCloudTemplate from "../form/FormFieldTagCloudTemplate";
 import WhiteCardWithViewFormWidget from "../widgets/WhiteCardWithViewFormWidget";
 import TabContainer from "../tabs/TabContainer";
-import MailsContent from "../content-widgets/MailsContent";
-import NotesContent from "../content-widgets/NotesContent";
 import ListDataSummary from "../list/ListDataSummary";
 import ListDataTotals from "../list/ListDataTotals";
 import { MenuFolder, MenuTitle, MenuItem, MenuDivider, MenuProvider } from "@newageerp/v3.bundles.menu-bundle";
@@ -348,9 +346,6 @@ export const componentsMap: any = {
   'tabs.TabContainer': TabContainer,
 
   'primitives.string': PrimitiveString,
-
-  'content-widgets.MailsContent': MailsContent,
-  'content-widgets.NotesContent': NotesContent,
 
   'main-menu.menu-title': MenuTitle,
   'main-menu.menu-folder': MenuFolder,
