@@ -3,7 +3,6 @@ import React, { Fragment, useState } from "react";
 import { TemplatesLoader, Template, useTemplatesLoader } from "@newageerp/v3.templates.templates-core";
 import { fieldVisibility } from "../../_custom/fields/fieldVisibility";
 import { useTranslation } from "react-i18next";
-import TasksWidget from "../../apps/tasks/TasksWidget";
 import { ElementToolbar } from "@newageerp/ui.ui-bundle";
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import { ToolbarButtonWithMenu } from "@newageerp/v3.bundles.buttons-bundle";
@@ -142,14 +141,7 @@ export default function ViewContent(props: Props) {
           onEdit={onEdit}
           onRemove={onRemove}
           tasksContent={
-            settings.apps?.tasks ?
-              <TasksWidget
-                element={element}
-                options={{}}
-                schema={props.schema}
-                userState={userState}
-              />
-              : undefined
+            undefined
           }
           showRemind={settings.apps?.followUp}
           contentBefore1Line={
