@@ -8,6 +8,7 @@ use Newageerp\SfReactTemplates\CoreTemplates\Buttons\ToolbarButton;
 use Newageerp\SfReactTemplates\CoreTemplates\Buttons\ToolbarButtonWithMenu;
 use Newageerp\SfReactTemplates\CoreTemplates\Modal\Menu;
 use Newageerp\SfReactTemplates\CoreTemplates\Modal\MenuItemWithCreate;
+use Newageerp\SfReactTemplates\CoreTemplates\View\ViewContentListener;
 use Newageerp\SfReactTemplates\Event\LoadTemplateEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -22,7 +23,7 @@ class RelsCopyListener implements EventSubscriberInterface
 
     public function onTemplate(LoadTemplateEvent $event)
     {
-        if ($event->isTemplateForAnyEntity('PageMainViewElementToolbarLine2BeforeContent')) {
+        if ($event->isTemplateForAnyEntity(ViewContentListener::MAINVIEWTOOLBARBEFORE2LINE)) {
             $relsCreateFile = LocalConfigUtilsV3::getNaeSfsCpStoragePath() . '/rels-copy.json';
 
             if (file_exists($relsCreateFile)) {

@@ -22,6 +22,14 @@ class ViewContentListener implements EventSubscriberInterface
 
     public const MAINVIEWTOOLBARAFTER1LINE = 'PageMainViewToolbarAfter1Line';
 
+    public const MAINVIEWTOOLBARAFTERTITLE = 'PageMainViewAfterTitleBlockContent';
+
+    public const MAINVIEWTOOLBARAFTERFIELDS = 'PageMainViewElementToolbarAfterFieldsContent';
+
+    public const MAINVIEWTOOLBARBEFORE2LINE = 'PageMainViewElementToolbarLine2BeforeContent';
+
+    public const MAINVIEWTOOLBARMORE = 'PageMainViewElementToolbarMoreMenuContent';
+
     protected UService $uservice;
 
     protected EntitiesUtilsV3 $entitiesUtilsV3;
@@ -83,16 +91,16 @@ class ViewContentListener implements EventSubscriberInterface
                 $this->eventDispatcher->dispatch($wEvent, LoadTemplateEvent::NAME);
             }
 
-            $afterTitleBlockContentEvent = new LoadTemplateEvent($viewContent->getAfterTitleBlockContent(), 'PageMainViewAfterTitleBlockContent', $event->getData());
+            $afterTitleBlockContentEvent = new LoadTemplateEvent($viewContent->getAfterTitleBlockContent(), self::MAINVIEWTOOLBARAFTERTITLE, $event->getData());
             $this->eventDispatcher->dispatch($afterTitleBlockContentEvent, LoadTemplateEvent::NAME);
 
-            $elementToolbarAfterFieldsContent = new LoadTemplateEvent($viewContent->getElementToolbarAfterFieldsContent(), 'PageMainViewElementToolbarAfterFieldsContent', $event->getData());
+            $elementToolbarAfterFieldsContent = new LoadTemplateEvent($viewContent->getElementToolbarAfterFieldsContent(), self::MAINVIEWTOOLBARAFTERFIELDS, $event->getData());
             $this->eventDispatcher->dispatch($elementToolbarAfterFieldsContent, LoadTemplateEvent::NAME);
 
-            $elementToolbarLine2BeforeContent = new LoadTemplateEvent($viewContent->getElementToolbarLine2BeforeContent(), 'PageMainViewElementToolbarLine2BeforeContent', $event->getData());
+            $elementToolbarLine2BeforeContent = new LoadTemplateEvent($viewContent->getElementToolbarLine2BeforeContent(), self::MAINVIEWTOOLBARBEFORE2LINE, $event->getData());
             $this->eventDispatcher->dispatch($elementToolbarLine2BeforeContent, LoadTemplateEvent::NAME);
 
-            $elementToolbarMoreMenuContent = new LoadTemplateEvent($viewContent->getElementToolbarMoreMenuContent(), 'PageMainViewElementToolbarMoreMenuContent', $event->getData());
+            $elementToolbarMoreMenuContent = new LoadTemplateEvent($viewContent->getElementToolbarMoreMenuContent(), self::MAINVIEWTOOLBARMORE, $event->getData());
             $this->eventDispatcher->dispatch($elementToolbarMoreMenuContent, LoadTemplateEvent::NAME);
 
             $viewContent->getFormContent()->setIsCompact($isCompact);

@@ -8,6 +8,7 @@ use Newageerp\SfReactTemplates\CoreTemplates\Buttons\ToolbarButton;
 use Newageerp\SfReactTemplates\CoreTemplates\Buttons\ToolbarButtonWithMenu;
 use Newageerp\SfReactTemplates\CoreTemplates\Modal\Menu;
 use Newageerp\SfReactTemplates\CoreTemplates\Modal\MenuItemWithCreate;
+use Newageerp\SfReactTemplates\CoreTemplates\View\ViewContentListener;
 use Newageerp\SfReactTemplates\Event\LoadTemplateEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -20,9 +21,59 @@ class RelsCreateListener implements EventSubscriberInterface
         $this->entitiesUtilsV3 = $entitiesUtilsV3;
     }
 
+    protected function configToItem(array $el, LoadTemplateEvent $event)
+    {
+        $title = isset($el['title']) && $el['title'] ? $el['title'] : $this->entitiesUtilsV3->getTitleBySlug($el['target']);
+        $item = new MenuItemWithCreate(
+            $title,
+            $event->getData()['id'],
+            $el['source'],
+            $el['target'],
+            isset($el['forcePopup']) && $el['forcePopup'],
+        );
+        if (isset($el['createOptions']) && $el['createOptions']) {
+            $item->setCreateOptions($el['createOptions']);
+        }
+        if (isset($el['targetType'])) {
+            $item->setTargetType($el['targetType']);
+        }
+        $scopes = [];
+        if (isset($el['showScopes'])) {
+            $scopes['showScopes'] = $el['showScopes'];
+        }
+        if (isset($el['hideScopes'])) {
+            $scopes['hideScopes'] = $el['hideScopes'];
+        }
+        $item->setScopes($scopes);
+        return $item;
+    }
+
     public function onTemplate(LoadTemplateEvent $event)
     {
-        if ($event->isTemplateForAnyEntity('PageMainViewElementToolbarLine2BeforeContent')) {
+        if ($event->isTemplateForAnyEntity(ViewContentListener::MAINVIEWTOOLBARMORE)) {
+            $relsCreateFile = LocalConfigUtilsV3::getNaeSfsCpStoragePath() . '/rels-create-more.json';
+
+            if (file_exists($relsCreateFile)) {
+                $relsList = json_decode(file_get_contents($relsCreateFile), true);
+
+                $relsForEntity = array_filter(
+                    $relsList,
+                    function ($item) use ($event) {
+                        return $item['source'] === $event->getData()['schema'];
+                    }
+                );
+
+                if (count($relsForEntity) > 0) {
+                    foreach ($relsForEntity as $el) {
+                        $item = $this->configToItem($el, $event);
+
+                        $event->getPlaceholder()->addTemplate($item);
+                    }
+                }
+            }
+        }
+
+        if ($event->isTemplateForAnyEntity(ViewContentListener::MAINVIEWTOOLBARBEFORE2LINE)) {
             $relsCreateFile = LocalConfigUtilsV3::getNaeSfsCpStoragePath() . '/rels-create.json';
 
             if (file_exists($relsCreateFile)) {
@@ -46,28 +97,8 @@ class RelsCreateListener implements EventSubscriberInterface
                     );
 
                     foreach ($relsForEntity as $el) {
-                        $title = isset($el['title']) && $el['title'] ? $el['title'] : $this->entitiesUtilsV3->getTitleBySlug($el['target']);
-                        $item = new MenuItemWithCreate(
-                            $title,
-                            $event->getData()['id'],
-                            $el['source'],
-                            $el['target'],
-                            isset($el['forcePopup']) && $el['forcePopup'],
-                        );
-                        if (isset($el['createOptions']) && $el['createOptions']) {
-                            $item->setCreateOptions($el['createOptions']);
-                        }
-                        if (isset($el['targetType'])) {
-                            $item->setTargetType($el['targetType']);
-                        }
-                        $scopes = [];
-                        if (isset($el['showScopes'])) {
-                            $scopes['showScopes'] = $el['showScopes'];
-                        }
-                        if (isset($el['hideScopes'])) {
-                            $scopes['hideScopes'] = $el['hideScopes'];
-                        }
-                        $item->setScopes($scopes);
+                        $item = $this->configToItem($el, $event);
+
                         $menu->getChildren()->addTemplate($item);
                     }
                     $event->getPlaceholder()->addTemplate($button);
