@@ -140,7 +140,7 @@ export function DfValueView(props: DfValueViewProps) {
     component = <AudioDfRoField id={props.id} fieldKey={props.path} />
   }
   if (naeType === 'object') {
-    component = <ObjectDfRoField id={props.id} fieldKey={props.path} />
+    component = <ObjectDfRoField id={props.id} fieldKey={props.path} fieldType="" />
   }
   if (naeType === 'string_array') {
     component = <StringArrayDfRoField id={props.id} fieldKey={props.path} />

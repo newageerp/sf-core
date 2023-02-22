@@ -41,6 +41,8 @@ class InGeneratorLayout extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $settings = ConfigService::getConfig('settings');
+
         $loader = new \Twig\Loader\FilesystemLoader(dirname(__DIR__, 2) . '/templates');
         $twig = new \Twig\Environment($loader, [
             'cache' => '/tmp/smarty',
@@ -59,30 +61,35 @@ class InGeneratorLayout extends Command
         );
         Utils::writeOnChanges($fileName, $generatedContent);
 
-        $templates = [
-            'layout/apps/bookmarks/BookmarksPage.html.twig' => ['apps/bookmarks', 'BookmarksPage'],
-            'layout/apps/eventshistory/EventsHistoryWidget.html.twig' => ['apps/eventshistory', 'EventsHistoryWidget'],
-            'layout/apps/follow-up/FollowUpPage.html.twig' => ['apps/follow-up', 'FollowUpPage'],
-            'layout/apps/mails/MailsContent.html.twig' => ['apps/mails', 'MailsContent'],
+        $hasBookmarks = isset($settings['apps']['bookmarks']) && $settings['apps']['bookmarks'];
+        $hasFollowUp = isset($settings['apps']['followUp']) && $settings['apps']['followUp'];
 
-            // 'layout/apps/notes/NoteContentForm.html.twig' => ['apps/notes', 'NoteContentForm'],
-            
-            // 'layout/apps/notes/NoteLine.html.twig' => ['apps/notes', 'NoteLine'],
-            // 'layout/apps/notes/NotesContent.html.twig' => ['apps/notes', 'NotesContent'],
-            // 'layout/apps/notes/NotesContentMembers.html.twig' => ['apps/notes', 'NotesContentMembers'],
-            // 'layout/apps/notes/NotesPage.html.twig' => ['apps/notes', 'NotesPage'],
+        $hasNotes = isset($settings['apps']['notes']) && $settings['apps']['notes'];
+        $hasMails = isset($settings['apps']['mails']) && $settings['apps']['mails'];
+        $hasTasks = isset($settings['apps']['tasks']) && $settings['apps']['tasks'];
 
-            'layout/apps/tasks/TasksPage.html.twig' => ['apps/tasks', 'TasksPage'],
-            'layout/apps/tasks/TasksWidget.html.twig' => ['apps/tasks', 'TasksWidget'],
-        ];
-
-        $hasTasksApp = class_exists('App\Entity\Task', false);
+        if ($hasBookmarks) {
+            $templates['layout/apps/bookmarks/BookmarksPage.html.twig'] = ['apps/bookmarks', 'BookmarksPage'];
+        }
+        if ($hasFollowUp) {
+            $templates['layout/apps/follow-up/FollowUpPage.html.twig'] = ['apps/follow-up', 'FollowUpPage'];
+        }
+        if ($hasNotes || $hasMails) {
+            $templates['layout/apps/eventshistory/EventsHistoryWidget.html.twig'] = ['apps/eventshistory', 'EventsHistoryWidget'];
+        }
+        if ($hasMails) {
+            $templates['layout/apps/mails/MailsContent.html.twig'] = ['apps/mails', 'MailsContent'];
+        }
+        if ($hasTasks) {
+            $templates['layout/apps/tasks/TasksPage.html.twig'] = ['apps/tasks', 'TasksPage'];
+            $templates['layout/apps/tasks/TasksWidget.html.twig'] = ['apps/tasks', 'TasksWidget'];
+        }
 
         $settings = LocalConfigUtils::getCpConfigFileData('settings');
 
         foreach ($templates as $template => $target) {
             $fileName = Utils::generatedPath($target[0]) . '/' . $target[1] . '.tsx';
-            $generatedContent = $twig->load($template)->render(['hasTasksApp' => $hasTasksApp, 'settings' => $settings]);
+            $generatedContent = $twig->load($template)->render(['hasTasksApp' => $hasTasks, 'settings' => $settings]);
             Utils::writeOnChanges($fileName, $generatedContent);
         }
 
