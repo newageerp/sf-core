@@ -8,29 +8,34 @@ class StaticEventLoadEvent extends Event
 {
     public const NAME = 'StaticEventLoadEvent';
 
-    protected array $staticEvent = [];
+    protected array $staticEvent;
 
     public function __construct(array $staticEvent) {
         $this->staticEvent = $staticEvent;
     }
 
+
     /**
      * Get the value of staticEvent
      *
-     * @return $staticEvent
+     * @return array
      */
-    public static function getStaticEvent(): array
+    public function getStaticEvent(): array
     {
-        return self::$staticEvent;
+        return $this->staticEvent;
     }
 
     /**
      * Set the value of staticEvent
      *
-     * @param $staticEvent $staticEvent
+     * @param array $staticEvent
+     *
+     * @return self
      */
-    public static function setStaticEvent(array $staticEvent)
+    public function setStaticEvent(array $staticEvent): self
     {
-        self::$staticEvent = $staticEvent;
+        $this->staticEvent = $staticEvent;
+
+        return $this;
     }
 }
