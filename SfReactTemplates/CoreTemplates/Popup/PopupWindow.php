@@ -29,7 +29,7 @@ class PopupWindow extends Template
 
     public function getTemplateName(): string
     {
-        return 'popup.window';
+        return '_.PopupBundle.PopupWindow';
     }
 
     /**

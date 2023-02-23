@@ -1,6 +1,5 @@
 import React from "react";
 import ViewContent from "../view/ViewContent";
-import PopupWindow from "../popup/PopupWindow";
 import ListContent from "../list/ListContent";
 import DataString from "../data/DataString";
 import EditContent from "../edit/EditContent";
@@ -148,6 +147,8 @@ import AppInner from "../app/AppInner";
 import * as ButtonsBundle from '@newageerp/v3.bundles.buttons-bundle';
 import * as ModalBundle from '@newageerp/v3.bundles.modal-bundle';
 import * as LayoutBundle from '@newageerp/v3.bundles.layout-bundle';
+import * as PopupBundle from '@newageerp/v3.bundles.popup-bundle';
+
 import OneToOneWidget from "../widgets/OneToOneWidget";
 import DivContainer from "../layout/DivContainer";
 import EditContentInline from "../edit/EditContentInline";
@@ -167,6 +168,10 @@ export const componentsMap: any = {
     // @ts-ignore
     return LayoutBundle[comp];
   },
+  "PopupBundle": (comp: string) => {
+    // @ts-ignore
+    return PopupBundle[comp];
+  },
 
   "view.content": ViewContent,
   "view.formcontent": ViewFormContent,
@@ -183,9 +188,6 @@ export const componentsMap: any = {
 
   "edit.content": EditContent,
   "edit.formcontent": EditFormContent,
-
-  "popup.window": PopupWindow,
-
 
   "data.string": DataString,
 
