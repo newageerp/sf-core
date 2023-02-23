@@ -34,7 +34,7 @@ class NotesContent extends Template
 
     public function getTemplateName(): string
     {
-        return 'content-widgets.NotesContent';
+        return '_.CustomNotesApp.NotesContent';
     }
 
     /**

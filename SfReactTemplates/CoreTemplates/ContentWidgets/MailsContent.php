@@ -28,7 +28,7 @@ class MailsContent extends Template
 
     public function getTemplateName(): string
     {
-        return 'content-widgets.MailsContent';
+        return '_.CustomMailsApp.MailsContent';
     }
 
     /**
