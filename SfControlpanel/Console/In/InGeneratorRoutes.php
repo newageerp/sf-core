@@ -40,27 +40,27 @@ class InGeneratorRoutes extends Command
         $imports = [];
 
         $appsComponents = [];
-        if (isset($settings['apps']['bookmarks'])) {
-            $imports[] = 'import BookmarksPage from "../apps/bookmarks/BookmarksPage";';
-            $appsComponents[] = [
-                'name' => 'bookmarks',
-                'compName' => 'BookmarksPage'
-            ];
-        }
-        if (isset($settings['apps']['tasks'])) {
-            $imports[] = 'import TasksPage from "../apps/tasks/TasksPage";';
-            $appsComponents[] = [
-                'name' => 'tasks',
-                'compName' => 'TasksPage'
-            ];
-        }
-        if (isset($settings['apps']['followUp'])) {
-            $imports[] = 'import FollowUpPage from "../apps/follow-up/FollowUpPage";';
-            $appsComponents[] = [
-                'name' => 'follow-up',
-                'compName' => 'FollowUpPage'
-            ];
-        }
+        // if (isset($settings['apps']['bookmarks'])) {
+        //     $imports[] = 'import BookmarksPage from "../apps/bookmarks/BookmarksPage";';
+        //     $appsComponents[] = [
+        //         'name' => 'bookmarks',
+        //         'compName' => 'BookmarksPage'
+        //     ];
+        // }
+        // if (isset($settings['apps']['tasks'])) {
+        //     $imports[] = 'import TasksPage from "../apps/tasks/TasksPage";';
+        //     $appsComponents[] = [
+        //         'name' => 'tasks',
+        //         'compName' => 'TasksPage'
+        //     ];
+        // }
+        // if (isset($settings['apps']['followUp'])) {
+        //     $imports[] = 'import FollowUpPage from "../apps/follow-up/FollowUpPage";';
+        //     $appsComponents[] = [
+        //         'name' => 'follow-up',
+        //         'compName' => 'FollowUpPage'
+        //     ];
+        // }
 
         $generatedContent = $editRoutesTemplate->render(
             [

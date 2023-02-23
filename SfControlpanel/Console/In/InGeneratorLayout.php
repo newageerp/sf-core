@@ -74,9 +74,9 @@ class InGeneratorLayout extends Command
         // if ($hasBookmarks) {
         //     $templates['layout/apps/bookmarks/BookmarksPage.html.twig'] = ['apps/bookmarks', 'BookmarksPage'];
         // }
-        if ($hasFollowUp) {
-            $templates['layout/apps/follow-up/FollowUpPage.html.twig'] = ['apps/follow-up', 'FollowUpPage'];
-        }
+        // if ($hasFollowUp) {
+        //     $templates['layout/apps/follow-up/FollowUpPage.html.twig'] = ['apps/follow-up', 'FollowUpPage'];
+        // }
         if ($hasNotes || $hasMails) {
             $templates['layout/apps/eventshistory/EventsHistoryWidget.html.twig'] = ['apps/eventshistory', 'EventsHistoryWidget'];
         }
@@ -84,8 +84,8 @@ class InGeneratorLayout extends Command
             $templates['layout/apps/mails/MailsContent.html.twig'] = ['apps/mails', 'MailsContent'];
         }
         if ($hasTasks) {
-            $templates['layout/apps/tasks/TasksPage.html.twig'] = ['apps/tasks', 'TasksPage'];
-            $templates['layout/apps/tasks/TasksWidget.html.twig'] = ['apps/tasks', 'TasksWidget'];
+            // $templates['layout/apps/tasks/TasksPage.html.twig'] = ['apps/tasks', 'TasksPage'];
+            // $templates['layout/apps/tasks/TasksWidget.html.twig'] = ['apps/tasks', 'TasksWidget'];
         }
 
         $settings = LocalConfigUtils::getCpConfigFileData('settings');
