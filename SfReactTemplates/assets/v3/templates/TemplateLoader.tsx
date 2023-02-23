@@ -144,8 +144,6 @@ import ListDataSummary from "../list/ListDataSummary";
 import ListDataTotals from "../list/ListDataTotals";
 import { MenuFolder, MenuTitle, MenuItem, MenuDivider, MenuProvider } from "@newageerp/v3.bundles.menu-bundle";
 import AddButton from "../form/editable-fields/components/ArrayEditableField/AddButton";
-import ElementBookmarkButton from "../element/ElementBookmarkButton";
-import ListToolbarBookmark from "../toolbar/ListToolbarBookmark";
 
 import FormError from "../form/FormError";
 import HtmlEditorEditableField from "../form/editable-fields/HtmlEditorEditableField";
