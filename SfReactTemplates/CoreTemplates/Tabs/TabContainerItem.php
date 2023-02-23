@@ -28,7 +28,7 @@ class TabContainerItem extends Template
 
     public function getTemplateName(): string
     {
-        return 'tabs.TabContainerItem';
+        return '_.LayoutBundle.TabItem';
     }
 
     /**
