@@ -6,6 +6,7 @@ use Newageerp\SfAuth\Service\AuthService;
 use Newageerp\SfControlpanel\Console\LocalConfigUtilsV3;
 use Newageerp\SfReactTemplates\CoreTemplates\CustomPluginTemplate;
 use Newageerp\SfReactTemplates\Event\LoadTemplateEvent;
+use Newageerp\SfReactTemplates\Event\StaticEventLoadEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -42,6 +43,11 @@ class StaticEventsListener implements EventSubscriberInterface
         });
 
         foreach ($events as $staticEvent) {
+            $_event = new StaticEventLoadEvent($staticEvent);
+            $this->eventDispatcher->dispatch($_event, StaticEventLoadEvent::NAME);
+
+            $staticEvent = $_event->getStaticEvent();
+
             $tpl = new CustomPluginTemplate(
                 $staticEvent['template'],
                 $this->fixEventData($staticEvent['data'], $event->getData())
