@@ -22,7 +22,7 @@ class ToolbarDetailedSearch extends Template
 
     public function getTemplateName(): string
     {
-        return 'list.toolbar.detailed-search';
+        return '_.AppBundle.ListToolbarDetailedSearch';
     }
 
     /**

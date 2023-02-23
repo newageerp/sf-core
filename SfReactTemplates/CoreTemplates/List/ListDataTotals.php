@@ -23,7 +23,7 @@ class ListDataTotals extends Template
 
     public function getTemplateName(): string
     {
-        return 'list.list-data-totals';
+        return '_.AppBundle.ListDataTotals';
     }
 
     /**

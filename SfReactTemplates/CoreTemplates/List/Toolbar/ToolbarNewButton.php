@@ -18,7 +18,7 @@ class ToolbarNewButton extends Template
 
     public function getTemplateName(): string
     {
-        return 'list.toolbar.new-button';
+        return '_.AppBundle.ListToolbarNewButton';
     }
 
     public function getProps(): array

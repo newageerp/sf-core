@@ -30,7 +30,7 @@ class ToolbarTabSwitch extends Template
 
     public function getTemplateName(): string
     {
-        return 'list.toolbar.tabs-switch';
+        return '_.AppBundle.ListToolbarTabsSwitch';
     }
 
     /**

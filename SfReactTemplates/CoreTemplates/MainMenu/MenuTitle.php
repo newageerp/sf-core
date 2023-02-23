@@ -23,7 +23,7 @@ class MenuTitle extends Template
 
     public function getTemplateName(): string
     {
-        return 'main-menu.menu-title';
+        return '_.MenuBundle.MenuTitle';
     }
 
     /**

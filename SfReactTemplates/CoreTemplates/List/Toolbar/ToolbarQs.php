@@ -15,7 +15,7 @@ class ToolbarQs extends Template
 
     public function getTemplateName(): string
     {
-        return 'list.toolbar.qs';
+        return '_.AppBundle.ListToolbarQs';
     }
 
     public function getProps(): array

@@ -47,7 +47,7 @@ class MenuItemWithCreate extends MenuItem
 
     public function getTemplateName(): string
     {
-        return 'modal.menu-item-with-create';
+        return '_.ModalBundle.MenuItemWithCreate';
     }
 
     /**

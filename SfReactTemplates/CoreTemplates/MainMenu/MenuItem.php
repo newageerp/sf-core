@@ -34,7 +34,7 @@ class MenuItem extends Template
 
     public function getTemplateName(): string
     {
-        return 'main-menu.menu-item';
+        return '_.MenuBundle.MenuItem';
     }
 
     /**

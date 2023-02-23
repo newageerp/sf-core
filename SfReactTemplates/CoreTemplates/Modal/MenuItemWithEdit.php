@@ -42,7 +42,7 @@ class MenuItemWithEdit extends MenuItem
 
     public function getTemplateName(): string
     {
-        return 'modal.menu-item-with-edit';
+        return '_.ModalBundle.MenuItemWithEdit';
     }
 
     /**

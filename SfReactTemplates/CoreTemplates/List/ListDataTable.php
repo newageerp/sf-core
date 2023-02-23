@@ -28,7 +28,7 @@ class ListDataTable extends Template
 
     public function getTemplateName(): string
     {
-        return 'list.list-data-table';
+        return '_.AppBundle.ListDataTable';
     }
 
     /**

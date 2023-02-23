@@ -14,6 +14,6 @@ class AddSelectButton extends Template
     
     public function getTemplateName(): string
     {
-        return 'list.action.add-select-button';
+        return '_.AppBundle.ListSelectButton';
     }
 }

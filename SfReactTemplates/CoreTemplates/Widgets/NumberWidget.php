@@ -42,7 +42,7 @@ class NumberWidget extends Template
 
     public function getTemplateName(): string
     {
-        return 'widgets.numberwidget';
+        return '_.WidgetsBundle.NumberCardWidget';
     }
 
     /**

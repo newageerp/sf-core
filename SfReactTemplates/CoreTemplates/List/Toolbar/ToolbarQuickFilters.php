@@ -17,7 +17,7 @@ class ToolbarQuickFilters extends Template
 
     public function getTemplateName(): string
     {
-        return 'list.toolbar.filters';
+        return '_.AppBundle.ListToolbarQuickFilters';
     }
 
     public function getProps(): array

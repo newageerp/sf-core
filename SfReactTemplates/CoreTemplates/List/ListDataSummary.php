@@ -27,7 +27,7 @@ class ListDataSummary extends Template
 
     public function getTemplateName(): string
     {
-        return 'list.list-data-summary';
+        return '_.AppBundle.ListDataSummary';
     }
 
     /**

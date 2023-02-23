@@ -30,7 +30,7 @@ class ToolbarExport extends Template
 
     public function getTemplateName(): string
     {
-        return 'list.toolbar.export';
+        return '_.AppBundle.ListToolbarExport';
     }
 
 

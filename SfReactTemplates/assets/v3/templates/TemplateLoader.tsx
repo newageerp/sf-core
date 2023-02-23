@@ -1,12 +1,11 @@
 import React from "react";
 import ViewContent from "../view/ViewContent";
-import ListContent from "../list/ListContent";
 import DataString from "../data/DataString";
 import EditContent from "../edit/EditContent";
 import ViewFilesWidget from "../view/Widget/ViewFilesWidget";
 
 import FlexRow from "../layout/FlexRow";
-import { NumberCardWidget, WhiteCard } from "@newageerp/v3.bundles.widgets-bundle";
+
 import ViewStatusWidget from "../view/Widget/ViewStatusWidget";
 import ToolbarActionButton from "../toolbar/ToolbarActionButton";
 import EditContentPopup from "../edit/EditContentPopup";
@@ -95,7 +94,6 @@ import PrimitiveString from "../primitives/PrimitiveString";
 
 import ViewPdfWidget, { ViewPdfItem } from "../view/Widget/ViewPdfWidget";
 import { PluginsMap } from "../../../Plugins/PluginsMap";
-import MenuItemWithCreate from "../menu/MenuItemWithCreate";
 import ArrayRoColumn from "../list/columns/ArrayRoColumn";
 import AudioRoColumn from "../list/columns/AudioRoColumn";
 import BoolRoColumn from "../list/columns/BoolRoColumn";
@@ -117,27 +115,16 @@ import StatusRoColumn from "../list/columns/StatusRoColumn";
 import StringArrayRoColumn from "../list/columns/StringArrayRoColumn";
 import StringRoColumn from "../list/columns/StringRoColumn";
 import ListDataSource from "../list/ListDataSource";
-import ListDataTable from "../list/ListDataTable";
 import ViewStatusWidgetWithActions from "../view/Widget/ViewStatusWidgetWithActions";
 import { CustomListComponentsMap } from "../../_custom/tabs/CustomListComponentsMap";
 import NumberCardDfWidget from "../widgets/NumberCardDfWidget";
-import ListToolbar from "../toolbar/ListToolbar";
-import ListToolbarNewButton from "../toolbar/ListToolbarNewButton";
-import ListToolbarQs from "../toolbar/ListToolbarQs";
-import ListToolbarSort from "../toolbar/ListToolbarSort";
-import { ListToolbarExport } from "../toolbar/ListToolbarExport";
-import ListToolbarTabsSwitch from "../toolbar/ListToolbarTabsSwitch";
-import ListToolbarDetailedSearch from "../toolbar/ListToolbarDetailedSearch";
-import MenuItemWithEdit from "../menu/MenuItemWithEdit";
-import ListToolbarQuickFilters from "../toolbar/ListToolbarQuickFilters";
+
 import LargeTextEditableColumn from "../list/editable-columns/LargeTextEditableColumn";
 import BoolEditableColumn from "../list/editable-columns/BoolEditableColumn"
 import FormFieldTagCloudTemplate from "../form/FormFieldTagCloudTemplate";
 import WhiteCardWithViewFormWidget from "../widgets/WhiteCardWithViewFormWidget";
 
-import ListDataSummary from "../list/ListDataSummary";
-import ListDataTotals from "../list/ListDataTotals";
-import { MenuFolder, MenuTitle, MenuItem, MenuDivider, MenuProvider } from "@newageerp/v3.bundles.menu-bundle";
+
 import AddButton from "../form/editable-fields/components/ArrayEditableField/AddButton";
 
 import FormError from "../form/FormError";
@@ -148,11 +135,13 @@ import * as ButtonsBundle from '@newageerp/v3.bundles.buttons-bundle';
 import * as ModalBundle from '@newageerp/v3.bundles.modal-bundle';
 import * as LayoutBundle from '@newageerp/v3.bundles.layout-bundle';
 import * as PopupBundle from '@newageerp/v3.bundles.popup-bundle';
+import * as AppBundle from '@newageerp/v3.bundles.app-bundle';
+import * as MenuBundle from "@newageerp/v3.bundles.menu-bundle";
+import * as WidgetsBundle from "@newageerp/v3.bundles.widgets-bundle";
 
 import OneToOneWidget from "../widgets/OneToOneWidget";
 import DivContainer from "../layout/DivContainer";
 import EditContentInline from "../edit/EditContentInline";
-import { ListSelectButton } from "@newageerp/v3.bundles.app-bundle";
 
 export const componentsMap: any = {
   "App": AppInner,
@@ -172,19 +161,21 @@ export const componentsMap: any = {
     // @ts-ignore
     return PopupBundle[comp];
   },
+  "AppBundle": (comp: string) => {
+    // @ts-ignore
+    return AppBundle[comp];
+  },
+  "MenuBundle": (comp: string) => {
+    // @ts-ignore
+    return MenuBundle[comp];
+  },
+  "WidgetsBundle": (comp: string) => {
+    // @ts-ignore
+    return WidgetsBundle[comp];
+  },
 
   "view.content": ViewContent,
   "view.formcontent": ViewFormContent,
-
-  "list.content": ListContent,
-  "list.toolbar": ListToolbar, // MOVED
-  "list.toolbar.new-button": ListToolbarNewButton,// MOVED
-  "list.toolbar.qs": ListToolbarQs,// MOVED
-  "list.toolbar.sort": ListToolbarSort,// MOVED
-  "list.toolbar.export": ListToolbarExport,// MOVED
-  "list.toolbar.tabs-switch": ListToolbarTabsSwitch,// MOVED
-  "list.toolbar.detailed-search": ListToolbarDetailedSearch,// MOVED
-  "list.toolbar.filters": ListToolbarQuickFilters,// MOVED
 
   "edit.content": EditContent,
   "edit.formcontent": EditFormContent,
@@ -197,7 +188,6 @@ export const componentsMap: any = {
 
   "layout.flexrow": FlexRow,
 
-  "widgets.numberwidget": NumberCardWidget,
   "widgets.WhiteCardWithViewFormWidget": WhiteCardWithViewFormWidget,
 
   "widgets.dfnumberwidget": NumberCardDfWidget,
@@ -323,24 +313,9 @@ export const componentsMap: any = {
   'buttons.toolbar-button-element-with-action': ButtonsBundle.ToolbarButtonElementWithAction,
   'buttons.toolbar-button-list-with-action': ButtonsBundle.ToolbarButtonListWithAction,
 
-  "modal.menu-item-with-create": MenuItemWithCreate,
-  "modal.menu-item-with-edit": MenuItemWithEdit,
-  'modal.menu-item-with-action': ModalBundle.MenuItemWithAction,
-
   'list.list-data-source': ListDataSource,
-  'list.list-data-table': ListDataTable,
-  'list.list-data-summary': ListDataSummary,
-  'list.list-data-totals': ListDataTotals,
-
-  'list.action.add-select-button': ListSelectButton,
 
   'primitives.string': PrimitiveString,
-
-  'main-menu.menu-title': MenuTitle,
-  'main-menu.menu-folder': MenuFolder,
-  'main-menu.menu-item': MenuItem,
-  'main-menu.menu-divider': MenuDivider,
-  'main-menu.menu-provider': MenuProvider,
 
   'widgets.oneToOneWidget': OneToOneWidget,
   'layout.div': DivContainer,

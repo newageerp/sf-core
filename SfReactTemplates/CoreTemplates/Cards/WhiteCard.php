@@ -32,7 +32,7 @@ class WhiteCard extends Template
 
     public function getTemplateName(): string
     {
-        return 'cards.whitecard';
+        return '_.WidgetsBundle.WhiteCard';
     }
 
     /**

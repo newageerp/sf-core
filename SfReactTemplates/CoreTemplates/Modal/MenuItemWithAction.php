@@ -34,7 +34,7 @@ class MenuItemWithAction extends MenuItem
 
     public function getTemplateName(): string
     {
-        return 'modal.menu-item-with-action';
+        return '_.ModalBundle.MenuItemWithAction';
     }
 
 

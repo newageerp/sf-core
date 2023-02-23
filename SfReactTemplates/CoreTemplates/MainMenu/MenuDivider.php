@@ -15,6 +15,6 @@ class MenuDivider extends Template
 
     public function getTemplateName(): string
     {
-        return 'main-menu.menu-divider';
+        return '_.MenuBundle.MenuDivider';
     }
 }

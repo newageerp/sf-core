@@ -49,7 +49,7 @@ class MenuFolder extends Template
 
     public function getTemplateName(): string
     {
-        return 'main-menu.menu-folder';
+        return '_.MenuBundle.MenuFolder';
     }
 
     /**

@@ -32,7 +32,7 @@ class ListContent extends Template
 
     public function getTemplateName(): string
     {
-        return 'list.content';
+        return '_.AppBundle.ListContent';
     }
 
     /**

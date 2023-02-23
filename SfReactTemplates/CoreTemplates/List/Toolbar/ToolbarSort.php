@@ -18,7 +18,7 @@ class ToolbarSort extends Template
 
     public function getTemplateName(): string
     {
-        return 'list.toolbar.sort';
+        return '_.AppBundle.ListToolbarSort';
     }
 
     public function getProps(): array
