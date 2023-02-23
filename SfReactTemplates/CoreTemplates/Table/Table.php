@@ -20,7 +20,7 @@ class Table extends Template
 
     public function getTemplateName(): string
     {
-        return 'table.table';
+        return '_.LayoutBundle.Table';
     }
 
     public function getProps(): array

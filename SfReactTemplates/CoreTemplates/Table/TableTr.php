@@ -18,7 +18,7 @@ class TableTr extends Template
 
     public function getTemplateName(): string
     {
-        return 'table.tr';
+        return '_.LayoutBundle.TableTr';
     }
 
     public function getProps(): array

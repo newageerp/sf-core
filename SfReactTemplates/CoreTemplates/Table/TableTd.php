@@ -21,7 +21,7 @@ class TableTd extends Template
 
     public function getTemplateName(): string
     {
-        return 'table.td';
+        return '_.LayoutBundle.Td';
     }
 
     public function getProps(): array
