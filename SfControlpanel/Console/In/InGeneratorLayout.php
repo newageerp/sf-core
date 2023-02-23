@@ -81,7 +81,7 @@ class InGeneratorLayout extends Command
             $templates['layout/apps/eventshistory/EventsHistoryWidget.html.twig'] = ['apps/eventshistory', 'EventsHistoryWidget'];
         }
         if ($hasMails) {
-            $templates['layout/apps/mails/MailsContent.html.twig'] = ['apps/mails', 'MailsContent'];
+            // $templates['layout/apps/mails/MailsContent.html.twig'] = ['apps/mails', 'MailsContent'];
         }
         if ($hasTasks) {
             // $templates['layout/apps/tasks/TasksPage.html.twig'] = ['apps/tasks', 'TasksPage'];
