@@ -186,7 +186,6 @@ export const componentsMap: any = {
   "list.toolbar.tabs-switch": ListToolbarTabsSwitch,// MOVED
   "list.toolbar.detailed-search": ListToolbarDetailedSearch,// MOVED
   "list.toolbar.filters": ListToolbarQuickFilters,// MOVED
-  "list.toolbar.bookmark": ListToolbarBookmark,
 
   "edit.content": EditContent,
   "edit.formcontent": EditFormContent,
@@ -352,8 +351,6 @@ export const componentsMap: any = {
   'main-menu.menu-item': MenuItem,
   'main-menu.menu-divider': MenuDivider,
   'main-menu.menu-provider': MenuProvider,
-
-  'toolbar.element-bookmark-button': ElementBookmarkButton,
 
   'widgets.oneToOneWidget': OneToOneWidget,
   'layout.div': DivContainer,

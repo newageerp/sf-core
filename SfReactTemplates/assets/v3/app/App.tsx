@@ -9,9 +9,8 @@ import { getDataCacheForSchema } from '../../_custom/hooks/DataCacheSocketMap';
 import { NaePathsMap } from "../../_custom/config/NaePaths";
 import { selectorBySchemaClassName, selectorBySchemaSlug } from "../../_custom/models/ormSelectors";
 
-// CSS LOAD
-import 'react-toastify/dist/ReactToastify.css'
 import { MainBundle } from "@newageerp/v3.app.main-bundle";
+import { getPropertyForPath, getSchemaTitle } from "../utils";
 
 function App() {
     const { t } = useTranslation();
@@ -38,6 +37,33 @@ function App() {
                 orm={{
                     selectorBySchemaClassName: selectorBySchemaClassName,
                     selectorBySchemaSlug: selectorBySchemaSlug,
+                }}
+                modules={{
+                    entities: {
+                        title: getSchemaTitle
+                    },
+                    enums: {
+                        color: (schema: string, field: string, val: any) => {
+                            const prop = getPropertyForPath(`${schema}.${field}`);
+                            // if (prop && prop.enum) {
+                            //     const v = prop.enum.find(el => el.value === val);
+                            //     if (v) {
+                            //         return v.color;
+                            //     }
+                            // }
+                            return 'slate';
+                        },
+                        title: (schema: string, field: string, val: any) => {
+                            const prop = getPropertyForPath(`${schema}.${field}`);
+                            if (prop && prop.enum) {
+                                const v = prop.enum.find(el => el.value === val);
+                                if (v) {
+                                    return v.label;
+                                }
+                            }
+                            return '';
+                        },
+                    }
                 }}
             >
                 <TemplatesLoader templateName="App" onError={redirectToLogin} />

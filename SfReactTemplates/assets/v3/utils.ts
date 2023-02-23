@@ -7,10 +7,6 @@ export enum WidgetType {
   viewMainTop = 'viewMainTop',
 
   viewMainTop2LineBefore = 'viewMainTop2LineBefore',
-  viewMainTop2LineAfter = 'viewMainTop2LineAfter',
-
-  viewMainTop1LineBefore = 'viewMainTop1LineBefore',
-  viewMainTop1LineAfter = 'viewMainTop1LineAfter',
 
   editRight = 'editRight',
   viewBottom = 'mainBottom',

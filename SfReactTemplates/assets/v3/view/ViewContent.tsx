@@ -140,16 +140,8 @@ export default function ViewContent(props: Props) {
           element={element}
           onEdit={onEdit}
           onRemove={onRemove}
-          tasksContent={
-            undefined
-          }
-          showRemind={settings.apps?.followUp}
           contentBefore1Line={
-            <OldNeWidgets
-              type={WidgetType.viewMainTop1LineBefore}
-              schema={props.schema}
-              element={element}
-            />
+            <Fragment />
           }
           contentBefore2Line={
             <Fragment>
@@ -182,24 +174,13 @@ export default function ViewContent(props: Props) {
             </Fragment>
           }
           contentAfter1Line={
-            <Fragment>
-              <OldNeWidgets
-                type={WidgetType.viewMainTop1LineAfter}
-                schema={props.schema}
-                element={element}
-              />
-              <TemplatesLoader
-                templates={elementToolbarAfter1Line}
-                templateData={{ element: element }}
-              />
-            </Fragment>
+            <TemplatesLoader
+              templates={elementToolbarAfter1Line}
+              templateData={{ element: element }}
+            />
           }
           contentAfter2Line={
-            <OldNeWidgets
-              type={WidgetType.viewMainTop2LineAfter}
-              schema={props.schema}
-              element={element}
-            />
+            <Fragment />
           }
           contentAfterFields2Line={
             <TemplatesLoader
