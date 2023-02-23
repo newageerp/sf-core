@@ -24,7 +24,7 @@ class TableTr extends Template
     public function getProps(): array
     {
         return [
-            'contents' => $this->getContents()->toArray(),
+            'children' => $this->getContents()->toArray(),
             'className' => $this->getClassName(),
         ];
     }

@@ -27,7 +27,7 @@ class TableTd extends Template
     public function getProps(): array
     {
         return [
-            'contents' => $this->getContents()->toArray(),
+            'children' => $this->getContents()->toArray(),
             'textAlignment' => $this->getTextAlignment(),
             'className' => $this->getClassName(),
         ];

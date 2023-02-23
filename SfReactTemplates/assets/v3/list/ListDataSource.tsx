@@ -264,6 +264,9 @@ export default function ListDataSource(props: Props) {
             key: reloadKey,
           }
           
+        },
+        filter: {
+          addBlock: addNewBlockFilter
         }
       }}>
       {((!!props.toolbar && props.toolbar.length > 0) || (!!props.toolbarLine2 && props.toolbarLine2.length > 0)) &&

@@ -26,8 +26,8 @@ class Table extends Template
     public function getProps(): array
     {
         return [
-            'head' => $this->getHead()->toArray(),
-            'body' => $this->getBody()->toArray(),
+            'thead' => $this->getHead()->toArray(),
+            'tbody' => $this->getBody()->toArray(),
             'className' => $this->getClassName(),
         ];
     }
