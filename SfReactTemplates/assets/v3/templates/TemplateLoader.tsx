@@ -190,11 +190,6 @@ export const componentsMap: any = {
 
   "popup.window": PopupWindow,
 
-  "table.th": TableTh,
-  "table.td": TableTd,
-  "table.tr": TableTr,
-  "table.table": Table,
-
   "data.string": DataString,
 
   "view.filewidget": ViewFilesWidget,
@@ -339,8 +334,6 @@ export const componentsMap: any = {
   'list.list-data-totals': ListDataTotals,
 
   'list.action.add-select-button': ListSelectButton,
-
-  'tabs.TabContainer': TabContainer,
 
   'primitives.string': PrimitiveString,
 

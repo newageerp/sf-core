@@ -21,15 +21,20 @@ class TabContainer extends Template
 
     public function getProps(): array
     {
-        return [
+        $props = [
             'items' => array_map(
-                function ($item) {
+                function (TabContainerItem $item) {
                     return $item->getProps();
                 },
                 $this->items,
             ),
-            'title' => $this->getTitle(),
         ];
+        if ($this->getTitle()) {
+            $props['title'] = [
+                'text' => $this->getTitle()
+            ];
+        }
+        return $props;
     }
 
     public function addItem(TabContainerItem $item)

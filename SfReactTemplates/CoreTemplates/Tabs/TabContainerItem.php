@@ -19,7 +19,9 @@ class TabContainerItem extends Template
     public function getProps(): array
     {
         return [
-            'title' => $this->getTitle(),
+            'tab' => [
+                'children' => $this->getTitle()
+            ],
             'content' => $this->getContent()->toArray(),
         ];
     }
