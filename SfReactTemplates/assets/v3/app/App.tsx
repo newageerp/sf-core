@@ -10,7 +10,8 @@ import { NaePathsMap } from "../../_custom/config/NaePaths";
 import { selectorBySchemaClassName, selectorBySchemaSlug } from "../../_custom/models/ormSelectors";
 
 import { MainBundle } from "@newageerp/v3.app.main-bundle";
-import { getPropertyForPath, getSchemaTitle } from "../utils";
+import { getPropertyForPath, getSchemaTitle, INaeStatus } from "../utils";
+import { NaeSStatuses } from "../../_custom/config/NaeSStatuses";
 
 function App() {
     const { t } = useTranslation();
@@ -62,6 +63,19 @@ function App() {
                                 }
                             }
                             return '';
+                        },
+                    },
+                    properties: {
+                        path: (p) => getPropertyForPath(p)
+                    },
+                    statuses: {
+                        color: (schema, field, value) => {
+                            const s: INaeStatus | undefined = NaeSStatuses.find(e => e.schema === schema && e.type === field && e.status === value)
+                            return s && s.variant ? s.variant : 'slate';
+                        },
+                        title: (schema, field, value) => {
+                            const s: INaeStatus | undefined = NaeSStatuses.find(e => e.schema === schema && e.type === field && e.status === value)
+                            return s ? s.text : '';
                         },
                     }
                 }}

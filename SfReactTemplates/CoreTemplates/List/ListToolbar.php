@@ -39,7 +39,7 @@ class ListToolbar extends Template
 
     public function getTemplateName(): string
     {
-        return 'list.toolbar';
+        return '_.AppBundle.ListToolbar';
     }
 
     /**

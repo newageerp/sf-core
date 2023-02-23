@@ -304,8 +304,6 @@ export const componentsMap: any = {
   "db.request.recordprovider": RequestRecordProvider,
   "db.request.recordprovider.inner": RequestRecordProviderInner,
 
-  "cards.whitecard": WhiteCard,
-
   "view.pdf.container": ViewPdfWidget,
   "view.pdf.item": ViewPdfItem,
 
