@@ -1,9 +1,7 @@
 import React, { Fragment } from "react";
 
 import {TemplatesLoader} from '@newageerp/v3.templates.templates-core';
-import { NaePopupProvider } from "../old-ui/OldPopupProvider";
-import { MvcEditModalContentProps, MvcViewModalContentProps } from "../old-ui/OldNaeWindowProvider";
-import { Popup } from '@newageerp/v3.bundles.popup-bundle'
+import { MvcEditModalContentProps, MvcViewModalContentProps, Popup, PopupProvider } from '@newageerp/v3.bundles.popup-bundle'
 
 interface PopupProps {
   onClose: () => void;
@@ -24,7 +22,7 @@ export const editPopupBySchemaAndType = (
   }
 
   return (
-    <NaePopupProvider isPopup={true} onClose={onCloseWithPrompt}>
+    <PopupProvider isPopup={true} onClose={onCloseWithPrompt}>
       <Popup title="" isPopup={true} onClick={onCloseWithPrompt} className={'tw3-min-w-[50vw]'}>
         <TemplatesLoader
           key={`${editProps.schema}-${editProps.type}-${editProps.id}`}
@@ -38,6 +36,6 @@ export const editPopupBySchemaAndType = (
           }
         />
       </Popup>
-    </NaePopupProvider>
+    </PopupProvider>
   );
 };

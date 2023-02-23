@@ -8,11 +8,11 @@ import NavigationComponent, { SFSSocketService } from "../navigation/NavigationC
 import AppRouter from "./AppRouter";
 import { UIBuilderProvider } from "../old-ui/builder/OldUIBuilderProvider";
 import { DataCacheProvider } from "@newageerp/v3.bundles.app-bundle";
-import { NaeWindowProvider } from "../old-ui/OldNaeWindowProvider";
 import UserSpaceWrapper from "./UserSpace/UserSpaceWrapper";
 import AppRoutes from "../../routes/AppRoutes";
 import CustomUserWrapperRoutes from "../../_custom/routes/CustomUserWrapperRoutes";
 import { getHookForSchema } from "../../_custom/models-cache-data/ModelFields";
+import { WindowProvider } from "@newageerp/v3.bundles.popup-bundle";
 
 function AppInner() {
     const [isLoaded, setIsLoaded] = useState(false);
@@ -43,7 +43,7 @@ function AppInner() {
                 <Fragment>
                     <UIBuilderProvider>
                         <DataCacheProvider getHookForSchema={getHookForSchema}>
-                            <NaeWindowProvider>
+                            <WindowProvider>
                                 <UserSpaceWrapper>
 
                                     <Switch>
@@ -55,7 +55,7 @@ function AppInner() {
 
                                 </UserSpaceWrapper>
                                 <NavigationComponent />
-                            </NaeWindowProvider>
+                            </WindowProvider>
                         </DataCacheProvider>
                     </UIBuilderProvider>
                 </Fragment>

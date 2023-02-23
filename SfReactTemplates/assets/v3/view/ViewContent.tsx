@@ -10,11 +10,11 @@ import { AlertWidget, WhiteCard } from "@newageerp/v3.bundles.widgets-bundle";
 import {
   SFSOpenEditModalWindowProps,
   SFSOpenEditWindowProps,
+  usePopup,
 } from "@newageerp/v3.bundles.popup-bundle";
 import { checkIsEditable, INaeWidget, WidgetType } from "../utils";
 import OldNeWidgets from "../old-ui/OldNeWidgets";
 import { useNaeRecord } from "../old-ui/OldNaeRecord";
-import { useNaePopup } from "../old-ui/OldPopupProvider";
 import classNames from 'classnames';
 import { LogoLoader } from "@newageerp/v3.bundles.layout-bundle";
 import { NaeWidgets } from "../../_custom/widgets";
@@ -67,7 +67,7 @@ export default function ViewContent(props: Props) {
     elementToolbarAfter1Line,
   } = props;
 
-  const { isPopup } = useNaePopup();
+  const { isPopup } = usePopup();
   const [viewKey, setViewKey] = useState(0);
 
   const isEditInPopup = tdata.forceEditInPopup

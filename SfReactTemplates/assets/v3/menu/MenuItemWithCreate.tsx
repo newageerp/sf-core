@@ -2,8 +2,8 @@ import React, { Fragment } from 'react'
 import { MenuItem, MenuItemProps } from '@newageerp/v3.bundles.modal-bundle'
 import { filterScopes } from '../utils';
 import { useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
-import { useNaePopup } from '../old-ui/OldPopupProvider';
 import { useTemplatesCore } from '@newageerp/v3.templates.templates-core';
+import { usePopup } from '@newageerp/v3.bundles.popup-bundle';
 
 declare type Props = {
     elementId: number,
@@ -20,7 +20,7 @@ export default function MenuItemWithCreate(props: Props) {
 
     const { userState } = useTemplatesCore()
 
-    const { isPopup } = useNaePopup();
+    const { isPopup } = usePopup();
     const openInPopup = isPopup || props.forcePopup;
 
     const isShow = filterScopes(

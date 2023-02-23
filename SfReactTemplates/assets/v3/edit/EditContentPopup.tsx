@@ -1,7 +1,7 @@
 import React from "react";
 import { TemplatesLoader, useTemplatesLoader } from "@newageerp/v3.templates.templates-core";
 import { Popup } from "@newageerp/ui.ui-bundle";
-import { NaePopupProvider } from "../old-ui/OldPopupProvider";
+import { PopupProvider } from "@newageerp/v3.bundles.popup-bundle";
 
 interface Props {
   schema: string;
@@ -13,7 +13,7 @@ export default function EditContentPopup(props: Props) {
   const { data: tData } = useTemplatesLoader();
 
   return (
-    <NaePopupProvider isPopup={true} onClose={tData.onBack}>
+    <PopupProvider isPopup={true} onClose={tData.onBack}>
       <Popup onClose={tData.onBack}>
         <TemplatesLoader
           key={`${props.schema}-${props.type}-${props.id}`}
@@ -25,6 +25,6 @@ export default function EditContentPopup(props: Props) {
           }}
         />
       </Popup>
-    </NaePopupProvider>
+    </PopupProvider>
   );
 }

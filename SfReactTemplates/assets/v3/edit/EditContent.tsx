@@ -2,8 +2,8 @@ import React, { Fragment } from "react";
 import { useHistory } from "@newageerp/v3.templates.templates-core";
 import MainEdit from "./MainEdit";
 import { showSuccessNotification } from "../navigation/NavigationComponent";
-import { useNaePopup } from "../old-ui/OldPopupProvider";
 import { useTemplatesLoader } from "@newageerp/v3.templates.templates-core";
+import { usePopup } from "@newageerp/v3.bundles.popup-bundle";
 
 interface Props {
   schema: string;
@@ -22,7 +22,7 @@ interface Props {
 
 export default function EditContent(props: Props) {
   const history = useHistory();
-  const { isPopup } = useNaePopup();
+  const { isPopup } = usePopup();
   const { data: tdata } = useTemplatesLoader();
 
   return (

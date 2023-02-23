@@ -2,10 +2,7 @@ import React from "react";
 import ViewContent from "../view/ViewContent";
 import PopupWindow from "../popup/PopupWindow";
 import ListContent from "../list/ListContent";
-import TableTr from "../table/TableTr";
-import Table from "../table/Table";
 import DataString from "../data/DataString";
-import TableTh from "../table/TableTh";
 import EditContent from "../edit/EditContent";
 import ViewFilesWidget from "../view/Widget/ViewFilesWidget";
 
@@ -100,7 +97,6 @@ import PrimitiveString from "../primitives/PrimitiveString";
 import ViewPdfWidget, { ViewPdfItem } from "../view/Widget/ViewPdfWidget";
 import { PluginsMap } from "../../../Plugins/PluginsMap";
 import MenuItemWithCreate from "../menu/MenuItemWithCreate";
-import TableTd from "../table/TableTd";
 import ArrayRoColumn from "../list/columns/ArrayRoColumn";
 import AudioRoColumn from "../list/columns/AudioRoColumn";
 import BoolRoColumn from "../list/columns/BoolRoColumn";
@@ -139,7 +135,7 @@ import LargeTextEditableColumn from "../list/editable-columns/LargeTextEditableC
 import BoolEditableColumn from "../list/editable-columns/BoolEditableColumn"
 import FormFieldTagCloudTemplate from "../form/FormFieldTagCloudTemplate";
 import WhiteCardWithViewFormWidget from "../widgets/WhiteCardWithViewFormWidget";
-import TabContainer from "../tabs/TabContainer";
+
 import ListDataSummary from "../list/ListDataSummary";
 import ListDataTotals from "../list/ListDataTotals";
 import { MenuFolder, MenuTitle, MenuItem, MenuDivider, MenuProvider } from "@newageerp/v3.bundles.menu-bundle";
@@ -189,6 +185,7 @@ export const componentsMap: any = {
   "edit.formcontent": EditFormContent,
 
   "popup.window": PopupWindow,
+
 
   "data.string": DataString,
 
