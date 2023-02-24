@@ -205,8 +205,8 @@ class EditContentService
                             }
                             $wideRow->getLabelContent()->addTemplate($label);
                         } else if ($isCompact) {
-                            $label = new FormFieldLabel(" ");
-                            $label->setWidth('tw3-w-full');
+                            $label = new FormFieldLabel("-");
+                            $label->setWidth('tw3-w-full tw3-invisible');
                             $wideRow->getLabelContent()->addTemplate($label);
                         }
 
