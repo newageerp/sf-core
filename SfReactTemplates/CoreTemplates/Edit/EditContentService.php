@@ -204,6 +204,10 @@ class EditContentService
                                 $label->setTooltip(($prop['description']));
                             }
                             $wideRow->getLabelContent()->addTemplate($label);
+                        } else if ($isCompact) {
+                            $label = new FormFieldLabel(" ");
+                            $label->setWidth('tw3-w-full');
+                            $wideRow->getLabelContent()->addTemplate($label);
                         }
 
                         if (isset($field['componentName']) && $field['componentName']) {

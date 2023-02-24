@@ -153,10 +153,6 @@ class ViewContentService
                             $label->setWidth('tw3-w-full');
                         }
                         $wideRow->getLabelContent()->addTemplate($label);
-                    } else if ($isCompact) {
-                        $label = new FormFieldLabel("-");
-                        $label->setWidth('tw3-w-full tw3-invisible');
-                        $wideRow->getLabelContent()->addTemplate($label);
                     }
 
                     $pathArray = explode(".", $field['path']);
