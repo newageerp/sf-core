@@ -18,7 +18,7 @@ class FlexRow extends Template
 
     public function getTemplateName(): string
     {
-        return 'layout.flexrow';
+        return '_.DataBundle.FlexRow';
     }
 
     public function getProps(): array

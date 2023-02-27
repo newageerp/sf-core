@@ -22,7 +22,7 @@ class DataString extends Template
 
     public function getTemplateName(): string
     {
-        return 'data.string';
+        return '_.DataBundle.StringRaw';
     }
 
     /**

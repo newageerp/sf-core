@@ -26,7 +26,7 @@ class StatusWidget extends Template
 
     public function getTemplateName(): string
     {
-        return 'view.statuswidget';
+        return '_.WidgetsBundle.StatusViewWidget';
     }
 
 

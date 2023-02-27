@@ -25,7 +25,7 @@ class FilesWidget extends Template
 
     public function getTemplateName(): string
     {
-        return 'view.filewidget';
+        return '_.WidgetsBundle.MultipleFilesWidget';
     }
 
     /**
