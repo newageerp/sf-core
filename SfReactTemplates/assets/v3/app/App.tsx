@@ -77,6 +77,16 @@ function App() {
                             const s: INaeStatus | undefined = NaeSStatuses.find(e => e.schema === schema && e.type === field && e.status === value)
                             return s ? s.text : '';
                         },
+                    },
+                    tabs: {
+                        get: (schema: string, type: string) => {
+                            return {
+                                fields: [],
+                                schema: schema,
+                                type: type,
+                                sort: [],
+                            };
+                        }
                     }
                 }}
             >

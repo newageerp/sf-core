@@ -12,7 +12,7 @@ import { useTemplatesLoader, TemplatesLoader, Template } from '@newageerp/v3.tem
 import { getTabFieldsToReturn } from "../utils";
 import { SFSSocketService } from "../navigation/NavigationComponent";
 import { useUIBuilder } from "../old-ui/builder/OldUIBuilderProvider";
-import { ListDataSourceProviderContext } from "@newageerp/v3.bundles.app-bundle";
+import { ListDataSourceProviderContext } from "@newageerp/v3.app.list.list-data-source";
 
 interface Props {
   children: Template[];
