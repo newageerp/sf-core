@@ -7,7 +7,7 @@ import { NaeApiFunctions } from "../../_custom/config/NaePaths";
 import NavigationComponent, { SFSSocketService } from "../navigation/NavigationComponent";
 import AppRouter from "./AppRouter";
 import { UIBuilderProvider } from "../old-ui/builder/OldUIBuilderProvider";
-import { DataCacheProvider } from "@newageerp/v3.bundles.app-bundle";
+import { DataCacheProvider } from "@newageerp/v3.app.data-cache-provider";
 import UserSpaceWrapper from "./UserSpace/UserSpaceWrapper";
 import AppRoutes from "../../routes/AppRoutes";
 import CustomUserWrapperRoutes from "../../_custom/routes/CustomUserWrapperRoutes";
