@@ -1,12 +1,8 @@
 import React from "react";
 import ViewContent from "../view/ViewContent";
-import DataString from "../data/DataString";
 import EditContent from "../edit/EditContent";
-import ViewFilesWidget from "../view/Widget/ViewFilesWidget";
 
-import FlexRow from "../layout/FlexRow";
 
-import ViewStatusWidget from "../view/Widget/ViewStatusWidget";
 import ToolbarActionButton from "../toolbar/ToolbarActionButton";
 import EditContentPopup from "../edit/EditContentPopup";
 
@@ -139,6 +135,8 @@ import * as AppBundle from '@newageerp/v3.bundles.app-bundle';
 import * as MenuBundle from "@newageerp/v3.bundles.menu-bundle";
 import * as WidgetsBundle from "@newageerp/v3.bundles.widgets-bundle";
 
+import * as DataBundle from "@newageerp/v3.bundles.data-bundle";
+
 import OneToOneWidget from "../widgets/OneToOneWidget";
 import DivContainer from "../layout/DivContainer";
 import EditContentInline from "../edit/EditContentInline";
@@ -170,8 +168,18 @@ export const componentsMap: any = {
     return MenuBundle[comp];
   },
   "WidgetsBundle": (comp: string) => {
+    if (!(comp in WidgetsBundle)) {
+      console.log(`${comp} not found in WidgetsBundle`);
+    }
     // @ts-ignore
     return WidgetsBundle[comp];
+  },
+  "DataBundle": (comp: string) => {
+    if (!(comp in DataBundle)) {
+      console.log(`${comp} not found in DataBundle`);
+    }
+    // @ts-ignore
+    return DataBundle[comp];
   },
 
   "view.content": ViewContent,
@@ -180,13 +188,7 @@ export const componentsMap: any = {
   "edit.content": EditContent,
   "edit.formcontent": EditFormContent,
 
-  "data.string": DataString,
-
-  "view.filewidget": ViewFilesWidget,
-  "view.statuswidget": ViewStatusWidget,
   "view.statuswidgetwithactions": ViewStatusWidgetWithActions,
-
-  "layout.flexrow": FlexRow,
 
   "widgets.WhiteCardWithViewFormWidget": WhiteCardWithViewFormWidget,
 
