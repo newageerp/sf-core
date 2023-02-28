@@ -11,6 +11,6 @@ class LargeTextDfRoField extends FormDfBaseField
 {
     public function getTemplateName(): string
     {
-        return 'form.dfro.largetextfield';
+        return '_.AppBundle.LargeTextDfRoField';
     }
 }

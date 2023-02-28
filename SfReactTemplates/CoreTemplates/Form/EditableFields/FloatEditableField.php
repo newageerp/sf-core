@@ -28,7 +28,7 @@ class FloatEditableField extends FormBaseField
 
     public function getTemplateName(): string
     {
-        return 'form.editable.floatfield';
+        return '_.AppBundle.FloatEditableField';
     }
 
     /**

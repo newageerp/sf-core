@@ -10,6 +10,6 @@ class LargeTextRoField extends FormBaseField
 {
     public function getTemplateName(): string
     {
-        return 'form.ro.largetextfield';
+        return '_.AppBundle.LargeTextRoField';
     }
 }

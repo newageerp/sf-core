@@ -11,6 +11,6 @@ class AudioDfRoField extends FormDfBaseField
 {
     public function getTemplateName(): string
     {
-        return 'form.dfro.audiofield';
+        return '_.AppBundle.AudioDfRoField';
     }
 }

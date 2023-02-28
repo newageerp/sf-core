@@ -17,6 +17,6 @@ class NumberEditableField extends FormBaseField
 
     public function getTemplateName(): string
     {
-        return 'form.editable.numberfield';
+        return '_.AppBundle.NumberEditableField';
     }
 }

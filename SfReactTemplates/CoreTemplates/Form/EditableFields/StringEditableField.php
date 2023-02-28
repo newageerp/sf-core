@@ -19,7 +19,7 @@ class StringEditableField extends FormBaseField
 
     public function getTemplateName(): string
     {
-        return 'form.editable.stringfield';
+        return '_.AppBundle.StringEditableField';
     }
 
     /**

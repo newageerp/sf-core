@@ -28,7 +28,7 @@ class FloatRoField extends FormBaseField
     
     public function getTemplateName(): string
     {
-        return 'form.ro.floatfield';
+        return '_.AppBundle.FloatRoField';
     }
 
     /**

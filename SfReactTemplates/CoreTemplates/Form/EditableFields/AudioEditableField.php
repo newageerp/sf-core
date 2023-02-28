@@ -17,6 +17,6 @@ class AudioEditableField extends FormBaseField
 
     public function getTemplateName(): string
     {
-        return 'form.editable.audiofield';
+        return '_.AppBundle.AudioEditableField';
     }
 }

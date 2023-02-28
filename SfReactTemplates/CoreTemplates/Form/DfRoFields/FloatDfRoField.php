@@ -29,7 +29,7 @@ class FloatDfRoField extends FormDfBaseField
 
     public function getTemplateName(): string
     {
-        return 'form.dfro.floatfield';
+        return '_.AppBundle.FloatDfRoField';
     }
 
     /**

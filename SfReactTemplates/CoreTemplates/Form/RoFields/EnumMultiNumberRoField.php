@@ -27,7 +27,7 @@ class EnumMultiNumberRoField extends FormBaseField
 
     public function getTemplateName(): string
     {
-        return 'form.ro.enummultinumberfield';
+        return '_.AppBundle.EnumMultiNumberRoField';
     }
 
     /**

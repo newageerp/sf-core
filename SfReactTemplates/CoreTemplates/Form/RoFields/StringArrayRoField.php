@@ -10,6 +10,6 @@ class StringArrayRoField extends FormBaseField
 {
     public function getTemplateName(): string
     {
-        return 'form.ro.stringarrayfield';
+        return '_.AppBundle.StringArrayRoField';
     }
 }

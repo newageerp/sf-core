@@ -10,6 +10,6 @@ class ColorRoField extends FormBaseField
 {
     public function getTemplateName(): string
     {
-        return 'form.ro.colorfield';
+        return '_.AppBundle.ColorRoField';
     }
 }

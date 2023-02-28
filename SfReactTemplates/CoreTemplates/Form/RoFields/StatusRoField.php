@@ -27,7 +27,7 @@ class StatusRoField extends FormBaseField
     
     public function getTemplateName(): string
     {
-        return 'form.ro.statusfield';
+        return '_.AppBundle.StatusRoField';
     }
 
     /**

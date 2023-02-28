@@ -17,6 +17,6 @@ class ColorEditableField extends FormBaseField
 
     public function getTemplateName(): string
     {
-        return 'form.editable.colorfield';
+        return '_.AppBundle.ColorEditableField';
     }
 }

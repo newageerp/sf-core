@@ -10,6 +10,6 @@ class BoolRoField extends FormBaseField
 {
     public function getTemplateName(): string
     {
-        return 'form.ro.boolfield';
+        return '_.AppBundle.BoolRoField';
     }
 }

@@ -11,6 +11,6 @@ class DateDfRoField extends FormDfBaseField
 {
     public function getTemplateName(): string
     {
-        return 'form.dfro.datefield';
+        return '_.AppBundle.DateDfRoField';
     }
 }

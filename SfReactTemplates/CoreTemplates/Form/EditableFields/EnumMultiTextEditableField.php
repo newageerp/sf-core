@@ -27,7 +27,7 @@ class EnumMultiTextEditableField extends FormBaseField
 
     public function getTemplateName(): string
     {
-        return 'form.editable.enummultitextfield';
+        return '_.AppBundle.EnumMultiTextEditableField';
     }
 
     /**

@@ -21,7 +21,7 @@ class StatusEditableField extends FormBaseField
 
     public function getTemplateName(): string
     {
-        return 'form.editable.statusfield';
+        return '_.AppBundle.StatusEditableField';
     }
 
     /**

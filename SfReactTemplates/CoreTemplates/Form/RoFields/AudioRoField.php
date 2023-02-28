@@ -10,6 +10,6 @@ class AudioRoField extends FormBaseField
 {
     public function getTemplateName(): string
     {
-        return 'form.ro.audiofield';
+        return '_.AppBundle.AudioRoField';
     }
 }

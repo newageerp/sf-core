@@ -15,6 +15,6 @@ class HtmlEditorEditableField extends FormBaseField
 
     public function getTemplateName(): string
     {
-        return 'form.editable.htmleditorfield';
+        return '_.AppBundle.HtmlEditorEditableField';
     }
 }

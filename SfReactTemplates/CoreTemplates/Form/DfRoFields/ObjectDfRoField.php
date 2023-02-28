@@ -51,7 +51,7 @@ class ObjectDfRoField extends FormDfBaseField
 
     public function getTemplateName(): string
     {
-        return 'form.dfro.objectfield';
+        return '_.AppBundle.ObjectDfRoField';
     }
 
     /**

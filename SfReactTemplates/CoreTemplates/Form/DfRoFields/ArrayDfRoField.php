@@ -32,7 +32,7 @@ class ArrayDfRoField extends FormDfBaseField
 
     public function getTemplateName(): string
     {
-        return 'form.dfro.arrayfield';
+        return '_.AppBundle.ArrayDfRoField';
     }
 
     /**

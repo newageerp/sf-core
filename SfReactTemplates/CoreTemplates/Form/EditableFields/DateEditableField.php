@@ -17,6 +17,6 @@ class DateEditableField extends FormBaseField
 
     public function getTemplateName(): string
     {
-        return 'form.editable.datefield';
+        return '_.AppBundle.DateEditableField';
     }
 }

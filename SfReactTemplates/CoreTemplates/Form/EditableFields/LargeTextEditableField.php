@@ -27,7 +27,7 @@ class LargeTextEditableField extends FormBaseField
 
     public function getTemplateName(): string
     {
-        return 'form.editable.largetextfield';
+        return '_.AppBundle.LargeTextEditableField';
     }
 
     /**

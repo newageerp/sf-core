@@ -37,7 +37,7 @@ class ObjectRoField extends FormBaseField
 
     public function getTemplateName(): string
     {
-        return 'form.ro.objectfield';
+        return '_.AppBundle.ObjectRoField';
     }
 
     /**

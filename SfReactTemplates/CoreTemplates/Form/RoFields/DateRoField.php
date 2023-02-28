@@ -10,6 +10,6 @@ class DateRoField extends FormBaseField
 {
     public function getTemplateName(): string
     {
-        return 'form.ro.datefield';
+        return '_.AppBundle.DateRoField';
     }
 }

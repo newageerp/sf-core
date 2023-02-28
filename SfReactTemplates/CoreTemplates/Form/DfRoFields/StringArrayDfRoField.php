@@ -11,6 +11,6 @@ class StringArrayDfRoField extends FormDfBaseField
 {
     public function getTemplateName(): string
     {
-        return 'form.dfro.stringarrayfield';
+        return '_.AppBundle.StringArrayDfRoField';
     }
 }

@@ -17,6 +17,6 @@ class FileMultipleEditableField extends FormBaseField
 
     public function getTemplateName(): string
     {
-        return 'form.editable.filemultiplefield';
+        return '_.AppBundle.FileMultipleEditableField';
     }
 }

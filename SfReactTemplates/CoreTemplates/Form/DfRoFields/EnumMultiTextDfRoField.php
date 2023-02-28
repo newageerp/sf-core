@@ -28,7 +28,7 @@ class EnumMultiTextDfRoField extends FormDfBaseField
 
     public function getTemplateName(): string
     {
-        return 'form.dfro.enummultitextfield';
+        return '_.AppBundle.EnumMultiTextDfRoField';
     }
 
     /**

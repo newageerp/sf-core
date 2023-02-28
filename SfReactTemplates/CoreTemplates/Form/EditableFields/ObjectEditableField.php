@@ -41,7 +41,7 @@ class ObjectEditableField extends FormBaseField
 
     public function getTemplateName(): string
     {
-        return 'form.editable.objectfield';
+        return '_.AppBundle.ObjectEditableField';
     }
 
     /**

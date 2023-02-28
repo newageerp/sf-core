@@ -10,6 +10,6 @@ class ImageRoField extends FormBaseField
 {
     public function getTemplateName(): string
     {
-        return 'form.ro.imagefield';
+        return '_.AppBundle.ImageRoField';
     }
 }

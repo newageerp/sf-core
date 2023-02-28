@@ -25,7 +25,7 @@ class ArrayEditableFieldToolbarAddButton extends Template
 
     public function getTemplateName(): string
     {
-        return 'form.editable.arrayfield.toolbar.addButton';
+        return '_.AppBundle.AddButton';
     }
 
 

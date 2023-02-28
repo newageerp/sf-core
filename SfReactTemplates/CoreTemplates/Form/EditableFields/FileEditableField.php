@@ -17,6 +17,6 @@ class FileEditableField extends FormBaseField
 
     public function getTemplateName(): string
     {
-        return 'form.editable.filefield';
+        return '_.AppBundle.FileEditableField';
     }
 }

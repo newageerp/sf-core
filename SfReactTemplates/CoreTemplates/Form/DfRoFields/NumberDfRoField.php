@@ -11,6 +11,6 @@ class NumberDfRoField extends FormDfBaseField
 {
     public function getTemplateName(): string
     {
-        return 'form.dfro.numberfield';
+        return '_.AppBundle.NumberDfRoField';
     }
 }

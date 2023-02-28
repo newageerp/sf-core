@@ -21,7 +21,7 @@ class FileMultipleRoField extends FormBaseField
 
     public function getTemplateName(): string
     {
-        return 'form.ro.filemultiplefield';
+        return '_.AppBundle.FileMultipleRoField';
     }
 
     /**

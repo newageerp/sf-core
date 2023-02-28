@@ -10,6 +10,6 @@ class StringRoField extends FormBaseField
 {
     public function getTemplateName(): string
     {
-        return 'form.ro.stringfield';
+        return '_.AppBundle.StringRoField';
     }
 }

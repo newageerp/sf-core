@@ -11,6 +11,6 @@ class BoolDfRoField extends FormDfBaseField
 {
     public function getTemplateName(): string
     {
-        return 'form.dfro.boolfield';
+        return '_.AppBundle.BoolDfRoField';
     }
 }

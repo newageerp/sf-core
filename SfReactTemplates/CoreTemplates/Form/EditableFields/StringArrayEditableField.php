@@ -17,6 +17,6 @@ class StringArrayEditableField extends FormBaseField
 
     public function getTemplateName(): string
     {
-        return 'form.editable.stringarrayfield';
+        return '_.AppBundle.StringArrayEditableField';
     }
 }

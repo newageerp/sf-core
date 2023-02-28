@@ -11,6 +11,6 @@ class ImageDfRoField extends FormDfBaseField
 {
     public function getTemplateName(): string
     {
-        return 'form.dfro.imagefield';
+        return '_.AppBundle.ImageDfRoField';
     }
 }

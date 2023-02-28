@@ -28,7 +28,7 @@ class EnumMultiNumberDfRoField extends FormDfBaseField
 
     public function getTemplateName(): string
     {
-        return 'form.dfro.enummultinumberfield';
+        return '_.AppBundle.EnumMultiNumberDfRoField';
     }
 
     /**

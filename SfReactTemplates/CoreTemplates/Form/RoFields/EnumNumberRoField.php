@@ -27,7 +27,7 @@ class EnumNumberRoField extends FormBaseField
 
     public function getTemplateName(): string
     {
-        return 'form.ro.enumnumberfield';
+        return '_.AppBundle.EnumNumberRoField';
     }
 
     /**

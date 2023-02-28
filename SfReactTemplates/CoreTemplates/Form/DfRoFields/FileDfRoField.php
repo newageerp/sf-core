@@ -11,6 +11,6 @@ class FileDfRoField extends FormDfBaseField
 {
     public function getTemplateName(): string
     {
-        return 'form.dfro.filefield';
+        return '_.AppBundle.FileDfRoField';
     }
 }

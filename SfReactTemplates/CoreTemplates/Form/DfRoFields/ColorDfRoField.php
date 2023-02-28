@@ -11,6 +11,6 @@ class ColorDfRoField extends FormDfBaseField
 {
     public function getTemplateName(): string
     {
-        return 'form.dfro.colorfield';
+        return '_.AppBundle.ColorDfRoField';
     }
 }

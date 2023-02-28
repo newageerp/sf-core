@@ -21,7 +21,7 @@ class FileRoField extends FormBaseField
 
     public function getTemplateName(): string
     {
-        return 'form.ro.filefield';
+        return '_.AppBundle.FileRoField';
     }
 
     /**

@@ -17,6 +17,6 @@ class BoolEditableField extends FormBaseField
 
     public function getTemplateName(): string
     {
-        return 'form.editable.boolfield';
+        return '_.AppBundle.BoolEditableField';
     }
 }

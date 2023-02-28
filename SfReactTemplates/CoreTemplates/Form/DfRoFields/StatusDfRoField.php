@@ -28,7 +28,7 @@ class StatusDfRoField extends FormDfBaseField
 
     public function getTemplateName(): string
     {
-        return 'form.dfro.statusfield';
+        return '_.AppBundle.StatusDfRoField';
     }
 
     /**

@@ -35,7 +35,7 @@ class ArrayEditableField extends FormBaseField
 
     public function getTemplateName(): string
     {
-        return 'form.editable.arrayfield';
+        return '_.AppBundle.ArrayEditableField';
     }
 
     /**

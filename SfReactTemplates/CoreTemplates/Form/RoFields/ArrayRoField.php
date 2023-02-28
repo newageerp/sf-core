@@ -31,7 +31,7 @@ class ArrayRoField extends FormBaseField
 
     public function getTemplateName(): string
     {
-        return 'form.ro.arrayfield';
+        return '_.AppBundle.ArrayRoField';
     }
 
     /**

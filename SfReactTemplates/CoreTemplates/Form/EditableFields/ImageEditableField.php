@@ -17,6 +17,6 @@ class ImageEditableField extends FormBaseField
 
     public function getTemplateName(): string
     {
-        return 'form.editable.imagefield';
+        return '_.AppBundle.ImageEditableField';
     }
 }
