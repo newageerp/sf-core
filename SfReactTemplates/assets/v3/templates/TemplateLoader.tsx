@@ -7,8 +7,6 @@ import ToolbarActionButton from "../toolbar/ToolbarActionButton";
 import EditContentPopup from "../edit/EditContentPopup";
 
 import FormFieldLabel from "../form/FormFieldLabel";
-
-import { Wide, Compact } from '@newageerp/v3.bundles.form-bundle';
 import WideRow from "../form/rows/WideRow";
 import CompactRow from "../form/rows/CompactRow";
 
@@ -31,26 +29,7 @@ import PrimitiveString from "../primitives/PrimitiveString";
 
 import ViewPdfWidget, { ViewPdfItem } from "../view/Widget/ViewPdfWidget";
 import { PluginsMap } from "../../../Plugins/PluginsMap";
-import ArrayRoColumn from "../list/columns/ArrayRoColumn";
-import AudioRoColumn from "../list/columns/AudioRoColumn";
-import BoolRoColumn from "../list/columns/BoolRoColumn";
-import ColorRoColumn from "../list/columns/ColorRoColumn";
-import DateRoColumn from "../list/columns/DateRoColumn";
-import DateTimeRoColumn from "../list/columns/DateTimeRoColumn";
-import EnumMultiNumberRoColumn from "../list/columns/EnumMultiNumberRoColumn";
-import EnumMultiTextRoColumn from "../list/columns/EnumMultiTextRoColumn";
-import EnumNumberRoColumn from "../list/columns/EnumNumberRoColumn";
-import EnumTextRoColumn from "../list/columns/EnumTextRoColumn";
-import FileMultipleRoColumn from "../list/columns/FileMultipleRoColumn";
-import FileRoColumn from "../list/columns/FileRoColumn";
-import FloatRoColumn from "../list/columns/FloatRoColumn";
-import ImageRoColumn from "../list/columns/ImageRoColumn";
-import LargeTextRoColumn from "../list/columns/LargeTextRoColumn";
-import NumberRoColumn from "../list/columns/NumberRoColumn";
-import ObjectRoColumn from "../list/columns/ObjectRoColumn";
-import StatusRoColumn from "../list/columns/StatusRoColumn";
-import StringArrayRoColumn from "../list/columns/StringArrayRoColumn";
-import StringRoColumn from "../list/columns/StringRoColumn";
+
 import ListDataSource from "../list/ListDataSource";
 import ViewStatusWidgetWithActions from "../view/Widget/ViewStatusWidgetWithActions";
 import { CustomListComponentsMap } from "../../_custom/tabs/CustomListComponentsMap";
@@ -61,11 +40,7 @@ import BoolEditableColumn from "../list/editable-columns/BoolEditableColumn"
 import FormFieldTagCloudTemplate from "../form/FormFieldTagCloudTemplate";
 import WhiteCardWithViewFormWidget from "../widgets/WhiteCardWithViewFormWidget";
 
-
-import AddButton from "../form/editable-fields/components/ArrayEditableField/AddButton";
-
 import FormError from "../form/FormError";
-import HtmlEditorEditableField from "../form/editable-fields/HtmlEditorEditableField";
 import AppInner from "../app/AppInner";
 
 import * as ButtonsBundle from '@newageerp/v3.bundles.buttons-bundle';
@@ -77,6 +52,8 @@ import * as MenuBundle from "@newageerp/v3.bundles.menu-bundle";
 import * as WidgetsBundle from "@newageerp/v3.bundles.widgets-bundle";
 
 import * as DataBundle from "@newageerp/v3.bundles.data-bundle";
+
+import * as FormBundle from "@newageerp/v3.bundles.form-bundle";
 
 import OneToOneWidget from "../widgets/OneToOneWidget";
 import DivContainer from "../layout/DivContainer";
@@ -122,6 +99,10 @@ export const componentsMap: any = {
     // @ts-ignore
     return DataBundle[comp];
   },
+  "FormBundle": (comp: string) => {
+    // @ts-ignore
+    return FormBundle[comp];
+  },
 
   "view.content": ViewContent,
   "view.formcontent": ViewFormContent,
@@ -155,27 +136,6 @@ export const componentsMap: any = {
   "form.roform": RoForm,
 
 
-  "list.ro.arraycolumn": ArrayRoColumn,
-  "list.ro.audiocolumn": AudioRoColumn,
-  "list.ro.boolcolumn": BoolRoColumn,
-  "list.ro.colorcolumn": ColorRoColumn,
-  "list.ro.datecolumn": DateRoColumn,
-  "list.ro.datetimecolumn": DateTimeRoColumn,
-  "list.ro.enummultinumbercolumn": EnumMultiNumberRoColumn,
-  "list.ro.enummultitextcolumn": EnumMultiTextRoColumn,
-  "list.ro.enumnumbercolumn": EnumNumberRoColumn,
-  "list.ro.enumtextcolumn": EnumTextRoColumn,
-  "list.ro.filemultiplecolumn": FileMultipleRoColumn,
-  "list.ro.filecolumn": FileRoColumn,
-  "list.ro.floatcolumn": FloatRoColumn,
-  "list.ro.imagecolumn": ImageRoColumn,
-  "list.ro.largetextcolumn": LargeTextRoColumn,
-  "list.ro.numbercolumn": NumberRoColumn,
-  "list.ro.objectcolumn": ObjectRoColumn,
-  "list.ro.statuscolumn": StatusRoColumn,
-  "list.ro.stringarraycolumn": StringArrayRoColumn,
-  "list.ro.stringcolumn": StringRoColumn,
-
   "list.editable.largetextcolumn": LargeTextEditableColumn,
   "list.editable.boolcolumn": BoolEditableColumn,
 
@@ -196,8 +156,6 @@ export const componentsMap: any = {
   'widgets.oneToOneWidget': OneToOneWidget,
   'layout.div': DivContainer,
 
-  'form.block.compact': Compact,
-  'form.block.wide': Wide,
 
   ...CustomEditComponentsMap,
   ...CustomViewComponentsMap,

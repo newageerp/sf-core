@@ -27,7 +27,7 @@ class StatusColumn extends ListBaseColumn {
     
     public function getTemplateName(): string
     {
-        return 'list.ro.statuscolumn';
+        return '_.AppBundle.StatusRoColumn';
     }
 
     /**

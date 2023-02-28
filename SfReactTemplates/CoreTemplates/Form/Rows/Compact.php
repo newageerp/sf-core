@@ -26,7 +26,7 @@ class Compact extends Template
 
     public function getTemplateName(): string
     {
-        return 'form.block.compact';
+        return '_.FormBundle.Compact';
     }
 
     /**

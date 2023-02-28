@@ -7,6 +7,6 @@ use Newageerp\SfReactTemplates\CoreTemplates\List\ListBaseColumn;
 class NumberColumn extends ListBaseColumn {
     public function getTemplateName(): string
     {
-        return 'list.ro.numbercolumn';
+        return '_.AppBundle.NumberRoColumn';
     }
 }

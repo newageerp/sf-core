@@ -24,7 +24,7 @@ class EnumMultiTextColumn extends ListBaseColumn {
 
     public function getTemplateName(): string
     {
-        return 'list.ro.enummultitextcolumn';
+        return '_.AppBundle.EnumMultiTextRoColumn';
     }
 
     /**

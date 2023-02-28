@@ -25,7 +25,7 @@ class FloatColumn extends ListBaseColumn {
     
     public function getTemplateName(): string
     {
-        return 'list.ro.floatcolumn';
+        return '_.AppBundle.FloatRoColumn';
     }
 
     /**

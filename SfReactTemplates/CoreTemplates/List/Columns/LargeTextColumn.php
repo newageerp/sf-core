@@ -7,6 +7,6 @@ use Newageerp\SfReactTemplates\CoreTemplates\List\ListBaseColumn;
 class LargeTextColumn extends ListBaseColumn {
     public function getTemplateName(): string
     {
-        return 'list.ro.largetextcolumn';
+        return '_.AppBundle.LargeTextRoColumn';
     }
 }

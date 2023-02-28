@@ -7,6 +7,6 @@ use Newageerp\SfReactTemplates\CoreTemplates\List\ListBaseColumn;
 class DateColumn extends ListBaseColumn {
     public function getTemplateName(): string
     {
-        return 'list.ro.datecolumn';
+        return '_.AppBundle.DateRoColumn';
     }
 }

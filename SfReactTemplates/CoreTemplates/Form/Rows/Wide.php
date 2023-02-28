@@ -26,7 +26,7 @@ class Wide extends Template
 
     public function getTemplateName(): string
     {
-        return 'form.block.wide';
+        return '_.FormBundle.Wide';
     }
 
     /**

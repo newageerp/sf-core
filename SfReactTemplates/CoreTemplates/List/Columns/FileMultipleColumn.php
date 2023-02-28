@@ -7,6 +7,6 @@ use Newageerp\SfReactTemplates\CoreTemplates\List\ListBaseColumn;
 class FileMultipleColumn extends ListBaseColumn {
     public function getTemplateName(): string
     {
-        return 'list.ro.filemultiplecolumn';
+        return '_.AppBundle.FileMultipleRoColumn';
     }
 }

@@ -7,6 +7,6 @@ use Newageerp\SfReactTemplates\CoreTemplates\List\ListBaseColumn;
 class ColorColumn extends ListBaseColumn {
     public function getTemplateName(): string
     {
-        return 'list.ro.colorcolumn';
+        return '_.AppBundle.ColorRoColumn';
     }
 }

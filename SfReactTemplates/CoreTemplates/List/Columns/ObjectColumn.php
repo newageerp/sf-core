@@ -33,7 +33,7 @@ class ObjectColumn extends ListBaseColumn {
 
     public function getTemplateName(): string
     {
-        return 'list.ro.objectcolumn';
+        return '_.AppBundle.ObjectRoColumn';
     }
 
     /**

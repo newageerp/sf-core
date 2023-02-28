@@ -24,7 +24,7 @@ class EnumNumberColumn extends ListBaseColumn {
 
     public function getTemplateName(): string
     {
-        return 'list.ro.enumnumbercolumn';
+        return '_.AppBundle.EnumNumberRoColumn';
     }
 
     /**
