@@ -1,7 +1,7 @@
 import { WideToolbar } from '@newageerp/v3.bundles.form-bundle';
 import classNames from 'classnames';
 import React, { Fragment } from 'react'
-import FormError from '../form/FormError';
+import { FormError } from '@newageerp/v3.bundles.form-bundle';
 import { TemplatesLoader, Template, useTemplatesLoader } from '@newageerp/v3.templates.templates-core'
 
 interface Props {

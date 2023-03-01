@@ -20,7 +20,7 @@ import OldTabStringField from './OldTabStringField'
 import { MainButton, RsButton, ToolbarButton } from '@newageerp/v3.bundles.buttons-bundle'
 import { Table, Td, Th } from '@newageerp/ui.ui-bundle'
 import { Template, TemplatesLoader } from '@newageerp/v3.templates.templates-core'
-import BoolEditableColumn from '../list/editable-columns/BoolEditableColumn'
+import { BoolEditableColumn } from '@newageerp/v3.bundles.app-bundle'
 
 interface Props {
   schema: string

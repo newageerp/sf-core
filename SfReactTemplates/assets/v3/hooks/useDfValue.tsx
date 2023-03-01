@@ -3,26 +3,30 @@ import {
   getHookForSchema,
   useEmptyHook,
 } from "../../_custom/models-cache-data/ModelFields";
-import StatusDfRoField from "../form/df-ro-fields/StatusDfRoField";
-import FileDfRoField from "../form/df-ro-fields/FileDfRoField";
-import FileMultipleDfRoField from "../form/df-ro-fields/FileMultipleDfRoField";
-import ColorDfRoField from '../form/df-ro-fields/ColorDfRoField';
-import ImageDfRoField from '../form/df-ro-fields/ImageDfRoField';
-import AudioDfRoField from '../form/df-ro-fields/AudioDfRoField';
-import ObjectDfRoField from '../form/df-ro-fields/ObjectDfRoField';
-import StringArrayDfRoField from '../form/df-ro-fields/StringArrayDfRoField';
-import FloatDfRoField from "../form/df-ro-fields/FloatDfRoField";
-import NumberDfRoField from '../form/df-ro-fields/NumberDfRoField';
-import DateDfRoField from '../form/df-ro-fields/DateDfRoField';
-import DateTimeDfRoField from '../form/df-ro-fields/DateTimeDfRoField';
-import BoolDfRoField from '../form/df-ro-fields/BoolDfRoField';
-import LargeTextDfRoField from "../form/df-ro-fields/LargeTextDfRoField";
-import EnumMultiNumberDfRoField from '../form/df-ro-fields/EnumMultiNumberDfRoField';
-import EnumMultiTextDfRoField from '../form/df-ro-fields/EnumMultiTextDfRoField';
-import EnumNumberDfRoField from '../form/df-ro-fields/EnumNumberDfRoField';
-import EnumTextDfRoField from '../form/df-ro-fields/EnumTextDfRoField';
-import ArrayDfRoField from "../form/df-ro-fields/ArrayDfRoField";
-import StringDfRoField from '../form/df-ro-fields/StringDfRoField';
+
+import {
+  StatusDfRoField,
+  FileDfRoField,
+  FileMultipleDfRoField,
+  ColorDfRoField,
+  ImageDfRoField,
+  AudioDfRoField,
+  ObjectDfRoField,
+  StringArrayDfRoField,
+  FloatDfRoField,
+  NumberDfRoField,
+  DateDfRoField,
+  DateTimeDfRoField,
+  BoolDfRoField,
+  LargeTextDfRoField,
+  EnumMultiNumberDfRoField,
+  EnumMultiTextDfRoField,
+  EnumNumberDfRoField,
+  EnumTextDfRoField,
+  ArrayDfRoField,
+  StringDfRoField,
+} from '@newageerp/v3.bundles.app-bundle'
+
 import { RsButton as RsButtonTpl } from "@newageerp/v3.bundles.buttons-bundle";
 import { getPropertyForPath } from "../utils";
 
