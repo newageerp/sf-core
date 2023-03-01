@@ -11,6 +11,7 @@ import { getDepenciesForField } from '../../_custom/fields/fieldDependencies';
 import { useUIBuilder } from '../old-ui/builder/OldUIBuilderProvider';
 import { onEditElementUpdate } from '../../_custom/fields/onEditElementUpdate';
 import { subscribe, unsubscribe } from '@newageerp/v3.bundles.utils-bundle';
+import { FormDataSourceProviderContext } from "@newageerp/v3.app.mvc.form-data-source"
 
 export interface MainEditTemplateData {
   element: any,
@@ -49,8 +50,8 @@ interface Props {
 }
 
 export default function MainEdit(props: Props) {
-  const {getEditFieldsForSchema} = useUIBuilder();
-  
+  const { getEditFieldsForSchema } = useUIBuilder();
+
   const { data: tData } = useTemplatesLoader();
 
   let hiddenFields: any = []
@@ -67,7 +68,7 @@ export default function MainEdit(props: Props) {
   const [hasChanges, setHasChanges] = useState(false)
   const [element, setElement] = useState<any>(null)
 
-  const updateElement = (key: string, val: any) => {
+  const updateElement = (key: string, val: any, saveAfter?: boolean) => {
     let _el = JSON.parse(JSON.stringify(element))
     if (val !== _el[key]) {
       setHasChanges(true)
@@ -77,17 +78,21 @@ export default function MainEdit(props: Props) {
 
       setElement(_el)
     }
+
+    if (saveAfter) {
+      doSave(_el);
+    }
   }
 
   useEffect(() => {
-        const listener = (e: any) => {
-            updateElement(e.detail.key, e.detail.val);
-        }
-        subscribe(`${props.schema}-${props.type}-Update`, listener);
+    const listener = (e: any) => {
+      updateElement(e.detail.key, e.detail.val);
+    }
+    subscribe(`${props.schema}-${props.type}-Update`, listener);
 
-        return () => {
-            unsubscribe(`${props.schema}-${props.type}-Update`, listener);
-        }
+    return () => {
+      unsubscribe(`${props.schema}-${props.type}-Update`, listener);
+    }
   }, [updateElement, props.schema, props.type]);
 
   const updateElementBatch = (updates: any) => {
@@ -108,13 +113,14 @@ export default function MainEdit(props: Props) {
     }
   }
 
-  const doSave = () => {
+  const doSave = (forceEl?: any) => {
+    const elementToSave = forceEl ? forceEl : element;
     if (saveDataParams.loading) {
       return
     }
     const isNew = props.id === 'new'
     setHasChanges(false)
-    saveData({ ...element, skipRequiredCheck: props.skipRequiredCheck, requiredFields: props.requiredFields }, props.id).then((res: any) => {
+    saveData({ ...elementToSave, skipRequiredCheck: props.skipRequiredCheck, requiredFields: props.requiredFields }, props.id).then((res: any) => {
       if (res) {
         if (res.error) {
         } else {
@@ -227,7 +233,14 @@ export default function MainEdit(props: Props) {
 
 
   return (
-    <Fragment>
+    <FormDataSourceProviderContext.Provider
+      value={{
+        actions: {
+          doSave,
+          updateElement
+        }
+      }}
+    >
       {element ? (
         <div className={`tw3-space-y-4 tw3-max-w-[1200px] tw3-mx-auto ${props.editContainerClassName ? props.editContainerClassName : ''}`}>
 
@@ -260,7 +273,7 @@ export default function MainEdit(props: Props) {
       ) : (
         <Fragment />
       )}
-    </Fragment>
+    </FormDataSourceProviderContext.Provider>
 
   )
 }
