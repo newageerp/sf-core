@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, Fragment } from "react";
+import React, { useEffect, useState, useRef, Fragment, ReactNode } from "react";
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import {
   PageContainer,
@@ -42,6 +42,31 @@ interface Props {
 export default function ListDataSource(props: Props) {
   const { data: tData } = useTemplatesLoader();
   const [reloadKey, setReloadKey] = useState<any>();
+
+  // LIST DATA SOURCE CONTENT START
+  const [extraTbody, setExtraTbody] = useState([]);
+  const [extraThead, setExtraThead] = useState([]);
+
+  const addExtraTbody = (val: ReactNode) => {
+    const _extraTbody = JSON.parse(JSON.stringify(extraTbody));
+    _extraTbody.push(val);
+    setExtraTbody(_extraTbody);
+  }
+  const addExtraThead = (val: ReactNode) => {
+    const _extraThead = JSON.parse(JSON.stringify(extraThead));
+    _extraThead.push(val);
+    setExtraThead(_extraThead);
+  }
+  useEffect(() => {
+    if (tData.extraListDataTableHead) {
+      addExtraThead(tData.extraListDataTableHead);
+    }
+    if (tData.extraListDataTableBody) {
+      addExtraTbody(tData.extraListDataTableBody);
+    }
+  }, []);
+
+  // LIST DATA SOURCE CONTENT FINISH
 
   // SELECTED ITEMS START
   const [selectedItems, setSelectedItems] = useState<number[]>(tData?.data?.selection?.items ? tData?.data?.selection?.items : []);
@@ -267,6 +292,12 @@ export default function ListDataSource(props: Props) {
         },
         filter: {
           addBlock: addNewBlockFilter
+        },
+        content: {
+          addExtraTbody,
+          addExtraThead,
+          extraTbody,
+          extraThead,
         }
       }}>
       {((!!props.toolbar && props.toolbar.length > 0) || (!!props.toolbarLine2 && props.toolbarLine2.length > 0)) &&
