@@ -38,7 +38,7 @@ class WhiteCardWithViewFormWidget extends Template
 
     public function getTemplateName(): string
     {
-        return 'widgets.WhiteCardWithViewFormWidget';
+        return '_.WidgetsBundle.WhiteCardWithFormWidget';
     }
 
     /**

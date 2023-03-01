@@ -45,7 +45,7 @@ class OneToOneWidget extends Template
 
     public function getTemplateName(): string
     {
-        return 'widgets.oneToOneWidget';
+        return '_.WidgetsBundle.OneToOneWidget';
     }
 
     /**

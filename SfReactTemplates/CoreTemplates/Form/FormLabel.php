@@ -19,14 +19,14 @@ class FormLabel extends Template
     public function getProps(): array
     {
         return [
-            'text' => $this->getText(),
+            'children' => $this->getText(),
             'paddingTop' => $this->getPaddingTop(),
         ];
     }
 
     public function getTemplateName(): string
     {
-        return 'form.label';
+        return '_.FormBundle.Label';
     }
 
     /**

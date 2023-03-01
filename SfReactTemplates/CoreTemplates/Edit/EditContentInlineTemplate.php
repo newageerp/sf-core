@@ -35,7 +35,7 @@ class EditContentInlineTemplate extends Template
 
     public function getTemplateName(): string
     {
-        return 'edit.contentinline';
+        return '_.AppBundle.MainEditContentInline';
     }
 
 

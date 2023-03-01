@@ -18,7 +18,7 @@ class BoolEditableColumn extends ListBaseColumn {
     
     public function getTemplateName(): string
     {
-        return 'list.editable.boolcolumn';
+        return '_.AppBundle.BoolEditableColumn';
     }
 
     /**

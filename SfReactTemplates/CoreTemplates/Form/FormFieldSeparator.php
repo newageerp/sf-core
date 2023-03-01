@@ -14,6 +14,6 @@ class FormFieldSeparator extends Template
 
     public function getTemplateName(): string
     {
-        return 'form.fieldseparator';
+        return '_.FormBundle.FormFieldSeparator';
     }
 }

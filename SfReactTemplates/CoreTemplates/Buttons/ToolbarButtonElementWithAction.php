@@ -28,7 +28,7 @@ class ToolbarButtonElementWithAction extends ToolbarButton
 
     public function getTemplateName(): string
     {
-        return 'buttons.toolbar-button-element-with-action';
+        return '_.ButtonsBundle.ToolbarButtonElementWithAction';
     }
 
 

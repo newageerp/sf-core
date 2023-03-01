@@ -26,7 +26,7 @@ class FormFieldTagCloud extends Template
 
     public function getTemplateName(): string
     {
-        return 'form.fieldtagcloud';
+        return '_.FormBundle.FormFieldTagCloudTemplate';
     }
 
     /**

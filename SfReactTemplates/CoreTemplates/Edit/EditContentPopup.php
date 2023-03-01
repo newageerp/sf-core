@@ -30,7 +30,7 @@ class EditContentPopup extends Template
 
     public function getTemplateName(): string
     {
-        return 'edit.contentpopup';
+        return '_.AppBundle.MainEditContentPopup';
     }
 
     /**

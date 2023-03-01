@@ -17,15 +17,14 @@ class PrimitiveString extends Template
     public function getProps(): array
     {
         return [
-            'text' => $this->getText(),
+            'contents' => $this->getText(),
         ];
     }
 
     public function getTemplateName(): string
     {
-        return 'primitives.string';
+        return '_.DataBundle.StringRaw';
     }
-
 
     /**
      * Get the value of text

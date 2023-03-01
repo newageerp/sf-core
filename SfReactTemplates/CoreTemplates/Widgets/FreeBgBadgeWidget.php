@@ -26,7 +26,7 @@ class FreeBgBadgeWidget extends Template
 
     public function getTemplateName(): string
     {
-        return 'widgets.freebgbadgewidget';
+        return '_.WidgetsBundle.FreeBgBadgeWidget';
     }
 
 

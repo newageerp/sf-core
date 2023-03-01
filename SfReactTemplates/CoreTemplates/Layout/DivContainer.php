@@ -18,7 +18,7 @@ class DivContainer extends Template
 
     public function getTemplateName(): string
     {
-        return 'layout.div';
+        return '_.DataBundle.DivContainer';
     }
 
     public function getProps(): array

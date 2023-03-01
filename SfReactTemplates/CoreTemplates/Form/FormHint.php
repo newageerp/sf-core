@@ -17,13 +17,13 @@ class FormHint extends Template
     public function getProps(): array
     {
         return [
-            'text' => $this->getText(),
+            'children' => $this->getText(),
         ];
     }
 
     public function getTemplateName(): string
     {
-        return 'form.hint';
+        return '_.FormBundle.FieldHint';
     }
 
     /**

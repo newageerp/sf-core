@@ -19,7 +19,7 @@ class LargeTextEditableColumn extends ListBaseColumn
 
     public function getTemplateName(): string
     {
-        return 'list.editable.largetextcolumn';
+        return '_.AppBundle.LargeTextEditableColumn';
     }
 
     /**

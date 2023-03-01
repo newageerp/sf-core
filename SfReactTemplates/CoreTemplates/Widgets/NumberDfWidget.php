@@ -48,7 +48,7 @@ class NumberDfWidget extends Template
 
     public function getTemplateName(): string
     {
-        return 'widgets.dfnumberwidget';
+        return '_.WidgetsBundle.NumberCardDfWidget';
     }
 
     /**

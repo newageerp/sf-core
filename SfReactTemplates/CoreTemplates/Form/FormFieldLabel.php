@@ -35,7 +35,7 @@ class FormFieldLabel extends Template
 
     public function getTemplateName(): string
     {
-        return 'form.fieldlabel';
+        return '_.FormBundle.FormFieldLabel';
     }
 
     /**

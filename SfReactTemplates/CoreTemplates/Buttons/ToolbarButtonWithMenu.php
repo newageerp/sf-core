@@ -26,7 +26,7 @@ class ToolbarButtonWithMenu extends Template
 
     public function getTemplateName(): string
     {
-        return 'buttons.toolbar-button-with-menu';
+        return '_.ButtonsBundle.ToolbarButtonWithMenu';
     }
 
 
