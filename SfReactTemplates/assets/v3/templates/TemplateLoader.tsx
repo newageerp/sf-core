@@ -4,6 +4,7 @@ import EditContent from "../edit/EditContent";
 
 import { CustomEditComponentsMap } from "../../_custom/edit/CustomEditComponentsMap";
 import { CustomViewComponentsMap } from "../../_custom/view/CustomViewComponentsMap";
+import { CustomListComponentsMap } from "../../_custom/tabs/CustomListComponentsMap";
 
 import RequestRecordProvider from "../db/RequestRecordProvider";
 import RequestRecordProviderInner from "../db/RequestRecordProviderInner";
@@ -11,8 +12,6 @@ import RequestRecordProviderInner from "../db/RequestRecordProviderInner";
 import { PluginsMap } from "../../../Plugins/PluginsMap";
 
 import ListDataSource from "../list/ListDataSource";
-import ViewStatusWidgetWithActions from "../view/Widget/ViewStatusWidgetWithActions";
-import { CustomListComponentsMap } from "../../_custom/tabs/CustomListComponentsMap";
 
 import AppInner from "../app/AppInner";
 
@@ -76,8 +75,6 @@ export const componentsMap: any = {
   "view.content": ViewContent,
 
   "edit.content": EditContent,
-
-  "view.statuswidgetwithactions": ViewStatusWidgetWithActions,
 
   "db.request.recordprovider": RequestRecordProvider,
   "db.request.recordprovider.inner": RequestRecordProviderInner,

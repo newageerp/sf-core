@@ -29,7 +29,7 @@ class StatusWidgetWithActions extends Template
 
     public function getTemplateName(): string
     {
-        return 'view.statuswidgetwithactions';
+        return '_.WidgetsBundle.StatusViewWithActionsWidget';
     }
 
 
