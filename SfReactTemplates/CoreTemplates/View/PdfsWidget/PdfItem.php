@@ -35,7 +35,7 @@ class PdfItem extends Template
 
     public function getTemplateName(): string
     {
-        return 'view.pdf.item';
+        return '_.WidgetsBundle.PdfWidgetItem';
     }
 
     /**

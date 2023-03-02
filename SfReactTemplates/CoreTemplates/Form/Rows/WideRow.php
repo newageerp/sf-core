@@ -42,7 +42,7 @@ class WideRow extends Template
 
     public function getTemplateName(): string
     {
-        return 'form.rows.widerow';
+        return '_.AppBundle.AppWideRow';
     }
 
     /**

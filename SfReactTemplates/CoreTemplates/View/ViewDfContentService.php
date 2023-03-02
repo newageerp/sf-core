@@ -32,6 +32,7 @@ use Newageerp\SfReactTemplates\CoreTemplates\Form\FormHint;
 use Newageerp\SfReactTemplates\CoreTemplates\Form\FormLabel;
 use Newageerp\SfReactTemplates\CoreTemplates\Form\RoForm;
 use Newageerp\SfReactTemplates\CoreTemplates\Form\Rows\CompactRow;
+use Newageerp\SfReactTemplates\CoreTemplates\Form\Rows\Wide;
 use Newageerp\SfReactTemplates\CoreTemplates\Form\Rows\WideRow;
 use Newageerp\SfReactTemplates\CoreTemplates\Layout\FlexRow;
 use Newageerp\SfReactTemplates\CoreTemplates\View\ViewFormContent;
@@ -53,7 +54,8 @@ class ViewDfContentService
 
     public function fillFormContent(int $id, string $schema, string $type, ViewFormContent $roContent, bool $isCompact = false)
     {
-        $editableForm = new RoForm(null, $isCompact);
+        $editableForm = new Wide();
+        $editableForm->setClassName('tw3-text-sm');
 
         $viewForm = $this->viewFormsUtilsV3->getViewFormBySchemaAndType($schema, $type);
 

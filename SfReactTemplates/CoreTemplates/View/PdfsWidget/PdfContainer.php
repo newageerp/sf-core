@@ -27,7 +27,7 @@ class PdfContainer extends Template
 
     public function getTemplateName(): string
     {
-        return 'view.pdf.container';
+        return '_.WidgetsBundle.PdfWidget';
     }
 
     /**

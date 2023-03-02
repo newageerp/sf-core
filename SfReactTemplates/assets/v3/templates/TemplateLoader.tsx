@@ -2,22 +2,12 @@ import React from "react";
 import ViewContent from "../view/ViewContent";
 import EditContent from "../edit/EditContent";
 
-
-import WideRow from "../form/rows/WideRow";
-import CompactRow from "../form/rows/CompactRow";
-
-import EditableForm from "../form/EditableForm";
-
-import RoForm from "../form/RoForm";
-
 import { CustomEditComponentsMap } from "../../_custom/edit/CustomEditComponentsMap";
 import { CustomViewComponentsMap } from "../../_custom/view/CustomViewComponentsMap";
-import EditFormContent from "../edit/EditFormContent";
-import ViewFormContent from "../view/ViewFormContent";
+
 import RequestRecordProvider from "../db/RequestRecordProvider";
 import RequestRecordProviderInner from "../db/RequestRecordProviderInner";
 
-import ViewPdfWidget, { ViewPdfItem } from "../view/Widget/ViewPdfWidget";
 import { PluginsMap } from "../../../Plugins/PluginsMap";
 
 import ListDataSource from "../list/ListDataSource";
@@ -84,25 +74,13 @@ export const componentsMap: any = {
   },
 
   "view.content": ViewContent,
-  "view.formcontent": ViewFormContent,
 
   "edit.content": EditContent,
-  "edit.formcontent": EditFormContent,
 
   "view.statuswidgetwithactions": ViewStatusWidgetWithActions,
 
-  "form.rows.widerow": WideRow,
-  "form.rows.compactrow": CompactRow,
-
-  "form.editableform": EditableForm,
-  
-  "form.roform": RoForm,
-
   "db.request.recordprovider": RequestRecordProvider,
   "db.request.recordprovider.inner": RequestRecordProviderInner,
-
-  "view.pdf.container": ViewPdfWidget,
-  "view.pdf.item": ViewPdfItem,
 
   'list.list-data-source': ListDataSource,
 

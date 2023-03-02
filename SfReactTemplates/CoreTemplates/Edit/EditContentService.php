@@ -77,8 +77,6 @@ class EditContentService
 
         $required = $this->entitiesUtilsV3->getRequiredBySlug($schema);
 
-        $editableForm = new EditableForm(null, $isCompact);
-
         $editForm = $this->editFormsUtilsV3->getEditFormBySchemaAndType($schema, $type);
 
         $stepFieldsGroup = [];
@@ -413,11 +411,7 @@ class EditContentService
             $blockContent = $tabContainer;
         }
 
-
-
-        $editableForm->getChildren()->addTemplate($blockContent);
-
-        $editContent->getContent()->addTemplate($editableForm);
+        $editContent->getContent()->addTemplate($blockContent);
 
         return [
             'requiredFields' => $requiredFields

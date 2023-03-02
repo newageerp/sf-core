@@ -38,7 +38,7 @@ class EditFormContent extends Template
 
     public function getTemplateName(): string
     {
-        return 'edit.formcontent';
+        return '_.AppBundle.MainEditFormContent';
     }
 
     /**

@@ -38,7 +38,7 @@ class ViewFormContent extends Template
 
     public function getTemplateName(): string
     {
-        return 'view.formcontent';
+        return '_.AppBundle.MainViewFormContent';
     }
 
     /**

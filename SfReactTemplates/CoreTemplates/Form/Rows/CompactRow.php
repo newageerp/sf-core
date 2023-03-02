@@ -42,7 +42,7 @@ class CompactRow extends Template
 
     public function getTemplateName(): string
     {
-        return 'form.rows.compactrow';
+        return '_.AppBundle.AppCompactRow';
     }
 
     /**
