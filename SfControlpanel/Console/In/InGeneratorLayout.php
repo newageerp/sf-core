@@ -92,7 +92,7 @@ class InGeneratorLayout extends Command
 
         foreach ($templates as $template => $target) {
             $fileName = Utils::generatedPath($target[0]) . '/' . $target[1] . '.tsx';
-            $generatedContent = $twig->load($template)->render(['hasTasksApp' => $hasTasks, 'settings' => $settings]);
+            $generatedContent = $twig->load($template)->render(['hasTasksApp' => $hasTasks, 'hasMailsApp' => $hasMails, 'settings' => $settings]);
             Utils::writeOnChanges($fileName, $generatedContent);
         }
 

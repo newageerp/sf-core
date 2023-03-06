@@ -3,7 +3,9 @@ import React, {Fragment} from "react";
 import { useTranslation } from "react-i18next";
 import { ContentWidgetProps } from "../../v3/utils";
 import { WhiteCard } from "@newageerp/v3.bundles.widgets-bundle";
+{% if hasMailsApp %}
 import { MailsContent } from "@newageerp/v3.bundles.mails-bundle";
+{% endif %}
 import { NotesContent } from "@newageerp/v3.bundles.notes-bundle";
 
 export default function EventsHistoryWidget(props: ContentWidgetProps) {
@@ -29,6 +31,7 @@ export default function EventsHistoryWidget(props: ContentWidgetProps) {
       },
     }
   );
+  {% if hasMailsApp %}
   if (!props.options?.skipMails) {
     items.push(
       {
@@ -39,5 +42,6 @@ export default function EventsHistoryWidget(props: ContentWidgetProps) {
       },
     );
   }
+  {% endif %}
   return <WhiteCard isCompact={true}><TabContainer items={items} /></WhiteCard>;
 }

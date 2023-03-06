@@ -4,10 +4,9 @@ import {
   PageContainer,
 } from "@newageerp/ui.ui-bundle";
 import { SortingItem } from "@newageerp/ui.ui-bundle";
-import { TypeItemFilters } from "@newageerp/ui.ui-bundle";
 import { useLocationState } from "use-location-state";
-import { ServerFilterItem } from "@newageerp/ui.ui-bundle";
-import { FilterContainer } from '@newageerp/ui.ui-bundle';
+
+import { FilterContainer, ServerFilterItem, TypeItemFilters } from '@newageerp/v3.bundles.form-bundle';
 import { useTemplatesLoader, TemplatesLoader, Template } from '@newageerp/v3.templates.templates-core';
 import { getTabFieldsToReturn } from "../utils";
 import { SFSSocketService } from "../navigation/NavigationComponent";
@@ -42,6 +41,18 @@ interface Props {
 export default function ListDataSource(props: Props) {
   const { data: tData } = useTemplatesLoader();
   const [reloadKey, setReloadKey] = useState<any>();
+
+  const defaultState: any = {
+    page: 1,
+    sort: props.sort,
+    quickSearch: "",
+    detailedSearch: [],
+    extraFilter: {},
+  };
+  const [dataState, setDateState] = useLocationState(
+    `${props.schema}${props.type}TableDataSource`,
+    defaultState
+  );
 
   // LIST DATA SOURCE CONTENT START
   const [extraTbody, setExtraTbody] = useState([]);
@@ -83,8 +94,8 @@ export default function ListDataSource(props: Props) {
 
   const [extendedSearchOptions, setExtendedSearchOptions] = useState<any[]>([]);
 
-  const [itemsFilter, setItemsFilter] = useState<TypeItemFilters>([]);
-  const [showExtendedSearch, setShowExtendedSearch] = useState(false);
+  const [itemsFilter, setItemsFilter] = useState<TypeItemFilters>(dataState.detailedSearch ? dataState.detailedSearch : []);
+  const [showExtendedSearch, setShowExtendedSearch] = useState(!!dataState.detailedSearch && dataState.detailedSearch.length > 0 ? true : false);
   const addNewBlockFilter = (filter: ServerFilterItem) => {
     setShowExtendedSearch(true);
 
@@ -142,18 +153,6 @@ export default function ListDataSource(props: Props) {
     }
   };
 
-  const defaultState: any = {
-    page: 1,
-    sort: props.sort,
-    quickSearch: "",
-    detailedSearch: [],
-    extraFilter: {},
-  };
-
-  const [dataState, setDateState] = useLocationState(
-    `${props.schema}${props.type}TableDataSource`,
-    defaultState
-  );
 
   const setActivePage = (page: number) => {
     if (page !== dataState.page) {
@@ -285,10 +284,10 @@ export default function ListDataSource(props: Props) {
               setReloadKey(new Date().getTime());
               loadData();
             },
-            reloading: dataResult.loading,  
+            reloading: dataResult.loading,
             key: reloadKey,
           }
-          
+
         },
         filter: {
           addBlock: addNewBlockFilter
