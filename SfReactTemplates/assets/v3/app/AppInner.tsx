@@ -13,7 +13,6 @@ import AppRoutes from "../../routes/AppRoutes";
 import CustomUserWrapperRoutes from "../../_custom/routes/CustomUserWrapperRoutes";
 import { getHookForSchema } from "../../_custom/models-cache-data/ModelFields";
 import { WindowProvider } from "@newageerp/v3.bundles.popup-bundle";
-import { useDfValue } from "../hooks/useDfValue";
 
 function AppInner() {
     const [isLoaded, setIsLoaded] = useState(false);
@@ -43,7 +42,7 @@ function AppInner() {
             authRoutes={
                 <Fragment>
                     <UIBuilderProvider>
-                        <DataCacheProvider getHookForSchema={getHookForSchema} useDfValue={useDfValue}>
+                        <DataCacheProvider getHookForSchema={getHookForSchema}>
                             <WindowProvider>
                                 <UserSpaceWrapper>
 
