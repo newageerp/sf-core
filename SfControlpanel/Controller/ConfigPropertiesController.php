@@ -4,10 +4,12 @@ namespace Newageerp\SfControlpanel\Controller;
 
 use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
+use Newageerp\SfControlpanel\Event\FilterPropertiesEvent;
 use Symfony\Component\Routing\Annotation\Route;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Ramsey\Uuid\Uuid;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @Route(path="/app/nae-core/config-properties")
@@ -219,6 +221,12 @@ class ConfigPropertiesController extends ConfigBaseController
             }
         }
 
+        // ListCreatableEvent START
+        $filterPropertiesEvent = new FilterPropertiesEvent($output);
+        $this->getEventDispatcher()->dispatch($filterPropertiesEvent, FilterPropertiesEvent::NAME);
+        $output = $filterPropertiesEvent->getFields();
+        // ListCreatableEvent FINISH
+
         return $this->json(['data' => $output]);
     }
 
@@ -282,7 +290,7 @@ class ConfigPropertiesController extends ConfigBaseController
                 ]
             );
         }
-        
+
         $schemaProperties = array_map(
             function ($property) {
                 return [
@@ -292,7 +300,7 @@ class ConfigPropertiesController extends ConfigBaseController
             },
             $schemaProperties
         );
-        
+
         return $schemaProperties;
     }
 
@@ -317,7 +325,7 @@ class ConfigPropertiesController extends ConfigBaseController
                 $type = $propertiesUtilsV3->getDefaultPropertySearchComparison($property, []);
                 return [
                     'id' => 'i.' . $property['key'],
-                    'title' => $property['title'],
+                    'title' => $property['title'] ? $property['title'] : 'ID: ' . $property['key'],
                     'type' => $type,
                     'options' => $propertiesUtilsV3->getDefaultPropertySearchOptions($property, [])
                 ];
