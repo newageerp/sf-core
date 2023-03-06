@@ -20,6 +20,7 @@ use Newageerp\SfReactTemplates\Template\Template;
 
 use Newageerp\SfReactTemplates\CoreTemplates\Tabs\TabContainer;
 use Newageerp\SfReactTemplates\CoreTemplates\Tabs\TabContainerItem;
+use Newageerp\SfReactTemplates\Event\ListCreatableEvent;
 use Newageerp\SfReactTemplates\Event\LoadTemplateEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -111,16 +112,22 @@ class TableService
 
             // CREATE BUTTON
             $disableCreate = isset($tab['disableCreate']) && $tab['disableCreate'];
-            if (
-                !$disableCreate &&
-                $this->getEntitiesUtilsV3()->checkIsCreatable(
-                    $schema,
-                    AuthService::getInstance()->getUser()->getPermissionGroup(),
-                )
-            ) {
-                $listDataSource->getToolbar()->getToolbarLeft()->addTemplate(
-                    new ToolbarNewButton($schema)
-                );
+            $isCreatableResult = $this->getEntitiesUtilsV3()->checkIsCreatable(
+                $schema,
+                AuthService::getInstance()->getUser()->getPermissionGroup(),
+            );
+
+            // ListCreatableEvent START
+            $listCreatableEvent = new ListCreatableEvent(
+                $schema,
+                $isCreatableResult,
+            );
+            $this->eventDispatcher->dispatch($listCreatableEvent, ListCreatableEvent::NAME);
+            $isCreatableResult = $listCreatableEvent->getIsCreatable();
+            // ListCreatableEvent FINISH
+
+            if (!$disableCreate && $isCreatableResult) {
+                $listDataSource->getToolbar()->getToolbarLeft()->addTemplate(new ToolbarNewButton($schema));
             }
 
             // QS
