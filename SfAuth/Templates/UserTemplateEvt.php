@@ -32,6 +32,7 @@ class UserTemplateEvt implements EventSubscriberInterface
             $ppData = [
                 'data' => [
                     'token' => $event->getData()['_token'],
+                    'userId' => $event->getData()['id']
                 ]
             ];
 
