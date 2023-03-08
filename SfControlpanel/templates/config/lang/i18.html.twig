@@ -1,21 +1,20 @@
-// @ts-nocheck
+
 import i18n from 'i18next'
 import LanguageDetector from "i18next-browser-languagedetector"
-import {initReactI18next} from 'react-i18next'
+import { initReactI18next } from '@newageerp/v3.templates.templates-core'
 // import XHR from 'i18next-xhr-backend'
 import languageEN from './en.json'
 
 i18n
-    // .use(XHR)
     .use(LanguageDetector)
     .use(initReactI18next)
     .init({
         resources: {
-            en: languageEN
+            en: languageEN,
         },
         lng: "en",
         fallbackLng: "en",
-        debug: false,
+        debug: true,
         ns: ["translations"],
         defaultNS: "translations",
         keySeparator: ".",
@@ -24,9 +23,8 @@ i18n
             formatSeparator: ","
         },
         react: {
-            wait: true,
             bindI18n: 'languageChanged loaded',
-            bindStore: 'added removed',
+            // bindStore: 'added removed',
             nsMode: 'default'
         }
     })

@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react'
 
 import { useLocation } from '@newageerp/v3.templates.templates-core'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@newageerp/v3.templates.templates-core'
 import { TemplatesLoader, useTemplatesLoader, toast } from '@newageerp/v3.templates.templates-core';
 import { fieldVisibility, IFieldVisibility, resetFieldsToDefValues } from "../../_custom/fields/fieldVisibility";
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper'

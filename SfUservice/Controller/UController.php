@@ -15,7 +15,6 @@ use Newageerp\SfAuth\Service\AuthService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Newageerp\SfCrud\Interface\IOnSaveService;
 use Symfony\Component\Routing\Annotation\Route;
 use OpenApi\Annotations as OA;
 use Newageerp\SfUservice\Events\UOnSaveCustomEvent;
@@ -176,7 +175,18 @@ class UController extends UControllerBase
             $sort = $request->get('sort') ? $request->get('sort') : [];
             $totals = $request->get('totals') ? $request->get('totals') : [];
 
-            return $this->json($uService->getListDataForSchema($schema, $page, $pageSize, $fieldsToReturn, $filters, $extraData, $sort, $totals));
+            return $this->json(
+                $uService->getListDataForSchema(
+                    $schema,
+                    $page,
+                    $pageSize,
+                    $fieldsToReturn,
+                    $filters,
+                    $extraData,
+                    $sort,
+                    $totals
+                )
+            );
         } catch (Exception $e) {
             $response = $this->json([
                 'description' => $e->getMessage(),

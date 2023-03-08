@@ -1,4 +1,5 @@
 <?php
+
 namespace Newageerp\SfImport\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -82,36 +83,39 @@ class ImportController extends UControllerBase
                 $idCol = 'A' . $i;
 
                 $id = $sheet->getCell($idCol)->getValue();
-                $element = $repository->find($id);
 
-                if ($element) {
-                    foreach ($keysForSave as $key => $fieldKey) {
-                        if ($fieldKey) {
-                            $type = null;
-                            $format = null;
+                if ($id) {
+                    $element = $repository->find($id);
 
-                            $prop = $propertiesUtilsV3->getPropertyForSchema($schema, $fieldKey);
+                    if ($element) {
+                        foreach ($keysForSave as $key => $fieldKey) {
+                            if ($fieldKey) {
+                                $type = null;
+                                $format = null;
 
-                            if ($prop) {
-                                $type = $prop['type'];
+                                $prop = $propertiesUtilsV3->getPropertyForSchema($schema, $fieldKey);
+
+                                if ($prop) {
+                                    $type = $prop['type'];
+                                }
+                                if ($prop && $prop['typeFormat']) {
+                                    $format = $prop['typeFormat'];
+                                }
+
+                                $types[$fieldKey] = [
+                                    'type' => $type,
+                                    'format' => $format
+                                ];
+
+                                $keyCol = $this->letters[($key + 1)] . '' . $i;
+                                $val = $sheet->getCell($keyCol)->getCalculatedValue();
+                                if ($type === 'number' && $format === 'float') {
+                                    $val = (float)$val;
+                                }
+
+                                $setter = 'set' . $fieldKey;
+                                $element->$setter($val);
                             }
-                            if ($prop && $prop['typeFormat']) {
-                                $format = $prop['typeFormat'];
-                            }
-
-                            $types[$fieldKey] = [
-                                'type' => $type,
-                                'format' => $format
-                            ];
-
-                            $keyCol = $this->letters[($key + 1)] . '' . $i;
-                            $val = $sheet->getCell($keyCol)->getCalculatedValue();
-                            if ($type === 'number' && $format === 'float') {
-                                $val = (float)$val;
-                            }
-
-                            $setter = 'set' . $fieldKey;
-                            $element->$setter($val);
                         }
                     }
                 }

@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from "react";
-// import { useTranslation } from 'react-i18next'
+
 import { TemplatesLoader, Template, useTemplatesLoader } from "@newageerp/v3.templates.templates-core";
 import { fieldVisibility } from "../../_custom/fields/fieldVisibility";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@newageerp/v3.templates.templates-core";
 import { ElementToolbar } from "@newageerp/ui.ui-bundle";
 import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import { ToolbarButtonWithMenu } from "@newageerp/v3.bundles.buttons-bundle";
