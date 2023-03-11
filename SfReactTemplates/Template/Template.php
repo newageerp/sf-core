@@ -6,7 +6,7 @@ abstract class Template
 {
     protected string $templateId = '';
 
-    protected bool $disabled = false;
+    protected bool $templateDisabled = false;
 
     abstract public function getTemplateName(): string;
 
@@ -29,7 +29,7 @@ abstract class Template
             'props' => $this->getProps(),
             'action' => $this->getAction(),
             'templateId' => $this->getTemplateId(),
-            'disabled' => $this->getDisabled(),
+            'disabled' => $this->getTemplateDisabled(),
         ];
     }
 
@@ -57,26 +57,27 @@ abstract class Template
         return $this;
     }
 
+
     /**
-     * Get the value of disabled
+     * Get the value of templateDisabled
      *
      * @return bool
      */
-    public function getDisabled(): bool
+    public function getTemplateDisabled(): bool
     {
-        return $this->disabled;
+        return $this->templateDisabled;
     }
 
     /**
-     * Set the value of disabled
+     * Set the value of templateDisabled
      *
-     * @param bool $disabled
+     * @param bool $templateDisabled
      *
      * @return self
      */
-    public function setDisabled(bool $disabled): self
+    public function setTemplateDisabled(bool $templateDisabled): self
     {
-        $this->disabled = $disabled;
+        $this->templateDisabled = $templateDisabled;
 
         return $this;
     }
