@@ -24,7 +24,7 @@ import * as MenuBundle from "@newageerp/v3.bundles.menu-bundle";
 import * as WidgetsBundle from "@newageerp/v3.bundles.widgets-bundle";
 
 import * as DataBundle from "@newageerp/v3.bundles.data-bundle";
-
+import * as AuthBundle from "@newageerp/v3.bundles.auth-bundle";
 import * as FormBundle from "@newageerp/v3.bundles.form-bundle";
 
 export const componentsMap: any = {
@@ -70,6 +70,10 @@ export const componentsMap: any = {
   "FormBundle": (comp: string) => {
     // @ts-ignore
     return FormBundle[comp];
+  },
+  "AuthBundle": (comp: string) => {
+    // @ts-ignore
+    return AuthBundle[comp];
   },
 
   "view.content": ViewContent,

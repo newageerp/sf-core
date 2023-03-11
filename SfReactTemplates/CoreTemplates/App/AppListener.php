@@ -5,7 +5,6 @@ namespace Newageerp\SfReactTemplates\CoreTemplates\App;
 use Newageerp\SfControlpanel\Console\LocalConfigUtilsV3;
 use Newageerp\SfReactTemplates\CoreTemplates\Modal\MenuDivider;
 use Newageerp\SfReactTemplates\CoreTemplates\Modal\MenuItemWithLink;
-use Newageerp\SfReactTemplates\CoreTemplates\Modal\MenuItemWithLogout;
 use Newageerp\SfReactTemplates\Event\LoadTemplateEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -53,17 +52,7 @@ class AppListener implements EventSubscriberInterface
 
     protected function initToolbarMenu(App $app, LoadTemplateEvent $event)
     {
-        $menuItem = new MenuItemWithLink('Update password', '/login/update?token=' . $event->getData()['_token']);
-        $app->getUserSpaceWrapperToolbarMenu()->addTemplate($menuItem);
-
-        $app->getUserSpaceWrapperToolbarMenu()->addTemplate(new MenuDivider());
-
         $menuItem = new MenuItemWithLink('Support', 'https://sfslt.freshdesk.com/lt/support/home');
-        $app->getUserSpaceWrapperToolbarMenu()->addTemplate($menuItem);
-
-        $app->getUserSpaceWrapperToolbarMenu()->addTemplate(new MenuDivider());
-
-        $menuItem = new MenuItemWithLogout('Logout');
         $app->getUserSpaceWrapperToolbarMenu()->addTemplate($menuItem);
     }
 

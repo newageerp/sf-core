@@ -237,7 +237,8 @@ export default function MainEdit(props: Props) {
       value={{
         actions: {
           doSave,
-          updateElement
+          updateElement,
+          updateElementBatch,
         }
       }}
     >

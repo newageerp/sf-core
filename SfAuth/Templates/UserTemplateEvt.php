@@ -18,14 +18,7 @@ class UserTemplateEvt implements EventSubscriberInterface
 
     public function onTemplate(LoadTemplateEvent $event)
     {
-        if ($event->isTemplateForEntity(ViewContentListener::MAINVIEWTOOLBARMORE, self::SCHEMA)) {
-            $menu = new MenuItemWithLink(
-                'Update password',
-                '/app/nae-core/auth/password-update?id=' . $event->getData()['id'] . '&token=' . $event->getData()['_token'],
-            );
-            $menu->setIconName('key');
-            $event->getPlaceholder()->addTemplate($menu);
-        }
+       
         if ($event->isTemplateForEntity(ViewContentListener::MAINVIEWWIDGETRIGHT, self::SCHEMA)) {
             $url = 'http://auth:3000/api/list-credentials';
 
