@@ -12,6 +12,7 @@ import { getTabFieldsToReturn } from "../utils";
 import { SFSSocketService } from "../navigation/NavigationComponent";
 import { useUIBuilder } from "../old-ui/builder/OldUIBuilderProvider";
 import { ListDataSourceProviderContext } from "@newageerp/v3.app.list.list-data-source";
+import { useUList } from "@newageerp/v3.bundles.hooks-bundle";
 
 interface Props {
   children: Template[];
@@ -181,7 +182,7 @@ export default function ListDataSource(props: Props) {
   const tab = getTabFromSchemaAndType(props.schema, props.type);
   const fieldsToReturn = getTabFieldsToReturn(tab);
 
-  const [getData, dataResult] = OpenApi.useUList(props.schema, fieldsToReturn);
+  const [getData, dataResult] = useUList(props.schema, fieldsToReturn);
 
   const prepareFilter = () => {
     let _filter: any = [{ and: [] }];
@@ -286,8 +287,10 @@ export default function ListDataSource(props: Props) {
             },
             reloading: dataResult.loading,
             key: reloadKey,
+          },
+          cache: {
+            token: dataResult.data.cacheRequest,
           }
-
         },
         filter: {
           addBlock: addNewBlockFilter

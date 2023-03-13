@@ -247,6 +247,23 @@ class UService
         return ['data' => $groupedData, 'total' => $groupedTotalData, 'summaryFields' => array_values($summaryFields)];
     }
 
+    public function getListDataFromCacheToken(string $token, array $override)
+    {
+        $cacheResult = json_decode(base64_decode($token), true);
+        return $this->getListDataForSchema(
+            isset($override['schema']) ? $override['schema'] : $cacheResult['schema'],
+            isset($override['page']) ? $override['page'] : $cacheResult['page'],
+            isset($override['pageSize']) ? $override['pageSize'] : $cacheResult['pageSize'],
+            isset($override['fieldsToReturn']) ? $override['fieldsToReturn'] : $cacheResult['fieldsToReturn'],
+            isset($override['filters']) ? $override['filters'] : $cacheResult['filters'],
+            isset($override['extraData']) ? $override['extraData'] : $cacheResult['extraData'],
+            isset($override['sort']) ? $override['sort'] : $cacheResult['sort'],
+            isset($override['totals']) ? $override['totals'] : $cacheResult['totals'],
+            isset($override['skipPermissionsCheck']) ? $override['skipPermissionsCheck'] : $cacheResult['skipPermissionsCheck'],
+        );
+    }
+
+
     public function getListDataForSchema(
         string $schema,
         int    $page,
