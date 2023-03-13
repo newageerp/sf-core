@@ -189,6 +189,7 @@ class ExportController extends UControllerBase
                         $item[$fieldKey];
 
                     $prop = $propertiesUtilsV3->getPropertyForSchema($schema, $fieldKey);
+                    
                     if ($propertiesUtilsV3->propertyHasEnum($prop)) {
                         $val = $propertiesUtilsV3->getPropertyEnumValue($schema, $fieldKey, $val);
                     }
@@ -230,9 +231,13 @@ class ExportController extends UControllerBase
             XlsxService::autoSizeSheet($sheet);
 
             foreach ($columns as $colIndex => $col) {
+                $letter = XlsxService::getLetters()[$colIndex + 1];
                 if (isset($col['settings']['width']) && $col['settings']['width']) {
-                    $letter = XlsxService::getLetters()[$colIndex + 1];
-                    $sheet->getColumnDimension($letter)->setWidth($col['settings']['width']);
+                    $sheet->getColumnDimension($letter)->setAutoSize(false);
+                    $sheet->getColumnDimension($letter)->setWidth((int)$col['settings']['width'], 'px');
+                }
+                if (isset($col['settings']['wrapText']) && $col['settings']['wrapText']) {
+                    $sheet->getStyle($letter.'1:'.$letter.''.$row)->getAlignment()->setWrapText(true); 
                 }
             }
 

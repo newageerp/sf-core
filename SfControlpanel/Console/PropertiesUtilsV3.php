@@ -119,13 +119,13 @@ class PropertiesUtilsV3
         return count($enumsList) > 0;
     }
 
-    public function getPropertyEnumValue($schema, $key, $val)
+    public function getPropertyEnumValue($schema, $key, $fieldVal)
     {
         $prop = $this->getPropertyForSchema($schema, $key);
         $enumsList = $this->getPropertyEnumsList($prop);
         $val = "";
         foreach ($enumsList as $p) {
-            if ($p['value'] === $val) {
+            if ($p['value'] === $fieldVal) {
                 $val = $p['label'];
                 break;
             }
