@@ -283,7 +283,17 @@ class UService
             unset($filters[2]['classicMode']);
         }
 
-        $debug = false;
+        $cacheRequest = [
+            'schema' => $schema,
+            'page' => 1,
+            'pageSize' => 999999,
+            'fieldsToReturn' => $fieldsToReturn,
+            'filters' => $filters,
+            'extraData' => $extraData,
+            'sort' => $sort,
+            'totals' => $totals,
+            'skipPermissionsCheck' => true,
+        ];
 
         $totalData = [];
         $pagingData = [];
@@ -316,32 +326,27 @@ class UService
                 ->select($alias)
                 ->from($className, $alias, null);
 
-            $log = [];
-
             $params = [];
             $joins = [];
 
-            $debug = false;
-
             foreach ($filters as $filter) {
-                $statements = $this->getStatementsFromFilters($qb, $className, $filter, $debug, $joins, $params, $classicMode);
-                if ($statements && !$debug) {
+                $statements = $this->getStatementsFromFilters($qb, $className, $filter, false, $joins, $params, $classicMode);
+                if ($statements) {
                     $qb->andWhere($statements);
                 }
             }
 
-            if (!$debug) {
-                foreach ($params as $key => $val) {
-                    $qb->setParameter($key, $val);
-                }
 
-                foreach ($joins as $join => $alias) {
-                    $qb->leftJoin($join, $alias);
-                }
+            foreach ($params as $key => $val) {
+                $qb->setParameter($key, $val);
+            }
+
+            foreach ($joins as $join => $alias) {
+                $qb->leftJoin($join, $alias);
             }
 
             foreach ($sort as $sortEl) {
-                [$subJoins, $mainAlias, $alias, $fieldKey, $uuid] = $this->joinsByKey($sortEl['key']);
+                [$subJoins,, $alias, $fieldKey,] = $this->joinsByKey($sortEl['key']);
 
                 $qb->addOrderBy($alias . '.' . $fieldKey, $sortEl['value']);
                 foreach ($subJoins as $join => $alias) {
@@ -372,7 +377,6 @@ class UService
             $pagingData = $pagingQb->getQuery()
                 ->getSingleResult();
 
-
             foreach ($totals as $total) {
                 $totalData[$total['field']] = isset($pagingData[$total['field']]) ? round((float)$pagingData[$total['field']], 2) : 0;
             }
@@ -390,7 +394,8 @@ class UService
             'params' => [],
             'filters' => $filters,
             // 'log' => $log,
-            'cl' => $classicMode
+            'cl' => $classicMode,
+            'cacheRequest' => $cacheRequest,
         ];
     }
 
