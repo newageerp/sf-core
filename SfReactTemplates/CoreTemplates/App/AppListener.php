@@ -52,8 +52,8 @@ class AppListener implements EventSubscriberInterface
 
     protected function initToolbarMenu(App $app, LoadTemplateEvent $event)
     {
-        $menuItem = new MenuItemWithLink('Support', 'https://sfslt.freshdesk.com/lt/support/home');
-        $app->getUserSpaceWrapperToolbarMenu()->addTemplate($menuItem);
+        // $menuItem = new MenuItemWithLink('Support', 'https://sfslt.freshdesk.com/lt/support/home');
+        // $app->getUserSpaceWrapperToolbarMenu()->addTemplate($menuItem);
     }
 
     public static function getSubscribedEvents()
