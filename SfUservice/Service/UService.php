@@ -395,7 +395,7 @@ class UService
             'filters' => $filters,
             // 'log' => $log,
             'cl' => $classicMode,
-            'cacheRequest' => $cacheRequest,
+            'cacheRequest' => base64_encode(json_encode($cacheRequest)),
         ];
     }
 

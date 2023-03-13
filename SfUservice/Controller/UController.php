@@ -150,6 +150,56 @@ class UController extends UControllerBase
     }
 
     /**
+     * @Route(path="/getCache", methods={"POST"})
+     * @OA\Post (operationId="NAEUCCaheList")
+     */
+    public function getCacheList(
+        Request  $request,
+        UService $uService,
+    ): Response {
+        try {
+            $request = $this->transformJsonBody($request);
+
+            $user = $this->findUser($request);
+            if (!$user) {
+                throw new Exception('Invalid user');
+            }
+            AuthService::getInstance()->setUser($user);
+
+            $schema = $request->get('schema');
+            $page = $request->get('page') ? $request->get('page') : 1;
+            $pageSize = $request->get('pageSize') ? $request->get('pageSize') : 20;
+            $fieldsToReturn = $request->get('fieldsToReturn') ? $request->get('fieldsToReturn') : ['id'];
+            $filters = $request->get('filters') ? $request->get('filters') : [];
+            $extraData = $request->get('extraData') ? $request->get('extraData') : [];
+            $sort = $request->get('sort') ? $request->get('sort') : [];
+            $totals = $request->get('totals') ? $request->get('totals') : [];
+
+            return $this->json(
+                $uService->getListDataForSchema(
+                    $schema,
+                    $page,
+                    $pageSize,
+                    $fieldsToReturn,
+                    $filters,
+                    $extraData,
+                    $sort,
+                    $totals
+                )
+            );
+        } catch (Exception $e) {
+            $response = $this->json([
+                'description' => $e->getMessage(),
+                'f' => $e->getFile(),
+                'l' => $e->getLine()
+
+            ]);
+            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+            return $response;
+        }
+    }
+
+    /**
      * @Route(path="/get/{schema}", methods={"POST"})
      * @OA\Post (operationId="NAEUList")
      */
