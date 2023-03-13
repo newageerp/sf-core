@@ -229,13 +229,20 @@ class ExportController extends UControllerBase
             $this->applyStyleToRow($sheet, $row, $this->headerStyle);
             XlsxService::autoSizeSheet($sheet);
 
+            foreach ($columns as $colIndex => $col) {
+                if (isset($col['settings']['width']) && $col['settings']['width']) {
+                    $letter = XlsxService::getLetters()[$colIndex + 1];
+                    $sheet->getColumnDimension($letter)->setWidth($col['settings']['width']);
+                }
+            }
+
             // if ($summary) {
             //     $summaryData = $uService->getGroupedListDataForSchema($schema, $filters, $sort, $summary);
 
             //     $summarySheet = $spreadsheet->createSheet(1);
             //     $summarySheet->setTitle('Summary');
 
-                
+
             // }
 
             if ($hasPivot) {
