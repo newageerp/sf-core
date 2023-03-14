@@ -293,7 +293,8 @@ export default function ListDataSource(props: Props) {
           }
         },
         filter: {
-          addBlock: addNewBlockFilter
+          addBlock: addNewBlockFilter,
+          addExtra: onAddExtraFilter,
         },
         content: {
           addExtraTbody,
