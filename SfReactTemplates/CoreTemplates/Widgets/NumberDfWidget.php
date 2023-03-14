@@ -23,7 +23,7 @@ class NumberDfWidget extends Template
     protected bool $isCompact = false;
     
 
-    public function __construct(string $childrenPath, int $elementId, string $currencyPath)
+    public function __construct(string $childrenPath, int $elementId, ?string $currencyPath = null)
     {
         $this->childrenPath = $childrenPath;
         $this->elementId = $elementId;
