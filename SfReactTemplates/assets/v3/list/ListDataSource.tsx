@@ -295,6 +295,7 @@ export default function ListDataSource(props: Props) {
         filter: {
           addBlock: addNewBlockFilter,
           addExtra: onAddExtraFilter,
+          extraFilter: dataState.extraFilter
         },
         content: {
           addExtraTbody,
