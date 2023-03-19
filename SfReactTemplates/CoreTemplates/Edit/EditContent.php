@@ -23,6 +23,8 @@ class EditContent extends Template
 
     protected ?array $requiredFields = [];
 
+    protected Placeholder $rightContent;
+
     public function __construct(string $schema, string $type, string $id, ?object $entity)
     {
         $this->schema = $schema;
@@ -31,6 +33,8 @@ class EditContent extends Template
         $this->entity = $entity;
 
         $this->formContent = new EditFormContent($schema, $type);
+
+        $this->rightContent = new Placeholder();
     }
 
     public function getTemplateData(): array
@@ -49,6 +53,7 @@ class EditContent extends Template
             'defaultViewIndex' => $this->getDefaultViewIndex(),
             'newStateOptions' => $this->getNewStateOptions(),
             'requiredFields' => $this->getRequiredFields(),
+            'rightContent' => $this->getRightContent()->toArray(),
         ];
     }
 
@@ -221,6 +226,30 @@ class EditContent extends Template
     public function setRequiredFields(?array $requiredFields): self
     {
         $this->requiredFields = $requiredFields;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of rightContent
+     *
+     * @return Placeholder
+     */
+    public function getRightContent(): Placeholder
+    {
+        return $this->rightContent;
+    }
+
+    /**
+     * Set the value of rightContent
+     *
+     * @param Placeholder $rightContent
+     *
+     * @return self
+     */
+    public function setRightContent(Placeholder $rightContent): self
+    {
+        $this->rightContent = $rightContent;
 
         return $this;
     }
