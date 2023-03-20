@@ -9,8 +9,10 @@ import { NaePathsMap } from "../../_custom/config/NaePaths";
 import { selectorBySchemaClassName, selectorBySchemaSlug } from "../../_custom/models/ormSelectors";
 
 import { MainBundle } from "@newageerp/v3.app.main-bundle";
-import { getPropertyForPath, getSchemaTitle, INaeStatus } from "../utils";
+import { getPropertyForPath, getSchemaClassNameBySchema, getSchemaTitle, INaeStatus } from "../utils";
 import { NaeSStatuses } from "../../_custom/config/NaeSStatuses";
+import { getDepenciesForField } from "../../_custom/fields/fieldDependencies";
+import { NaeSSchema } from "../../_custom/config/NaeSSchema";
 
 function App() {
     const redirectToLogin = () => {
@@ -38,7 +40,14 @@ function App() {
                 }}
                 modules={{
                     entities: {
-                        title: getSchemaTitle
+                        title: getSchemaTitle,
+                        classNameBySlug: (schema: string) => {
+                            const _schemaA = NaeSSchema.filter((s) => s.schema === schema)
+                            if (_schemaA.length > 0) {
+                                return _schemaA[0].className
+                            }
+                            return '-'
+                        },
                     },
                     enums: {
                         color: (schema: string, field: string, val: any) => {
@@ -63,7 +72,8 @@ function App() {
                         },
                     },
                     properties: {
-                        path: (p) => getPropertyForPath(p)
+                        path: (p) => getPropertyForPath(p),
+                        depenciesForField: getDepenciesForField,
                     },
                     statuses: {
                         color: (schema, field, value) => {
