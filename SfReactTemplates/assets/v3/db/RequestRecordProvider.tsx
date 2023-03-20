@@ -1,6 +1,6 @@
 import React from "react";
-import { NaeRecordProvider } from "../old-ui/OldNaeRecord";
 import { Template, TemplatesParser } from '@newageerp/v3.templates.templates-core';
+import { RecordProvider } from "@newageerp/v3.app.mvc.record-provider";
 
 interface Props {
   schema: string;
@@ -15,7 +15,7 @@ interface Props {
 
 export default function RequestRecordProvider(props: Props) {
   return (
-    <NaeRecordProvider
+    <RecordProvider
       schema={props.schema}
       viewType={props.viewType}
       id={props.id}
@@ -26,6 +26,6 @@ export default function RequestRecordProvider(props: Props) {
       }
     >
       <TemplatesParser templates={props.children} />
-    </NaeRecordProvider>
+    </RecordProvider>
   );
 }

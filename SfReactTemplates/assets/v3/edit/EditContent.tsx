@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { useHistory } from "@newageerp/v3.templates.templates-core";
+import { Template, useHistory } from "@newageerp/v3.templates.templates-core";
 import MainEdit from "./MainEdit";
 import { showSuccessNotification } from "../navigation/NavigationComponent";
 import { useTemplatesLoader } from "@newageerp/v3.templates.templates-core";
@@ -18,6 +18,8 @@ interface Props {
   newStateOptions?: any;
 
   requiredFields?: string[],
+
+  rightContent?: Template[]
 }
 
 export default function EditContent(props: Props) {
@@ -36,6 +38,7 @@ export default function EditContent(props: Props) {
         onBack={tdata.onBack}
         newStateOptions={props.newStateOptions}
         requiredFields={props.requiredFields}
+        rightContent={props.rightContent}
         onSave={(_el, backFunc) => {
           showSuccessNotification("Saved");
           if (tdata.onSaveCallback) {

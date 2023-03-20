@@ -1,6 +1,6 @@
 import React from "react";
-import { useNaeRecord } from "../old-ui/OldNaeRecord";
 import {TemplatesLoader, Template } from '@newageerp/v3.templates.templates-core';
+import { useNaeRecord } from "@newageerp/v3.app.mvc.record-provider";
 
 interface Props {
   children: Template[];

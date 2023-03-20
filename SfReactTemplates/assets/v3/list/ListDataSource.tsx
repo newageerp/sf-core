@@ -10,9 +10,9 @@ import { FilterContainer, ServerFilterItem, TypeItemFilters } from '@newageerp/v
 import { useTemplatesLoader, TemplatesLoader, Template } from '@newageerp/v3.templates.templates-core';
 import { getTabFieldsToReturn } from "../utils";
 import { SFSSocketService } from "../navigation/NavigationComponent";
-import { useUIBuilder } from "../old-ui/builder/OldUIBuilderProvider";
 import { ListDataSourceProviderContext } from "@newageerp/v3.app.list.list-data-source";
 import { useUList } from "@newageerp/v3.bundles.hooks-bundle";
+import { useUIBuilder } from "@newageerp/v3.app.mvc.ui-builder";
 
 interface Props {
   children: Template[];
@@ -91,7 +91,6 @@ export default function ListDataSource(props: Props) {
   // SELECTED ITEMS FINISH
 
   const { getTabFromSchemaAndType } = useUIBuilder();
-
 
   const [extendedSearchOptions, setExtendedSearchOptions] = useState<any[]>([]);
 

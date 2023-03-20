@@ -14,12 +14,11 @@ import {
 } from "@newageerp/v3.bundles.popup-bundle";
 import { checkIsEditable, INaeWidget, WidgetType } from "../utils";
 import OldNeWidgets from "../old-ui/OldNeWidgets";
-import { useNaeRecord } from "../old-ui/OldNaeRecord";
 import classNames from 'classnames';
 import { LogoLoader } from "@newageerp/v3.bundles.layout-bundle";
 import { NaeWidgets } from "../../_custom/widgets";
-import { useUIBuilder } from "../old-ui/builder/OldUIBuilderProvider";
 import { useTemplatesCore } from '@newageerp/v3.templates.templates-core';
+import { useNaeRecord } from "@newageerp/v3.app.mvc.record-provider";
 
 interface Props {
   schema: string;
@@ -47,8 +46,6 @@ interface Props {
 
 export default function ViewContent(props: Props) {
   const { data: tdata } = useTemplatesLoader();
-
-  const { settings } = useUIBuilder();
 
   const { t } = useTranslation();
   const {userState} = useTemplatesCore()

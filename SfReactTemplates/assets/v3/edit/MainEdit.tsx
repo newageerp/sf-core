@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react'
 
-import { useLocation } from '@newageerp/v3.templates.templates-core'
+import { Template, useLocation } from '@newageerp/v3.templates.templates-core'
 import { useTranslation } from '@newageerp/v3.templates.templates-core'
 import { TemplatesLoader, useTemplatesLoader, toast } from '@newageerp/v3.templates.templates-core';
 import { fieldVisibility, IFieldVisibility, resetFieldsToDefValues } from "../../_custom/fields/fieldVisibility";
@@ -8,10 +8,10 @@ import { OpenApi } from '@newageerp/nae-react-auth-wrapper'
 import { getElementFieldsToReturn, INaeEditSettings, WidgetType } from '../utils'
 import OldNeWidgets from '../old-ui/OldNeWidgets'
 import { getDepenciesForField } from '../../_custom/fields/fieldDependencies';
-import { useUIBuilder } from '../old-ui/builder/OldUIBuilderProvider';
 import { onEditElementUpdate } from '../../_custom/fields/onEditElementUpdate';
 import { subscribe, unsubscribe } from '@newageerp/v3.bundles.utils-bundle';
 import { FormDataSourceProviderContext } from "@newageerp/v3.app.mvc.form-data-source"
+import { useUIBuilder } from '@newageerp/v3.app.mvc.ui-builder';
 
 export interface MainEditTemplateData {
   element: any,
@@ -47,6 +47,8 @@ interface Props {
   skipRequiredCheck?: boolean,
 
   requiredFields?: string[],
+
+  rightContent?: Template[],
 }
 
 export default function MainEdit(props: Props) {
@@ -245,8 +247,6 @@ export default function MainEdit(props: Props) {
       {element ? (
         <div className={`tw3-space-y-4 tw3-max-w-[1200px] tw3-mx-auto ${props.editContainerClassName ? props.editContainerClassName : ''}`}>
 
-
-
           {element ? (
             <Fragment>
               <TemplatesLoader
@@ -254,7 +254,12 @@ export default function MainEdit(props: Props) {
                 templateData={
                   {
                     ...templateData,
-                    formDataError: saveDataParams.error
+                    formDataError: saveDataParams.error,
+                    formDataErrorContent: {
+                      templates: props.rightContent,
+                      element: element,
+                      schema: props.schema ? props.schema : '-',
+                    }
                   }
                 }
               />
@@ -264,12 +269,6 @@ export default function MainEdit(props: Props) {
             <Fragment />
           )}
 
-          <OldNeWidgets
-            type={WidgetType.editRight}
-            element={element}
-            schema={props.schema ? props.schema : '-'}
-            saveError={saveDataParams.error}
-          />
         </div>
       ) : (
         <Fragment />

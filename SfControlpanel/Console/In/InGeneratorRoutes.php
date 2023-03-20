@@ -72,18 +72,17 @@ class InGeneratorRoutes extends Command
         Utils::writeOnChanges($fileName, $generatedContent);
 
         // Custom toolbar
-        $customLayoutPath = Utils::customFolderPath('layout');
-
-        $customFileName = $customLayoutPath . '/CustomToolbarBefore.tsx';
-        if (!file_exists($customFileName)) {
-            $generatedContent = $customEmptyTemplate->render(['compName' => 'CustomToolbarBefore']);
-            Utils::writeOnChanges($customFileName, $generatedContent);
-        }
-        $customFileName = $customLayoutPath . '/CustomToolbarAfter.tsx';
-        if (!file_exists($customFileName)) {
-            $generatedContent = $customEmptyTemplate->render(['compName' => 'CustomToolbarAfter']);
-            Utils::writeOnChanges($customFileName, $generatedContent);
-        }
+        // $customLayoutPath = Utils::customFolderPath('layout');
+        // $customFileName = $customLayoutPath . '/CustomToolbarBefore.tsx';
+        // if (!file_exists($customFileName)) {
+        //     $generatedContent = $customEmptyTemplate->render(['compName' => 'CustomToolbarBefore']);
+        //     Utils::writeOnChanges($customFileName, $generatedContent);
+        // }
+        // $customFileName = $customLayoutPath . '/CustomToolbarAfter.tsx';
+        // if (!file_exists($customFileName)) {
+        //     $generatedContent = $customEmptyTemplate->render(['compName' => 'CustomToolbarAfter']);
+        //     Utils::writeOnChanges($customFileName, $generatedContent);
+        // }
 
         // CustomUserWrapperRoutes
         $fileName = $customRoutesPath . '/CustomUserWrapperRoutes.tsx';
