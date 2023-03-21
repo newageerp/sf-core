@@ -6,8 +6,6 @@ import { CustomEditComponentsMap } from "../../_custom/edit/CustomEditComponents
 import { CustomViewComponentsMap } from "../../_custom/view/CustomViewComponentsMap";
 import { CustomListComponentsMap } from "../../_custom/tabs/CustomListComponentsMap";
 
-import RequestRecordProviderInner from "../db/RequestRecordProviderInner";
-
 import { PluginsMap } from "../../../Plugins/PluginsMap";
 
 import ListDataSource from "../list/ListDataSource";
