@@ -13,7 +13,7 @@ class RequestRecordProvider extends Template
 
     protected string $id = '';
 
-    protected ?bool $showOnEmpty = null;
+    protected ?bool $showOnEmpty = true;
 
     protected ?int $defaultViewIndex = null;
 

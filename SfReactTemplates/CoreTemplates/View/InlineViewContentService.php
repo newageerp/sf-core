@@ -44,10 +44,8 @@ class InlineViewContentService
             $schema,
             $type,
         );
-        $requestRecordProviderInner = new RequestRecordProviderInner();
-        $requestRecordProviderInner->getChildren()->addTemplate($formContent);
 
-        $requestRecordProvider->getChildren()->addTemplate($requestRecordProviderInner);
+        $requestRecordProvider->getChildren()->addTemplate($formContent);
         $requestRecordProvider->setShowOnEmpty(false);
         
         $this->viewContentService->fillFormContent(

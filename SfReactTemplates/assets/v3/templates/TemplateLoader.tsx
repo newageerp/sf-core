@@ -6,7 +6,6 @@ import { CustomEditComponentsMap } from "../../_custom/edit/CustomEditComponents
 import { CustomViewComponentsMap } from "../../_custom/view/CustomViewComponentsMap";
 import { CustomListComponentsMap } from "../../_custom/tabs/CustomListComponentsMap";
 
-import RequestRecordProvider from "../db/RequestRecordProvider";
 import RequestRecordProviderInner from "../db/RequestRecordProviderInner";
 
 import { PluginsMap } from "../../../Plugins/PluginsMap";
@@ -26,6 +25,7 @@ import * as WidgetsBundle from "@newageerp/v3.bundles.widgets-bundle";
 import * as DataBundle from "@newageerp/v3.bundles.data-bundle";
 import * as AuthBundle from "@newageerp/v3.bundles.auth-bundle";
 import * as FormBundle from "@newageerp/v3.bundles.form-bundle";
+import { RecordProvider } from "@newageerp/v3.app.mvc.record-provider";
 
 export const componentsMap: any = {
   "App": AppInner,
@@ -80,8 +80,7 @@ export const componentsMap: any = {
 
   "edit.content": EditContent,
 
-  "db.request.recordprovider": RequestRecordProvider,
-  "db.request.recordprovider.inner": RequestRecordProviderInner,
+  "db.request.recordprovider": RecordProvider,
 
   'list.list-data-source': ListDataSource,
 
