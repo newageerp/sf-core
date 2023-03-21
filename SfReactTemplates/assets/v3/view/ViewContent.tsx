@@ -13,10 +13,8 @@ import {
   usePopup,
 } from "@newageerp/v3.bundles.popup-bundle";
 import { checkIsEditable, INaeWidget, WidgetType } from "../utils";
-import OldNeWidgets from "../old-ui/OldNeWidgets";
 import classNames from 'classnames';
 import { LogoLoader } from "@newageerp/v3.bundles.layout-bundle";
-import { NaeWidgets } from "../../_custom/widgets";
 import { useTemplatesCore } from '@newageerp/v3.templates.templates-core';
 import { useNaeRecord } from "@newageerp/v3.app.mvc.record-provider";
 
@@ -115,14 +113,6 @@ export default function ViewContent(props: Props) {
     }
     : undefined;
 
-  const widgets = NaeWidgets;
-
-  const middleWidgets = widgets.filter(
-    (w: INaeWidget) =>
-      w.type === WidgetType.viewMiddle &&
-      (w.schema === props.schema || w.schema === "all")
-  );
-
   const scopes = !!element && element.scopes ? element.scopes : [];
   const canShowElement =
     !!element && element.id > 0 && scopes.indexOf("disable-view") === -1;
@@ -161,12 +151,6 @@ export default function ViewContent(props: Props) {
               <TemplatesLoader
                 templates={elementToolbarLine2BeforeContent}
                 templateData={{ element: element }}
-              />
-
-              <OldNeWidgets
-                type={WidgetType.viewMainTop2LineBefore}
-                schema={props.schema}
-                element={element}
               />
             </Fragment>
           }
@@ -212,11 +196,6 @@ export default function ViewContent(props: Props) {
                     <Fragment />
                   )}
                 </WhiteCard>
-                <OldNeWidgets
-                  type={WidgetType.viewBottom}
-                  schema={props.schema}
-                  element={element}
-                />
 
                 <TemplatesLoader
                   templates={bottomContent}
@@ -228,83 +207,11 @@ export default function ViewContent(props: Props) {
                   }}
                 />
               </div>
-              {(middleWidgets.length > 0 || middleContent.length > 0) && (
-                <div style={{ width: 700, minWidth: 700, maxWidth: 700 }}>
-                  {middleContent.length > 0 && (
-                    <div className="tw3-space-y-2">
-                      <TemplatesLoader
-                        templates={middleContent}
-                        templateData={{
-                          element: element,
-                          updateElement: () => { },
-                          fieldVisibility: fieldVisibility,
-                          pushHiddenFields: () => { },
-                        }}
-                      />
-                    </div>
-                  )}
-
-                  <OldNeWidgets
-                    type={WidgetType.viewMiddle}
-                    schema={props.schema}
-                    element={element}
-                  />
-                </div>
-              )}
+              
               <div
                 className={props.layoutRightColClassName ? props.layoutRightColClassName : "tw3-w-[420px] tw3-min-w-[420px] tw3-max-w-[420px]"}
               >
                 <div className={"tw3-grid tw3-grid-cols-1 tw3-gap-1"}>
-                  <OldNeWidgets
-                    type={WidgetType.viewRightTop}
-                    schema={props.schema}
-                    element={element}
-                  />
-
-                  <OldNeWidgets
-                    type={WidgetType.viewRightButtons}
-                    schema={props.schema}
-                    element={element}
-                  />
-
-                  {/* {props.pdfButtons?.map(
-                      (btn: MvcViewPdf, pdfIndex: number) => {
-                        return (
-                          <PdfButtonsLine pdf={btn} key={'pdf-btn-' + pdfIndex} />
-                        )
-                      }
-                    )} */}
-
-                  <OldNeWidgets
-                    type={WidgetType.viewAfterPdfButton}
-                    schema={props.schema}
-                    element={element}
-                  />
-
-                  <OldNeWidgets
-                    type={WidgetType.viewAfterConvertButton}
-                    schema={props.schema}
-                    element={element}
-                  />
-
-                  <OldNeWidgets
-                    type={WidgetType.viewAfterCreateButton}
-                    schema={props.schema}
-                    element={element}
-                  />
-
-                  <OldNeWidgets
-                    type={WidgetType.viewAfterEditButton}
-                    schema={props.schema}
-                    element={element}
-                  />
-
-                  <OldNeWidgets
-                    type={WidgetType.viewRight}
-                    schema={props.schema}
-                    element={element}
-                  />
-
                   <div className="tw3-space-y-2">
                     <TemplatesLoader
                       templates={rightContent}
@@ -334,11 +241,7 @@ export default function ViewContent(props: Props) {
                 />
               </div>
             )}
-            <OldNeWidgets
-              type={WidgetType.viewExtraBottom}
-              schema={props.schema}
-              element={element}
-            />
+            
           </Fragment>
         ) : reloading ? (
           <LogoLoader />

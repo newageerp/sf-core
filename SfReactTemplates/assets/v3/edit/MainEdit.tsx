@@ -6,7 +6,6 @@ import { TemplatesLoader, useTemplatesLoader, toast } from '@newageerp/v3.templa
 import { fieldVisibility, IFieldVisibility, resetFieldsToDefValues } from "../../_custom/fields/fieldVisibility";
 import { OpenApi } from '@newageerp/nae-react-auth-wrapper'
 import { getElementFieldsToReturn, INaeEditSettings, WidgetType } from '../utils'
-import OldNeWidgets from '../old-ui/OldNeWidgets'
 import { getDepenciesForField } from '../../_custom/fields/fieldDependencies';
 import { onEditElementUpdate } from '../../_custom/fields/onEditElementUpdate';
 import { subscribe, unsubscribe } from '@newageerp/v3.bundles.utils-bundle';

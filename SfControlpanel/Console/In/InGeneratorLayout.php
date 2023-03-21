@@ -49,18 +49,18 @@ class InGeneratorLayout extends Command
             'cache' => '/tmp/smarty',
         ]);
 
-        $widgetsTemplate = $twig->load('layout/generated-widgets.html.twig');
-        $widgetComponents = [];
+        // $widgetsTemplate = $twig->load('layout/generated-widgets.html.twig');
+        // $widgetComponents = [];
 
         // WIDGETS
 
-        $fileName = Utils::generatedPath('layout') . '/GeneratedLayoutWidgets.tsx';
-        $generatedContent = $widgetsTemplate->render(
-            [
-                'components' => $widgetComponents
-            ]
-        );
-        Utils::writeOnChanges($fileName, $generatedContent);
+        // $fileName = Utils::generatedPath('layout') . '/GeneratedLayoutWidgets.tsx';
+        // $generatedContent = $widgetsTemplate->render(
+        //     [
+        //         'components' => $widgetComponents
+        //     ]
+        // );
+        // Utils::writeOnChanges($fileName, $generatedContent);
 
         // $hasBookmarks = isset($settings['apps']['bookmarks']) && $settings['apps']['bookmarks'];
         $hasFollowUp = isset($settings['apps']['followUp']) && $settings['apps']['followUp'];
@@ -78,7 +78,7 @@ class InGeneratorLayout extends Command
         //     $templates['layout/apps/follow-up/FollowUpPage.html.twig'] = ['apps/follow-up', 'FollowUpPage'];
         // }
         if ($hasNotes || $hasMails) {
-            $templates['layout/apps/eventshistory/EventsHistoryWidget.html.twig'] = ['apps/eventshistory', 'EventsHistoryWidget'];
+            // $templates['layout/apps/eventshistory/EventsHistoryWidget.html.twig'] = ['apps/eventshistory', 'EventsHistoryWidget'];
         }
         if ($hasMails) {
             // $templates['layout/apps/mails/MailsContent.html.twig'] = ['apps/mails', 'MailsContent'];
@@ -102,8 +102,8 @@ class InGeneratorLayout extends Command
             'config/fields/fieldVisibility.html.twig' => ['fields', 'fieldVisibility'],
             'config/lang/i18.html.twig' => ['lang', 'i18'],
 
-            'config/widgets/widgets/base-entity.widgets.html.twig' => ['widgets/widgets', 'base-entity.widgets'],
-            'config/widgets/index.html.twig' => ['widgets', 'index'],
+            // 'config/widgets/widgets/base-entity.widgets.html.twig' => ['widgets/widgets', 'base-entity.widgets'],
+            // 'config/widgets/index.html.twig' => ['widgets', 'index'],
         ];
         foreach ($templates as $template => $target) {
             $fileName = Utils::customFolderPath($target[0]) . '/' . $target[1] . '.tsx';
