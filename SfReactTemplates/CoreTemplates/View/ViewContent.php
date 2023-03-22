@@ -93,7 +93,7 @@ class ViewContent extends Template
 
     public function getTemplateName(): string
     {
-        return '_.AppBundle.MainViewontent';
+        return '_.AppBundle.MainViewContent';
     }
 
     /**
