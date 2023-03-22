@@ -148,6 +148,7 @@ class UService
         $groupedData = [];
         $groupedTotalData = [];
         $summaryFields = [];
+        $unique = [];
 
         foreach ($data as $result) {
             foreach ($summary as $summaryKey => $item) {
@@ -233,6 +234,13 @@ class UService
                     if ($item['type'] === 'count') {
                         $groupedData[$itemGroupBy][$groupByObj][$itemField]++;
                         $groupedTotalData[$itemGroupBy][$itemField]++;
+                    } else if ($item['type'] === 'unique') {
+                        $uniqueKey = $itemGroupBy . '_' . $groupByObj . '_' . $itemField . '_' . $fieldObj;
+                        if (!isset($unique[$uniqueKey])) {
+                            $unique[$uniqueKey] = 1;
+                            $groupedData[$itemGroupBy][$groupByObj][$itemField]++;
+                            $groupedTotalData[$itemGroupBy][$itemField]++;
+                        }
                     } else if ($item['type'] === 'hours') {
                         $groupedData[$itemGroupBy][$groupByObj][$itemField] += $fieldObj / 60;
                         $groupedTotalData[$itemGroupBy][$itemField] += $fieldObj / 60;

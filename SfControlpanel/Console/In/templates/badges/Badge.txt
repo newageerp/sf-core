@@ -3,13 +3,14 @@ import { TP_HOOK_NAME } from '../../_custom/hooks/TP_HOOK_NAME';
 import { PropsId } from '../../_custom/models-cache-data/types';
 import { DfValueView } from '@newageerp/v3.bundles.app-bundle';
 import { Badge, BadgeSize } from '@newageerp/ui.ui-bundle';
-TP_IMPORT
+import { useTemplatesCore } from '@newageerp/v3.templates.templates-core';
 
 interface Props extends PropsId {
     size?: BadgeSize | string
 }
 
 export default function TP_COMP_NAME(props: Props) {
+    const {modules} = useTemplatesCore();
     const element = TP_HOOK_NAME(props.id);
     if (!element) {
         return (<Fragment/>);

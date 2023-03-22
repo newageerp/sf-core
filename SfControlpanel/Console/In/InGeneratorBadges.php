@@ -68,14 +68,8 @@ class InGeneratorBadges extends Command
                     $pathA = explode(".", $badgeItem['config']['path']);
                     $lastPath = $pathA[count($pathA) - 1];
 
-                    $enumCompName = Utils::fixComponentName(ucfirst($property['entity']) . 'Enums');
-                    $funcName = 'get' . $enumCompName;
-                    $funcNameColors = 'get' . $enumCompName . 'Colors';
-
-                    $badgeContent = $funcName . '("' . $lastPath . '", element["' . $lastPath . '"])';
-                    $badgeVariant = $funcNameColors . '("' . $lastPath . '", element["' . $lastPath . '"])';
-
-                    $imports[] = 'import { ' . $funcName . ', ' . $funcNameColors . ' } from "../../enums/view/' . $enumCompName . '";';
+                    $badgeContent = 'modules.enums.color("'.$pathA[0].'", "' . $lastPath . '", element["' . $lastPath . '"])';
+                    $badgeVariant = 'modules.enums.title("'.$pathA[0].'", "' . $lastPath . '", element["' . $lastPath . '"])';
                 }
             }
             if (isset($badgeItem['config']['text'])) {
