@@ -59,7 +59,7 @@ class EditContent extends Template
 
     public function getTemplateName(): string
     {
-        return 'edit.content';
+        return '_.AppBundle.MainEditContent';
     }
 
     /**
