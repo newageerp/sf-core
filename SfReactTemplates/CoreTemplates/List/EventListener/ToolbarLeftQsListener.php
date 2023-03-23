@@ -54,7 +54,7 @@ class ToolbarLeftQsListener implements EventSubscriberInterface
     {
         return [
             LoadTemplateEvent::NAME => [
-                ['onTemplate', 300]
+                ['onTemplate', 900]
             ]
         ];
     }

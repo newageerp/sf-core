@@ -28,7 +28,7 @@ class ToolbarLeftReloadListener implements EventSubscriberInterface
     {
         return [
             LoadTemplateEvent::NAME => [
-                ['onTemplate', 300]
+                ['onTemplate', 800]
             ]
         ];
     }

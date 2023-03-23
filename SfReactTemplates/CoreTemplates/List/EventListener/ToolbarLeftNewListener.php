@@ -70,7 +70,7 @@ class ToolbarLeftNewListener implements EventSubscriberInterface
     {
         return [
             LoadTemplateEvent::NAME => [
-                ['onTemplate', 100]
+                ['onTemplate', 1000]
             ]
         ];
     }
