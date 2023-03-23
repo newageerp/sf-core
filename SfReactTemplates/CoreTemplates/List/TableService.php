@@ -64,6 +64,7 @@ class TableService
     public function buildListDataSourceWithToolbar(
         string $schema,
         string $type,
+        array $eventData = []
     ) {
         // toolbar
         $tab = $this->getTabsUtilsV3()->getTabBySchemaAndType(
@@ -217,6 +218,21 @@ class TableService
                 new ToolbarDetailedSearch($schema)
             );
 
+            // TEMPLATES CALL
+
+            // TOOLBAR LEFT
+            $templateEvent = new LoadTemplateEvent(
+                $listDataSource->getToolbar()->getToolbarRight(),
+                'TableService.ToolbarLeft',
+                [
+                    'schema' => $schema,
+                    'type' => $type,
+                    ...$eventData
+                ]
+            );
+            $this->eventDispatcher->dispatch($templateEvent, LoadTemplateEvent::NAME);
+
+            // TOOLBAR RIGHT
             $templateEvent = new LoadTemplateEvent(
                 $listDataSource->getToolbar()->getToolbarRight(),
                 'TableService.ToolbarRight',
