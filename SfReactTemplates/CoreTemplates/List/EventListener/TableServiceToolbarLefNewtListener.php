@@ -35,6 +35,9 @@ class TableServiceToolbarLefNewtListener implements EventSubscriberInterface
         if ($event->isTemplateForAnyEntity('TableService.ToolbarLeft')) {
             $schema = $event->getData()['schema'];
             $type = $event->getData()['type'];
+            if (isset($event->getData()['relElementId'])) {
+                return;
+            }
 
             $tab = $this->getTabsUtilsV3()->getTabBySchemaAndType(
                 $schema,

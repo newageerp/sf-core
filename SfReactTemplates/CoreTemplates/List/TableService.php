@@ -111,26 +111,6 @@ class TableService
                 }
             }
 
-            // CREATE BUTTON
-            $disableCreate = isset($tab['disableCreate']) && $tab['disableCreate'];
-            $isCreatableResult = $this->getEntitiesUtilsV3()->checkIsCreatable(
-                $schema,
-                AuthService::getInstance()->getUser()->getPermissionGroup(),
-            );
-
-            // ListCreatableEvent START
-            $listCreatableEvent = new ListCreatableEvent(
-                $schema,
-                $isCreatableResult,
-            );
-            $this->eventDispatcher->dispatch($listCreatableEvent, ListCreatableEvent::NAME);
-            $isCreatableResult = $listCreatableEvent->getIsCreatable();
-            // ListCreatableEvent FINISH
-
-            if (!$disableCreate && $isCreatableResult) {
-                $listDataSource->getToolbar()->getToolbarLeft()->addTemplate(new ToolbarNewButton($schema));
-            }
-
             // QS
             $qsFields = $this->getTabsUtilsV3()->getTabQsFields(
                 $schema,
@@ -222,7 +202,7 @@ class TableService
 
             // TOOLBAR LEFT
             $templateEvent = new LoadTemplateEvent(
-                $listDataSource->getToolbar()->getToolbarRight(),
+                $listDataSource->getToolbar()->getToolbarLeft(),
                 'TableService.ToolbarLeft',
                 [
                     'schema' => $schema,
@@ -265,6 +245,7 @@ class TableService
         $listDataSource = $this->buildListDataSourceWithToolbar(
             $schema,
             $type,
+            ['relElementId' => $elementId, 'relTargetKey' => $targetKey]
         );
         $listDataSource->setHidePageSelectionSelect(true);
         $filters = $listDataSource->getExtraFilters();
