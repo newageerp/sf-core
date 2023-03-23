@@ -246,7 +246,7 @@ class TableService
         int $elementId,
         ?int $wrapWithCard = self::NOWRAP,
     ): Template {
-        $listDataSource = $this->buildListDataSource(
+        $listDataSource = $this->buildListDataSourceWithToolbar(
             $schema,
             $type,
         );
@@ -258,55 +258,55 @@ class TableService
             ]
         ];
         $listDataSource->setExtraFilters($filters);
-        $listTable = $this->buildTableData(
-            $schema,
-            $type,
-        );
+        // $listTable = $this->buildTableData(
+        //     $schema,
+        //     $type,
+        // );
         $listDataSource->setSocketData([
             'id' => $targetKey . '.' . $schema . '.' . $type . '.rel',
             'data' => [
                 $schema . '.' . $targetKey . '.id' => $elementId,
             ]
         ]);
-        $listDataSource->getChildren()->addTemplate($listTable);
+        // $listDataSource->getChildren()->addTemplate($listTable);
 
-        $tab = $this->getTabsUtilsV3()->getTabBySchemaAndType(
-            $schema,
-            $type,
-        );
-        if ($tab) {
-            // TABS EXPORT
-            if (isset($tab['exports']) && $tab['exports']) {
-                $summary = isset($tab['summary']) ? $tab['summary'] : [];
+        // $tab = $this->getTabsUtilsV3()->getTabBySchemaAndType(
+        //     $schema,
+        //     $type,
+        // );
+        // if ($tab) {
+        //     // TABS EXPORT
+        //     if (isset($tab['exports']) && $tab['exports']) {
+        //         $summary = isset($tab['summary']) ? $tab['summary'] : [];
 
-                $listDataSource->getToolbar()->getToolbarRight()->addTemplate(
-                    new ToolbarExport($schema, $tab['exports'], $summary)
-                );
-            }
+        //         $listDataSource->getToolbar()->getToolbarRight()->addTemplate(
+        //             new ToolbarExport($schema, $tab['exports'], $summary)
+        //         );
+        //     }
 
-            // SORT
-            $sort = $this->getTabsUtilsV3()->getTabSort(
-                $schema,
-                $type,
-            );
-            if (count($sort) > 0) {
-                $listDataSource->getToolbar()->getToolbarRight()->addTemplate(
-                    new ToolbarSort($schema, $sort)
-                );
-            }
+        //     // SORT
+        //     $sort = $this->getTabsUtilsV3()->getTabSort(
+        //         $schema,
+        //         $type,
+        //     );
+        //     if (count($sort) > 0) {
+        //         $listDataSource->getToolbar()->getToolbarRight()->addTemplate(
+        //             new ToolbarSort($schema, $sort)
+        //         );
+        //     }
 
-            // DETAILED SEARCH
-            $listDataSource->getToolbar()->getToolbarRight()->addTemplate(
-                new ToolbarDetailedSearch($schema)
-            );
-        }
+        //     // DETAILED SEARCH
+        //     $listDataSource->getToolbar()->getToolbarRight()->addTemplate(
+        //         new ToolbarDetailedSearch($schema)
+        //     );
+        // }
 
-        // TOTALS
-        $totals = $this->tabsUtilsV3->getTabTotals($schema, $type);
-        if ($totals) {
-            $listTotals = new ListDataTotals($totals);
-            $listDataSource->getChildren()->addTemplate($listTotals);
-        }
+        // // TOTALS
+        // $totals = $this->tabsUtilsV3->getTabTotals($schema, $type);
+        // if ($totals) {
+        //     $listTotals = new ListDataTotals($totals);
+        //     $listDataSource->getChildren()->addTemplate($listTotals);
+        // }
 
         if ($wrapWithCard >= self::WRAPWITHCARD) {
             $whiteCard = new WhiteCard();
