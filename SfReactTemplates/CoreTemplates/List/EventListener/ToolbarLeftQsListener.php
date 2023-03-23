@@ -6,12 +6,13 @@ use Newageerp\SfAuth\Service\AuthService;
 use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 use Newageerp\SfControlpanel\Console\TabsUtilsV3;
 use Newageerp\SfReactTemplates\CoreTemplates\List\Toolbar\ToolbarNewButton;
+use Newageerp\SfReactTemplates\CoreTemplates\List\Toolbar\ToolbarQs;
 use Newageerp\SfReactTemplates\Event\ListCreatableEvent;
 use Newageerp\SfReactTemplates\Event\LoadTemplateEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class TableServiceToolbarLefNewtListener implements EventSubscriberInterface
+class ToolbarLeftQsListener implements EventSubscriberInterface
 {
 
     protected EntitiesUtilsV3 $entitiesUtilsV3;
@@ -35,33 +36,16 @@ class TableServiceToolbarLefNewtListener implements EventSubscriberInterface
         if ($event->isTemplateForAnyEntity('TableService.ToolbarLeft')) {
             $schema = $event->getData()['schema'];
             $type = $event->getData()['type'];
-            if (isset($event->getData()['relElementId'])) {
-                return;
-            }
 
-            $tab = $this->getTabsUtilsV3()->getTabBySchemaAndType(
+            // QS
+            $qsFields = $this->getTabsUtilsV3()->getTabQsFields(
                 $schema,
                 $type,
             );
-
-            // CREATE BUTTON
-            $disableCreate = isset($tab['disableCreate']) && $tab['disableCreate'];
-            $isCreatableResult = $this->getEntitiesUtilsV3()->checkIsCreatable(
-                $schema,
-                AuthService::getInstance()->getUser()->getPermissionGroup(),
-            );
-
-            // ListCreatableEvent START
-            $listCreatableEvent = new ListCreatableEvent(
-                $schema,
-                $isCreatableResult,
-            );
-            $this->eventDispatcher->dispatch($listCreatableEvent, ListCreatableEvent::NAME);
-            $isCreatableResult = $listCreatableEvent->getIsCreatable();
-            // ListCreatableEvent FINISH
-
-            if (!$disableCreate && $isCreatableResult) {
-                $event->getPlaceholder()->addTemplate(new ToolbarNewButton($schema));
+            if (count($qsFields) > 0) {
+                $event->getPlaceholder()->addTemplate(
+                    new ToolbarQs($qsFields)
+                );
             }
         }
     }
@@ -69,7 +53,9 @@ class TableServiceToolbarLefNewtListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            LoadTemplateEvent::NAME => 'onTemplate'
+            LoadTemplateEvent::NAME => [
+                ['onTemplate', 300]
+            ]
         ];
     }
 

@@ -111,16 +111,7 @@ class TableService
                 }
             }
 
-            // QS
-            $qsFields = $this->getTabsUtilsV3()->getTabQsFields(
-                $schema,
-                $type,
-            );
-            if (count($qsFields) > 0) {
-                $listDataSource->getToolbar()->getToolbarLeft()->addTemplate(
-                    new ToolbarQs($qsFields)
-                );
-            }
+            
 
             $quickFilters = $this->getTabsUtilsV3()->getTabQuickFilters(
                 $schema,
