@@ -140,7 +140,8 @@ class TableService
             [
                 'relElementId' => $elementId,
                 'relTargetKey' => $targetKey,
-                'addTitle' => ($wrapWithCard >= self::WRAPWITHCARDANDTITLE)
+                'addTitle' => ($wrapWithCard >= self::WRAPWITHCARDANDTITLE),
+                'isCompact' => true,
             ]
         );
         $listDataSource->setHidePageSelectionSelect(true);

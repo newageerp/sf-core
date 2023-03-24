@@ -19,8 +19,7 @@ class ToolbarListener implements EventSubscriberInterface
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher
-    )
-    {
+    ) {
         $this->eventDispatcher = $eventDispatcher;
     }
 
@@ -32,6 +31,9 @@ class ToolbarListener implements EventSubscriberInterface
              * @var ListDataSource $listDataSource
              */
             $listDataSource = $event->getData()['listDataSource'];
+
+            $isCompact = isset($eventData['isCompact']) ? $eventData['isCompact'] : false;
+            $listDataSource->setCompact($isCompact);
 
             // TOOLBAR LEFT
             $templateEvent = new LoadTemplateEvent(

@@ -29,6 +29,8 @@ class ListDataSource extends Template
 
     protected bool $hidePageSelectionSelect = false;
 
+    protected bool $compact = false;
+
     public function __construct(string $schema, string $type)
     {
         $this->schema = $schema;
@@ -71,6 +73,8 @@ class ListDataSource extends Template
             'totals' => $this->getTotals(),
 
             'hidePageSelectionSelect' => $this->getHidePageSelectionSelect(),
+
+            'compact' => $this->getCompact(),
         ];
     }
 
@@ -387,6 +391,30 @@ class ListDataSource extends Template
     public function setToolbarLine2(FlexRow $toolbarLine2): self
     {
         $this->toolbarLine2 = $toolbarLine2;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of compact
+     *
+     * @return bool
+     */
+    public function getCompact(): bool
+    {
+        return $this->compact;
+    }
+
+    /**
+     * Set the value of compact
+     *
+     * @param bool $compact
+     *
+     * @return self
+     */
+    public function setCompact(bool $compact): self
+    {
+        $this->compact = $compact;
 
         return $this;
     }
