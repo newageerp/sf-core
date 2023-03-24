@@ -129,7 +129,9 @@ class TableService
                 $listDataSource->getToolbar()->getToolbarRight(),
                 'TableService.ToolbarRight',
                 [
-                    'schema' => $schema
+                    'schema' => $schema,
+                    'type' => $type,
+                    ...$eventData
                 ]
             );
             $this->eventDispatcher->dispatch($templateEvent, LoadTemplateEvent::NAME);
@@ -138,7 +140,9 @@ class TableService
                 $listDataSource->getToolbar()->getToolbarRight(),
                 'TableService.ToolbarRight.' . $schema,
                 [
-                    'schema' => $schema
+                    'schema' => $schema,
+                    'type' => $type,
+                    ...$eventData
                 ]
             );
             $this->eventDispatcher->dispatch($templateEvent, LoadTemplateEvent::NAME);
