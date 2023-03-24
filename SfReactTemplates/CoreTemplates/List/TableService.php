@@ -114,7 +114,10 @@ class TableService
             $templateEvent = new LoadTemplateEvent(
                 new Placeholder(),
                 'TableService.Toolbar',
-                $eventData
+                [
+                    'listDataSource' => $listDataSource,
+                    ...$eventData,
+                ]
             );
             $this->eventDispatcher->dispatch($templateEvent, LoadTemplateEvent::NAME);
         }
