@@ -207,7 +207,6 @@ class TableService
                 $whiteCard->setIsCompact(true);
             }
             if ($wrapWithCard >= self::WRAPWITHCARDANDTITLE) {
-                $whiteCard->setTitle($this->getEntitiesUtilsV3()->getTitlePluralBySlug($schema));
                 if ($wrapWithCard === self::WRAPWITHCARDANDTITLECOMPACT) {
                     $whiteCard->setIsCompact(true);
                 }
