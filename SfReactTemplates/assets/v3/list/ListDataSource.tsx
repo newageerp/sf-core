@@ -1,8 +1,4 @@
 import React, { useEffect, useState, useRef, Fragment, ReactNode } from "react";
-import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
-import {
-  PageContainer,
-} from "@newageerp/ui.ui-bundle";
 import { SortingItem } from "@newageerp/ui.ui-bundle";
 import { useLocationState } from "use-location-state";
 
@@ -13,6 +9,7 @@ import { SFSSocketService } from "../navigation/NavigationComponent";
 import { ListDataSourceProviderContext } from "@newageerp/v3.app.list.list-data-source";
 import { useUList } from "@newageerp/v3.bundles.hooks-bundle";
 import { useUIBuilder } from "@newageerp/v3.app.mvc.ui-builder";
+import { Pagination } from "@newageerp/v3.bundles.layout-bundle";
 
 interface Props {
   children: Template[];
@@ -37,6 +34,8 @@ interface Props {
   toolbarLine2: Template[],
 
   hidePageSelectionSelect?: boolean,
+
+  compact: boolean,
 }
 
 export default function ListDataSource(props: Props) {
@@ -289,18 +288,32 @@ export default function ListDataSource(props: Props) {
           },
           cache: {
             token: dataResult.data.cacheRequest,
-          }
+          },
+          values: dataToRender,
+          totals: dataTotals,
         },
         filter: {
           addBlock: addNewBlockFilter,
           addExtra: onAddExtraFilter,
-          extraFilter: dataState.extraFilter
+          extraFilter: dataState.extraFilter,
+          form: {
+            value: showExtendedSearch,
+            onChange: setShowExtendedSearch,
+            properties: {
+              value: extendedSearchOptions,
+              onChange: setExtendedSearchOptions,
+            }
+          },
+          prepare: prepareFilter
         },
         content: {
           addExtraTbody,
           addExtraThead,
           extraTbody,
           extraThead,
+        },
+        ui: {
+          compact: props.compact
         }
       }}>
       {((!!props.toolbar && props.toolbar.length > 0) || (!!props.toolbarLine2 && props.toolbarLine2.length > 0)) &&
@@ -312,26 +325,13 @@ export default function ListDataSource(props: Props) {
                 defaults: {
                   quickSearch: dataState?.extraFilter?.__qs?._,
                 },
-                onAddExtraFilter,
                 sort: {
                   value: dataState?.sort,
                   onChange: setSort,
                 },
                 filter: {
                   extraFilter: dataState?.extraFilter,
-                  prepareFilter,
                 },
-                extendedSearch: {
-                  value: showExtendedSearch,
-                  onChange: setShowExtendedSearch,
-                  properties: {
-                    value: extendedSearchOptions,
-                    onChange: setExtendedSearchOptions,
-                  }
-
-                },
-                reloadData: loadData,
-                reloading: dataResult.loading,
               }
             }
           />
@@ -345,25 +345,13 @@ export default function ListDataSource(props: Props) {
                   defaults: {
                     quickSearch: dataState?.extraFilter?.__qs?._,
                   },
-                  onAddExtraFilter,
                   sort: {
                     value: dataState?.sort,
                     onChange: setSort,
                   },
                   filter: {
                     extraFilter: dataState?.extraFilter,
-                    prepareFilter,
                   },
-                  extendedSearch: {
-                    value: showExtendedSearch,
-                    onChange: setShowExtendedSearch,
-                    properties: {
-                      value: extendedSearchOptions,
-                      onChange: setExtendedSearchOptions,
-                    }
-
-                  },
-                  reloadData: loadData
                 }
               }
             />
@@ -386,17 +374,13 @@ export default function ListDataSource(props: Props) {
           <TemplatesLoader
             templates={props.children}
             templateData={{
-              addNewBlockFilter: addNewBlockFilter,
-              dataToRender: dataToRender,
               filter: {
-                prepareFilter,
                 extraFilter: dataState?.extraFilter,
               },
               sort: dataState?.sort,
-              dataTotals,
               pagingContainer: <Fragment>
                 {!props.hidePaging && pages > 1 && (
-                  <PageContainer
+                  <Pagination
                     pages={pages}
                     activePage={dataState.page}
                     setActivePage={setActivePage}

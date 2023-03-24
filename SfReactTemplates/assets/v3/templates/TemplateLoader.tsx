@@ -1,6 +1,4 @@
 import React from "react";
-import ViewContent from "../view/ViewContent";
-import EditContent from "../edit/EditContent";
 
 import { CustomEditComponentsMap } from "../../_custom/edit/CustomEditComponentsMap";
 import { CustomViewComponentsMap } from "../../_custom/view/CustomViewComponentsMap";
@@ -23,10 +21,17 @@ import * as WidgetsBundle from "@newageerp/v3.bundles.widgets-bundle";
 import * as DataBundle from "@newageerp/v3.bundles.data-bundle";
 import * as AuthBundle from "@newageerp/v3.bundles.auth-bundle";
 import * as FormBundle from "@newageerp/v3.bundles.form-bundle";
+
+import * as TypographyBundle from "@newageerp/v3.bundles.typography-bundle";
+
 import { RecordProvider } from "@newageerp/v3.app.mvc.record-provider";
 
 export const componentsMap: any = {
   "App": AppInner,
+  "TypographyBundle": (comp: string) => {
+    // @ts-ignore
+    return TypographyBundle[comp];
+  },
   "ButtonsBundle": (comp: string) => {
     // @ts-ignore
     return ButtonsBundle[comp];
@@ -74,9 +79,6 @@ export const componentsMap: any = {
     return AuthBundle[comp];
   },
 
-  "view.content": ViewContent,
-
-  "edit.content": EditContent,
 
   "db.request.recordprovider": RecordProvider,
 

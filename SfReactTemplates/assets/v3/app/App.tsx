@@ -13,6 +13,8 @@ import { getPropertyForPath, getSchemaClassNameBySchema, getSchemaTitle, INaeSta
 import { NaeSStatuses } from "../../_custom/config/NaeSStatuses";
 import { getDepenciesForField } from "../../_custom/fields/fieldDependencies";
 import { NaeSSchema } from "../../_custom/config/NaeSSchema";
+import { onEditElementUpdate } from "../../_custom/fields/onEditElementUpdate";
+import { fieldVisibility, resetFieldsToDefValues } from "../../_custom/fields/fieldVisibility";
 
 function App() {
     const redirectToLogin = () => {
@@ -74,6 +76,9 @@ function App() {
                     properties: {
                         path: (p) => getPropertyForPath(p),
                         depenciesForField: getDepenciesForField,
+                        onUpdate: onEditElementUpdate,
+                        resetToDefaults: resetFieldsToDefValues,
+                        visibility: fieldVisibility,
                     },
                     statuses: {
                         color: (schema, field, value) => {

@@ -3,66 +3,6 @@ import { NaeSSchema } from "../_custom/config/NaeSSchema";
 import { NaeSStatuses } from "../_custom/config/NaeSStatuses";
 
 
-export enum WidgetType {
-  viewMainTop = 'viewMainTop',
-
-  viewMainTop2LineBefore = 'viewMainTop2LineBefore',
-
-  editRight = 'editRight',
-  viewBottom = 'mainBottom',
-  viewMiddle = 'mainMiddle',
-  viewRightTop = 'mainRightTop',
-  viewRight = 'mainRight',
-  viewExtraBottom = 'viewExtraBottom',
-  viewRightButtons = 'mainRightButtons',
-  viewAfterPdfButton = 'mainAfterPdfButton',
-  viewAfterConvertButton = 'mainAfterConvertButton',
-  viewAfterCreateButton = 'viewAfterCreateButton',
-  viewAfterEditButton = 'mainAfterEditButton',
-  skip = 'skip',
-  listAfterTable = 'listAfterTable',
-}
-
-
-export const filterScopes = (
-  element: any,
-  userState: any,
-  scopesToCheck: any,
-) => {
-  if (!element) {
-    return true;
-  }
-  if (!scopesToCheck) {
-    return true;
-  }
-  let isShow = true;
-  const hideScopes = scopesToCheck.hideScopes ? scopesToCheck.hideScopes : [];
-  const showScopes = scopesToCheck.showScopes ? scopesToCheck.showScopes : [];
-  const elementScopes = [
-    ...(element.scopes ? element.scopes : []),
-    ...userState.scopes,
-  ];
-
-  if (showScopes.length > 0) {
-    const intersections = elementScopes.filter(function (n: string) {
-      return showScopes.indexOf(n) !== -1;
-    });
-    isShow = intersections.length > 0;
-    // console.log({ intersections });
-  }
-  if (hideScopes.length > 0) {
-    const intersections = elementScopes.filter(function (n: string) {
-      return hideScopes.indexOf(n) !== -1;
-    });
-
-    if (intersections.length > 0) {
-      isShow = false;
-    }
-  }
-  return isShow;
-};
-
-
 export const getTabFieldsToReturn = (tab: INaeTab | null) => {
   let fieldsToReturn: string[] = ["scopes", "_viewTitle"];
   if (!!tab && tab.fields) {
@@ -93,36 +33,6 @@ export const getSchemaTitle = (_schema: string, plural: boolean) => {
   })
   return title
 }
-
-export interface INaeWidget {
-  schema: string
-  type: WidgetType | string
-  comp: any
-  options: any
-  sort: number
-  hideScopes?: string[]
-  showScopes?: string[]
-}
-export interface WidgetProps {
-  type: WidgetType
-  schema?: string
-  element: any
-  saveError?: any
-  userState?: any
-  extraOptions?: any
-}
-export interface ContentWidgetProps {
-  schema: string
-  element: any
-  options: any
-  userState?: any
-  type?: WidgetType
-  saveError?: any
-}
-
-
-
-
 
 export const getPropertyTitleForSchema = (_schema: string, key: string) => {
   const data = getPropertyDataForSchema(_schema, key)
@@ -584,51 +494,6 @@ export enum TableSize {
   lg = 'lg'
 }
 
-
-
-export const getTextAlignForProperty = (
-  property: any,
-  isLink?: boolean
-) => {
-  const isNumber =
-    (property.type === 'number' && property.format === 'float') ||
-    (property.type === 'integer' && !property.enum)
-  const isBoolean = property.type === 'bool' || property.type === 'boolean'
-  const isDate = property.type === 'string' && property.format === 'date'
-
-  if (isLink) {
-    return 'tw3-text-left'
-  } else if (property.as && property.as === 'status') {
-    return 'tw3-text-left'
-  } else if (isDate) {
-    return 'tw3-text-center'
-  } else if (isNumber) {
-    return 'tw3-text-right'
-  } else {
-    return 'tw3-text-left'
-  }
-}
-
-export const checkIsEditable = (scopes: any, userState: any) => {
-  if (!scopes) {
-    return true;
-  }
-
-  if (scopes.indexOf('disable-edit') >= 0) {
-    return false
-  }
-  if (scopes.indexOf('disable-edit-' + userState.permissionGroup) >= 0) {
-    return false
-  }
-  let isAllowScope = scopes.filter((s: string) => s.indexOf('allow-edit') >= 0).length > 0;
-  if (isAllowScope) {
-    if (scopes.indexOf('allow-edit-' + userState.permissionGroup) >= 0) {
-      return true
-    }
-    return false;
-  }
-  return true
-}
 
 export const defTableSort = {
     key: 'i.id',
