@@ -111,39 +111,10 @@ class TableService
                 }
             }
             // TEMPLATES CALL
-
-            // TOOLBAR LEFT
             $templateEvent = new LoadTemplateEvent(
-                $listDataSource->getToolbar()->getToolbarLeft(),
-                'TableService.ToolbarLeft',
-                [
-                    'schema' => $schema,
-                    'type' => $type,
-                    ...$eventData
-                ]
-            );
-            $this->eventDispatcher->dispatch($templateEvent, LoadTemplateEvent::NAME);
-
-            // TOOLBAR RIGHT
-            $templateEvent = new LoadTemplateEvent(
-                $listDataSource->getToolbar()->getToolbarRight(),
-                'TableService.ToolbarRight',
-                [
-                    'schema' => $schema,
-                    'type' => $type,
-                    ...$eventData
-                ]
-            );
-            $this->eventDispatcher->dispatch($templateEvent, LoadTemplateEvent::NAME);
-
-            $templateEvent = new LoadTemplateEvent(
-                $listDataSource->getToolbar()->getToolbarRight(),
-                'TableService.ToolbarRight.' . $schema,
-                [
-                    'schema' => $schema,
-                    'type' => $type,
-                    ...$eventData
-                ]
+                new Placeholder(),
+                'TableService.Toolbar',
+                $eventData
             );
             $this->eventDispatcher->dispatch($templateEvent, LoadTemplateEvent::NAME);
         }
@@ -161,7 +132,11 @@ class TableService
         $listDataSource = $this->buildListDataSourceWithToolbar(
             $schema,
             $type,
-            ['relElementId' => $elementId, 'relTargetKey' => $targetKey]
+            [
+                'relElementId' => $elementId,
+                'relTargetKey' => $targetKey,
+                'addTitle' => ($wrapWithCard >= self::WRAPWITHCARDANDTITLE);
+            ]
         );
         $listDataSource->setHidePageSelectionSelect(true);
         $filters = $listDataSource->getExtraFilters();
