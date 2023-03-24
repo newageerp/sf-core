@@ -31,7 +31,7 @@ class ToolbarListener implements EventSubscriberInterface
             /**
              * @var ListDataSource $listDataSource
              */
-            $listDataSource = $event->getData()[['listDataSource']];
+            $listDataSource = $event->getData()['listDataSource'];
 
             // TOOLBAR LEFT
             $templateEvent = new LoadTemplateEvent(
