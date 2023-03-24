@@ -115,6 +115,8 @@ class TableService
                 new Placeholder(),
                 'TableService.Toolbar',
                 [
+                    'schema' => $schema,
+                    'type' => $type,
                     'listDataSource' => $listDataSource,
                     ...$eventData,
                 ]
