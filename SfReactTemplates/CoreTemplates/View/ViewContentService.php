@@ -76,7 +76,7 @@ class ViewContentService
                 $classNames = ['tw3-gap-2'];
                 if (isset($viewForm['lineClasses'])) {
                     foreach ($viewForm['lineClasses'] as $lineClass) {
-                        if ($lineClass['key'] === $lineGroup) {
+                        if ($lineClass['lineKey'] === $lineGroup) {
                             $classNames[] = $lineClass['className'];
                         }
                     }
