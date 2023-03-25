@@ -68,11 +68,19 @@ class ViewDfContentService
             $groupedFields[$lineGroup][] = $field;
         }
 
-        foreach ($groupedFields as $fields) {
+        foreach ($groupedFields as $lineGroup => $fields) {
             $flexRow = null;
             if (count($fields) > 1) {
                 $flexRow = new FlexRow();
-                $flexRow->setClassName('tw3-gap-2');
+                $classNames = ['tw3-gap-2'];
+                if (isset($viewForm['lineClasses'])) {
+                    foreach ($viewForm['lineClasses'] as $lineClass) {
+                        if ($lineClass['lineKey'] === $lineGroup) {
+                            $classNames[] = $lineClass['className'];
+                        }
+                    }
+                }
+                $flexRow->setClassName(implode(", ", $classNames));
             }
 
             foreach ($fields as $fieldIndex => $field) {
