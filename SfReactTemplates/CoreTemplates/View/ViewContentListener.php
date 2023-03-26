@@ -69,7 +69,8 @@ class ViewContentListener implements EventSubscriberInterface
             $requestRecordProvider->getChildren()->addTemplate($viewContent);
 
             $isPopup = isset($event->getData()['isPopup']) && $event->getData()['isPopup'];
-            $isCompact = isset($event->getData()['isCompact']) && $event->getData()['isCompact'];
+            $isCompact = (isset($event->getData()['isCompact']) && $event->getData()['isCompact'])
+                || $event->getData()['_isMobile'];
 
             $widgetTemplateEvents = [
                 self::MAINVIEWWIDGETRIGHT => $viewContent->getRightContent(),

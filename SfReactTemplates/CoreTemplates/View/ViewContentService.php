@@ -52,8 +52,12 @@ class ViewContentService
         $this->propertiesUtilsV3 = $propertiesUtilsV3;
     }
 
-    public function fillFormContent(string $schema, string $type, ViewFormContent $roContent, bool $isCompact = false)
-    {
+    public function fillFormContent(
+        string $schema,
+        string $type,
+        ViewFormContent $roContent,
+        bool $isCompact = false
+    ) {
         $editableForm = new Wide();
         $editableForm->setClassName('tw3-text-sm');
 
@@ -239,7 +243,7 @@ class ViewContentService
                             }
                             if ($naeType === 'file') {
                                 $labelClassName = isset($field['labelClassName']) ? $field['labelClassName'] : '';
-                                
+
                                 $f = new FileRoField($pathArray[1]);
                                 $f->setShort(mb_strpos($labelClassName, 'short') !== false);
                                 $wideRow->getControlContent()->addTemplate($f);

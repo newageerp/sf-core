@@ -70,8 +70,12 @@ class EditContentService
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    public function fillFormContent(string $schema, string $type, EditFormContent $editContent, bool $isCompact = false)
-    {
+    public function fillFormContent(
+        string $schema,
+        string $type,
+        EditFormContent $editContent,
+        bool $isCompact = false
+    ) {
 
         $requiredFields = [];
 
