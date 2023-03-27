@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { UserHeader } from "@newageerp/v3.bundles.app-bundle";
 import { TemplatesParser, useTemplatesLoader } from '@newageerp/v3.templates.templates-core';
 import DataCacheSocketComponent from "../../../_custom/hooks/DataCacheSocketComponent";
-import { MainPage } from "@newageerp/v3.bundles.layout-bundle";
+import { MainPage } from "@newageerp/v3.layout.pages.main-page";
 
 interface Props {
   children?: any;

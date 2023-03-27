@@ -369,7 +369,7 @@ export default function ListDataSource(props: Props) {
         />
       )}
 
-      <div>
+      <div className="md:tw3-overflow-visible tw3-overflow-x-auto">
         <div style={{ margin: "0 -0.5rem" }}>
           <TemplatesLoader
             templates={props.children}
