@@ -12,6 +12,7 @@
     "doctrine/orm": "^2",
     "doctrine/collections": "2.1.2",
     "nelmio/api-doc-bundle": "4.10.2",
+    "nelmio/cors-bundle": "2.1",
     "symfony/framework-bundle": "5.4.*",
     "firebase/php-jwt": "^5.4",
     "doctrine/annotations": "^1.13",
