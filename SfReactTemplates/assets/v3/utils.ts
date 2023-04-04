@@ -219,7 +219,7 @@ export const getElementFieldsToReturn = (
     'id',
     'creator.fullName',
     'doer.fullName',
-    'createtAt',
+    'createdAt',
     'updatedAt',
     'scopes',
     'pdfFileName',

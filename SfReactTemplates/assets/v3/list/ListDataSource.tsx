@@ -385,6 +385,7 @@ export default function ListDataSource(props: Props) {
                     activePage={dataState.page}
                     setActivePage={setActivePage}
                     hidePageSelectionSelect={props.hidePageSelectionSelect}
+                    records={dataResult.data.records}
                   // marginTop={PageContainerMarginTop[]}
                   />
                 )}

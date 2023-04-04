@@ -198,6 +198,21 @@ class ConfigPropertiesController extends ConfigBaseController
 
 
         $rels = $this->relPropertiesForFilter($schema, $propertiesUtilsV3);
+        $this->parseRels($rels, $propertiesUtilsV3, $output);
+
+        $rels = $this->arrayPropertiesForFilter($schema, $propertiesUtilsV3);
+        $this->parseRels($rels, $propertiesUtilsV3, $output);
+
+        // ListCreatableEvent START
+        $filterPropertiesEvent = new FilterPropertiesEvent($output);
+        $this->getEventDispatcher()->dispatch($filterPropertiesEvent, FilterPropertiesEvent::NAME);
+        $output = $filterPropertiesEvent->getFields();
+        // ListCreatableEvent FINISH
+
+        return $this->json(['data' => $output]);
+    }
+
+    protected function parseRels(array $rels, PropertiesUtilsV3 $propertiesUtilsV3, array &$output) {
         foreach ($rels as $relProperty) {
             $relSchemaProperties = $this->schemaPropertiesForFilter($relProperty['typeFormat'], $propertiesUtilsV3);
 
@@ -220,14 +235,6 @@ class ConfigPropertiesController extends ConfigBaseController
                 ];
             }
         }
-
-        // ListCreatableEvent START
-        $filterPropertiesEvent = new FilterPropertiesEvent($output);
-        $this->getEventDispatcher()->dispatch($filterPropertiesEvent, FilterPropertiesEvent::NAME);
-        $output = $filterPropertiesEvent->getFields();
-        // ListCreatableEvent FINISH
-
-        return $this->json(['data' => $output]);
     }
 
     /**
@@ -353,6 +360,18 @@ class ConfigPropertiesController extends ConfigBaseController
             $propertiesUtilsV3->getPropertiesForEntitySlugValues($schema),
             function ($property) {
                 return $property['type'] == 'rel';
+            }
+        );
+
+        return $schemaProperties;
+    }
+
+    protected function arrayPropertiesForFilter(string $schema, PropertiesUtilsV3 $propertiesUtilsV3)
+    {
+        $schemaProperties = array_filter(
+            $propertiesUtilsV3->getPropertiesForEntitySlugValues($schema),
+            function ($property) {
+                return $property['type'] == 'array';
             }
         );
 
