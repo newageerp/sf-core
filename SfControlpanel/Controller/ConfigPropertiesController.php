@@ -214,14 +214,16 @@ class ConfigPropertiesController extends ConfigBaseController
         return $this->json(['data' => $output]);
     }
 
-    protected function getRelsForSchema(string $schema, PropertiesUtilsV3 $propertiesUtilsV3) {
+    protected function getRelsForSchema(string $schema, PropertiesUtilsV3 $propertiesUtilsV3)
+    {
         $relsRel = $this->relPropertiesForFilter($schema, $propertiesUtilsV3);
         $relsArray = $this->arrayPropertiesForFilter($schema, $propertiesUtilsV3);
         $rels = array_merge($relsRel, $relsArray);
         return $rels;
     }
 
-    protected function parseRels(array $rels, PropertiesUtilsV3 $propertiesUtilsV3, array &$output) {
+    protected function parseRels(array $rels, PropertiesUtilsV3 $propertiesUtilsV3, array &$output, string $extraTitle = '')
+    {
         foreach ($rels as $relProperty) {
             $relSchemaProperties = $this->schemaPropertiesForFilter($relProperty['typeFormat'], $propertiesUtilsV3);
 
@@ -229,6 +231,7 @@ class ConfigPropertiesController extends ConfigBaseController
             foreach ($relSchemaProperties as $relSchemaProperty) {
                 $key = explode(".", $relSchemaProperty['id']);
                 $title = $relSchemaProperty['title'];
+                
                 $relProperties[] = [
                     'id' => 'i.' . $relProperty['key'] . '.' . $key[1],
                     'title' => $title,
@@ -236,9 +239,13 @@ class ConfigPropertiesController extends ConfigBaseController
             }
 
             if ($relProperty['title']) {
+                $relTitle = $relProperty['title'];
+                if ($extraTitle) {
+                    $relTitle = $extraTitle . ' - ' . $relProperty['title'];
+                }
                 $output[] = [
                     'id' => 'rel-' . $relProperty['typeFormat'],
-                    'title' => $relProperty['title'],
+                    'title' => $relTitle,
                     'isActive' => false,
                     'items' => array_values($relProperties)
                 ];
