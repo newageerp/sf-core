@@ -196,6 +196,7 @@ class ConfigPropertiesController extends ConfigBaseController
             'items' => array_values($mainProperties),
         ];
 
+        $blacklist = [$schema];
 
         $rels = $this->getRelsForSchema($schema, $propertiesUtilsV3);
         $this->parseRels($rels, $propertiesUtilsV3, $output, '      ');
@@ -203,12 +204,12 @@ class ConfigPropertiesController extends ConfigBaseController
         foreach ($rels as $rel) {
             if ($rel['title']) {
                 $relsRel = $this->getRelsForSchema($rel['typeFormat'], $propertiesUtilsV3);
-                $this->parseRels($relsRel, $propertiesUtilsV3, $output, '      '.$rel['title']);
+                $this->parseRels($relsRel, $propertiesUtilsV3, $output, '      ' . $rel['title'] . '      -      ');
 
                 foreach ($relsRel as $rel2) {
                     if ($rel2['title']) {
                         $relsRel2 = $this->getRelsForSchema($rel2['typeFormat'], $propertiesUtilsV3);
-                        $this->parseRels($relsRel2, $propertiesUtilsV3, $output, '      '.$rel['title'].'      '.$rel2['title']);
+                        $this->parseRels($relsRel2, $propertiesUtilsV3, $output, '      ' . $rel['title'] . '      -      ' . $rel2['title'] . '      -      ');
                     }
                 }
             }
@@ -250,7 +251,7 @@ class ConfigPropertiesController extends ConfigBaseController
             if ($relProperty['title']) {
                 $relTitle = $relProperty['title'];
                 if ($extraTitle) {
-                    $relTitle = $extraTitle . '      -      ' . $relProperty['title'];
+                    $relTitle = $extraTitle . $relProperty['title'];
                 }
                 $output[] = [
                     'id' => 'rel-' . $relProperty['typeFormat'],
