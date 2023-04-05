@@ -201,8 +201,10 @@ class ConfigPropertiesController extends ConfigBaseController
         $this->parseRels($rels, $propertiesUtilsV3, $output);
 
         foreach ($rels as $rel) {
-            $relsRel = $this->getRelsForSchema($rel['typeFormat'], $propertiesUtilsV3);
-            $this->parseRels($relsRel, $propertiesUtilsV3, $output);
+            if ($rel['title']) {
+                $relsRel = $this->getRelsForSchema($rel['typeFormat'], $propertiesUtilsV3);
+                $this->parseRels($relsRel, $propertiesUtilsV3, $output, $rel['title']);
+            }
         }
 
         // ListCreatableEvent START
@@ -231,7 +233,7 @@ class ConfigPropertiesController extends ConfigBaseController
             foreach ($relSchemaProperties as $relSchemaProperty) {
                 $key = explode(".", $relSchemaProperty['id']);
                 $title = $relSchemaProperty['title'];
-                
+
                 $relProperties[] = [
                     'id' => 'i.' . $relProperty['key'] . '.' . $key[1],
                     'title' => $title,
