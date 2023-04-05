@@ -199,17 +199,17 @@ class ConfigPropertiesController extends ConfigBaseController
         $blacklist = [$schema];
 
         $rels = $this->getRelsForSchema($schema, $propertiesUtilsV3);
-        $this->parseRels($rels, $propertiesUtilsV3, $output, '      ');
+        $this->parseRels($rels, $propertiesUtilsV3, $output, '      ', 'i.');
 
         foreach ($rels as $rel) {
             if ($rel['title'] && mb_strpos($rel['title'], 'Get the value of') === false) {
                 $relsRel = $this->getRelsForSchema($rel['typeFormat'], $propertiesUtilsV3);
-                $this->parseRels($relsRel, $propertiesUtilsV3, $output, '      ' . $rel['title'] . '      -      ');
+                $this->parseRels($relsRel, $propertiesUtilsV3, $output, '      ' . $rel['title'] . '      -      ', 'i.' . $rel['key'] . '.');
 
                 foreach ($relsRel as $rel2) {
-                    if ($rel2['title'] && !in_array($rel2['typeFormat'], $blacklist) && mb_strpos($rel2['title'], 'Get the value of') === false) {
+                    if ($rel2['title'] && !in_array($rel['typeFormat'], $blacklist) && mb_strpos($rel2['title'], 'Get the value of') === false) {
                         $relsRel2 = $this->getRelsForSchema($rel2['typeFormat'], $propertiesUtilsV3);
-                        $this->parseRels($relsRel2, $propertiesUtilsV3, $output, '      ' . $rel['title'] . '      -      ' . $rel2['title'] . '      -      ');
+                        $this->parseRels($relsRel2, $propertiesUtilsV3, $output, '      ' . $rel['title'] . '      -      ' . $rel2['title'] . '      -      ', 'i.' . $rel['key'] . '.' . $rel2['key'] . '.');
                     }
                 }
             }
@@ -232,7 +232,7 @@ class ConfigPropertiesController extends ConfigBaseController
         return $rels;
     }
 
-    protected function parseRels(array $rels, PropertiesUtilsV3 $propertiesUtilsV3, array &$output, string $extraTitle = '')
+    protected function parseRels(array $rels, PropertiesUtilsV3 $propertiesUtilsV3, array &$output, string $extraTitle = '', string $extraKey = '')
     {
         foreach ($rels as $k => $relProperty) {
             $relSchemaProperties = $this->schemaPropertiesForFilter($relProperty['typeFormat'], $propertiesUtilsV3);
@@ -243,7 +243,7 @@ class ConfigPropertiesController extends ConfigBaseController
                 $title = $relSchemaProperty['title'];
 
                 $relProperties[] = [
-                    'id' => 'i.' . $relProperty['key'] . '.' . $key[1],
+                    'id' => $extraKey . $relProperty['key'] . '.' . $key[1],
                     'title' => $title,
                 ];
             }
