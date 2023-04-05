@@ -198,12 +198,12 @@ class ConfigPropertiesController extends ConfigBaseController
 
 
         $rels = $this->getRelsForSchema($schema, $propertiesUtilsV3);
-        $this->parseRels($rels, $propertiesUtilsV3, $output);
+        $this->parseRels($rels, $propertiesUtilsV3, $output, '      ');
 
         foreach ($rels as $rel) {
             if ($rel['title']) {
                 $relsRel = $this->getRelsForSchema($rel['typeFormat'], $propertiesUtilsV3);
-                $this->parseRels($relsRel, $propertiesUtilsV3, $output, $rel['title']);
+                $this->parseRels($relsRel, $propertiesUtilsV3, $output, '      '.$rel['title']);
             }
         }
 
@@ -243,7 +243,7 @@ class ConfigPropertiesController extends ConfigBaseController
             if ($relProperty['title']) {
                 $relTitle = $relProperty['title'];
                 if ($extraTitle) {
-                    $relTitle = $extraTitle . ' - ' . $relProperty['title'];
+                    $relTitle = $extraTitle . '      -      ' . $relProperty['title'];
                 }
                 $output[] = [
                     'id' => 'rel-' . $relProperty['typeFormat'],
