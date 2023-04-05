@@ -207,7 +207,7 @@ class ConfigPropertiesController extends ConfigBaseController
                 $this->parseRels($relsRel, $propertiesUtilsV3, $output, '      ' . $rel['title'] . '      -      ');
 
                 foreach ($relsRel as $rel2) {
-                    if ($rel2['title']) {
+                    if ($rel2['title'] && !in_array($rel2['typeFormat'], $blacklist)) {
                         $relsRel2 = $this->getRelsForSchema($rel2['typeFormat'], $propertiesUtilsV3);
                         $this->parseRels($relsRel2, $propertiesUtilsV3, $output, '      ' . $rel['title'] . '      -      ' . $rel2['title'] . '      -      ');
                     }
@@ -234,7 +234,7 @@ class ConfigPropertiesController extends ConfigBaseController
 
     protected function parseRels(array $rels, PropertiesUtilsV3 $propertiesUtilsV3, array &$output, string $extraTitle = '')
     {
-        foreach ($rels as $relProperty) {
+        foreach ($rels as $k => $relProperty) {
             $relSchemaProperties = $this->schemaPropertiesForFilter($relProperty['typeFormat'], $propertiesUtilsV3);
 
             $relProperties = [];
@@ -254,7 +254,7 @@ class ConfigPropertiesController extends ConfigBaseController
                     $relTitle = $extraTitle . $relProperty['title'];
                 }
                 $output[] = [
-                    'id' => 'rel-' . $relProperty['typeFormat'],
+                    'id' => 'rel-' . $relProperty['typeFormat'] . '-' . $k . '-' . md5($extraTitle),
                     'title' => $relTitle,
                     'isActive' => false,
                     'items' => array_values($relProperties)
