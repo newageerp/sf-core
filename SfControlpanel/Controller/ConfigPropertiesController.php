@@ -197,10 +197,13 @@ class ConfigPropertiesController extends ConfigBaseController
         ];
 
 
-        $relsRel = $this->relPropertiesForFilter($schema, $propertiesUtilsV3);
-        $relsArray = $this->arrayPropertiesForFilter($schema, $propertiesUtilsV3);
-        $rels = array_merge($relsRel, $relsArray);
+        $rels = $this->getRelsForSchema($schema, $propertiesUtilsV3);
         $this->parseRels($rels, $propertiesUtilsV3, $output);
+
+        foreach ($rels as $rel) {
+            $relsRel = $this->getRelsForSchema($rel['typeFormat'], $propertiesUtilsV3);
+            $this->parseRels($relsRel, $propertiesUtilsV3, $output);
+        }
 
         // ListCreatableEvent START
         $filterPropertiesEvent = new FilterPropertiesEvent($output);
@@ -209,6 +212,13 @@ class ConfigPropertiesController extends ConfigBaseController
         // ListCreatableEvent FINISH
 
         return $this->json(['data' => $output]);
+    }
+
+    protected function getRelsForSchema(string $schema, PropertiesUtilsV3 $propertiesUtilsV3) {
+        $relsRel = $this->relPropertiesForFilter($schema, $propertiesUtilsV3);
+        $relsArray = $this->arrayPropertiesForFilter($schema, $propertiesUtilsV3);
+        $rels = array_merge($relsRel, $relsArray);
+        return $rels;
     }
 
     protected function parseRels(array $rels, PropertiesUtilsV3 $propertiesUtilsV3, array &$output) {
