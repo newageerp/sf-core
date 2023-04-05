@@ -197,10 +197,9 @@ class ConfigPropertiesController extends ConfigBaseController
         ];
 
 
-        $rels = $this->relPropertiesForFilter($schema, $propertiesUtilsV3);
-        $this->parseRels($rels, $propertiesUtilsV3, $output);
-
-        $rels = $this->arrayPropertiesForFilter($schema, $propertiesUtilsV3);
+        $relsRel = $this->relPropertiesForFilter($schema, $propertiesUtilsV3);
+        $relsArray = $this->arrayPropertiesForFilter($schema, $propertiesUtilsV3);
+        $rels = array_merge($relsRel, $relsArray);
         $this->parseRels($rels, $propertiesUtilsV3, $output);
 
         // ListCreatableEvent START
