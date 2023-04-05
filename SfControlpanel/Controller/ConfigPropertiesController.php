@@ -203,12 +203,12 @@ class ConfigPropertiesController extends ConfigBaseController
         foreach ($rels as $rel) {
             if ($rel['title']) {
                 $relsRel = $this->getRelsForSchema($rel['typeFormat'], $propertiesUtilsV3);
-                $this->parseRels($relsRel, $propertiesUtilsV3, $output, '      ' . $rel['title']);
+                $this->parseRels($relsRel, $propertiesUtilsV3, $output, '      '.$rel['title']);
 
                 foreach ($relsRel as $rel2) {
                     if ($rel2['title']) {
-                        $relsRel = $this->getRelsForSchema($rel2['typeFormat'], $propertiesUtilsV3);
-                        $this->parseRels($relsRel, $propertiesUtilsV3, $output, '      ' . $rel['title'] . '      ' . $rel2['title']);
+                        $relsRel2 = $this->getRelsForSchema($rel2['typeFormat'], $propertiesUtilsV3);
+                        $this->parseRels($relsRel2, $propertiesUtilsV3, $output, '      '.$rel['title'].'      '.$rel2['title']);
                     }
                 }
             }
