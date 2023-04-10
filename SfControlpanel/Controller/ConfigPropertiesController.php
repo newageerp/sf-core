@@ -239,12 +239,22 @@ class ConfigPropertiesController extends ConfigBaseController
 
             $relProperties = [];
             foreach ($relSchemaProperties as $relSchemaProperty) {
+                
+
                 $key = explode(".", $relSchemaProperty['id']);
                 $title = $relSchemaProperty['title'];
+                $path = $extraKey . $relProperty['key'] . '.' . $key[1];
+
+                $property = $propertiesUtilsV3->getPropertyForPath($path);
+
+                $type = $propertiesUtilsV3->getDefaultPropertySearchComparison($property, []);
+                
 
                 $relProperties[] = [
-                    'id' => $extraKey . $relProperty['key'] . '.' . $key[1],
+                    'id' => $path,
                     'title' => $title,
+                    'type' => $type,
+                    'options' => $propertiesUtilsV3->getDefaultPropertySearchOptions($property, [])
                 ];
             }
 
