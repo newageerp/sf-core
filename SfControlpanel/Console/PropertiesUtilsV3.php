@@ -8,6 +8,8 @@ class PropertiesUtilsV3
     protected array $enumsList = [];
     protected array $statuses = [];
 
+    protected array $propertyForSchemaCache = [];
+
     protected EntitiesUtilsV3 $entitiesUtilsV3;
 
     public function __construct(EntitiesUtilsV3 $entitiesUtilsV3)
@@ -72,14 +74,20 @@ class PropertiesUtilsV3
 
     public function getPropertyForSchema(string $schema, string $key): ?array
     {
-        $properties = $this->getPropertiesForEntitySlug($schema);
+        $cacheKey = $schema . '.' . $key;
+        if (isset($this->propertyForSchemaCache[$cacheKey])) {
+            return $this->propertyForSchemaCache[$cacheKey];
+        } else {
+            $properties = $this->getPropertiesForEntitySlug($schema);
 
-        foreach ($properties as $prop) {
-            if ($prop['config']['key'] === $key) {
-                return $prop['config'];
+            foreach ($properties as $prop) {
+                if ($prop['config']['key'] === $key) {
+                    $v = $prop['config'];
+                    $this->propertyForSchemaCache[$cacheKey] = $v;
+                    return $v;
+                }
             }
         }
-
         return null;
     }
 
@@ -146,7 +154,7 @@ class PropertiesUtilsV3
     public function getPropertyStatusOptions(array $prop)
     {
         $statusSchema = $this->getPropertyStatusList($prop);
-        
+
         $output = [];
         foreach ($statusSchema as $status) {
             $output[] = [
