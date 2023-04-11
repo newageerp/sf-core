@@ -68,8 +68,8 @@ class InGeneratorBadges extends Command
                     $pathA = explode(".", $badgeItem['config']['path']);
                     $lastPath = $pathA[count($pathA) - 1];
 
-                    $badgeContent = 'modules.enums.color("'.$pathA[0].'", "' . $lastPath . '", element["' . $lastPath . '"])';
-                    $badgeVariant = 'modules.enums.title("'.$pathA[0].'", "' . $lastPath . '", element["' . $lastPath . '"])';
+                    $badgeContent = 'modules.enums.title("'.$pathA[0].'", "' . $lastPath . '", element["' . $lastPath . '"])';
+                    $badgeVariant = 'modules.enums.color("'.$pathA[0].'", "' . $lastPath . '", element["' . $lastPath . '"])';
                 }
             }
             if (isset($badgeItem['config']['text'])) {
