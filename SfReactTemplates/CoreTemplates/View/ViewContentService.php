@@ -272,6 +272,7 @@ class ViewContentService
                             }
                             if ($naeType === 'object') {
                                 $objectProp = $this->propertiesUtilsV3->getPropertyForPath($field['path']);
+                                $objectNaeType = $this->propertiesUtilsV3->getPropertyNaeType($objectProp, $field);
 
                                 $objectField = new ObjectRoField(
                                     $pathArray[1],
@@ -279,6 +280,7 @@ class ViewContentService
                                     $pathArray[2],
                                     $objectProp['entity']
                                 );
+                                $objectField->setFieldType($objectNaeType);
                                 $objectField->setAs($prop['as']);
 
                                 if (isset($field['disableLink'])) {
