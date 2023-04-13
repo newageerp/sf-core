@@ -254,7 +254,7 @@ class ConfigPropertiesController extends ConfigBaseController
             )
         );
 
-        return $rels;
+        return $relsDb;
     }
 
     protected function parseRels(
