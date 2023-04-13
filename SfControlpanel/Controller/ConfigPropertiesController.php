@@ -243,6 +243,17 @@ class ConfigPropertiesController extends ConfigBaseController
         $relsRel = $this->relPropertiesForFilter($schema, $propertiesUtilsV3);
         $relsArray = $this->arrayPropertiesForFilter($schema, $propertiesUtilsV3);
         $rels = array_merge($relsRel, $relsArray);
+
+        $relsDb = array_values(
+            array_filter(
+                $rels,
+                function ($property) {
+                    return isset($property['isDb']) &&
+                        $property['isDb'];
+                }
+            )
+        );
+
         return $rels;
     }
 
