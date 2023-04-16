@@ -2,14 +2,23 @@
 
 namespace Newageerp\SfControlpanel\Console;
 
+use Newageerp\SfControlpanel\Event\GetTabConfigEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+
 class TabsUtilsV3
 {
     protected array $tabs = [];
 
     protected EntitiesUtilsV3 $entitiesUtilsV3;
+    
+    protected EventDispatcherInterface $eventDispatcher;
 
-    public function __construct(EntitiesUtilsV3 $entitiesUtilsV3)
+    public function __construct(
+        EntitiesUtilsV3 $entitiesUtilsV3,
+        EventDispatcherInterface $eventDispatcher,
+        )
     {
+        $this->eventDispatcher = $eventDispatcher;
         $this->entitiesUtilsV3 = $entitiesUtilsV3;
         $this->tabs = LocalConfigUtils::getCpConfigFileData('tabs');
     }
@@ -34,7 +43,13 @@ class TabsUtilsV3
             }
         );
         if (count($tabsF) > 0) {
-            return reset($tabsF)['config'];
+            $tab =  reset($tabsF)['config'];
+            
+            $ev = new GetTabConfigEvent($tab);
+            $this->getEventDispatcher()->dispatch($ev, GetTabConfigEvent::NAME);
+            $tab = $ev->getTab();
+
+            return $tab;
         }
         return null;
     }
@@ -136,5 +151,29 @@ class TabsUtilsV3
     public function getTabs(): array
     {
         return $this->tabs;
+    }
+
+    /**
+     * Get the value of eventDispatcher
+     *
+     * @return EventDispatcherInterface
+     */
+    public function getEventDispatcher(): EventDispatcherInterface
+    {
+        return $this->eventDispatcher;
+    }
+
+    /**
+     * Set the value of eventDispatcher
+     *
+     * @param EventDispatcherInterface $eventDispatcher
+     *
+     * @return self
+     */
+    public function setEventDispatcher(EventDispatcherInterface $eventDispatcher): self
+    {
+        $this->eventDispatcher = $eventDispatcher;
+
+        return $this;
     }
 }

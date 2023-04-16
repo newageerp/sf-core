@@ -241,12 +241,9 @@ class ConfigPropertiesController extends ConfigBaseController
     protected function getRelsForSchema(string $schema, PropertiesUtilsV3 $propertiesUtilsV3)
     {
         $relsRel = $this->relPropertiesForFilter($schema, $propertiesUtilsV3);
-        $relsArray = $this->arrayPropertiesForFilter($schema, $propertiesUtilsV3);
-        $rels = array_merge($relsRel, $relsArray);
-
-        $relsDb = array_values(
+        $relsRel = array_values(
             array_filter(
-                $rels,
+                $relsRel,
                 function ($property) {
                     return isset($property['isDb']) &&
                         $property['isDb'];
@@ -254,7 +251,10 @@ class ConfigPropertiesController extends ConfigBaseController
             )
         );
 
-        return $relsDb;
+        $relsArray = $this->arrayPropertiesForFilter($schema, $propertiesUtilsV3);
+        $rels = array_merge($relsRel, $relsArray);
+
+        return $rels;
     }
 
     protected function parseRels(
