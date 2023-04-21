@@ -335,7 +335,6 @@ export interface INaeTab {
   quickSearchFilterKeys?: (INaeTabQuickSearch | string)[]
   title?: string
   filterDateKey?: string
-  showPivot?: boolean
 
   exports?: INaeListExport[]
 

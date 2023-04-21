@@ -36,6 +36,8 @@ interface Props {
   hidePageSelectionSelect?: boolean,
 
   compact: boolean,
+
+  hideWithoutFilter?: boolean,
 }
 
 export default function ListDataSource(props: Props) {
@@ -231,6 +233,10 @@ export default function ListDataSource(props: Props) {
 
   const loadData = () => {
     const filter = prepareFilter();
+
+    if (props.hideWithoutFilter && filter.length === 0) {
+      return;
+    }
 
     getData(
       filter,
