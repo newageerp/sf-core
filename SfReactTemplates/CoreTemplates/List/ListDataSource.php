@@ -29,6 +29,8 @@ class ListDataSource extends Template
 
     protected bool $hidePageSelectionSelect = false;
 
+    protected bool $hideWithoutFilter = false;
+
     protected bool $compact = false;
 
     public function __construct(string $schema, string $type)
@@ -75,6 +77,7 @@ class ListDataSource extends Template
             'hidePageSelectionSelect' => $this->getHidePageSelectionSelect(),
 
             'compact' => $this->getCompact(),
+            'hideWithoutFilter' => $this->getHideWithoutFilter(),
         ];
     }
 
@@ -415,6 +418,30 @@ class ListDataSource extends Template
     public function setCompact(bool $compact): self
     {
         $this->compact = $compact;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of hideWithoutFilter
+     *
+     * @return bool
+     */
+    public function getHideWithoutFilter(): bool
+    {
+        return $this->hideWithoutFilter;
+    }
+
+    /**
+     * Set the value of hideWithoutFilter
+     *
+     * @param bool $hideWithoutFilter
+     *
+     * @return self
+     */
+    public function setHideWithoutFilter(bool $hideWithoutFilter): self
+    {
+        $this->hideWithoutFilter = $hideWithoutFilter;
 
         return $this;
     }

@@ -231,6 +231,9 @@ class TableService
         if (isset($tab['pageSize']) && $tab['pageSize']) {
             $listDataSource->setPageSize($tab['pageSize']);
         }
+        if (isset($tab['hideWithoutFilter']) && $tab['hideWithoutFilter']) {
+            $listDataSource->setHideWithoutFilter($tab['hideWithoutFilter']);
+        }
 
         $filters = [];
         if ($fs = $this->tabsUtilsV3->getTabFilter($schema, $type)) {
