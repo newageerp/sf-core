@@ -133,11 +133,16 @@ class PdfController extends OaBaseController
 
         $fileName = str_replace(['/', ' '], '_', $event->getFileName());
 
-        $url = 'https://my.datasfs.com/api/r/utils/html2pdf?token=' . $_ENV['NAE_SFS_TOKEN'];
+        $remoteConfig = ConfigService::getConfig('html2pdf');
 
+        $url = $remoteConfig['url'];
+        $slug = isset($remoteConfig['slug']) ? $remoteConfig['slug'] : 'pdf';
+        
         $fields = json_encode([
             'fileName' => $fileName,
             'link' => $_ENV['NAE_SFS_FRONT_URL'] . '/app/nae-core/pdf/' . $orgSchema . '/' . $template . '/' . $id . '?showHtml=true&skipStamp=' . $request->get('skipStamp') . '&skipSign=' . $request->get('skipSign'),
+            'download' => false,
+            'slug' => $slug,
         ]);
         $headers = [
             'Content-Type: application/json; charset=utf-8'
