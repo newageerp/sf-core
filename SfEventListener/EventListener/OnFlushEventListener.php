@@ -5,6 +5,7 @@ namespace Newageerp\SfEventListener\EventListener;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Event\PostFlushEventArgs;
+use Newageerp\SfConfig\Service\ConfigService;
 use Newageerp\SfEventListener\Events\BgRequestEvent;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -55,11 +56,13 @@ class OnFlushEventListener
 
     public function getChannel() {
         if (!$this->channel) {
+            $config = ConfigService::getConfig('mq');
+
             $this->connection = new AMQPStreamConnection(
-                $_ENV['NAE_SFS_RBQ_HOST'],
-                (int)$_ENV['NAE_SFS_RBQ_PORT'],
-                $_ENV['NAE_SFS_RBQ_USER'],
-                $_ENV['NAE_SFS_RBQ_PASSWORD']
+                $config['host'],
+                $config['port'],
+                $config['user'],
+                $config['password']
             );
             $this->channel = $this->connection->channel();
         }

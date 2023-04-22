@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Newageerp\SfBaseEntity\Controller\OaBaseController;
+use Newageerp\SfConfig\Service\ConfigService;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 use PhpAmqpLib\Channel\AMQPChannel;
@@ -21,11 +22,13 @@ class ActionsController extends OaBaseController
 
     public function __construct()
     {
+        $config = ConfigService::getConfig('mq');
+
         $this->connection = new AMQPStreamConnection(
-            $_ENV['NAE_SFS_RBQ_HOST'],
-            (int)$_ENV['NAE_SFS_RBQ_PORT'],
-            $_ENV['NAE_SFS_RBQ_USER'],
-            $_ENV['NAE_SFS_RBQ_PASSWORD']
+            $config['host'],
+            $config['port'],
+            $config['user'],
+            $config['password']
         );
         $this->channel = $this->connection->channel();
     }

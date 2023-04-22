@@ -2,6 +2,7 @@
 
 namespace Newageerp\SfSocket\Service;
 
+use Newageerp\SfConfig\Service\ConfigService;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Message\AMQPMessage;
@@ -14,6 +15,8 @@ class SocketService
 
     protected $pool = [];
 
+    protected string $queueName = '';
+
     public function __construct()
     {
     }
@@ -21,13 +24,17 @@ class SocketService
     public function getChannel()
     {
         if (!$this->channel) {
+            $config = ConfigService::getConfig('mq');
+            
             $this->connection = new AMQPStreamConnection(
-                $_ENV['NAE_SFS_RBQ_HOST'],
-                (int)$_ENV['NAE_SFS_RBQ_PORT'],
-                $_ENV['NAE_SFS_RBQ_USER'],
-                $_ENV['NAE_SFS_RBQ_PASSWORD']
+                $config['host'],
+                $config['port'],
+                $config['user'],
+                $config['password']
             );
             $this->channel = $this->connection->channel();
+
+            $this->queueName = $config['queue'];
         }
         return $this->channel;
     }
@@ -72,7 +79,7 @@ class SocketService
 
         foreach ($this->pool as $el) {
             $msg = new AMQPMessage(json_encode($el));
-            $this->getChannel()->basic_publish($msg, '', $_ENV['NAE_SFS_RBQ_QUEUE']);
+            $this->getChannel()->basic_publish($msg, '', $this->queueName);
         }
 
         $this->clearPool();
