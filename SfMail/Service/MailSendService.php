@@ -4,6 +4,7 @@ namespace Newageerp\SfMail\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Newageerp\SfBaseEntity\Interface\IUser;
+use Newageerp\SfConfig\Service\ConfigService;
 use Symfony\Component\Mime\MimeTypes;
 
 abstract class MailSendService implements IMailSendService
@@ -42,8 +43,7 @@ abstract class MailSendService implements IMailSendService
         int    $parentId = 0,
         string $parentSchema = '',
         string $type = '',
-    )
-    {
+    ) {
         $mailClass = 'App\\Entity\\Mail';
 
         if ($_ENV['APP_ENV'] === 'dev') {
@@ -91,13 +91,16 @@ abstract class MailSendService implements IMailSendService
             $recipients,
             $attachments,
             $mail->getCustomId(),
-    );
+        );
     }
 
     public function emailForDevEnv(): array
     {
-        return [
-            $_ENV['SF_MAIL_DEV_TEST_EMAIL']
-        ];
+        $config = ConfigService::getConfig('mail');
+        $mails = [];
+        if (isset($config['testMailHandler'])) {
+            $mails[] = $config['testMailHandler'];
+        }
+        return $mails;
     }
 }

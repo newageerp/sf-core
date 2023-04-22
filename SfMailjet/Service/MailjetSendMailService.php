@@ -5,6 +5,7 @@ namespace Newageerp\SfMailjet\Service;
 use Mailjet\Resources;
 use Newageerp\SfMail\Service\MailSendService;
 use Mailjet\Client;
+use Newageerp\SfConfig\Service\ConfigService;
 
 class MailjetSendMailService extends MailSendService
 {
@@ -53,7 +54,9 @@ class MailjetSendMailService extends MailSendService
     public function getClient(): Client
     {
         if (!$this->client) {
-            $this->client = new Client($_ENV['NAE_SFS_MAILJET_PUBLIC_KEY'], $_ENV['NAE_SFS_MAILJET_PRIVATE_KEY'], true, ['version' => 'v3.1']);
+            $config = ConfigService::getConfig('mail');
+            
+            $this->client = new Client($config['mailjetPublicKey'], $config['mailjetPrivateKey'], true, ['version' => 'v3.1']);
         }
         return $this->client;
     }

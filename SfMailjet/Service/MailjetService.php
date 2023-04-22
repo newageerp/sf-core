@@ -4,6 +4,7 @@ namespace Newageerp\SfMailjet\Service;
 
 use Mailjet\Client;
 use Mailjet\Resources;
+use Newageerp\SfConfig\Service\ConfigService;
 
 class MailjetService
 {
@@ -14,8 +15,10 @@ class MailjetService
 
     public function __construct()
     {
-        $this->apiKeyPublic = $_ENV['NAE_SFS_MAILJET_PUBLIC_KEY'];
-        $this->apiKeyPrivate = $_ENV['NAE_SFS_MAILJET_PRIVATE_KEY'];
+        $config = ConfigService::getConfig('mail');
+
+        $this->apiKeyPublic = $config['mailjetPublicKey'];
+        $this->apiKeyPrivate = $config['mailjetPrivateKey'];
     }
 
     /**
