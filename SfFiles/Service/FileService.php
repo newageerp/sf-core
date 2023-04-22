@@ -3,6 +3,7 @@
 namespace Newageerp\SfFiles\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Newageerp\SfConfig\Service\ConfigService;
 use Newageerp\SfControlpanel\Console\LocalConfigUtilsV3;
 use Symfony\Component\Filesystem\Filesystem;
 use Newageerp\SfS3Client\SfS3Client;
@@ -12,10 +13,15 @@ class FileService
     protected string $className = 'App\Entity\File';
     protected string $localStorage;
 
+    protected string $frontUrl = '';
+
     protected EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
+        $config = ConfigService::getConfig('main');
+        $this->frontUrl = $config['url'];
+        
         $this->localStorage = LocalConfigUtilsV3::getUserStoragePath();
 
         $this->entityManager = $entityManager;
@@ -23,7 +29,7 @@ class FileService
 
     public function cacheFileToPublicFolder($file): string
     {
-        $fileUrl = $_ENV['FRONT_URL'] . '/app/nae-core/files/viewById?id=' . $file->getId();
+        $fileUrl = $this->frontUrl . '/app/nae-core/files/viewById?id=' . $file->getId();
 
         $fileName = 'caspian/cache/' . $file->getId() . '_' . $file->getFileName();
 

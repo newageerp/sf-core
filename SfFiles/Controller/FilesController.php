@@ -4,6 +4,7 @@ namespace Newageerp\SfFiles\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Newageerp\SfBaseEntity\Controller\OaBaseController;
+use Newageerp\SfConfig\Service\ConfigService;
 use Newageerp\SfFiles\Object\FileBase;
 use Newageerp\SfFiles\Service\FileService;
 use Newageerp\SfSocket\Service\SocketService;
@@ -39,6 +40,8 @@ class FilesController extends OaBaseController
      */
     public function upload(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $config = ConfigService::getConfig('main');
+        
         $className = $this->className;
 
         try {
@@ -88,7 +91,7 @@ class FilesController extends OaBaseController
 
                 $links[] = [
                     'name' => mb_strtolower($file->getClientOriginalName()),
-                    'link' => $_ENV['NAE_SFS_FRONT_URL'] . '/app/nae-core/files/viewById?id=' . $orm->getId() . '&download=true&token=' . $token
+                    'link' => $config['url'] . '/app/nae-core/files/viewById?id=' . $orm->getId() . '&download=true&token=' . $token
                 ];
             }
 
