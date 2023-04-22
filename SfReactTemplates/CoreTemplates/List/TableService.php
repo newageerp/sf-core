@@ -110,18 +110,30 @@ class TableService
                     $listDataSource->getChildren()->addTemplate($listTotals);
                 }
             }
+
+            $templatesEventData = [
+                'schema' => $schema,
+                'type' => $type,
+                'listDataSource' => $listDataSource,
+                ...$eventData,
+            ];
+
             // TEMPLATES CALL
             $templateEvent = new LoadTemplateEvent(
                 new Placeholder(),
                 'TableService.Toolbar',
-                [
-                    'schema' => $schema,
-                    'type' => $type,
-                    'listDataSource' => $listDataSource,
-                    ...$eventData,
-                ]
+                $templatesEventData
             );
             $this->eventDispatcher->dispatch($templateEvent, LoadTemplateEvent::NAME);
+
+            $pageMainListToolbarMiddleContent = new LoadTemplateEvent($listDataSource->getToolbar()->getToolbarMiddle(), 'PageMainListToolbarMiddleContent', $templatesEventData);
+            $this->eventDispatcher->dispatch($pageMainListToolbarMiddleContent, LoadTemplateEvent::NAME);
+
+            $pageMainListToolbarLeftContent = new LoadTemplateEvent($listDataSource->getToolbar()->getToolbarLeft(), 'PageMainListToolbarLeftContent', $templatesEventData);
+            $this->eventDispatcher->dispatch($pageMainListToolbarLeftContent, LoadTemplateEvent::NAME);
+
+            $pageMainListToolbarRightContent = new LoadTemplateEvent($listDataSource->getToolbar()->getToolbarRight(), 'PageMainListToolbarRightContent', $templatesEventData);
+            $this->eventDispatcher->dispatch($pageMainListToolbarRightContent, LoadTemplateEvent::NAME);
         }
 
         return $listDataSource;
