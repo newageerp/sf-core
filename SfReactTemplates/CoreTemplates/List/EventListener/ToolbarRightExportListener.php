@@ -36,9 +36,9 @@ class ToolbarRightExportListener implements EventSubscriberInterface
         if ($event->isTemplateForAnyEntity('TableService.ToolbarRight')) {
             $schema = $event->getData()['schema'];
             $type = $event->getData()['type'];
-            if (isset($event->getData()['relElementId'])) {
-                return;
-            }
+            // if (isset($event->getData()['relElementId'])) {
+            //     return;
+            // }
 
             $tab = $this->getTabsUtilsV3()->getTabBySchemaAndType(
                 $schema,
