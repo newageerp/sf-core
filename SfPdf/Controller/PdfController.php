@@ -4,6 +4,7 @@ namespace Newageerp\SfPdf\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Newageerp\SfBaseEntity\Controller\OaBaseController;
+use Newageerp\SfConfig\Service\ConfigService;
 use Newageerp\SfPdf\Event\SfPdfPreGenerateEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -63,12 +64,16 @@ class PdfController extends OaBaseController
             return $this->render($templateName, $pdfParams);
         }
 
-        $url = 'https://my.datasfs.com/api/r/utils/html2pdf?token=' . $_ENV['NAE_SFS_TOKEN'];
+        $remoteConfig = ConfigService::getConfig('html2pdf');
+
+        $url = $remoteConfig['url'];
+        $slug = isset($remoteConfig['slug']) ? $remoteConfig['slug'] : 'pdf';
 
         $fields = json_encode([
             'fileName' => $fileName,
             'link' => $_ENV['NAE_SFS_FRONT_URL'] . '/app/nae-core/pdf/' . $orgSchema . '/' . $template . '/' . $id . '?showHtml=true&skipStamp=' . $request->get('skipStamp') . '&skipSign=' . $request->get('skipSign'),
-            'download' => $download
+            'download' => $download,
+            'slug' => $slug,
         ]);
         $headers = [
             'Content-Type: application/json'
