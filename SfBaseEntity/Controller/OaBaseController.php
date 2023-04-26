@@ -35,7 +35,9 @@ class OaBaseController extends AbstractController
     {
         $this->eventDispatcher = $eventDispatcher;
         $this->em = $em;
-        $this->userRepository = $em->getRepository('App\\Entity\\User');
+        if (class_exists('App\Entity\User')) {
+            $this->userRepository = $em->getRepository('App\\Entity\\User');
+        }
         $this->socketService = $socketService;
     }
 
