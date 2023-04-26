@@ -32,7 +32,9 @@ class AuthController extends OaBaseController
     public function __construct(EntityManagerInterface $entityManager, EventDispatcherInterface $eventDispatcher, SocketService $socketService)
     {
         parent::__construct($entityManager, $eventDispatcher, $socketService);
-        $this->userRepository = $entityManager->getRepository($this->className);
+        if (class_exists($this->className)) {
+            $this->userRepository = $entityManager->getRepository($this->className);
+        }
     }
 
     /**
@@ -100,6 +102,11 @@ class AuthController extends OaBaseController
      */
     public function getInfo(Request $request): Response
     {
+        if (class_exists($this->className)) {
+            return $this->json([
+                'id' => 1,
+            ]);
+        }
         $request = $this->transformJsonBody($request);
 
         try {
