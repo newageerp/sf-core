@@ -6,11 +6,13 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectRepository;
 use Firebase\JWT\JWT;
 use Newageerp\SfBaseEntity\Interface\IUser;
+use Newageerp\SfBaseEntity\Object\BaseUser;
 use Newageerp\SfSocket\Service\SocketService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Newageerp\SfBaseEntity\Object\BaseUser;
 
 class OaBaseController extends AbstractController
 {
@@ -120,6 +122,11 @@ class OaBaseController extends AbstractController
      */
     public function findUser(Request $request): ?IUser
     {
+        if (!class_exists('App\Entity\User')) {
+            $user = new BaseUser();
+            $user->setId(1);
+            return $user;
+        }
         $token = $request->get('token') ? $request->get('token') : $request->headers->get('Authorization');
         if ($token) {
             $url = 'http://auth:3000/api/check';
