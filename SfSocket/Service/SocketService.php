@@ -25,16 +25,17 @@ class SocketService
     {
         if (!$this->channel) {
             $config = ConfigService::getConfig('mq');
-            
-            $this->connection = new AMQPStreamConnection(
-                $config['host'],
-                $config['port'],
-                $config['user'],
-                $config['password']
-            );
-            $this->channel = $this->connection->channel();
+            if (isset($config['host'])) {
+                $this->connection = new AMQPStreamConnection(
+                    $config['host'],
+                    $config['port'],
+                    $config['user'],
+                    $config['password']
+                );
+                $this->channel = $this->connection->channel();
 
-            $this->queueName = $config['queue'];
+                $this->queueName = $config['queue'];
+            }
         }
         return $this->channel;
     }
@@ -75,6 +76,9 @@ class SocketService
 
     public function sendPool()
     {
+        if (!$this->getChannel()) {
+            return 0;
+        }
         $count = count($this->pool);
 
         foreach ($this->pool as $el) {
