@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useHistory } from "react-router";
-import { Popup, useNaeWindow } from "@newageerp/v3.bundles.popup-bundle";
+import { Popup } from "@newageerp/v3.bundles.popup-bundle";
 import { MailsForm } from "@newageerp/ui.ui-bundle";
 import { SocketService } from "@newageerp/v3.bundles.utils-bundle";
 import { toast } from '@newageerp/v3.templates.templates-core';
@@ -9,6 +9,7 @@ import {
   ConfirmationPopupProps,
 } from "@newageerp/v3.bundles.popup-bundle";
 import { FilesWindow } from "@newageerp/ui.ui-bundle";
+import { useNaeWindow } from "@newageerp/v3.popups.window-provider";
 
 export default function NavigationComponent() {
   const history = useHistory();

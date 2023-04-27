@@ -54,17 +54,21 @@ class OnFlushEventListener
     }
 
 
-    public function getChannel() {
+    public function getChannel()
+    {
         if (!$this->channel) {
             $config = ConfigService::getConfig('mq');
 
-            $this->connection = new AMQPStreamConnection(
-                $config['host'],
-                $config['port'],
-                $config['user'],
-                $config['password']
-            );
-            $this->channel = $this->connection->channel();
+            if (isset($config['host'])) {
+
+                $this->connection = new AMQPStreamConnection(
+                    $config['host'],
+                    $config['port'],
+                    $config['user'],
+                    $config['password']
+                );
+                $this->channel = $this->connection->channel();
+            }
         }
         return $this->channel;
     }
@@ -90,6 +94,9 @@ class OnFlushEventListener
 
     public function postFlush(PostFlushEventArgs $postFlushEventArgs)
     {
+        if (!$this->getChannel()) {
+            return;
+        }
         /**
          * @var BgRequestEvent[] $requests
          */

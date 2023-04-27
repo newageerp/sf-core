@@ -11,7 +11,7 @@ import UserSpaceWrapper from "./UserSpace/UserSpaceWrapper";
 import AppRoutes from "../../routes/AppRoutes";
 import CustomUserWrapperRoutes from "../../_custom/routes/CustomUserWrapperRoutes";
 import { getHookForSchema } from "../../_custom/models-cache-data/ModelFields";
-import { WindowProvider } from "@newageerp/v3.bundles.popup-bundle";
+import { WindowProvider } from "@newageerp/v3.popups.window-provider";
 import { UiBuilder } from "@newageerp/v3.app.mvc.ui-builder";
 
 function AppInner() {
