@@ -102,7 +102,7 @@ class AuthController extends OaBaseController
      */
     public function getInfo(Request $request): Response
     {
-        if (class_exists($this->className)) {
+        if (!class_exists($this->className)) {
             return $this->json([
                 'id' => 1,
             ]);
