@@ -7,8 +7,8 @@ use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 use Newageerp\SfControlpanel\Console\TabsUtilsV3;
 use Newageerp\SfReactTemplates\CoreTemplates\List\Toolbar\ToolbarNewButton;
 use Newageerp\SfReactTemplates\CoreTemplates\List\Toolbar\ToolbarQs;
-use Newageerp\SfReactTemplates\Event\ListCreatableEvent;
 use Newageerp\SfReactTemplates\Event\LoadTemplateEvent;
+use Newageerp\SfReactTemplates\Event\ToolbarQsEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -43,9 +43,12 @@ class ToolbarLeftQsListener implements EventSubscriberInterface
                 $type,
             );
             if (count($qsFields) > 0) {
-                $event->getPlaceholder()->addTemplate(
-                    new ToolbarQs($qsFields)
-                );
+                $toolbarQs = new ToolbarQs($qsFields);
+
+                $templateEvent = new ToolbarQsEvent($toolbarQs);
+                $this->eventDispatcher->dispatch($templateEvent, ToolbarQsEvent::NAME);
+
+                $event->getPlaceholder()->addTemplate($toolbarQs);
             }
         }
     }

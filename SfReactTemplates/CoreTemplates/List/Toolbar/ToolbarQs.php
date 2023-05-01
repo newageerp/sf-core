@@ -7,6 +7,8 @@ use Newageerp\SfReactTemplates\Template\Template;
 class ToolbarQs extends Template
 {
     protected array $fields;
+
+    protected bool $instantSearch = false;
     
     public function __construct(array $fields)
     {
@@ -22,6 +24,7 @@ class ToolbarQs extends Template
     {
         return [
             'fields' => $this->getFields(),
+            'instantSearch' => $this->getInstantSearch(),
         ];
     }
 
@@ -46,6 +49,30 @@ class ToolbarQs extends Template
     public function setFields(array $fields): self
     {
         $this->fields = $fields;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of instantSearch
+     *
+     * @return bool
+     */
+    public function getInstantSearch(): bool
+    {
+        return $this->instantSearch;
+    }
+
+    /**
+     * Set the value of instantSearch
+     *
+     * @param bool $instantSearch
+     *
+     * @return self
+     */
+    public function setInstantSearch(bool $instantSearch): self
+    {
+        $this->instantSearch = $instantSearch;
 
         return $this;
     }
