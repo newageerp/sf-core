@@ -7,7 +7,7 @@ use Newageerp\SfReactTemplates\CoreTemplates\List\ListBaseColumn;
 class FloatEditableColumn extends ListBaseColumn {
     protected string $schema = '';
 
-    protected string $accuracy = 2;
+    protected int $accuracy = 2;
 
     public function getProps(): array
     {
@@ -48,12 +48,13 @@ class FloatEditableColumn extends ListBaseColumn {
         return $this;
     }
 
+
     /**
      * Get the value of accuracy
      *
-     * @return string
+     * @return int
      */
-    public function getAccuracy(): string
+    public function getAccuracy(): int
     {
         return $this->accuracy;
     }
@@ -61,11 +62,11 @@ class FloatEditableColumn extends ListBaseColumn {
     /**
      * Set the value of accuracy
      *
-     * @param string $accuracy
+     * @param int $accuracy
      *
      * @return self
      */
-    public function setAccuracy(string $accuracy): self
+    public function setAccuracy(int $accuracy): self
     {
         $this->accuracy = $accuracy;
 
