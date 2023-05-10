@@ -29,6 +29,7 @@ use Newageerp\SfReactTemplates\CoreTemplates\List\Columns\StringArrayColumn;
 use Newageerp\SfReactTemplates\CoreTemplates\List\Columns\StringColumn;
 use Newageerp\SfReactTemplates\CoreTemplates\List\Columns\AddSelectButton;
 use Newageerp\SfReactTemplates\CoreTemplates\List\EditableColumns\BoolEditableColumn;
+use Newageerp\SfReactTemplates\CoreTemplates\List\EditableColumns\FloatEditableColumn;
 use Newageerp\SfReactTemplates\CoreTemplates\List\EditableColumns\LargeTextEditableColumn;
 use Newageerp\SfReactTemplates\CoreTemplates\Table\TableTd;
 use Newageerp\SfReactTemplates\CoreTemplates\Table\TableTh;
@@ -170,10 +171,23 @@ class TableRowService
                             $tpl = new FileMultipleColumn($pathArray[1]);
                         }
                         if ($naeType === 'float') {
-                            $tpl = new FloatColumn($pathArray[1]);
+
+                            if (isset($col['editable']) && $col['editable']) {
+                                $tpl = new FloatEditableColumn($pathArray[1]);
+                                $tpl->setAccuracy(2);
+                                $tpl->setSchema($schema);
+                            } else {
+                                $tpl = new FloatColumn($pathArray[1]);
+                            }
                         }
                         if ($naeType === 'float4') {
-                            $tpl = new FloatColumn($pathArray[1], 4);
+                            if (isset($col['editable']) && $col['editable']) {
+                                $tpl = new FloatEditableColumn($pathArray[1]);
+                                $tpl->setAccuracy(4);
+                                $tpl->setSchema($schema);
+                            } else {
+                                $tpl = new FloatColumn($pathArray[1], 4);
+                            }
                         }
                         if ($naeType === 'image') {
                             $tpl = new ImageColumn($pathArray[1]);
