@@ -31,6 +31,8 @@ class OnFlushEventListener
     protected array $updates = [];
     protected array $removes = [];
 
+    protected string $callbackName = 'erp.callback';
+
     public function __destruct()
     {
         if ($this->channel) {
@@ -68,6 +70,9 @@ class OnFlushEventListener
                     $config['password']
                 );
                 $this->channel = $this->connection->channel();
+            }
+            if (isset($config['callbackName'])) {
+                $this->callbackName = $config['callbackName'];
             }
         }
         return $this->channel;
@@ -144,7 +149,7 @@ class OnFlushEventListener
 
         foreach ($requests as $request) {
             $msg = new AMQPMessage((string)$request);
-            $this->getChannel()->basic_publish($msg, '', 'erp.callback');
+            $this->getChannel()->basic_publish($msg, '', $this->callbackName);
         }
     }
 }
