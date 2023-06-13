@@ -22,6 +22,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Newageerp\SfSocket\Service\SocketService;
 use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
+use Newageerp\SfCsv\Service\SfCsvExportService;
 use Newageerp\SfS3Client\SfS3Client;
 use Newageerp\SfXlsx\Service\XlsxService;
 
@@ -85,6 +86,8 @@ class ExportController extends UControllerBase
 
             if ($fileType === 'xlsx') {
                 $exportService = new SfXlsxExportService();
+            } else if ($fileType === 'csv') {
+                $exportService = new SfCsvExportService();
             }
 
             $data = $uService->getListDataForSchema(
