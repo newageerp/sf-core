@@ -346,7 +346,6 @@ export interface INaeTab {
   totals?: INaeTotal[],
 
   pageSize?: number,
-  pageExport?: boolean,
 }
 export interface INaeTabSort {
   key: string

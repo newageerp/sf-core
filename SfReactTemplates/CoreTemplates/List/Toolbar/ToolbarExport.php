@@ -7,12 +7,14 @@ use Newageerp\SfReactTemplates\Template\Template;
 class ToolbarExport extends Template
 {
     protected string $schema;
-    
+
     protected array $exports = [];
+
+    protected array $colums = [];
 
     protected array $summary = [];
 
-    public function __construct(string $schema, array $exports, array $summary = [])
+    public function __construct(string $schema, array $exports, array $summary = [], array $colums = [])
     {
         $this->schema = $schema;
         $this->exports = $exports;
@@ -23,10 +25,31 @@ class ToolbarExport extends Template
     {
         return [
             'schema' => $this->getSchema(),
-            'exports' => $this->getExports(),
+            'exports' => $this->fixExports(),
             'summary' => $this->getSummary(),
         ];
     }
+
+    protected function fixExports()
+    {
+        $exports = [];
+        foreach ($this->getExports() as $export) {
+            if (isset($export['useMainColumns']) && $export['useMainColumns']) {
+                $export['columns'] = array_map(
+                    function ($item) {
+                        return [
+                            'path' => $item['path'],
+                            'allowEdit' => false
+                        ];
+                    },
+                    $this->colums
+                );
+            }
+            $exports[] = $export;
+        }
+        return $exports;
+    }
+
 
     public function getTemplateName(): string
     {
