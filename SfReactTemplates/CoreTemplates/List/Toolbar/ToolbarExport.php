@@ -19,6 +19,7 @@ class ToolbarExport extends Template
         $this->schema = $schema;
         $this->exports = $exports;
         $this->summary = $summary;
+        $this->colums = $colums;
     }
 
     public function getProps(): array
