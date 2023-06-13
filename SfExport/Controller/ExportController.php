@@ -81,6 +81,7 @@ class ExportController extends UControllerBase
             $summary = $exportOptions['summary'] ?? [];
             $filters = $exportOptions['filter'] ?? [];
             $sort = $exportOptions['sort'] ?? [];
+            $skipMetadata = isset($exportOptions['skipMetaData']) && $exportOptions['skipMetaData'];
 
             $totals = [];
 
@@ -98,13 +99,19 @@ class ExportController extends UControllerBase
 
             $spreadsheet = new Spreadsheet();
             $sheet = $spreadsheet->getActiveSheet();
-            $sheet->setCellValue('A1', $title);
-            $sheet->setCellValue('F1', 'Cols');
-            $sheet->setCellValue('G1', count($fieldsToReturn));
+
+            if (!$skipMetadata) {
+                $startRow = 3;
+                $sheet->setCellValue('A1', $title);
+                $sheet->setCellValue('F1', 'Cols');
+                $sheet->setCellValue('G1', count($fieldsToReturn));
+            } else {
+                $startRow = 1;
+            }
 
             $fileName = $exportDir . '/' . $title . '_' . time() . '.xlsx';
 
-            $this->applyStyleToRow($sheet, 3, $this->headerStyle);
+            $this->applyStyleToRow($sheet, $startRow, $this->headerStyle);
 
             $parseColumns = $columns ?: array_map(function ($field) use ($schema) {
                 $field['path'] = isset($field['relName']) ?
@@ -155,7 +162,7 @@ class ExportController extends UControllerBase
                 }
 
                 $title = $field['title'];
-                $sheet->setCellValue(XlsxService::getLetters()[$col] . '3', $title);
+                $sheet->setCellValue(XlsxService::getLetters()[$col] . ''.$startRow, $title);
 
                 if (isset($field['allowEdit']) && $field['allowEdit']) {
                     $sheet->setCellValue(XlsxService::getLetters()[$col] . '2', $fieldKey);
@@ -169,7 +176,7 @@ class ExportController extends UControllerBase
                 }
                 $col++;
             }
-            $row = 4;
+            $row = 1 + $startRow;
             $pivotRow = 0;
             $pivotData = [];
             foreach ($data as $item) {
@@ -189,7 +196,7 @@ class ExportController extends UControllerBase
                         $item[$fieldKey];
 
                     $prop = $propertiesUtilsV3->getPropertyForSchema($schema, $fieldKey);
-                    
+
                     if ($propertiesUtilsV3->propertyHasEnum($prop)) {
                         $val = $propertiesUtilsV3->getPropertyEnumValue($schema, $fieldKey, $val);
                     }
@@ -237,7 +244,7 @@ class ExportController extends UControllerBase
                     $sheet->getColumnDimension($letter)->setWidth((int)$col['settings']['width'], 'px');
                 }
                 if (isset($col['settings']['wrapText']) && $col['settings']['wrapText']) {
-                    $sheet->getStyle($letter.'1:'.$letter.''.$row)->getAlignment()->setWrapText(true); 
+                    $sheet->getStyle($letter . '1:' . $letter . '' . $row)->getAlignment()->setWrapText(true);
                 }
             }
 
