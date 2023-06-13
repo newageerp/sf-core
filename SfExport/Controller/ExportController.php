@@ -121,7 +121,7 @@ class ExportController extends UControllerBase
                 $startRow = 1;
             }
 
-            $fileName = $exportDir . '/' . $title . '_' . time() . '.xlsx';
+            $fileName = $exportDir . '/' . $title . '_' . time() . '.'.$fileType;
 
             $exportService->applyStyleToRow($startRow, $this->headerStyle);
 

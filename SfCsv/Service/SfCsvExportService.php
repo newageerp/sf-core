@@ -57,7 +57,7 @@ class SfCsvExportService extends SfExportService
 
     public function saveToFile(string $fileName)
     {
-        $tmpFile = '/tmp/' . time() . '.сым';
+        $tmpFile = '/tmp/' . time() . '.csv';
 
         $fp = fopen($tmpFile, 'w');
         foreach ($this->data as $fields) {
