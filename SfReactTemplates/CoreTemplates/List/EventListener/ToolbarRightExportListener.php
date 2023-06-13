@@ -48,7 +48,7 @@ class ToolbarRightExportListener implements EventSubscriberInterface
             if (isset($tab['exports']) && $tab['exports']) {
                 $summary = isset($tab['summary']) ? $tab['summary'] : [];
                 $event->getPlaceholder()->addTemplate(
-                    new ToolbarExport($schema, $tab['exports'], $summary)
+                    new ToolbarExport($schema, $tab['exports'], $summary, $tab['columns'])
                 );
             }
         }
