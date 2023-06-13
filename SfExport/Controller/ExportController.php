@@ -9,6 +9,7 @@ use Exception;
 use Newageerp\SfAuth\Service\AuthService;
 use Newageerp\SfUservice\Controller\UControllerBase;
 use Newageerp\SfUservice\Service\UService;
+use Newageerp\SfXlsx\Service\SfXlsxExportService;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -34,16 +35,6 @@ class ExportController extends UControllerBase
             'bold' => true,
         ],
     ];
-
-    protected function applyStyleToRow($sheet, int $row, array $style)
-    {
-        $sheet->getStyle('A' . $row . ':X' . $row)->applyFromArray($style);
-    }
-
-    protected function applyStyleToCell($sheet, string $cell, array $style)
-    {
-        $sheet->getStyle($cell)->applyFromArray($style);
-    }
 
     /**
      * OaListController constructor.
@@ -76,6 +67,8 @@ class ExportController extends UControllerBase
             $fields = $request->get('fields');
             $columns = $request->get('columns');
 
+            $fileType = $exportOptions['fileType'] ?? 'xlsx';
+
             $fieldsToReturn = $exportOptions['fieldsToReturn'] ?? ['id'];
 
             $summary = $exportOptions['summary'] ?? [];
@@ -84,6 +77,15 @@ class ExportController extends UControllerBase
             $skipMetadata = isset($exportOptions['skipMetaData']) && $exportOptions['skipMetaData'];
 
             $totals = [];
+
+            /**
+             * @var SfXlsxExportService $exportService
+             */
+            $exportService = null;
+
+            if ($fileType === 'xlsx') {
+                $exportService = new SfXlsxExportService();
+            }
 
             $data = $uService->getListDataForSchema(
                 $schema,
@@ -97,9 +99,6 @@ class ExportController extends UControllerBase
             )['data'];
             $recordsCount = count($data);
 
-            $spreadsheet = new Spreadsheet();
-            $sheet = $spreadsheet->getActiveSheet();
-            
             $hasEdit = false;
             foreach ($columns as $col) {
                 if (isset($col['allowEdit']) && $col['allowEdit']) {
@@ -112,16 +111,16 @@ class ExportController extends UControllerBase
             }
             if (!$skipMetadata) {
                 $startRow = 3;
-                $sheet->setCellValue('A1', $title);
-                $sheet->setCellValue('F1', 'Cols');
-                $sheet->setCellValue('G1', count($fieldsToReturn));
+                $exportService->setCellValue(1, 1, $title);
+                $exportService->setCellValue(6, 1, 'Cols');
+                $exportService->setCellValue(7, 1, count($fieldsToReturn));
             } else {
                 $startRow = 1;
             }
 
             $fileName = $exportDir . '/' . $title . '_' . time() . '.xlsx';
 
-            $this->applyStyleToRow($sheet, $startRow, $this->headerStyle);
+            $exportService->applyStyleToRow($startRow, $this->headerStyle);
 
             $parseColumns = $columns ?: array_map(function ($field) use ($schema) {
                 $field['path'] = isset($field['relName']) ?
@@ -172,17 +171,17 @@ class ExportController extends UControllerBase
                 }
 
                 $title = $field['title'];
-                $sheet->setCellValue(XlsxService::getLetters()[$col] . ''.$startRow, $title);
+                $exportService->setCellValue($col, $startRow, $title);
 
                 if (isset($field['allowEdit']) && $field['allowEdit']) {
-                    $sheet->setCellValue(XlsxService::getLetters()[$col] . '2', $fieldKey);
-
-                    $sheet
-                        ->getStyle(XlsxService::getLetters()[$col] . '2:' . XlsxService::getLetters()[$col] . ($recordsCount + 3))
-                        ->getFill()
-                        ->setFillType(Fill::FILL_SOLID)
-                        ->getStartColor()
-                        ->setARGB('FFCFE2F3');
+                    $exportService->setCellValue($col, 2, $fieldKey);
+                    $exportService->setForegroundColor(
+                        $col,
+                        2,
+                        $col,
+                        $recordsCount + 3,
+                        'FFCFE2F3'
+                    );
                 }
                 $col++;
             }
@@ -222,7 +221,7 @@ class ExportController extends UControllerBase
                         }
                     }
 
-                    $sheet->getCellByColumnAndRow($col, $row)->setValue($val);
+                    $exportService->setCellValue($col, $row, $val);
 
                     if (!isset($pivotData[$pivotRow])) {
                         $pivotData[$pivotRow] = [
@@ -240,32 +239,23 @@ class ExportController extends UControllerBase
             $col = 1;
             foreach ($parseColumns as $field) {
                 if ($field['naeType'] === 'float') {
-                    $sheet->getCellByColumnAndRow($col, $row)->setValue(round($totals[$field['fieldKey']], 2));
+                    $exportService->setCellValue($col, $row, round($totals[$field['fieldKey']], 2));
                 }
                 $col++;
             }
-            $this->applyStyleToRow($sheet, $row, $this->headerStyle);
-            XlsxService::autoSizeSheet($sheet);
+            $exportService->applyStyleToRow($row, $this->headerStyle);
+            $exportService->autoSizeSheet();
 
             foreach ($columns as $colIndex => $col) {
                 $letter = XlsxService::getLetters()[$colIndex + 1];
                 if (isset($col['settings']['width']) && $col['settings']['width']) {
-                    $sheet->getColumnDimension($letter)->setAutoSize(false);
-                    $sheet->getColumnDimension($letter)->setWidth((int)$col['settings']['width'], 'px');
+                    $exportService->setAutoSize($colIndex + 1, false);
+                    $exportService->setWidth($colIndex + 1, (int)$col['settings']['width']);
                 }
                 if (isset($col['settings']['wrapText']) && $col['settings']['wrapText']) {
-                    $sheet->getStyle($letter . '1:' . $letter . '' . $row)->getAlignment()->setWrapText(true);
+                    $exportService->setWrapText($colIndex + 1, 1, $colIndex + 1, $row, true);
                 }
             }
-
-            // if ($summary) {
-            //     $summaryData = $uService->getGroupedListDataForSchema($schema, $filters, $sort, $summary);
-
-            //     $summarySheet = $spreadsheet->createSheet(1);
-            //     $summarySheet->setTitle('Summary');
-
-
-            // }
 
             if ($hasPivot) {
                 $pivotRowTitle = '';
@@ -278,8 +268,7 @@ class ExportController extends UControllerBase
                 $pivotRowIndex = -1;
                 $pivotColIndex = -1;
 
-                $pivotSheet = $spreadsheet->createSheet(1);
-                $pivotSheet->setTitle('Ataskaita');
+                $exportService->createPage(1, 'Ataskaita');
 
                 foreach ($parseColumns as $colIndex => $col) {
                     if (isset($col['pivotSetting'])) {
@@ -300,11 +289,11 @@ class ExportController extends UControllerBase
                 }
                 $pivotTotalsCount = count($pivotTotalTitles);
 
-                $pivotSheet->getCellByColumnAndRow(1, 3)->setValue($pivotRowTitle);
-                $pivotSheet->getCellByColumnAndRow(2, 1)->setValue($pivotColTitle);
+                $exportService->setCellValue(1, 3, $pivotRowTitle);
+                $exportService->setCellValue(2, 1, $pivotColTitle);
 
-                $this->applyStyleToRow($sheet, 2, $this->headerStyle);
-                $this->applyStyleToCell($sheet, 'A3', $this->headerStyle);
+                $exportService->applyStyleToRow(2, $this->headerStyle);
+                $exportService->applyStyleToCell('A3', $this->headerStyle);
 
 
                 $pivotRowValues = array_values(
@@ -330,12 +319,12 @@ class ExportController extends UControllerBase
                 );
 
                 foreach ($pivotRowValues as $rowIndex => $rowValue) {
-                    $pivotSheet->getCellByColumnAndRow(1, 4 + $rowIndex)->setValue($rowValue);
+                    $exportService->setCellValue(1, 4 + $rowIndex, $rowValue);
                 }
                 foreach ($pivotColValues as $colIndex => $colValue) {
-                    $pivotSheet->getCellByColumnAndRow(2 + ($colIndex * $pivotTotalsCount), 2)->setValue($colValue);
+                    $exportService->setCellValue(2 + ($colIndex * $pivotTotalsCount), 2, $colValue);
                     foreach ($pivotTotalTitles as $totalIndex => $totalTitle) {
-                        $pivotSheet->getCellByColumnAndRow(2 + ($colIndex * $pivotTotalsCount) + $totalIndex, 3)->setValue($totalTitle);
+                        $exportService->setCellValue(2 + ($colIndex * $pivotTotalsCount) + $totalIndex, 3, $totalTitle);
                     }
                 }
 
@@ -359,14 +348,14 @@ class ExportController extends UControllerBase
                             } else if ($pivotTotalTypes[$totalIndex] === 'total') {
                                 $val = array_sum($colData);
                             }
-                            $pivotSheet->getCellByColumnAndRow(2 + ($colIndex * $pivotTotalsCount) + $totalIndex, 4 + $rowIndex)->setValue($val);
+                            $exportService->setCellValue(2 + ($colIndex * $pivotTotalsCount) + $totalIndex, 4 + $rowIndex, $val);
                         }
                     }
                 }
-                XlsxService::autoSizeSheet($pivotSheet);
+                $exportService->autoSizeSheet();
             }
 
-            $url = XlsxService::saveSpreadsheetToFile($spreadsheet, $fileName);
+            $url = $exportService->saveToFile($fileName);
 
             return $this->json([
                 'url' => $url
