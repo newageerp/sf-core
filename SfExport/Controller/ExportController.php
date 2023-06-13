@@ -99,7 +99,17 @@ class ExportController extends UControllerBase
 
             $spreadsheet = new Spreadsheet();
             $sheet = $spreadsheet->getActiveSheet();
+            
+            $hasEdit = false;
+            foreach ($columns as $col) {
+                if (isset($col['allowEdit']) && $col['allowEdit']) {
+                    $hasEdit = true;
+                }
+            }
 
+            if (!$hasEdit) {
+                $skipMetadata = true;
+            }
             if (!$skipMetadata) {
                 $startRow = 3;
                 $sheet->setCellValue('A1', $title);
