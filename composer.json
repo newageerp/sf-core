@@ -33,7 +33,8 @@
     "symfony/redis-messenger": "5.4.*",
     "psr/cache": "2.0.0",
     "ramsey/uuid": "^4.2",
-    "predis/predis": "^1.1"
+    "predis/predis": "^1.1",
+    "rewieer/taskschedulerbundle": "^0.11.0"
   },
   "license": "MIT",
   "authors": [
