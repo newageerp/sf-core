@@ -7,15 +7,17 @@ when@dev:
     monolog:
         handlers:
             main:
-                type: stream
+                type: rotating_file
                 path: "%kernel.logs_dir%/%kernel.environment%.log"
                 level: warning
                 channels: ["!event", "!task"]
+                max_files: 10
             task:
-                type: stream
+                type: rotating_file
                 path: "%kernel.logs_dir%/%kernel.environment%.task.log"
                 level: info
                 channels: ["task"]
+                max_files: 10
             console:
                 type: console
                 process_psr_3_messages: false
@@ -44,15 +46,17 @@ when@prod:
     monolog:
         handlers:
             main:
-                type: stream
+                type: rotating_file
                 path: "%kernel.logs_dir%/%kernel.environment%.log"
                 level: warning
                 channels: ["!event", "!task"]
+                max_files: 30
             task:
-                type: stream
+                type: rotating_file
                 path: "%kernel.logs_dir%/%kernel.environment%.task.log"
                 level: info
                 channels: ["task"]
+                max_files: 30
             nested:
                 type: stream
                 path: php://stderr
