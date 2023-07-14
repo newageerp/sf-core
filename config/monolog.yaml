@@ -1,0 +1,30 @@
+monolog:
+    channels:
+        - task
+
+when@dev:
+    monolog:
+        handlers:
+            task:
+                type: stream
+                path: "%kernel.logs_dir%/%kernel.environment%.task.log"
+                level: info
+                channels: ["task"]
+
+when@test:
+    monolog:
+        handlers:
+            task:
+                type: stream
+                path: "%kernel.logs_dir%/%kernel.environment%.task.log"
+                level: info
+                channels: ["task"]
+
+when@prod:
+    monolog:
+        handlers:
+            task:
+                type: stream
+                path: "%kernel.logs_dir%/%kernel.environment%.task.log"
+                level: info
+                channels: ["task"]
