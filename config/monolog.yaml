@@ -5,6 +5,11 @@ monolog:
 when@dev:
     monolog:
         handlers:
+            main:
+                type: stream
+                path: "%kernel.logs_dir%/%kernel.environment%.log"
+                level: warning
+                channels: ["!event", "!task"]
             task:
                 type: stream
                 path: "%kernel.logs_dir%/%kernel.environment%.task.log"
@@ -23,6 +28,11 @@ when@test:
 when@prod:
     monolog:
         handlers:
+            main:
+                type: stream
+                path: "%kernel.logs_dir%/%kernel.environment%.log"
+                level: warning
+                channels: ["!event", "!task"]
             task:
                 type: stream
                 path: "%kernel.logs_dir%/%kernel.environment%.task.log"
