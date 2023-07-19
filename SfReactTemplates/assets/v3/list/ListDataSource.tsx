@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, Fragment, ReactNode } from "react";
 import { SortingItem } from "@newageerp/ui.ui-bundle";
-import { useLocationState } from "use-location-state";
+import { useLocationState } from "@newageerp/v3.bundles.hooks-bundle";
 
 import { FilterContainer, ServerFilterItem, TypeItemFilters } from '@newageerp/v3.bundles.form-bundle';
 import { useTemplatesLoader, TemplatesLoader, Template } from '@newageerp/v3.templates.templates-core';
