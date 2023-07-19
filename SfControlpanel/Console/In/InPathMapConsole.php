@@ -53,10 +53,10 @@ import { axiosInstance } from "@newageerp/v3.bundles.utils-bundle";
 ';
 
         $fileContent .= '
-export const NaePaths = ' . json_encode($map, JSON_PRETTY_PRINT);
+export const NaePaths = ' . json_encode($map, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
 $fileContent .= '
-export const NaePathsMap = ' . json_encode($urlMap, JSON_PRETTY_PRINT);
+export const NaePathsMap = ' . json_encode($urlMap, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
         $fileContent .= '
 
