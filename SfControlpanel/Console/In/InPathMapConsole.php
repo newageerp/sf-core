@@ -41,7 +41,7 @@ class InPathMapConsole extends Command
                 $map[] = [
                     'id' => $methodData['operationId'],
                     'method' => $method,
-                    'path' => $path,
+                    'path' => str_replace('\/', '/', $path),
                     'parameters' => $methodData['parameters'] ?? []
                 ];
                 $urlMap[$method][$methodData['operationId']] = $path;
