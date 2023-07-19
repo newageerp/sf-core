@@ -2,6 +2,7 @@
 
 namespace Newageerp\SfControlpanel\Controller;
 
+use Newageerp\SfConfig\Service\ConfigService;
 use Newageerp\SfControlpanel\Console\LocalConfigUtilsV3;
 use Symfony\Component\Routing\Annotation\Route;
 use OpenApi\Annotations as OA;
@@ -53,6 +54,7 @@ class ConfigCacheController extends ConfigBaseController
                 }
                 $output['data'][$key] = $data;
             }
+            $output['data']['main'] = ConfigService::getConfig('main');
         } catch (\Exception $e) {
             $output['e'] = $e->getMessage();
         }
