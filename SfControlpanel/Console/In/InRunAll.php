@@ -36,7 +36,6 @@ class InRunAll extends Command
             'nae:localconfig:InFillModels',
             'nae:localconfig:InGeneratorRoutes',
             'nae:localconfig:InGeneratorFileWidgets',
-            'nae:localconfig:InGeneratorPdfs',
             'nae:localconfig:InGeneratorLayout',
             // 'nae:localconfig:V3PropertiesTemplates'
         ];

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, Fragment, ReactNode } from "react";
-import { SortingItem } from "@newageerp/ui.ui-bundle";
+import { SortingItem } from '@newageerp/v3.toolbar.sort-controller';
 import { useLocationState } from "@newageerp/v3.bundles.hooks-bundle";
 
 import { FilterContainer, ServerFilterItem, TypeItemFilters } from '@newageerp/v3.bundles.form-bundle';
