@@ -77,9 +77,6 @@ class InGeneratorLayout extends Command
             Utils::writeOnChanges($fileName, $generatedContent);
         }
 
-        // TABS
-        $this->tabsQsService->generate();
-
         return Command::SUCCESS;
     }
 }
