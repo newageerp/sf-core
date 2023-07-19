@@ -41,7 +41,7 @@ class InPathMapConsole extends Command
                 $map[] = [
                     'id' => $methodData['operationId'],
                     'method' => $method,
-                    'path' => str_replace('\/', '/', $path),
+                    'path' => $path,
                     'parameters' => $methodData['parameters'] ?? []
                 ];
                 $urlMap[$method][$methodData['operationId']] = $path;
@@ -53,10 +53,10 @@ import { axiosInstance } from "@newageerp/v3.bundles.utils-bundle";
 ';
 
         $fileContent .= '
-export const NaePaths = ' . json_encode($map, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+export const NaePaths = ' . json_encode($map, JSON_PRETTY_PRINT);
 
 $fileContent .= '
-export const NaePathsMap = ' . json_encode($urlMap, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+export const NaePathsMap = ' . json_encode($urlMap, JSON_PRETTY_PRINT);
 
         $fileContent .= '
 
