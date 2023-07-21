@@ -26,12 +26,6 @@ function AppInner() {
         }
     }, []);
 
-    useEffect(() => {
-        if (isLoaded) {
-            SFSSocketService.connect();
-        }
-    }, [isLoaded]);
-
     const redirectToLogin = () => {
         window.location.href = '/login/';
         return <Fragment />
