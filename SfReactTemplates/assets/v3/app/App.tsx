@@ -9,7 +9,7 @@ import { NaePathsMap } from "../../_custom/config/NaePaths";
 import { selectorBySchemaClassName, selectorBySchemaSlug } from "../../_custom/models/ormSelectors";
 
 import { MainBundle } from "@newageerp/v3.app.main-bundle";
-import { getPropertyForPath, getSchemaClassNameBySchema, getSchemaTitle, INaeStatus } from "../utils";
+import { getPropertyForPath, getSchemaTitle, INaeStatus } from "../utils";
 import { NaeSStatuses } from "../../_custom/config/NaeSStatuses";
 import { getDepenciesForField } from "../../_custom/fields/fieldDependencies";
 import { NaeSSchema } from "../../_custom/config/NaeSSchema";

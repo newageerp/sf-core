@@ -2,11 +2,11 @@ import React, { Fragment } from 'react'
 import { TP_HOOK_NAME } from '../../_custom/hooks/TP_HOOK_NAME';
 import { PropsId } from '../../_custom/models-cache-data/types';
 import { DfValueView } from '@newageerp/v3.bundles.app-bundle';
-import { Badge, BadgeSize } from '@newageerp/ui.ui-bundle';
+import { StatusWidget } from '@newageerp/v3.bundles.widgets-bundle';
 import { useTemplatesCore } from '@newageerp/v3.templates.templates-core';
 
 interface Props extends PropsId {
-    size?: BadgeSize | string
+    isCompact?: boolean
 }
 
 export default function TP_COMP_NAME(props: Props) {
@@ -26,8 +26,8 @@ export default function TP_COMP_NAME(props: Props) {
     const badgeContent = TP_BADGE_CONTENT;
 
     return (
-        <Badge variant={badgeVariant} size={props.size}>
+        <StatusWidget color={badgeVariant} isCompact={props.isCompact}>
             {badgeContent}
-        </Badge>
+        </StatusWidget>
     )
 }

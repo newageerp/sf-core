@@ -4,7 +4,7 @@ import { useLocationState } from "@newageerp/v3.bundles.hooks-bundle";
 
 import { FilterContainer, ServerFilterItem, TypeItemFilters } from '@newageerp/v3.bundles.form-bundle';
 import { useTemplatesLoader, TemplatesLoader, Template } from '@newageerp/v3.templates.templates-core';
-import { getTabFieldsToReturn } from "../utils";
+import { getTabFieldsToReturn } from "@newageerp/v3.utils.list-utils";
 import { SFSSocketService } from "../navigation/NavigationComponent";
 import { ListDataSourceProviderContext } from "@newageerp/v3.app.list.list-data-source";
 import { useUList } from "@newageerp/v3.bundles.hooks-bundle";
