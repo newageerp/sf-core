@@ -49,7 +49,7 @@ class InGeneratorViewForms extends Command
                         );
                     }
 
-                    $customComponents[] = [
+                    $customComponents[$field['componentName']] = [
                         'componentName' => $field['componentName'],
                         'name' => $customComponentName.mb_substr(md5($field['componentName']), 0, 5),
                     ];
