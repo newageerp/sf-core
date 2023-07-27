@@ -594,7 +594,7 @@ class UService
                         } else if (isset($st[1]) && $st[1] === 'IS_NOT_NULL') {
                             $statement = $qb->expr()->isNotNull($alias . '.' . $fieldKey);
                         } else if (isset($st[1]) && $st[1] === 'JSON_EXTRACT') {
-                            $statement = "JSON_EXTRACT(" . $alias . '.' . $fieldKey . ", \"$." . $extraKey . "\") = :" . $uuid . "";
+                            $statement = "JSON_EXTRACT(" . $alias . '.' . $fieldKey . ", '$." . $extraKey . "') = :" . $uuid . "";
                         } else if (isset($st[1]) && $st[1] === 'JSON_CONTAINS') {
                             $statement = "JSON_CONTAINS(" . $alias . '.' . $fieldKey . ", :" . $uuid . ", '$') = 1";
                         } else if (isset($st[1]) && $st[1] === 'JSON_NOT_CONTAINS') {
