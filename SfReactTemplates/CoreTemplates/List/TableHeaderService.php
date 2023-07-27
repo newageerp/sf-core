@@ -88,7 +88,7 @@ class TableHeaderService
                             $data = $this->getUservice()->getListDataForSchema(
                                 $selectSchema,
                                 1,
-                                100,
+                                200,
                                 ['id', '_viewTitle'],
                                 $event->getFilters(),
                                 [],

@@ -560,7 +560,7 @@ class UService
                             $opIsNot = true;
                             $needBrackets = true;
                         }
-                    } else if (isset($st[1]) && ($st[1] === 'JSON_SEARCH' || $st[1] === 'JSON_CONTAINS' || $st[1] === 'JSON_NOT_CONTAINS' || $st[1] === 'IS_NOT_NULL' || $st[1] === 'IS_NULL')) {
+                    } else if (isset($st[1]) && ($st[1] === 'JSON_EXTRACT' || $st[1] === 'JSON_SEARCH' || $st[1] === 'JSON_CONTAINS' || $st[1] === 'JSON_NOT_CONTAINS' || $st[1] === 'IS_NOT_NULL' || $st[1] === 'IS_NULL')) {
                         $op = 'CUSTOM';
                         if ($st[1] === 'IS_NOT_NULL' || $st[1] === 'IS_NULL') {
                             $skipParams = true;
@@ -585,6 +585,12 @@ class UService
                             $statement = $qb->expr()->isNull($alias . '.' . $fieldKey);
                         } else if (isset($st[1]) && $st[1] === 'IS_NOT_NULL') {
                             $statement = $qb->expr()->isNotNull($alias . '.' . $fieldKey);
+                        } else if (isset($st[1]) && $st[1] === 'JSON_EXTRACT') {
+                            $f = explode(".", $fieldKey);
+                            $f2 = explode(".", $fieldKey);
+                            array_shift($f2);
+
+                            $statement = "JSON_EXTRACT(" . $alias . '.' . $f[0] . ", \"$." . implode(".", $f2) . "\") = :" . $uuid . "";
                         } else if (isset($st[1]) && $st[1] === 'JSON_CONTAINS') {
                             $statement = "JSON_CONTAINS(" . $alias . '.' . $fieldKey . ", :" . $uuid . ", '$') = 1";
                         } else if (isset($st[1]) && $st[1] === 'JSON_NOT_CONTAINS') {
