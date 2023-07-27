@@ -568,6 +568,14 @@ class UService
                     }
 
                     if ($op) {
+                        $extraKey = null;
+                        if (isset($st[1]) && $st[1] === 'JSON_EXTRACT') {
+                            $fA = explode(".", $st[0]);
+                            array_shift($fA);
+                            $st[0] = 'i.' . $fA[0];
+                            array_shift($fA);
+                            $extraKey = implode(".", $fA);
+                        }
                         [$subJoins, $mainAlias, $alias, $fieldKey, $uuid] = $this->joinsByKey($st[0]);
 
                         if (!$skipParams) {
@@ -586,11 +594,7 @@ class UService
                         } else if (isset($st[1]) && $st[1] === 'IS_NOT_NULL') {
                             $statement = $qb->expr()->isNotNull($alias . '.' . $fieldKey);
                         } else if (isset($st[1]) && $st[1] === 'JSON_EXTRACT') {
-                            $f = explode(".", $fieldKey);
-                            $f2 = explode(".", $fieldKey);
-                            array_shift($f2);
-
-                            $statement = "JSON_EXTRACT(" . $alias . '.' . $f[0] . ", \"$." . implode(".", $f2) . "\") = :" . $uuid . "";
+                            $statement = "JSON_EXTRACT(" . $alias . '.' . $fieldKey . ", \"$." . implode(".", $extraKey) . "\") = :" . $uuid . "";
                         } else if (isset($st[1]) && $st[1] === 'JSON_CONTAINS') {
                             $statement = "JSON_CONTAINS(" . $alias . '.' . $fieldKey . ", :" . $uuid . ", '$') = 1";
                         } else if (isset($st[1]) && $st[1] === 'JSON_NOT_CONTAINS') {
