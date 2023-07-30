@@ -26,7 +26,7 @@ export default function TP_COMP_NAME(props: Props) {
     const badgeContent = TP_BADGE_CONTENT;
 
     return (
-        <StatusWidget color={badgeVariant}>
+        <StatusWidget color={badgeVariant} smallPadding={props.isCompact}>
             {badgeContent}
         </StatusWidget>
     )
