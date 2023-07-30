@@ -6,6 +6,7 @@ use Newageerp\SfReactTemplates\Template\Template;
 
 class FilesWidget extends Template
 {
+    protected bool $isCompact = false;
     /**
      * @var FilesWidgetItem[] $items
      */
@@ -14,6 +15,7 @@ class FilesWidget extends Template
     public function getProps(): array
     {
         return [
+            'isCompact' => $this->getIsCompact(),
             'items' => array_map(
                 function (FilesWidgetItem $item) {
                     return $item->toArray();
@@ -58,5 +60,29 @@ class FilesWidget extends Template
     public function addItem(FilesWidgetItem $item)
     {
         $this->items[] = $item;
+    }
+
+    /**
+     * Get the value of isCompact
+     *
+     * @return bool
+     */
+    public function getIsCompact(): bool
+    {
+        return $this->isCompact;
+    }
+
+    /**
+     * Set the value of isCompact
+     *
+     * @param bool $isCompact
+     *
+     * @return self
+     */
+    public function setIsCompact(bool $isCompact): self
+    {
+        $this->isCompact = $isCompact;
+
+        return $this;
     }
 }
