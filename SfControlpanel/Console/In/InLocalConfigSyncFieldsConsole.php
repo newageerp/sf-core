@@ -123,7 +123,7 @@ class InLocalConfigSyncFieldsConsole extends Command
                     'sort' => $enum['config']['sort'],
                     'title' => $enum['config']['title'],
                     'value' => $enum['config']['value'],
-                    'color' => $enum['config']['badgeVariant'],
+                    'color' => isset($enum['config']['badgeVariant']) && $enum['config']['badgeVariant'] ? $enum['config']['badgeVariant'] : 'slate',
                 ];
             }
 
@@ -157,7 +157,7 @@ class InLocalConfigSyncFieldsConsole extends Command
                     $enumsData
                 );
             }
-            
+
             $propSet['naeType'] = $this->propertiesUtilsV3->getOldPropertyNaeType($propSet, []);
 
             $properties[] = $propSet;
