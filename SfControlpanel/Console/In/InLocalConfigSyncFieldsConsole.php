@@ -123,6 +123,7 @@ class InLocalConfigSyncFieldsConsole extends Command
                     'sort' => $enum['config']['sort'],
                     'title' => $enum['config']['title'],
                     'value' => $enum['config']['value'],
+                    'color' => $enum['config']['badgeVariant'],
                 ];
             }
 
@@ -149,7 +150,8 @@ class InLocalConfigSyncFieldsConsole extends Command
                         $isInt = $prop['config']['type'] === 'integer' || $prop['config']['type'] === 'int' || $prop['config']['type'] === 'number';
                         return [
                             'label' => $en['title'],
-                            'value' => $isInt ? ((int)$en['value']) : $en['value']
+                            'value' => $isInt ? ((int)$en['value']) : $en['value'],
+                            'color' => $en['color'],
                         ];
                     },
                     $enumsData
