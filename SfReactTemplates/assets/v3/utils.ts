@@ -388,6 +388,7 @@ export interface INaeSchema {
 export interface INaePropertyEnum {
   value: string | number
   label: string
+  color: string
 }
 
 export interface INaeProperty {
