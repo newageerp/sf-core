@@ -61,6 +61,7 @@ function App() {
                                     return v.color;
                                 }
                             }
+                            return 'slate';
                         },
                         title: (schema: string, field: string, val: any) => {
                             const prop = getPropertyForPath(`${schema}.${field}`);
