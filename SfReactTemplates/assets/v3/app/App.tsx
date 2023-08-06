@@ -54,13 +54,13 @@ function App() {
                     enums: {
                         color: (schema: string, field: string, val: any) => {
                             const prop = getPropertyForPath(`${schema}.${field}`);
-                            // if (prop && prop.enum) {
-                            //     const v = prop.enum.find(el => el.value === val);
-                            //     if (v) {
-                            //         return v.color;
-                            //     }
-                            // }
-                            return 'slate';
+                            if (prop && prop.enum) {
+                                const v = prop.enum.find(el => el.value === val);
+                                if (v) {
+                                    // @ts-ignore
+                                    return v.color;
+                                }
+                            }
                         },
                         title: (schema: string, field: string, val: any) => {
                             const prop = getPropertyForPath(`${schema}.${field}`);
