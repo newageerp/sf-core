@@ -462,8 +462,12 @@ class UService
                     $skipParams = false;
 
                     $pureSql = false;
-
-                    if (isset($st[1]) && $st[1] === 'contains') {
+                    
+                    if (isset($st[1]) && $st[1] === 'IS_EMPTY') {
+                        $op = '=';
+                        $value = '';
+                        $skipParams = true;
+                    } else if (isset($st[1]) && $st[1] === 'contains') {
                         $op = 'like';
                         $value = '%' . $st[2] . '%';
                     } else if (isset($st[1]) && ($st[1] === 'eq' || $st[1] === 'equal' || $st[1] === 'equals')) {

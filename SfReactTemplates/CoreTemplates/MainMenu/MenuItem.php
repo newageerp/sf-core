@@ -12,6 +12,8 @@ class MenuItem extends Template
 
     protected string $link = '';
 
+    protected bool $newWindow = false;
+
     public function __construct(
         string $title,
         string $link,
@@ -28,7 +30,8 @@ class MenuItem extends Template
             'children' => $this->getTitle(),
             'iconName' => $this->getIconName(),
             'href' => $this->getLink(),
-            'type' => 'menu-item'
+            'type' => 'menu-item',
+            'newWindow' => $this->getNewWindow()
         ];
     }
 
@@ -105,6 +108,30 @@ class MenuItem extends Template
     public function setLink(string $link): self
     {
         $this->link = $link;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of newWindow
+     *
+     * @return bool
+     */
+    public function getNewWindow(): bool
+    {
+        return $this->newWindow;
+    }
+
+    /**
+     * Set the value of newWindow
+     *
+     * @param bool $newWindow
+     *
+     * @return self
+     */
+    public function setNewWindow(bool $newWindow): self
+    {
+        $this->newWindow = $newWindow;
 
         return $this;
     }
