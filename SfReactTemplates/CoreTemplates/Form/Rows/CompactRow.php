@@ -21,6 +21,8 @@ class CompactRow extends Template
 
     protected bool $skipCheckFieldVisibility = false;
 
+    protected bool $isEdit = false;
+
     public function __construct(?Placeholder $labelContent = null, ?Placeholder $controlContent = null)
     {
         $this->labelContent = $labelContent ? $labelContent : new Placeholder();
@@ -37,6 +39,7 @@ class CompactRow extends Template
             'controlContent' => $this->getControlContent()->toArray(),
             'fieldVisibilityData' => $this->getFieldVisibilityData(),
             'skipCheckFieldVisibility' => $this->getSkipCheckFieldVisibility(),
+            'isEdit' => $this->getIsEdit(),
         ];
     }
 
@@ -209,6 +212,30 @@ class CompactRow extends Template
     public function setSkipCheckFieldVisibility(bool $skipCheckFieldVisibility): self
     {
         $this->skipCheckFieldVisibility = $skipCheckFieldVisibility;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of isEdit
+     *
+     * @return bool
+     */
+    public function getIsEdit(): bool
+    {
+        return $this->isEdit;
+    }
+
+    /**
+     * Set the value of isEdit
+     *
+     * @param bool $isEdit
+     *
+     * @return self
+     */
+    public function setIsEdit(bool $isEdit): self
+    {
+        $this->isEdit = $isEdit;
 
         return $this;
     }

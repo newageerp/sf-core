@@ -117,6 +117,7 @@ class EditContentService
                 foreach ($fields as $field) {
                     if ($field['type'] === 'tagCloud') {
                         $wideRow = new WideRow();
+                        $wideRow->setIsEdit(true);
                         $wideRow->getControlContent()->addTemplate(new FormFieldTagCloud($field['tagCloudField'], $field['tagCloudAction']));
                         $wideRow->setFieldVisibilityData([
                             'fieldKey' => 'tagCloud:' . $field['tagCloudField'] . ':' . $field['tagCloudAction'],
@@ -135,6 +136,7 @@ class EditContentService
                         }
 
                         $wideRow = new WideRow();
+                        $wideRow->setIsEdit(true);
                         $wideRow->getControlContent()->addTemplate($formLabel);
                         $wideRow->setFieldVisibilityData([
                             'fieldKey' => 'label:' . $field['text'],
@@ -148,6 +150,7 @@ class EditContentService
                         }
                     } else if ($field['type'] === 'hint') {
                         $wideRow = new WideRow();
+                        $wideRow->setIsEdit(true);
                         $wideRow->getControlContent()->addTemplate(new FormHint($field['text']));
                         $wideRow->setFieldVisibilityData([
                             'fieldKey' => 'hint:' . $field['text'],
