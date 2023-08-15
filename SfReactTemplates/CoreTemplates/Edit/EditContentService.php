@@ -191,6 +191,7 @@ class EditContentService
                         $level1Path = $pathArray[0] . '.' . $pathArray[1];
 
                         $wideRow = $isCompact ? new CompactRow() : new WideRow();
+                        $wideRow->setIsEdit(true);
                         if (isset($editForm['skipCheckFieldVisibility'])) {
                             $wideRow->setSkipCheckFieldVisibility($editForm['skipCheckFieldVisibility']);
                         }
