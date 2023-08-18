@@ -50,6 +50,15 @@ function App() {
                             }
                             return '-'
                         },
+                        slugByClassName: (className: string) => {
+                            const schemas = NaeSSchema;
+
+                            const _schemaA = schemas.filter((s) => s.className === className)
+                            if (_schemaA.length > 0) {
+                                return _schemaA[0].schema
+                            }
+                            return '-'
+                        }
                     },
                     enums: {
                         color: (schema: string, field: string, val: any) => {

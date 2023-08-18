@@ -41,7 +41,6 @@ class InFillModels extends Command
         ]);
         $ormjsTemplate = $twig->load('front-models/ormjs.html.twig');
 
-        $dataCacheSocketTemplate = $twig->load('front-models/DataCacheSocketComponent.html.twig');
         $dataCacheSocketMapTemplate = $twig->load('front-models/DataCacheSocketMap.html.twig');
 
         $dataCacheProviderCacheDataTemplate = $twig->load('front-models/DataCacheProviderCacheData.html.twig');
@@ -607,17 +606,7 @@ import { " . $selectorsJoin . " } from '../models/ormSelectors';
         $hasUsers = class_exists('App\Entity\User');
 
         $hooksDir = Utils::customFolderPath('hooks');
-        $socketCheckFilePath = $hooksDir . '/DataCacheSocketComponent.tsx';
-        $socketFileContent = $dataCacheSocketTemplate->render(
-            [
-                'checks' => $models,
-                'hasNotes' => $hasNotes,
-                'hasUsers' => $hasUsers,
-            ]
-        );
-        Utils::writeOnChanges($socketCheckFilePath, $socketFileContent);
-
-
+        
         $socketFileContent = $dataCacheSocketMapTemplate->render(
             [
                 'checks' => $models,

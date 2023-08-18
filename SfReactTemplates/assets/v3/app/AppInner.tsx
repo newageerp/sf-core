@@ -4,7 +4,7 @@ import '@newageerp/v3.app.main-bundle/dist/main-bundle.css'
 import { Switch } from "@newageerp/v3.templates.templates-core";
 import { useDidMount } from '@newageerp/v3.bundles.hooks-bundle'
 import { NaeApiFunctions } from "../../_custom/config/NaePaths";
-import NavigationComponent, { SFSSocketService } from "../navigation/NavigationComponent";
+import NavigationComponent from "../navigation/NavigationComponent";
 import AppRouter from "./AppRouter";
 import { DataCacheProvider } from "@newageerp/v3.app.data-cache-provider";
 import UserSpaceWrapper from "./UserSpace/UserSpaceWrapper";
