@@ -3,11 +3,11 @@ import { useTranslation } from "@newageerp/v3.templates.templates-core";
 import classNames from 'classnames'
 import {StatusChangeButton} from '@newageerp/v2.element.status-change-button'
 import { use{{ schemaUc }}HookNae } from "../../_custom/hooks/use{{ schemaUc }}HookNae";
-import { OpenApi } from "@newageerp/nae-react-auth-wrapper";
 import { PropsId } from "../../_custom/models-cache-data/types";
 import {Short} from '@newageerp/v2.element.status-badge.short';
 import {Base} from '@newageerp/v2.element.status-badge.base';
 import { ContentWidgetProps } from "../../v3/utils";
+import { useUSave } from "@newageerp/v3.bundles.hooks-bundle";
 
 interface StatusProps {
     short?: boolean,
