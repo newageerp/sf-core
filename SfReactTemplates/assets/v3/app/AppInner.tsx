@@ -5,7 +5,7 @@ import { Switch } from "@newageerp/v3.templates.templates-core";
 import { useDidMount } from '@newageerp/v3.bundles.hooks-bundle'
 import { NaeApiFunctions } from "../../_custom/config/NaePaths";
 import NavigationComponent from "../navigation/NavigationComponent";
-import AppRouter from "./AppRouter";
+import {AppRouter} from "@newageerp/v3.bundles.app-bundle";
 import { DataCacheProvider } from "@newageerp/v3.app.data-cache-provider";
 import UserSpaceWrapper from "./UserSpace/UserSpaceWrapper";
 import AppRoutes from "../../routes/AppRoutes";
