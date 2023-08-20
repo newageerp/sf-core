@@ -22,32 +22,32 @@ class InGeneratorRoutes extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $settings = ConfigService::getConfig('settings');
+        // $settings = ConfigService::getConfig('settings');
 
         $loader = new \Twig\Loader\FilesystemLoader(dirname(__DIR__, 2) . '/templates');
         $twig = new \Twig\Environment($loader, [
             'cache' => '/tmp',
         ]);
 
-        $editRoutesTemplate = $twig->load('routes/app-routes.html.twig');
+        // $editRoutesTemplate = $twig->load('routes/app-routes.html.twig');
 
-        $customEmptyTemplate = $twig->load('common/empty.html.twig');
+        // $customEmptyTemplate = $twig->load('common/empty.html.twig');
 
-        $generatedRoutesPath = Utils::generatedPath('routes');
+        // $generatedRoutesPath = Utils::generatedPath('routes');
 
         $customRoutesPath = Utils::customFolderPath('routes');
 
-        $imports = [];
+        // $imports = [];
 
-        $appsComponents = [];
-        $generatedContent = $editRoutesTemplate->render(
-            [
-                'imports' => $imports,
-                'appsComponents' => $appsComponents,
-            ]
-        );
-        $fileName = $generatedRoutesPath . '/AppRoutes.tsx';
-        Utils::writeOnChanges($fileName, $generatedContent);
+        // $appsComponents = [];
+        // $generatedContent = $editRoutesTemplate->render(
+        //     [
+        //         'imports' => $imports,
+        //         'appsComponents' => $appsComponents,
+        //     ]
+        // );
+        // $fileName = $generatedRoutesPath . '/AppRoutes.tsx';
+        // Utils::writeOnChanges($fileName, $generatedContent);
 
         // Custom toolbar
         // $customLayoutPath = Utils::customFolderPath('layout');
