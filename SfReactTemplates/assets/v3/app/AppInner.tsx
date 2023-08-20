@@ -2,12 +2,11 @@ import React, { Fragment, useEffect, useState } from "react";
 import '@newageerp/v3.app.main-bundle/dist/main-bundle.css'
 import { Switch } from "@newageerp/v3.templates.templates-core";
 import { useDidMount } from '@newageerp/v3.bundles.hooks-bundle'
-import {AppRouter, NavigationComponent, UserSpaceWrapper} from "@newageerp/v3.bundles.app-bundle";
+import { AppRouter, NavigationComponent, UserSpaceWrapper, AppRoutes } from "@newageerp/v3.bundles.app-bundle";
 import { DataCacheProvider } from "@newageerp/v3.app.data-cache-provider";
 import { WindowProvider } from "@newageerp/v3.popups.window-provider";
 import { UiBuilder } from "@newageerp/v3.app.mvc.ui-builder";
 
-import AppRoutes from "../../routes/AppRoutes";
 import CustomUserWrapperRoutes from "../../_custom/routes/CustomUserWrapperRoutes";
 import { getHookForSchema } from "../../_custom/models-cache-data/ModelFields";
 
