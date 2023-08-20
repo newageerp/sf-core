@@ -6,7 +6,7 @@ import { CustomListComponentsMap } from "../../_custom/tabs/CustomListComponents
 
 import { PluginsMap } from "../../../Plugins/PluginsMap";
 
-import ListDataSource from "../list/ListDataSource";
+import { ListDataSource } from "@newageerp/v3.app.list.list-data-source";
 
 import AppInner from "../app/AppInner";
 

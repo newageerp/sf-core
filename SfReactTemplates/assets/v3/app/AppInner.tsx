@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { OpenApi } from '@newageerp/nae-react-auth-wrapper';
 import '@newageerp/v3.app.main-bundle/dist/main-bundle.css'
 import { Switch } from "@newageerp/v3.templates.templates-core";
 import { useDidMount } from '@newageerp/v3.bundles.hooks-bundle'
@@ -11,13 +10,11 @@ import { UiBuilder } from "@newageerp/v3.app.mvc.ui-builder";
 import AppRoutes from "../../routes/AppRoutes";
 import CustomUserWrapperRoutes from "../../_custom/routes/CustomUserWrapperRoutes";
 import { getHookForSchema } from "../../_custom/models-cache-data/ModelFields";
-import { NaeApiFunctions } from "../../_custom/config/NaePaths";
 import NavigationComponent from "../navigation/NavigationComponent";
 
 function AppInner() {
     const [isLoaded, setIsLoaded] = useState(false);
 
-    OpenApi.naePaths = NaeApiFunctions;
     const isMount = useDidMount();
 
     useEffect(() => {
