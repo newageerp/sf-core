@@ -21,7 +21,7 @@ class App extends Template
 
     public function getTemplateName(): string
     {
-        return 'App';
+        return '_.AppBundle.AppInner';
     }
 
     public function getProps(): array

@@ -63,11 +63,11 @@ class InGeneratorRoutes extends Command
         // }
 
         // CustomUserWrapperRoutes
-        $fileName = $customRoutesPath . '/CustomUserWrapperRoutes.tsx';
-        if (!file_exists($fileName)) {
-            $generatedContent = $twig->load('routes/CustomUserWrapperRoutes.html.twig')->render();
-            Utils::writeOnChanges($fileName, $generatedContent);
-        }
+        // $fileName = $customRoutesPath . '/CustomUserWrapperRoutes.tsx';
+        // if (!file_exists($fileName)) {
+        //     $generatedContent = $twig->load('routes/CustomUserWrapperRoutes.html.twig')->render();
+        //     Utils::writeOnChanges($fileName, $generatedContent);
+        // }
         return Command::SUCCESS;
     }
 }

@@ -1,14 +1,6 @@
 import React from "react";
 
-import { CustomEditComponentsMap } from "../../_custom/edit/CustomEditComponentsMap";
-import { CustomViewComponentsMap } from "../../_custom/view/CustomViewComponentsMap";
-import { CustomListComponentsMap } from "../../_custom/tabs/CustomListComponentsMap";
-
 import { PluginsMap } from "../../../Plugins/PluginsMap";
-
-import { ListDataSource } from "@newageerp/v3.app.list.list-data-source";
-
-import AppInner from "../app/AppInner";
 
 import * as ButtonsBundle from '@newageerp/v3.bundles.buttons-bundle';
 import * as ModalBundle from '@newageerp/v3.bundles.modal-bundle';
@@ -24,10 +16,10 @@ import * as FormBundle from "@newageerp/v3.bundles.form-bundle";
 
 import * as TypographyBundle from "@newageerp/v3.bundles.typography-bundle";
 
+import { ListDataSource } from "@newageerp/v3.app.list.list-data-source";
 import { RecordProvider } from "@newageerp/v3.app.mvc.record-provider";
 
 export const componentsMap: any = {
-  "App": AppInner,
   "TypographyBundle": (comp: string) => {
     // @ts-ignore
     return TypographyBundle[comp];
@@ -49,6 +41,9 @@ export const componentsMap: any = {
     return PopupBundle[comp];
   },
   "AppBundle": (comp: string) => {
+    if (!(comp in AppBundle)) {
+      console.log(`${comp} not found in AppBundle`);
+    }
     // @ts-ignore
     return AppBundle[comp];
   },
@@ -84,9 +79,5 @@ export const componentsMap: any = {
 
   'list.list-data-source': ListDataSource,
 
-
-  ...CustomEditComponentsMap,
-  ...CustomViewComponentsMap,
-  ...CustomListComponentsMap,
   ...PluginsMap,
 };

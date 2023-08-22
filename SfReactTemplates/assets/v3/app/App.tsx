@@ -9,12 +9,16 @@ import { NaePathsMap } from "../../_custom/config/NaePaths";
 import { selectorBySchemaClassName, selectorBySchemaSlug } from "../../_custom/models/ormSelectors";
 
 import { MainBundle } from "@newageerp/v3.app.main-bundle";
+import '@newageerp/v3.app.main-bundle/dist/main-bundle.css'
+
 import { getPropertyForPath, getSchemaTitle, INaeStatus } from "../utils";
 import { NaeSStatuses } from "../../_custom/config/NaeSStatuses";
 import { getDepenciesForField } from "../../_custom/fields/fieldDependencies";
 import { NaeSSchema } from "../../_custom/config/NaeSSchema";
 import { onEditElementUpdate } from "../../_custom/fields/onEditElementUpdate";
 import { fieldVisibility, resetFieldsToDefValues } from "../../_custom/fields/fieldVisibility";
+import { PluginsMap } from "../../../Plugins/PluginsMap";
+import { getHookForSchema } from "../../_custom/models-cache-data/ModelFields";
 
 function App() {
     const redirectToLogin = () => {
@@ -29,6 +33,7 @@ function App() {
         <MainBundle>
             <TemplatesCoreProvider
                 templatesMap={componentsMap}
+                pluginsMap={PluginsMap}
                 store={store}
                 i18n={i18n}
                 dataCache={{
@@ -39,6 +44,7 @@ function App() {
                 orm={{
                     selectorBySchemaClassName: selectorBySchemaClassName,
                     selectorBySchemaSlug: selectorBySchemaSlug,
+                    getHookForSchema: getHookForSchema,
                 }}
                 modules={{
                     entities: {
