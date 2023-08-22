@@ -1,6 +1,11 @@
 import React, { useEffect } from "react";
 import { TemplatesCoreProvider, TemplatesLoader } from "@newageerp/v3.templates.templates-core";
-import { componentsMap } from "../templates/TemplateLoader";
+import { templatesComponentsMap } from "@newageerp/v3.templates.templates-components-map"
+import { MainBundle } from "@newageerp/v3.app.main-bundle";
+import '@newageerp/v3.app.main-bundle/dist/main-bundle.css'
+
+import { PluginsMap } from "../../../Plugins/PluginsMap";
+
 import { store } from "../../_custom/models/ormstore";
 import i18n from "../../_custom/lang/i18";
 import { cacheData } from "../../_custom/hooks/DataCacheProviderCacheData";
@@ -8,16 +13,12 @@ import { getDataCacheForSchema } from '../../_custom/hooks/DataCacheSocketMap';
 import { NaePathsMap } from "../../_custom/config/NaePaths";
 import { selectorBySchemaClassName, selectorBySchemaSlug } from "../../_custom/models/ormSelectors";
 
-import { MainBundle } from "@newageerp/v3.app.main-bundle";
-import '@newageerp/v3.app.main-bundle/dist/main-bundle.css'
-
 import { getPropertyForPath, getSchemaTitle, INaeStatus } from "../utils";
 import { NaeSStatuses } from "../../_custom/config/NaeSStatuses";
 import { getDepenciesForField } from "../../_custom/fields/fieldDependencies";
 import { NaeSSchema } from "../../_custom/config/NaeSSchema";
 import { onEditElementUpdate } from "../../_custom/fields/onEditElementUpdate";
 import { fieldVisibility, resetFieldsToDefValues } from "../../_custom/fields/fieldVisibility";
-import { PluginsMap } from "../../../Plugins/PluginsMap";
 import { getHookForSchema } from "../../_custom/models-cache-data/ModelFields";
 
 function App() {
@@ -32,7 +33,7 @@ function App() {
     return (
         <MainBundle>
             <TemplatesCoreProvider
-                templatesMap={componentsMap}
+                templatesMap={templatesComponentsMap}
                 pluginsMap={PluginsMap}
                 store={store}
                 i18n={i18n}
