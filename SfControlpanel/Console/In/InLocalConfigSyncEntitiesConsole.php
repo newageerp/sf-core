@@ -28,7 +28,7 @@ class InLocalConfigSyncEntitiesConsole extends Command
     {
         $configPath = Utils::customFolderPath('config') . '/NaeSSchema.tsx';
 
-        $fileContent = 'import { INaeSchema } from "../../v3/utils"
+        $fileContent = 'import { INaeSchema } from "@newageerp/v3.app.main-bundle"
 ';
 
         $entityData = LocalConfigUtils::getCpConfigFileData('entities');

@@ -27,7 +27,7 @@ class InLocalConfigSyncStatusesConsole extends Command
     {
         $configPath = Utils::customFolderPath('config') . '/NaeSStatuses.tsx';
 
-        $fileContent = 'import { INaeStatus } from "../../v3/utils";
+        $fileContent = 'import { INaeStatus } from "@newageerp/v3.app.main-bundle";
 ';
 
         $statusData = LocalConfigUtils::getCpConfigFileData('statuses');

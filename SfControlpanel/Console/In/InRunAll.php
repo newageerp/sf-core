@@ -19,17 +19,13 @@ class InRunAll extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $commands = [
-            'nae:localconfig:InLocalConfigSyncPdfs',
             'nae:localconfig:InLocalConfigSyncStatuses',
             'nae:localconfig:InLocalConfigSyncVariables',
             'nae:localconfig:InLocalConfigSyncFields',
             'nae:localconfig:InLocalConfigSyncEntities',
             'nae:localconfig:InLocalConfigSyncUsersPermissions',
             'nae:localconfig:InPathMap',
-            // 'nae:localconfig:InGeneratorMenu',
             'nae:localconfig:InGeneratorTabs',
-            // 'nae:localconfig:InGeneratorStatuses',
-            // 'nae:localconfig:InGeneratorEnums',
             'nae:localconfig:InGeneratorBadges',
             'nae:localconfig:InGeneratorEditForms',
             'nae:localconfig:InGeneratorViewForms',
@@ -37,7 +33,6 @@ class InRunAll extends Command
             'nae:localconfig:InGeneratorRoutes',
             'nae:localconfig:InGeneratorFileWidgets',
             'nae:localconfig:InGeneratorLayout',
-            // 'nae:localconfig:V3PropertiesTemplates'
         ];
 
         shell_exec('rm -rf /tmp/*');

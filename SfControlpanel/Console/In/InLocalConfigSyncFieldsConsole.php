@@ -38,7 +38,7 @@ class InLocalConfigSyncFieldsConsole extends Command
         // $configPathDbKeys = LocalConfigUtils::getFrontendConfigPath() . '/NaeSDbKeys.tsx';
         $configPathKeys = Utils::customFolderPath('config') . '/NaeSPropertiesKeys.tsx';
 
-        $fileContent = 'import { INaeProperty } from "../../v3/utils";
+        $fileContent = 'import { INaeProperty } from "@newageerp/v3.app.main-bundle";
 ';
         $fileDbKeysContent = '';
 
