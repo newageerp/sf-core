@@ -44,10 +44,6 @@ services:
     resource: '../SfControlpanel/Console/In/*'
     tags:
       - { name: 'console.command' }
-  Newageerp\SfControlpanel\Console\V3\:
-    resource: '../SfControlpanel/Console/V3/*'
-    tags:
-      - { name: 'console.command' }
 
   Newageerp\SfControlpanel\Console\Out\:
     resource: '../SfControlpanel/Console/Out/*'
