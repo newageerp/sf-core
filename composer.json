@@ -14,7 +14,7 @@
     "nelmio/api-doc-bundle": "4.10.2",
     "nelmio/cors-bundle": "2.1",
     "symfony/framework-bundle": "5.4.*",
-    "firebase/php-jwt": "^5.4",
+    "firebase/php-jwt": "^5.4|~6.0",
     "doctrine/annotations": "^1.13",
     "symfony/serializer": "5.4.*",
     "symfony/http-foundation": "5.4.*",
