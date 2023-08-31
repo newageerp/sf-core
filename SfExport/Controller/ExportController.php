@@ -82,7 +82,7 @@ class ExportController extends UControllerBase
             /**
              * @var SfXlsxExportService $exportService
              */
-            $exportService = null;
+            $exportService = new SfXlsxExportService();
 
             if ($fileType === 'xlsx') {
                 $exportService = new SfXlsxExportService();
