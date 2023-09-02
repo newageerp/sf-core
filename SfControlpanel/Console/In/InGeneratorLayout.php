@@ -39,9 +39,10 @@ class InGeneratorLayout extends Command
 
         $hasMails = isset($settings['apps']['mails']) && $settings['apps']['mails'];
         $hasTasks = isset($settings['apps']['tasks']) && $settings['apps']['tasks'];
+        $hasNotes = isset($settings['apps']['notes']) && $settings['apps']['notes'];
 
         $templates = [];
-        
+
         $settings = LocalConfigUtils::getCpConfigFileData('settings');
 
         foreach ($templates as $template => $target) {
@@ -65,10 +66,12 @@ class InGeneratorLayout extends Command
         }
 
         // getFrontendModelsCachePath
-        $fileName = Utils::customFolderPath('models-cache-data') . '/NotesNameResolver.tsx';
-        if (!file_exists($fileName)) {
-            $generatedContent = $twig->load('user-components/notes/NotesNameResolver.html.twig')->render();
-            Utils::writeOnChanges($fileName, $generatedContent);
+        if ($hasNotes) {
+            $fileName = Utils::customFolderPath('models-cache-data') . '/NotesNameResolver.tsx';
+            if (!file_exists($fileName)) {
+                $generatedContent = $twig->load('user-components/notes/NotesNameResolver.html.twig')->render();
+                Utils::writeOnChanges($fileName, $generatedContent);
+            }
         }
 
         $fileName = Utils::customFolderPath('models-cache-data') . '/types.ts';

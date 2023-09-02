@@ -3,7 +3,7 @@
 namespace Newageerp\SfUservice\Service;
 
 use Doctrine\Persistence\ObjectRepository;
-use Newageerp\SfCrud\Interface\IConvertService;
+use Newageerp\SfUservice\Events\UConvertEvent;
 use Newageerp\SfCrud\Interface\IOnSaveService;
 use Newageerp\SfPermissions\Service\PermissionServiceInterface;
 use Newageerp\SfAuth\Service\AuthService;
@@ -23,8 +23,6 @@ class UService
 {
     protected PermissionServiceInterface $permissionService;
 
-    protected IConvertService $convertService;
-
     protected IOnSaveService $onSaveService;
 
     protected EntityManagerInterface $em;
@@ -39,7 +37,6 @@ class UService
 
     public function __construct(
         PermissionServiceInterface $permissionService,
-        IConvertService            $convertService,
         IOnSaveService             $onSaveService,
         EntityManagerInterface     $em,
         EventDispatcherInterface $eventDispatcher,
@@ -47,7 +44,6 @@ class UService
         EntitiesUtilsV3 $entitiesUtilsV3,
     ) {
         $this->permissionService = $permissionService;
-        $this->convertService = $convertService;
         $this->onSaveService = $onSaveService;
         $this->em = $em;
         $this->eventDispatcher = $eventDispatcher;
@@ -331,13 +327,15 @@ class UService
 
             $createOptions = isset($extraData['createOptions']) ? $extraData['createOptions'] : [];
 
-            $convertFieldsReturn = $this->convertService->convert(
+            $event = new UConvertEvent(
                 $entity,
                 $schema,
                 isset($createOptions['convert']) ? $createOptions['convert'] : [],
                 $createOptions,
                 $user
             );
+            $this->eventDispatcher->dispatch($event, UConvertEvent::NAME);
+            $convertFieldsReturn = $event->getDataToReturn();
 
             if ($fieldsToReturn && $convertFieldsReturn) {
                 $fieldsToReturn = array_merge($fieldsToReturn, $convertFieldsReturn);

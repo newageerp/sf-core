@@ -37,38 +37,40 @@ class InGeneratorFileWidgets extends Command
                 true
             );
         }
-        $widgetItemsBySchema = [];
-        foreach ($widgetItems as $widgetItem) {
-            if (!isset($widgetItemsBySchema[$widgetItem['config']['schema']])) {
-                $widgetItemsBySchema[$widgetItem['config']['schema']] = [];
-            }
-            $widgetItemsBySchema[$widgetItem['config']['schema']][] = $widgetItem;
-        }
-
-        $generatedPath = Utils::generatedPath('files/widgets');
-
-        foreach ($widgetItemsBySchema as $schema => $items) {
-            $compName = Utils::fixComponentName($schema) . 'FilesWidget';
-            usort($items, function ($i1, $i2) {
-                return $i1['config']['sort'] <=> $i2['config']['sort'];
-            });
-            $widgetItems = [];
-            foreach ($items as $item) {
-                $widgetItems[] = [
-                    'title' => $item['config']['title'],
-                    'type' => $item['config']['type'],
-                    'typeUc' => Utils::fixComponentName($item['config']['type']),
-                    'hint' => isset($item['config']['hint'])?$item['config']['hint']:'',
-                ];
+        if (count($widgetItems) > 0) {
+            $widgetItemsBySchema = [];
+            foreach ($widgetItems as $widgetItem) {
+                if (!isset($widgetItemsBySchema[$widgetItem['config']['schema']])) {
+                    $widgetItemsBySchema[$widgetItem['config']['schema']] = [];
+                }
+                $widgetItemsBySchema[$widgetItem['config']['schema']][] = $widgetItem;
             }
 
-            $fileName = $generatedPath . '/' . $compName . '.tsx';
-            $content = $fileWidgetTemplate->render([
-                'compName' => $compName,
-                'files' => $widgetItems,
-                'schema' => $schema
-            ]);
-            Utils::writeOnChanges($fileName, $content);
+            $generatedPath = Utils::generatedPath('files/widgets');
+
+            foreach ($widgetItemsBySchema as $schema => $items) {
+                $compName = Utils::fixComponentName($schema) . 'FilesWidget';
+                usort($items, function ($i1, $i2) {
+                    return $i1['config']['sort'] <=> $i2['config']['sort'];
+                });
+                $widgetItems = [];
+                foreach ($items as $item) {
+                    $widgetItems[] = [
+                        'title' => $item['config']['title'],
+                        'type' => $item['config']['type'],
+                        'typeUc' => Utils::fixComponentName($item['config']['type']),
+                        'hint' => isset($item['config']['hint']) ? $item['config']['hint'] : '',
+                    ];
+                }
+
+                $fileName = $generatedPath . '/' . $compName . '.tsx';
+                $content = $fileWidgetTemplate->render([
+                    'compName' => $compName,
+                    'files' => $widgetItems,
+                    'schema' => $schema
+                ]);
+                Utils::writeOnChanges($fileName, $content);
+            }
         }
 
         return Command::SUCCESS;
