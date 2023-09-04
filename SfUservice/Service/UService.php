@@ -867,7 +867,7 @@ class UService
         }
 
         $event = new UOnSaveEvent($element);
-        $this->eventDispatcher->dispatch($event, UConvertEvent::NAME);
+        $this->eventDispatcher->dispatch($event, UOnSaveEvent::NAME);
 
         $requiredError = [];
         if (!(isset($data['skipRequiredCheck']) && $data['skipRequiredCheck'])) {
