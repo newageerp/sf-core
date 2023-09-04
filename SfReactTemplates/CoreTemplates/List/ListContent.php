@@ -2,7 +2,6 @@
 
 namespace Newageerp\SfReactTemplates\CoreTemplates\List;
 
-use Newageerp\SfPermissions\Service\EntityPermissionService;
 use Newageerp\SfReactTemplates\Template\Placeholder;
 use Newageerp\SfReactTemplates\Template\Template;
 

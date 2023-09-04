@@ -4,8 +4,6 @@ namespace Newageerp\SfUservice\Service;
 
 use Doctrine\Persistence\ObjectRepository;
 use Newageerp\SfUservice\Events\UConvertEvent;
-use Newageerp\SfCrud\Interface\IOnSaveService;
-use Newageerp\SfPermissions\Service\PermissionServiceInterface;
 use Newageerp\SfAuth\Service\AuthService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
@@ -18,13 +16,11 @@ use Newageerp\SfUservice\Events\UBeforeUpdateEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
 use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
+use Newageerp\SfUservice\Events\UOnSaveEvent;
+use Newageerp\SfUservice\Events\UPermissionsEvent;
 
 class UService
 {
-    protected PermissionServiceInterface $permissionService;
-
-    protected IOnSaveService $onSaveService;
-
     protected EntityManagerInterface $em;
 
     protected EventDispatcherInterface $eventDispatcher;
@@ -36,15 +32,11 @@ class UService
     protected array $schemas = [];
 
     public function __construct(
-        PermissionServiceInterface $permissionService,
-        IOnSaveService             $onSaveService,
         EntityManagerInterface     $em,
         EventDispatcherInterface $eventDispatcher,
         PropertiesUtilsV3 $propertiesUtilsV3,
         EntitiesUtilsV3 $entitiesUtilsV3,
     ) {
-        $this->permissionService = $permissionService;
-        $this->onSaveService = $onSaveService;
         $this->em = $em;
         $this->eventDispatcher = $eventDispatcher;
         $this->propertiesUtilsV3 = $propertiesUtilsV3;
@@ -85,7 +77,11 @@ class UService
         $className = $this->convertSchemaToEntity($schema);
 
         if (!$skipPermissionsCheck) {
-            $this->permissionService->extendFilters($user, $filters, $schema);
+            $event = new UPermissionsEvent(
+                $user, $filters, $schema
+            );
+            $this->eventDispatcher->dispatch($event, UPermissionsEvent::NAME);
+            $filters = $event->getFilters();
         }
 
         $classicMode = false;
@@ -287,7 +283,11 @@ class UService
         $className = $this->convertSchemaToEntity($schema);
 
         if (!$skipPermissionsCheck) {
-            $this->permissionService->extendFilters($user, $filters, $schema);
+            $event = new UPermissionsEvent(
+                $user, $filters, $schema
+            );
+            $this->eventDispatcher->dispatch($event, UPermissionsEvent::NAME);
+            $filters = $event->getFilters();
         }
 
         $classicMode = false;
@@ -866,7 +866,8 @@ class UService
             $this->eventDispatcher->dispatch($ev, UBeforeUpdateAfterSetEvent::NAME);
         }
 
-        $this->onSaveService->onSave($element);
+        $event = new UOnSaveEvent($element);
+        $this->eventDispatcher->dispatch($event, UConvertEvent::NAME);
 
         $requiredError = [];
         if (!(isset($data['skipRequiredCheck']) && $data['skipRequiredCheck'])) {

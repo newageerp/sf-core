@@ -50,11 +50,6 @@ services:
     tags:
       - { name: 'console.command' }
 
-  Newageerp\SfCrud\Service\ConvertService:
-    arguments: [ ]
-  Newageerp\SfCrud\Service\OnSaveService:
-    arguments: [ ]
-
   Newageerp\SfCurrency\Service\CurrencyService:
     arguments: [ ]
   Newageerp\SfCurrency\Controller\CurrencyController:
@@ -106,10 +101,6 @@ services:
 
   Newageerp\SfPdf\Controller\PdfController:
     arguments: [ ]
-
-  Newageerp\SfPermissions\Service\PermissionServiceInterface:
-    arguments: [ ]
-
 
   Newageerp\SfPushMessages\Service\FirebasePushService:
     arguments: []
