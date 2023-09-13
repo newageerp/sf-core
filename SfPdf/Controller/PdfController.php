@@ -8,6 +8,7 @@ use Newageerp\SfConfig\Service\ConfigService;
 use Newageerp\SfPdf\Event\SfPdfPreGenerateEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Profiler\Profiler;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -18,8 +19,13 @@ class PdfController extends OaBaseController
     /**
      * @Route(path="/{schema}/{template}/{id}", methods={"GET"})
      */
-    public function parsePdf(Request $request)
+    public function parsePdf(Request $request, ?Profiler $profiler)
     {
+        if (null !== $profiler) {
+            // if it exists, disable the profiler for this particular controller action
+            $profiler->disable();
+        }
+        
         $orgSchema = $schema = $request->get('schema');
         $template = $request->get('template');
         $id = $request->get('id');
