@@ -336,6 +336,7 @@ class UService
             );
             $this->eventDispatcher->dispatch($event, UConvertEvent::NAME);
             $convertFieldsReturn = $event->getDataToReturn();
+            $entity = $event->getEntity();
 
             if ($fieldsToReturn && $convertFieldsReturn) {
                 $fieldsToReturn = array_merge($fieldsToReturn, $convertFieldsReturn);
