@@ -10,7 +10,9 @@ class MenuItem extends Template
     protected ?string $iconName = null;
     protected ?bool $confirmation = null;
 
-    protected bool $isActive = true;
+    protected bool $isActive = false;
+
+    protected bool $isDisabled = false;
 
     public function __construct(string $children, ?string $iconName = null)
     {
@@ -25,6 +27,7 @@ class MenuItem extends Template
             'iconName' => $this->getIconName(),
             'confirmation' => $this->getConfirmation(),
             'isActive' => $this->getIsActive(),
+            'isDisabled' => $this->getIsDisabled(),
         ];
     }
 
@@ -126,6 +129,30 @@ class MenuItem extends Template
     public function setIsActive(bool $isActive): self
     {
         $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of isDisabled
+     *
+     * @return bool
+     */
+    public function getIsDisabled(): bool
+    {
+        return $this->isDisabled;
+    }
+
+    /**
+     * Set the value of isDisabled
+     *
+     * @param bool $isDisabled
+     *
+     * @return self
+     */
+    public function setIsDisabled(bool $isDisabled): self
+    {
+        $this->isDisabled = $isDisabled;
 
         return $this;
     }
