@@ -14,8 +14,6 @@ class MenuItem extends Template
 
     protected bool $newWindow = false;
 
-    protected bool $isActive = true;
-
     public function __construct(
         string $title,
         string $link,
@@ -33,8 +31,7 @@ class MenuItem extends Template
             'iconName' => $this->getIconName(),
             'href' => $this->getLink(),
             'type' => 'menu-item',
-            'newWindow' => $this->getNewWindow(),
-            'isActive' => $this->getIsActive(),
+            'newWindow' => $this->getNewWindow()
         ];
     }
 
@@ -135,30 +132,6 @@ class MenuItem extends Template
     public function setNewWindow(bool $newWindow): self
     {
         $this->newWindow = $newWindow;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of isActive
-     *
-     * @return bool
-     */
-    public function getIsActive(): bool
-    {
-        return $this->isActive;
-    }
-
-    /**
-     * Set the value of isActive
-     *
-     * @param bool $isActive
-     *
-     * @return self
-     */
-    public function setIsActive(bool $isActive): self
-    {
-        $this->isActive = $isActive;
 
         return $this;
     }
