@@ -201,7 +201,7 @@ class UController extends UControllerBase
 
     /**
      * @Route(path="/getByToken", methods={"POST"})
-     * @OA\Post (operationId="NAEUList")
+     * @OA\Post (operationId="NAEUListByToken")
      */
     public function getByToken(
         Request  $request,
