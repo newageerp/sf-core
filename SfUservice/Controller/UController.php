@@ -216,7 +216,7 @@ class UController extends UControllerBase
             }
             AuthService::getInstance()->setUser($user);
 
-            $token = $request->get('token');
+            $token = $request->get('cacheToken');
             $override = $request->get('override');
 
             $cacheResult = json_decode(base64_decode($token), true);
