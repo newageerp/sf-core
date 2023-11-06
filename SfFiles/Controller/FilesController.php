@@ -41,7 +41,7 @@ class FilesController extends OaBaseController
     public function upload(Request $request, EntityManagerInterface $entityManager): Response
     {
         $config = ConfigService::getConfig('main');
-        
+
         $className = $this->className;
 
         try {
@@ -116,6 +116,16 @@ class FilesController extends OaBaseController
             $file = json_decode($file, true, 512, JSON_THROW_ON_ERROR);
 
             $path = $this->fileService->getLocalStorage() . '/' . ltrim($file['path'], '/');
+
+            if (!file_exists($path) && isset($_ENV['FILES_FALLBACK_PATH'])) {
+                $tpath = $_ENV['FILES_FALLBACK_PATH'] . '/' . ltrim($file['path']);
+                $path = sys_get_temp_dir().'/'.md5($tpath);
+                file_put_contents(
+                    $path,
+                    file_get_contents($tpath)
+                );
+            }
+
             $response = new BinaryFileResponse($path);
 
             $filenameFallback = preg_replace(
@@ -199,6 +209,16 @@ class FilesController extends OaBaseController
             $file = $fileRepo->find($fileId);
 
             $path = $this->fileService->getLocalStorage() . '/' . ltrim($file->getPath(), '/');
+
+            if (!file_exists($path) && isset($_ENV['FILES_FALLBACK_PATH'])) {
+                $tpath = $_ENV['FILES_FALLBACK_PATH'] . '/' . ltrim($file->getPath());
+                $path = sys_get_temp_dir().'/'.md5($tpath);
+                file_put_contents(
+                    $path,
+                    file_get_contents($tpath)
+                );
+            }
+
             $response = new BinaryFileResponse($path);
 
             $filenameFallback = preg_replace(
@@ -236,6 +256,16 @@ class FilesController extends OaBaseController
             $file = json_decode($file, true, 512, JSON_THROW_ON_ERROR);
 
             $path = $this->fileService->getLocalStorage() . '/' . ltrim($file['path'], '/');
+
+            if (!file_exists($path) && isset($_ENV['FILES_FALLBACK_PATH'])) {
+                $tpath = $_ENV['FILES_FALLBACK_PATH'] . '/' . ltrim($file['path']);
+                $path = sys_get_temp_dir().'/'.md5($tpath);
+                file_put_contents(
+                    $path,
+                    file_get_contents($tpath)
+                );
+            }
+
             $response = new BinaryFileResponse($path);
 
             $filenameFallback = preg_replace(
