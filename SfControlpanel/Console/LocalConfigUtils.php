@@ -80,7 +80,7 @@ class LocalConfigUtils
         for ($i = 0; $i < mb_strlen($key); $i++) {
             $l = $key[$i];
 
-            if ($l === mb_strtoupper($l) && $i !== 0) {
+            if ($l === mb_strtoupper($l) && !is_numeric($l) && $i !== 0) {
                 $output[] = '-';
             }
             $output[] = mb_strtolower($l);
