@@ -214,7 +214,7 @@ class ConfigPropertiesController extends ConfigBaseController
                 );
 
                 foreach ($relsRel as $rel2) {
-                    if ($rel2['title'] && !in_array($rel['typeFormat'], $blacklist) && mb_strpos($rel2['title'], 'Get the value of') === false) {
+                    if ($rel2['title'] && !in_array($rel['typeFormat'], $blacklist) && mb_strpos($rel2['title'], 'Get the value of') === false && $rel2['typeFormat'] !== $schema) {
                         $relsRel2 = $this->getRelsForSchema($rel2['typeFormat'], $propertiesUtilsV3);
                         $this->parseRels(
                             $relsRel2,
