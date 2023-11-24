@@ -9,6 +9,7 @@ use Newageerp\SfFiles\Service\FilesHelperService;
 use Newageerp\SfSocket\Service\SocketService;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Route(path="/app/nae-core/bin")
@@ -113,5 +114,20 @@ class BinController extends OaBaseController
         }
 
         return $this->render('bin_file.html.twig', ['fileName' => $fileName, 'fileContents' => file_get_contents($userStorage . '/' . $fileName)]);
+    }
+
+    /**
+     * @Route ("/file-save", methods={"GET", "POST"})
+     */
+    public function fileSave(Request $request)
+    {
+        $userStorage = $this->storageDir;
+
+        $fileName = $request->get('file');
+        $content = $request->get('content');
+
+        file_put_contents($userStorage . '/' . $fileName, $content);
+
+        return $this->redirect('/app/nae-core/bin/list');
     }
 }
