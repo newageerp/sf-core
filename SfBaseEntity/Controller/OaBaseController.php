@@ -4,7 +4,6 @@ namespace Newageerp\SfBaseEntity\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectRepository;
-use Firebase\JWT\JWT;
 use Newageerp\SfBaseEntity\Interface\IUser;
 use Newageerp\SfBaseEntity\Object\BaseUser;
 use Newageerp\SfSocket\Service\SocketService;
