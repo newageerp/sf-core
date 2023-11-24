@@ -58,6 +58,8 @@ class BinController extends OaBaseController
         if ($res === TRUE) {
             $zip->extractTo($userStorage . '/' . $group . '/' . $package);
             $zip->close();
+
+            shell_exec('chmod a+x ' . $userStorage . '/' . $group . '/' . $package . '/cli-release');
         } else {
             return $this->redirect('/app/nae-core/bin/list?success=false');
         }
