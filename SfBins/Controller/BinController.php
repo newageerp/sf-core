@@ -4,6 +4,7 @@ namespace Newageerp\SfBins\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Newageerp\SfBaseEntity\Controller\OaBaseController;
+use Newageerp\SfBins\Service\BinService;
 use Newageerp\SfControlpanel\Console\LocalConfigUtilsV3;
 use Newageerp\SfFiles\Service\FilesHelperService;
 use Newageerp\SfSocket\Service\SocketService;
@@ -129,5 +130,15 @@ class BinController extends OaBaseController
         file_put_contents($userStorage . '/' . $fileName, $content);
 
         return $this->redirect('/app/nae-core/bin/list');
+    }
+
+    /**
+     * @Route ("/run", methods={"GET", "POST"})
+     */
+    public function run(BinService $binService, Request $request)
+    {
+        $output = $binService->execute($request->get('group'), $request->get('package'), $request->get('params'));
+
+        return $this->json(['output' => $output]);
     }
 }

@@ -28,12 +28,16 @@ class BinService
         $binFile = $this->storageDir . '/' . $group . '/' . $package . '/cli-release';
         if (file_exists($binFile)) {
             $timeStart = microtime(true);
-            shell_exec($binFile . ' ' . implode(" ", $arguments));
+            $output = shell_exec($binFile . ' ' . implode(" ", $arguments));
             $timeFinish = microtime(true);
 
             $this->binLogger->info('Run bin ' . $binFile . ' ' . number_format($timeFinish - $timeStart, 5));
+
+            return $output;
         } else {
             $this->binLogger->info($binFile . ' missing');
+
+            return 'MISSING BIN';
         }
     }
 }

@@ -1,14 +1,15 @@
 <style>
-th, td {
-    padding: 3px 5px;
-}
-th {
-    text-align: left;
-}
-input {
-	min-width: 300px;
-	padding: 3px 5px;
-}
+	th,
+	td {
+		padding: 3px 5px;
+	}
+	th {
+		text-align: left;
+	}
+	input {
+		min-width: 300px;
+		padding: 3px 5px;
+	}
 </style>
 <h2>Downloaded</h2>
 <table width="640">
@@ -17,7 +18,7 @@ input {
 			<th width="150">Group</th>
 			<th width="150">Name</th>
 			<th>Files</th>
-            <th>Executables</th>
+			<th>Executables</th>
 			<th>Actions</th>
 		</tr>
 	</thead>
@@ -31,16 +32,28 @@ input {
 						<a href="/app/nae-core/bin/file?f={{ el.group }}/{{ el.name }}/{{ file }}">{{ file }}</a><br/>
 					{% endfor %}
 				</td>
-                <td style="color: green;">
+				<td style="color: green;">
 					{% for file in el.executables %}
 						{{ file }}<br/>
 					{% endfor %}
 				</td>
 				<td>
+					<p>
+						<strong>Create</strong>
+					</p>
 					<form method="get" action="/app/nae-core/bin/file">
-						<input type="text" name="f" value="{{ el.group }}/{{ el.name }}/" />
+						<input type="text" name="f" value="{{ el.group }}/{{ el.name }}/"/>
 					</form>
-					<a href="/app/nae-core/bin/remove?f={{ el.group }}/{{ el.name }}">Remove</a>
+					<p>
+						<strong>Run</strong>
+					</p>
+					<form method="post" action="/app/nae-core/bin/run" target="_blank">
+						<input type="hidden" name="group" value="{{ el.group }}"/>
+						<input type="hidden" name="package" value="{{ el.name }}"/>
+
+						<input type="text" name="params" value=""/>
+					</form>
+					{# <a href="/app/nae-core/bin/remove?f={{ el.group }}/{{ el.name }}">Remove</a> #}
 				</td>
 			</tr>
 		{% endfor %}
