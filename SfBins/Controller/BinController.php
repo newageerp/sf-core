@@ -80,7 +80,7 @@ class BinController extends OaBaseController
             foreach ($packages as $package) {
                 $downloaded[] = [
                     'group' => $group,
-                    'package' => $package,
+                    'name' => $package,
                     'files' => FilesHelperService::scanDirFiles($userStorage . '/' . $group . '/' . $package)
                 ];
             }
