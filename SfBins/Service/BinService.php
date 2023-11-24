@@ -28,7 +28,7 @@ class BinService
         $binFile = $this->storageDir . '/' . $group . '/' . $package . '/cli-release';
         if (file_exists($binFile)) {
             $timeStart = microtime(true);
-            exec($binFile . ' ' . implode(" ", $arguments), $outputA, $resultCode);
+            exec($binFile . ' ' . implode(" ", $arguments).' 2>&1', $outputA, $resultCode);
             $timeFinish = microtime(true);
 
             $output = implode("\n", $outputA);
