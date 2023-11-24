@@ -1,7 +1,7 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
     paths:
-      - '@NewageerpBundle/SfBins/templates'
+      - '%kernel.project_dir%/vendor/newageerp/SfBins/templates'
 
 when@test:
     twig:
