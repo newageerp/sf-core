@@ -146,7 +146,7 @@ class OaBaseController extends AbstractController
             $result = json_decode(curl_exec($ch), true);
             curl_close($ch);
 
-            if ($result && isset($result['id'])) {
+            if ($result && isset($result['id']) && isset($result['iat']) && ($result['iat'] + 86400) > time()) {
                 return $this->userRepository->find($result['id']);
             }
         }
