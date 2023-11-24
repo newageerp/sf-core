@@ -137,7 +137,7 @@ class BinController extends OaBaseController
      */
     public function run(BinService $binService, Request $request)
     {
-        $output = $binService->execute($request->get('group'), $request->get('package'), $request->get('params'));
+        $output = $binService->execute($request->get('group'), $request->get('package'), explode(" ", $request->get('params')));
 
         return $this->json(['output' => $output]);
     }
