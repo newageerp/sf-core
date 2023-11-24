@@ -1,6 +1,7 @@
 monolog:
     channels:
         - task
+        - bin
         - deprecation
 
 when@dev:
@@ -18,6 +19,12 @@ when@dev:
                 level: info
                 channels: ["task"]
                 max_files: 10
+            bin:
+                type: rotating_file
+                path: "%kernel.logs_dir%/%kernel.environment%.bin.log"
+                level: info
+                channels: ["bin"]
+                max_files: 10
             console:
                 type: console
                 process_psr_3_messages: false
@@ -31,6 +38,11 @@ when@test:
                 path: "%kernel.logs_dir%/%kernel.environment%.task.log"
                 level: info
                 channels: ["task"]
+            bin:
+                type: stream
+                path: "%kernel.logs_dir%/%kernel.environment%.bin.log"
+                level: info
+                channels: ["bin"]
             main:
                 type: fingers_crossed
                 action_level: error
@@ -56,6 +68,12 @@ when@prod:
                 path: "%kernel.logs_dir%/%kernel.environment%.task.log"
                 level: info
                 channels: ["task"]
+                max_files: 30
+            bin:
+                type: rotating_file
+                path: "%kernel.logs_dir%/%kernel.environment%.bin.log"
+                level: info
+                channels: ["bin"]
                 max_files: 30
             nested:
                 type: stream

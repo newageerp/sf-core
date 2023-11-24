@@ -1,4 +1,7 @@
 <style>
+th, td {
+    padding: 3px 5px;
+}
 th {
     text-align: left;
 }
@@ -7,8 +10,8 @@ th {
 <table width="640">
 	<thead>
 		<tr>
-			<th>Group</th>
-			<th>Name</th>
+			<th width="150">Group</th>
+			<th width="150">Name</th>
 			<th>Files</th>
             <th>Executables</th>
 			<th>Actions</th>
@@ -21,7 +24,7 @@ th {
 				<td>{{ el.name }}</td>
 				<td>
 					{% for file in el.files %}
-						{{ file }}<br/>
+						<a href="/app/nae-core/bin/file?f={{ el.group }}/{{ el.name }}/{{ el.file }}">{{ file }}</a><br/>
 					{% endfor %}
 				</td>
                 <td style="color: green;">
@@ -30,6 +33,9 @@ th {
 					{% endfor %}
 				</td>
 				<td>
+					<form method="get" action="/app/nae-core/bin/file">
+						<input type="text" name="f" value="{{ el.group }}/{{ el.name }}/" />
+					</form>
 					<a href="/app/nae-core/bin/remove?f={{ el.group }}/{{ el.name }}">Remove</a>
 				</td>
 			</tr>
@@ -42,8 +48,8 @@ th {
 <table width="640">
 	<thead>
 		<tr>
-			<th>Group</th>
-			<th>Name</th>
+			<th width="150">Group</th>
+			<th width="150">Name</th>
 			<th>Actions</th>
 		</tr>
 	</thead>

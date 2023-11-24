@@ -6,6 +6,8 @@ services:
 
   Newageerp\SfBins\Controller\BinController:
     arguments: [ ]
+  Newageerp\SfBins\Service\BinService:
+    arguments: [ ]
 
   Newageerp\SfAuth\Controller\AuthController:
     arguments: [ ]

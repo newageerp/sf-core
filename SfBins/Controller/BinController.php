@@ -98,4 +98,20 @@ class BinController extends OaBaseController
 
         return $this->render('bin_list.html.twig', ['list' => $list, 'downloaded' => $downloaded]);
     }
+
+    /**
+     * @Route ("/file", methods={"GET", "POST"})
+     */
+    public function fileUpdate()
+    {
+        $userStorage = $this->storageDir;
+
+        $fileName = filter_input(INPUT_GET, 'f');
+
+        if (!file_exists($userStorage . '/' . $fileName)) {
+            file_put_contents($userStorage . '/' . $fileName, '');
+        }
+
+        return $this->render('bin_file.html.twig', ['fileName' => $fileName, 'fileContents' => file_get_contents($userStorage . '/' . $fileName)]);
+    }
 }
