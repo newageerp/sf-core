@@ -117,7 +117,7 @@ class BinController extends OaBaseController
     }
 
     /**
-     * @Route ("/file-save", methods={"GET", "POST"})
+     * @Route ("/file-save", methods={"POST"})
      */
     public function fileSave(Request $request)
     {
