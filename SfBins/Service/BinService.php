@@ -28,8 +28,10 @@ class BinService
         $binFile = $this->storageDir . '/' . $group . '/' . $package . '/cli-release';
         if (file_exists($binFile)) {
             $timeStart = microtime(true);
-            $output = shell_exec($binFile . ' ' . implode(" ", $arguments));
+            exec($binFile . ' ' . implode(" ", $arguments), $outputA, $resultCode);
             $timeFinish = microtime(true);
+
+            $output = implode("\n", $outputA);
 
             $this->binLogger->info('Run bin ' . $binFile . ' ' . number_format($timeFinish - $timeStart, 5));
 
