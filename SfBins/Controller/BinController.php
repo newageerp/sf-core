@@ -15,6 +15,6 @@ class BinController extends OaBaseController
      */
     public function test()
     {
-        return $this->renderView('bin_list.html.twig');
+        return $this->render('bin_list.html.twig');
     }
 }
