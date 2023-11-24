@@ -81,11 +81,16 @@ class BinController extends OaBaseController
                 $downloaded[] = [
                     'group' => $group,
                     'name' => $package,
-                    'files' => FilesHelperService::scanDirFiles($userStorage . '/' . $group . '/' . $package)
+                    'files' => FilesHelperService::scanDirFiles($userStorage . '/' . $group . '/' . $package),
+                    'executables' => array_filter(
+                        FilesHelperService::scanDirFiles($userStorage . '/' . $group . '/' . $package),
+                        function (string $file) use ($userStorage, $group, $package) {
+                            return is_executable($userStorage . '/' . $group . '/' . $package . '/' . $file);
+                        }
+                    )
                 ];
             }
         }
-
 
         $list = json_decode(file_get_contents($this->remoteUrl . '?action=list'), true);
 

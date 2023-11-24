@@ -1,3 +1,8 @@
+<style>
+th {
+    text-align: left;
+}
+</style>
 <h2>Downloaded</h2>
 <table width="640">
 	<thead>
@@ -5,6 +10,7 @@
 			<th>Group</th>
 			<th>Name</th>
 			<th>Files</th>
+            <th>Executables</th>
 			<th>Actions</th>
 		</tr>
 	</thead>
@@ -15,6 +21,11 @@
 				<td>{{ el.name }}</td>
 				<td>
 					{% for file in el.files %}
+						{{ file }}<br/>
+					{% endfor %}
+				</td>
+                <td style="color: green;">
+					{% for file in el.executables %}
 						{{ file }}<br/>
 					{% endfor %}
 				</td>
