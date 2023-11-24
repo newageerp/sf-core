@@ -1,1 +1,21 @@
-hello world
+<h2>Downloaded</h2>
+
+<h2>Available</h2>
+<table width="640">
+	<thead>
+		<tr>
+			<th>Group</th>
+			<th>Name</th>
+            <th>Actions</th>
+		</tr>
+	</thead>
+    <tbody>
+        {% for el in list %}
+            <tr>
+                <td>{{ el.group }}</td>
+                <td>{{ el.name }}</td>
+                <td><a href="/app/nae-core/bin/download?f={{ el.group }}/{{ el.name }}">Download</a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

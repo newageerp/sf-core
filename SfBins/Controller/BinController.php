@@ -11,10 +11,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class BinController extends OaBaseController
 {
     /**
-     * @Route ("/test", methods={"GET"})
+     * @Route ("/list", methods={"GET"})
      */
-    public function test()
+    public function list()
     {
-        return $this->render('bin_list.html.twig');
+        $list = json_decode(file_get_contents('http://artifactory.767.lt:8000/index.php?action=list'), true);
+
+        return $this->render('bin_list.html.twig', ['list' => $list]);
     }
 }
