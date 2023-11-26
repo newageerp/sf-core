@@ -5,7 +5,7 @@ namespace Newageerp\SfFiles\Controller;
 use Doctrine\ORM\EntityManagerInterface;
 use Newageerp\SfBaseEntity\Controller\OaBaseController;
 use Newageerp\SfConfig\Service\ConfigService;
-use Newageerp\SfFiles\Events\FileOnUploadEvent;
+use Newageerp\SfFiles\Event\FileOnUploadEvent;
 use Newageerp\SfFiles\Object\FileBase;
 use Newageerp\SfFiles\Service\FileService;
 use Newageerp\SfSocket\Service\SocketService;

@@ -1,8 +1,7 @@
 <?php
 
-namespace Newageerp\SfFiles\Events;
+namespace Newageerp\SfFiles\Event;
 
-use Newageerp\SfBaseEntity\Interface\IUser;
 use Symfony\Contracts\EventDispatcher\Event;
 
 class FileOnUploadEvent extends Event
