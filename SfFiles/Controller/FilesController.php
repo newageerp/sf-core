@@ -5,6 +5,7 @@ namespace Newageerp\SfFiles\Controller;
 use Doctrine\ORM\EntityManagerInterface;
 use Newageerp\SfBaseEntity\Controller\OaBaseController;
 use Newageerp\SfConfig\Service\ConfigService;
+use Newageerp\SfFiles\Events\FileOnUploadEvent;
 use Newageerp\SfFiles\Object\FileBase;
 use Newageerp\SfFiles\Service\FileService;
 use Newageerp\SfSocket\Service\SocketService;
@@ -68,7 +69,6 @@ class FilesController extends OaBaseController
                 $orm = new $className();
                 $orm->setCreator($user);
 
-
                 $newFileName = $key . random_int(0, 1000) . '' . time() . '___' . mb_strtolower($file->getClientOriginalName());
                 $filePath = $path . '/' . $newFileName;
                 $localPath = $folder . '/' . $newFileName;
@@ -88,6 +88,9 @@ class FilesController extends OaBaseController
                 $orm->setPath(ltrim($localPath, '/'));
                 $entityManager->persist($orm);
                 $entityManager->flush();
+
+                $event = new FileOnUploadEvent($folder, $file->getClientOriginalName(), $orm->getId());
+                $this->eventDispatcher->dispatch($event, FileOnUploadEvent::NAME);
 
                 $links[] = [
                     'name' => mb_strtolower($file->getClientOriginalName()),
