@@ -28,7 +28,7 @@ class InitController extends AbstractController
 
         return $this->json([
             'data' => $data,
-            'statuses' => $statusService->getStatuses(),
+            'status' => $statusService->getStatuses(),
         ]);
     }
 }
