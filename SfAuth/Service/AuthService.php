@@ -27,7 +27,7 @@ class AuthService implements IAuthService
         if ($config && isset($config['frontUrl'])) {
             $this->frontEndUrl = $config['frontUrl'];
         } else {
-            $this->frontEndUrl = '/login';
+            $this->frontEndUrl = '/login/';
         }
     }
 
