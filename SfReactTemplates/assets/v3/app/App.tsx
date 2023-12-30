@@ -22,10 +22,6 @@ import { getHookForSchema } from "../../_custom/models-cache-data/ModelFields";
 import { NaeSProperties } from "../../_custom/config/NaeSProperties";
 
 function App() {
-    const redirectToLogin = () => {
-        window.location.href = '/login/';
-    }
-
     useEffect(() => {
         window.document.title = `Loading...`;
     }, []);
@@ -168,7 +164,7 @@ function App() {
                     }
                 }}
             >
-                <TemplatesLoader templateName="App" onError={redirectToLogin} />
+                <TemplatesLoader templateName="App" />
             </TemplatesCoreProvider>
         </MainBundle>
     );
