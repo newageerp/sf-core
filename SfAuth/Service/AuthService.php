@@ -16,7 +16,7 @@ class AuthService implements IAuthService
 
     protected ?BaseUser $user = null;
 
-    private function __construct()
+    public function __construct()
     {
         $config = ConfigService::getConfig('auth');
         if ($config && isset($config['url'])) {
