@@ -4,10 +4,7 @@ services:
     autowire: true      # Automatically injects dependencies in your services.
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
-  Newageerp\SfInit\Controller\InitController:
-    arguments: [ ]
-  Newageerp\SfAuth\Service\AuthService:
-    arguments: [ ]
+  
 
   Newageerp\SfAuth\Controller\AuthController:
     arguments: [ ]
@@ -16,6 +13,8 @@ services:
   Newageerp\SfApps\Controller\ProxyController:
     arguments: [ ]
   
+  Newageerp\SfInit\Controller\InitController:
+    arguments: [ ]
 
   Newageerp\SfControlpanel\Controller\:
     resource: '../SfControlpanel/Controller/*'
