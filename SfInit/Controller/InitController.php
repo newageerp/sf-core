@@ -3,6 +3,7 @@
 namespace Newageerp\SfInit\Controller;
 
 use Newageerp\SfAuth\Service\AuthService;
+use Newageerp\SfStatus\Service\StatusService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use OpenApi\Annotations as OA;
@@ -20,14 +21,14 @@ class InitController extends AbstractController
      * @param Request $request
      * @return JsonResponse
      */
-    public function init(AuthService $authService): JsonResponse
+    public function init(AuthService $authService, StatusService $statusService): JsonResponse
     {
         $data = [];
-
         $data['loginUrl'] = $authService->getFrontEndUrl();
 
         return $this->json([
-            'data' => $data
+            'data' => $data,
+            'statuses' => $statusService->getStatuses(),
         ]);
     }
 }
