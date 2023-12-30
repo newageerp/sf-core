@@ -6,6 +6,8 @@ services:
 
   Newageerp\SfInit\Controller\InitController:
     arguments: [ ]
+  Newageerp\SfAuth\Service\AuthService:
+    arguments: [ ]
 
   Newageerp\SfAuth\Controller\AuthController:
     arguments: [ ]
