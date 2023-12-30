@@ -3,15 +3,24 @@ namespace Newageerp\SfAuth\Service;
 
 use Newageerp\SfAuth\Interface\IAuthService;
 use Newageerp\SfBaseEntity\Object\BaseUser;
+use Newageerp\SfConfig\Service\ConfigService;
 
 class AuthService implements IAuthService
 {
+    private $backendUrl = '';
+
     private static $_instance = null;
 
     protected ?BaseUser $user = null;
 
     private function __construct()
     {
+        $config = ConfigService::getConfig('auth');
+        if ($config && isset($config['url'])) {
+            $this->backendUrl = $config['url'];
+        } else {
+            $this->backendUrl = 'http://auth:3000';
+        }
     }
 
     public static function getInstance()
@@ -41,5 +50,13 @@ class AuthService implements IAuthService
         $this->user = $user;
 
         return $this;
+    }
+
+    /**
+     * Get the value of backendUrl
+     */
+    public function getBackendUrl()
+    {
+        return $this->backendUrl;
     }
 }

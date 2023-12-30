@@ -4,11 +4,6 @@ services:
     autowire: true      # Automatically injects dependencies in your services.
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
-  Newageerp\SfBins\Controller\BinController:
-    arguments: [ ]
-  Newageerp\SfBins\Service\BinService:
-    arguments: [ ]
-
   Newageerp\SfAuth\Controller\AuthController:
     arguments: [ ]
   Newageerp\SfAuth\Service\AuthService:
@@ -123,9 +118,6 @@ services:
     arguments: [ ]
   Newageerp\SfReactTemplates\Controller\:
     resource: '../SfReactTemplates/Controller/*'
-    arguments: [ ]
-
-  Newageerp\SfSepa\Service\SepaService:
     arguments: [ ]
 
   Newageerp\SfSerialNumber\Service\SerialNumberService:

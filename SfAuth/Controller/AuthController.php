@@ -4,6 +4,7 @@ namespace Newageerp\SfAuth\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectRepository;
+use Newageerp\SfAuth\Service\AuthService;
 use Newageerp\SfBaseEntity\Controller\OaBaseController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -65,13 +66,13 @@ class AuthController extends OaBaseController
     /**
      * @Route(path="/password-update")
      */
-    public function generateUpdatePasswordLink(Request $request)
+    public function generateUpdatePasswordLink(Request $request, AuthService $authService)
     {
         $link = '/login/update';
 
         $token = $request->get('token') ? $request->get('token') : $request->headers->get('Authorization');
         if ($token) {
-            $url = 'http://auth:3000/api/generate-update-token';
+            $url = $authService->getBackendUrl() . '/generate-update-token';
 
             $ppData = [
                 'data' => [

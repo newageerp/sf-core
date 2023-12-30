@@ -4,6 +4,7 @@ namespace Newageerp\SfBaseEntity\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectRepository;
+use Newageerp\SfAuth\Service\AuthService;
 use Newageerp\SfBaseEntity\Interface\IUser;
 use Newageerp\SfBaseEntity\Object\BaseUser;
 use Newageerp\SfSocket\Service\SocketService;
@@ -129,7 +130,7 @@ class OaBaseController extends AbstractController
         }
         $token = $request->get('token') ? $request->get('token') : $request->headers->get('Authorization');
         if ($token) {
-            $url = 'http://auth:3000/api/check';
+            $url = AuthService::getInstance()->getBackendUrl() . '/api/check';
 
             $ppData = [
                 'data' => [

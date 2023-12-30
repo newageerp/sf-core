@@ -2,6 +2,7 @@
 
 namespace Newageerp\SfAuth\Templates;
 
+use Newageerp\SfAuth\Service\AuthService;
 use Newageerp\SfReactTemplates\Event\LoadTemplateEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Newageerp\SfReactTemplates\CoreTemplates\Modal\MenuItemWithLink;
@@ -28,7 +29,7 @@ class UserTemplateEvt implements EventSubscriberInterface
         }
         
         if ($event->isTemplateForEntity(ViewContentListener::MAINVIEWWIDGETRIGHT, self::SCHEMA)) {
-            $url = 'http://auth:3000/api/list-credentials';
+            $url = AuthService::getInstance()->getBackendUrl().'/api/list-credentials';
 
             $ppData = [
                 'data' => [
