@@ -13,7 +13,6 @@ import { getDataCacheForSchema } from '../../_custom/hooks/DataCacheSocketMap';
 import { NaePathsMap } from "../../_custom/config/NaePaths";
 import { selectorBySchemaClassName, selectorBySchemaSlug } from "../../_custom/models/ormSelectors";
 
-import { NaeSStatuses } from "../../_custom/config/NaeSStatuses";
 import { getDepenciesForField } from "../../_custom/fields/fieldDependencies";
 import { NaeSSchema } from "../../_custom/config/NaeSSchema";
 import { onEditElementUpdate } from "../../_custom/fields/onEditElementUpdate";
@@ -141,16 +140,6 @@ function App() {
                         onUpdate: onEditElementUpdate,
                         resetToDefaults: resetFieldsToDefValues,
                         visibility: fieldVisibility,
-                    },
-                    statuses: {
-                        color: (schema, field, value) => {
-                            const s: INaeStatus | undefined = NaeSStatuses.find(e => e.schema === schema && e.type === field && e.status === value)
-                            return s && s.variant ? s.variant : 'slate';
-                        },
-                        title: (schema, field, value) => {
-                            const s: INaeStatus | undefined = NaeSStatuses.find(e => e.schema === schema && e.type === field && e.status === value)
-                            return s ? s.text : '';
-                        },
                     },
                     tabs: {
                         get: (schema: string, type: string) => {

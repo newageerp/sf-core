@@ -19,7 +19,6 @@ class InRunAll extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $commands = [
-            'nae:localconfig:InLocalConfigSyncStatuses',
             'nae:localconfig:InLocalConfigSyncVariables',
             'nae:localconfig:InLocalConfigSyncFields',
             'nae:localconfig:InLocalConfigSyncEntities',
