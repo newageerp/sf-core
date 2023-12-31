@@ -27,8 +27,6 @@ class InLocalConfigSyncVariablesConsole extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $configPhpPath = LocalConfigUtils::getPhpVariablesPath() . '/NaeSVariables.php';
-        $configPath = Utils::customFolderPath('config') . '/NaeSVariables.tsx';
-        $fileContent = '';
 
         $variables = LocalConfigUtils::getCpConfigFileData('variables');
 
@@ -38,10 +36,7 @@ namespace App\\Config;
 class NaeSVariables {
 ';
 
-        $dbData = [];
         foreach ($variables as $variable) {
-            $dbData[$variable['config']['slug']] = $variable['config']['text'];
-
             $phpFileContent .= '
     public static function get' . ucfirst($variable['config']['slug']) . '(): string {
         return "' . $variable['config']['text'] . '";
@@ -51,13 +46,6 @@ class NaeSVariables {
 
         $phpFileContent .= '}
 ';
-
-        $fileContent .= 'export const NaeSVariables = ' . json_encode($dbData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-
-        file_put_contents(
-            $configPath,
-            $fileContent
-        );
 
         file_put_contents(
             $configPhpPath,
