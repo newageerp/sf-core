@@ -4,7 +4,7 @@ import { NaeSSchemaMap } from "../config/NaeSSchema";
 class |MODELNAME|Model extends Model {
   static reducer(action, |MODELNAME|Model, session) {
     switch (action.type) {
-      case "UPSERT_" + NaeSSchemaMap.|MODELNAME|.schema:
+      case "UPSERT_|SLUG|":
         action.payload.forEach((payload) => {
           const dbData = |MODELNAME|Model.withId(payload.id);
 

@@ -110,8 +110,8 @@ class InFillModels extends Command
                 file_put_contents(
                     $writeTo,
                     str_replace(
-                        '|MODELNAME|',
-                        $schema,
+                        ['|MODELNAME|', '|SLUG|'],
+                        [$schema, $defaultItem['config']['schema']],
                         $modelTemplate
                     )
                 );
