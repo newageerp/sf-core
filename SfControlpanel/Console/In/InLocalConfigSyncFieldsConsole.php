@@ -36,7 +36,6 @@ class InLocalConfigSyncFieldsConsole extends Command
     {
         $configPath = Utils::customFolderPath('config') . '/NaeSProperties.tsx';
         // $configPathDbKeys = LocalConfigUtils::getFrontendConfigPath() . '/NaeSDbKeys.tsx';
-        $configPathKeys = Utils::customFolderPath('config') . '/NaeSPropertiesKeys.tsx';
 
         $fileContent = 'import { INaeProperty } from "@newageerp/v3.app.main-bundle";
 ';
@@ -83,13 +82,6 @@ class InLocalConfigSyncFieldsConsole extends Command
             }
 
             $propertiesKeys[$prop['config']['entity']][$prop['config']['key']] = $prop['config']['key'];
-
-            $available = [
-                'sort' => $prop['config']['available_sort'],
-                'filter' => $prop['config']['available_filter'],
-                'group' => $prop['config']['available_group'],
-                'total' => $prop['config']['available_total'],
-            ];
 
             $propSet = [
                 'schema' => $prop['config']['entity'],
@@ -189,7 +181,6 @@ class InLocalConfigSyncFieldsConsole extends Command
 
         $fileContent .= 'export const NaeSProperties: INaeProperty[] = ' . json_encode($properties, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
-        $fileKeysContent = 'export const NaeSPropertiesKeys = ' . json_encode($propertiesKeys, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
         $fileDbKeysContent .= '
 export const NaeSDbKeys = ' . json_encode($dbFieldsAll, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
@@ -198,10 +189,7 @@ export const NaeSDbKeys = ' . json_encode($dbFieldsAll, JSON_PRETTY_PRINT | JSON
             $configPath,
             $fileContent
         );
-        file_put_contents(
-            $configPathKeys,
-            $fileKeysContent
-        );
+        
         //        file_put_contents(
         //            $configJsonPath,
         //            json_encode($properties, JSON_PRETTY_PRINT)

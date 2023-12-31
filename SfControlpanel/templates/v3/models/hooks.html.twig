@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { NaeSSchemaMap } from '../../_custom/config/NaeSSchema';
 import { useDataCache } from "@newageerp/v3.app.data-cache-provider";
 import { useSelector } from "@newageerp/v3.templates.templates-core";
 import { Selector{{ modelName }}Nae } from "../models/ormSelectors";
@@ -42,7 +41,7 @@ export function use{{ modelName }}HookNae(id: number) : I{{ modelName }}ModelNae
     if (!element) {
       addToQueue({
         elementId: id,
-        schema: NaeSSchemaMap.{{ modelName }}.schema,
+        schema: "{{modelSlug}}",
         fields: I{{ modelName }}FieldsNae,
       });
     }

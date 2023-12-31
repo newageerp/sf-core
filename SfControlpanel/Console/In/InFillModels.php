@@ -363,6 +363,7 @@ class InFillModels extends Command
             $hooksTemplate->writeToFileOnChanges(
                 $hooksDir . '/use' . $m . 'HookNae.tsx',
                 [
+                    'modelSlug' => $this->entitiesUtilsV3->getSlugByClassName($m),
                     'modelName' => $m,
                     'modelsStruct' => $struct,
                     'modelFieldsArray' => json_encode($oFields, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)
