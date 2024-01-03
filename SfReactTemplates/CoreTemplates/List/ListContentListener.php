@@ -100,39 +100,63 @@ class ListContentListener implements EventSubscriberInterface
                 );
             }
             if ($addToolbar) {
-                // toolbar
-                $tab = $this->getTabsUtilsV3()->getTabBySchemaAndType(
-                    $schema,
-                    $type,
+                $eventData = $event->getData();
+                
+                // TOOLBAR LEFT
+                $templateEvent = new LoadTemplateEvent(
+                    $listDataSource->getToolbar()->getToolbarLeft(),
+                    'TableService.ToolbarLeft',
+                    $eventData
                 );
-                if ($tab) {
-                    // QS
-                    $qsFields = $this->getTabsUtilsV3()->getTabQsFields(
-                        $schema,
-                        $type,
-                    );
-                    if (count($qsFields) > 0) {
-                        $listDataSource->getToolbar()->getToolbarLeft()->addTemplate(
-                            new ToolbarQs($qsFields)
-                        );
-                    }
+                $this->eventDispatcher->dispatch($templateEvent, LoadTemplateEvent::NAME);
 
-                    // SORT
-                    $sort = $this->getTabsUtilsV3()->getTabSort(
-                        $schema,
-                        $type,
-                    );
-                    if (count($sort) > 0) {
-                        $listDataSource->getToolbar()->getToolbarRight()->addTemplate(
-                            new ToolbarSort($schema, $sort)
-                        );
-                    }
+                // TOOLBAR RIGHT
+                $templateEvent = new LoadTemplateEvent(
+                    $listDataSource->getToolbar()->getToolbarRight(),
+                    'TableService.ToolbarRight',
+                    $eventData
+                );
+                $this->eventDispatcher->dispatch($templateEvent, LoadTemplateEvent::NAME);
 
-                    // DETAILED SEARCH
-                    $listDataSource->getToolbar()->getToolbarRight()->addTemplate(
-                        new ToolbarDetailedSearch($schema)
-                    );
-                }
+                $templateEvent = new LoadTemplateEvent(
+                    $listDataSource->getToolbar()->getToolbarRight(),
+                    'TableService.ToolbarRight.' . $eventData['schema'],
+                    $eventData
+                );
+                $this->eventDispatcher->dispatch($templateEvent, LoadTemplateEvent::NAME);
+                // // toolbar
+                // $tab = $this->getTabsUtilsV3()->getTabBySchemaAndType(
+                //     $schema,
+                //     $type,
+                // );
+                // if ($tab) {
+                //     // QS
+                //     $qsFields = $this->getTabsUtilsV3()->getTabQsFields(
+                //         $schema,
+                //         $type,
+                //     );
+                //     if (count($qsFields) > 0) {
+                //         $listDataSource->getToolbar()->getToolbarLeft()->addTemplate(
+                //             new ToolbarQs($qsFields)
+                //         );
+                //     }
+
+                //     // SORT
+                //     $sort = $this->getTabsUtilsV3()->getTabSort(
+                //         $schema,
+                //         $type,
+                //     );
+                //     if (count($sort) > 0) {
+                //         $listDataSource->getToolbar()->getToolbarRight()->addTemplate(
+                //             new ToolbarSort($schema, $sort)
+                //         );
+                //     }
+
+                //     // DETAILED SEARCH
+                //     $listDataSource->getToolbar()->getToolbarRight()->addTemplate(
+                //         new ToolbarDetailedSearch($schema)
+                //     );
+                // }
             }
             $listTable = $this->getTableService()->buildTableData(
                 $event->getData()['schema'],
