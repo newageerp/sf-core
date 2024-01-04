@@ -121,6 +121,22 @@ class TableHeaderService
                     }
                 }
 
+                $sortPath = isset($col['sortPath']) && $col['sortPath'] ? str_replace('i.', $schema . '.', $col['sortPath']) : $col['path'];
+                $prop = $this->getPropertiesUtilsV3()->getPropertyForPath($sortPath);
+
+                if ($prop && $prop['isDb']) {
+                    $th->setSort([
+                        [
+                            'key' => $sortPath,
+                            'value' => 'ASC'
+                        ],
+                        [
+                            'key' => $sortPath,
+                            'value' => 'DESC'
+                        ]
+                    ]);
+                }
+
                 $th->getContents()->addTemplate($str);
 
                 $tr->getContents()->addTemplate($th);

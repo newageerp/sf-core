@@ -13,6 +13,8 @@ class TableTh extends Template
 
     protected ?array $filter = null;
 
+    protected ?array $sort = null;
+
     public function __construct(?Placeholder $contents = null)
     {
         $this->contents = $contents ? $contents : new Placeholder();
@@ -29,6 +31,7 @@ class TableTh extends Template
             'children' => $this->getContents()->toArray(),
             'textAlignment' => $this->getTextAlignment(),
             'filter' => $this->getFilter(),
+            'sort' => $this->getSort(),
         ];
     }
 
@@ -101,6 +104,30 @@ class TableTh extends Template
     public function setFilter(?array $filter): self
     {
         $this->filter = $filter;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of sort
+     *
+     * @return ?array
+     */
+    public function getSort(): ?array
+    {
+        return $this->sort;
+    }
+
+    /**
+     * Set the value of sort
+     *
+     * @param ?array $sort
+     *
+     * @return self
+     */
+    public function setSort(?array $sort): self
+    {
+        $this->sort = $sort;
 
         return $this;
     }
