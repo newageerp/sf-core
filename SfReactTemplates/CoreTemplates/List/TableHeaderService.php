@@ -127,11 +127,11 @@ class TableHeaderService
                 if ($prop && $prop['isDb']) {
                     $th->setSort([
                         [
-                            'key' => 'i.' . $sortPath,
+                            'key' => str_replace($schema . '.', 'i.', $sortPath),
                             'value' => 'ASC'
                         ],
                         [
-                            'key' => 'i.' . $sortPath,
+                            'key' => str_replace($schema . '.', 'i.', $sortPath),
                             'value' => 'DESC'
                         ]
                     ]);
