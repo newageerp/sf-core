@@ -199,7 +199,7 @@ class ConfigPropertiesController extends ConfigBaseController
         $blacklist = [$schema];
 
         $rels = $this->getRelsForSchema($schema, $propertiesUtilsV3);
-        $this->parseRels($rels, $propertiesUtilsV3, $output, '      ', 'i.', $schema);
+        $this->parseRels($rels, $propertiesUtilsV3, $output, '      ', 'i.', $schema, false);
 
         foreach ($rels as $rel) {
             if ($rel['title'] && mb_strpos($rel['title'], 'Get the value of') === false) {
@@ -210,7 +210,8 @@ class ConfigPropertiesController extends ConfigBaseController
                     $output,
                     '      ' . $rel['title'] . '      -      ',
                     'i.' . $rel['key'] . '.',
-                    $schema
+                    $schema,
+                    $rel['type'] === 'array'
                 );
 
                 foreach ($relsRel as $rel2) {
@@ -222,7 +223,8 @@ class ConfigPropertiesController extends ConfigBaseController
                             $output,
                             '      ' . $rel['title'] . '      -      ' . $rel2['title'] . '      -      ',
                             'i.' . $rel['key'] . '.' . $rel2['key'] . '.',
-                            $schema
+                            $schema,
+                            $rel['type'] === 'array' || $rel2['type'] === 'array'
                         );
                     }
                 }
@@ -264,14 +266,13 @@ class ConfigPropertiesController extends ConfigBaseController
         string $extraTitle = '',
         string $extraKey = '',
         string $initialSchema = '',
+        bool $parentArray = false,
     ) {
         foreach ($rels as $k => $relProperty) {
             $relSchemaProperties = $this->schemaPropertiesForFilter($relProperty['typeFormat'], $propertiesUtilsV3);
 
             $relProperties = [];
             foreach ($relSchemaProperties as $relSchemaProperty) {
-
-
                 $key = explode(".", $relSchemaProperty['id']);
                 $title = $relSchemaProperty['title'];
                 $path = $extraKey . $relProperty['key'] . '.' . $key[1];
@@ -284,7 +285,8 @@ class ConfigPropertiesController extends ConfigBaseController
                     'id' => $path,
                     'title' => $title,
                     'type' => $type,
-                    'options' => $property ? $propertiesUtilsV3->getDefaultPropertySearchOptions($property, []) : []
+                    'options' => $property ? $propertiesUtilsV3->getDefaultPropertySearchOptions($property, []) : [],
+                    'arrayFilter' => !$parentArray || $relProperty['type'] === 'array'
                 ];
             }
 
