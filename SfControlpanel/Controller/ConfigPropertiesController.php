@@ -301,7 +301,8 @@ class ConfigPropertiesController extends ConfigBaseController
                     'id' => 'rel-' . $relProperty['typeFormat'] . '-' . $k . '-' . md5($extraTitle),
                     'title' => $relTitle,
                     'isActive' => false,
-                    'items' => array_values($relProperties)
+                    'items' => array_values($relProperties),
+                    'isArray' => $isArray,
                 ];
             }
         }
