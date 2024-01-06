@@ -188,7 +188,7 @@ class ConfigPropertiesController extends ConfigBaseController
 
         $output = [];
 
-        $mainProperties = $this->schemaPropertiesForFilter($schema, $propertiesUtilsV3);
+        $mainProperties = $this->schemaPropertiesForFilter($schema, $propertiesUtilsV3, false);
         $output[] = [
             'id' => 'main',
             'title' => $title,
@@ -269,7 +269,7 @@ class ConfigPropertiesController extends ConfigBaseController
         bool $parentArray = false,
     ) {
         foreach ($rels as $k => $relProperty) {
-            $relSchemaProperties = $this->schemaPropertiesForFilter($relProperty['typeFormat'], $propertiesUtilsV3);
+            $relSchemaProperties = $this->schemaPropertiesForFilter($relProperty['typeFormat'], $propertiesUtilsV3, $parentArray);
 
             $relProperties = [];
             foreach ($relSchemaProperties as $relSchemaProperty) {
@@ -286,7 +286,7 @@ class ConfigPropertiesController extends ConfigBaseController
                     'title' => $title,
                     'type' => $type,
                     'options' => $property ? $propertiesUtilsV3->getDefaultPropertySearchOptions($property, []) : [],
-                    'arrayFilter' => !$parentArray || $relProperty['type'] === 'array'
+                    'arrayFilter' => $relSchemaProperty['arrayFilter']
                 ];
             }
 
@@ -379,7 +379,7 @@ class ConfigPropertiesController extends ConfigBaseController
         return $schemaProperties;
     }
 
-    protected function schemaPropertiesForFilter(string $schema, PropertiesUtilsV3 $propertiesUtilsV3)
+    protected function schemaPropertiesForFilter(string $schema, PropertiesUtilsV3 $propertiesUtilsV3, bool $parentArray = false,)
     {
         $schemaProperties = array_filter(
             $propertiesUtilsV3->getPropertiesForEntitySlugValues($schema),
@@ -396,13 +396,14 @@ class ConfigPropertiesController extends ConfigBaseController
         );
 
         $schemaProperties = array_map(
-            function ($property) use ($propertiesUtilsV3) {
+            function ($property) use ($propertiesUtilsV3, $parentArray) {
                 $type = $propertiesUtilsV3->getDefaultPropertySearchComparison($property, []);
                 return [
                     'id' => 'i.' . $property['key'],
                     'title' => $property['title'] ? $property['title'] : 'ID: ' . $property['key'],
                     'type' => $type,
-                    'options' => $propertiesUtilsV3->getDefaultPropertySearchOptions($property, [])
+                    'options' => $propertiesUtilsV3->getDefaultPropertySearchOptions($property, []),
+                    'arrayFilter' => $parentArray
                 ];
             },
             $schemaProperties
