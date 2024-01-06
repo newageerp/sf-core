@@ -269,7 +269,9 @@ class ConfigPropertiesController extends ConfigBaseController
         bool $parentArray = false,
     ) {
         foreach ($rels as $k => $relProperty) {
-            $relSchemaProperties = $this->schemaPropertiesForFilter($relProperty['typeFormat'], $propertiesUtilsV3, $parentArray);
+            $isArray = $parentArray || $relProperty['type'] === 'array';
+
+            $relSchemaProperties = $this->schemaPropertiesForFilter($relProperty['typeFormat'], $propertiesUtilsV3, $isArray);
 
             $relProperties = [];
             foreach ($relSchemaProperties as $relSchemaProperty) {
