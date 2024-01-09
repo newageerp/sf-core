@@ -51,7 +51,7 @@ class SfSummaryController extends OaBaseController
             $availableConfigs = array_filter(
                 $summaryConfigs,
                 function ($item) use ($config) {
-                    return $item['group'] === $config['group'];
+                    return isset($item['group']) && $item['group'] === $config['group'];
                 }
             );
         }
