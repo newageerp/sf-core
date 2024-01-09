@@ -6,6 +6,8 @@ services:
 
   Newageerp\SfStatus\Service\StatusService:
     arguments: [ ]
+  Newageerp\SfSummary\SfSummaryController:
+    arguments: [ ]
 
   Newageerp\SfAuth\Controller\AuthController:
     arguments: [ ]
