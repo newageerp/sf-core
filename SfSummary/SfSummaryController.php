@@ -299,6 +299,7 @@ class SfSummaryController extends OaBaseController
             }
             $rowConfig = [
                 'title' => '',
+                'key' => $row['key']
             ];
             if (isset($row['title'])) {
                 $rowConfig['title'] = $row['title'];
