@@ -287,6 +287,10 @@ class SfSummaryController extends OaBaseController
             'title' => $config['title'],
             'cols' => [],
             'values' => [],
+            'init' => [
+                'rows' => $config['initRows'],
+                'columns' => $config['initColumns'],
+            ]
         ];
 
         foreach ($config['cols'] as $row) {
