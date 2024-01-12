@@ -346,7 +346,7 @@ class SfSummaryController extends OaBaseController
                     $colValues[$colKey] = [];
                 }
 
-                $item = $this->getItemValueByPath($el, $row['key']);
+                $item = $this->getItemValueByPath($el, $col['key']);
                 $colValues[$colKey][$item] = 1;
 
                 $outputEl[$colKey] = $item;
