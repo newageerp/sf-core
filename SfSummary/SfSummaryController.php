@@ -236,4 +236,144 @@ class SfSummaryController extends OaBaseController
         }
         return $item;
     }
+
+    /**
+     * @Route(path="/statV2")
+     */
+    public function summaryV2(Request $request, UService $uService, PropertiesUtilsV3 $propertiesUtilsV3)
+    {
+        $request = $this->transformJsonBody($request);
+
+        if (!($user = $this->findUser($request))) {
+            throw new \Exception('Bad user');
+        }
+        AuthService::getInstance()->setUser($user);
+
+        $summaryConfigs = ConfigService::getConfig('summaryV2');
+
+        $cacheToken = $request->get('cacheToken', "");
+        $configId = $request->get('configId', '');
+
+        $config = array_values(
+            array_filter(
+                $summaryConfigs,
+                function ($item) use ($configId) {
+                    return $item['id'] === $configId;
+                }
+            )
+        );
+
+        if (count($config) === 0) {
+            return $this->json(['success' => 0]);
+        }
+        $config = $config[0];
+
+        $availableConfigs = [];
+        if (isset($config['group'])) {
+            $availableConfigs = array_values(
+                array_filter(
+                    $summaryConfigs,
+                    function ($item) use ($config) {
+                        return isset($item['group']) && $item['group'] === $config['group'];
+                    }
+                )
+            );
+        }
+
+        $cacheResult = json_decode(base64_decode($cacheToken), true);
+        $fieldsToReturn = $cacheResult['fieldsToReturn'];
+
+        $outputConfig = [
+            'title' => $config['title'],
+            'cols' => [],
+            'values' => [],
+        ];
+
+        foreach ($config['cols'] as $row) {
+            if (!in_array($row['key'], $fieldsToReturn)) {
+                $fieldsToReturn[] = $row['key'];
+            }
+            $rowConfig = [
+                'title' => '',
+            ];
+            if (isset($row['title'])) {
+                $rowConfig['title'] = $row['title'];
+            } else if ($row['type'] === 'property') {
+                $prop = $propertiesUtilsV3->getPropertyForPath($config['schema'] . '.' . $row['key']);
+                if ($prop) {
+                    $rowConfig['title'] = $prop['title'];
+                }
+            }
+            $outputConfig['cols'][] = $rowConfig;
+        }
+
+        foreach ($config['values'] as $val) {
+            if (!in_array($val['key'], $fieldsToReturn)) {
+                $fieldsToReturn[] = $val['key'];
+            }
+
+            $valConfig = [
+                'title' => '',
+                'type' => $val['type'],
+                'field' => $val['field']
+            ];
+            if (isset($val['title'])) {
+                $valConfig['title'] = $val['title'];
+            }
+            $outputConfig['values'][] = $valConfig;
+        }
+
+        $uListData = $uService->getListDataFromCacheToken($cacheToken, [
+            'fieldsToReturn' => $fieldsToReturn
+        ]);
+
+        $colValues = [];
+
+        $output = [];
+        foreach ($uListData['data'] as $el) {
+
+            $outputEl = [];
+
+            foreach ($config['cols'] as $col) {
+                $colKey = $col['key'];
+
+                if (!isset($colValues[$colKey])) {
+                    $colValues[$colKey] = [];
+                }
+
+                $item = $this->getItemValueByPath($el, $row['key']);
+                $colValues[$colKey][$item] = 1;
+
+                $outputEl[$colKey] = $item;
+            }
+
+            $output[] = $outputEl;
+        }
+
+        foreach ($config['cols'] as $col) {
+            $colKey = $col['key'];
+
+            $colValues[$colKey] = array_keys($colValues[$colKey]);
+
+            if (isset($col['sort'])) {
+                $this->sortArray($col['sort'], $colValues[$colKey]);
+            }
+        }
+
+        return $this->json([
+            'success' => 1,
+            'config' => $outputConfig,
+            'data' => $output,
+            'colValues' => $colValues,
+            'availableSelections' => array_map(
+                function ($item) {
+                    return [
+                        'id' => $item['id'],
+                        'title' => $item['title']
+                    ];
+                },
+                $availableConfigs
+            )
+        ]);
+    }
 }
