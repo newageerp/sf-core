@@ -290,6 +290,7 @@ class SfSummaryController extends OaBaseController
             'init' => [
                 'rows' => $config['initRows'],
                 'columns' => $config['initColumns'],
+                'values' => $config['initValues']
             ]
         ];
 
