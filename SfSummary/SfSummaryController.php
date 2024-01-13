@@ -321,7 +321,8 @@ class SfSummaryController extends OaBaseController
             $valConfig = [
                 'title' => '',
                 'type' => $val['type'],
-                'field' => $val['field']
+                'field' => $val['field'],
+                'key' => $val['key'],
             ];
             if (isset($val['title'])) {
                 $valConfig['title'] = $val['title'];
