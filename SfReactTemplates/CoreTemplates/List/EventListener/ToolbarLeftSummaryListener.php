@@ -16,7 +16,7 @@ class ToolbarLeftSummaryListener implements EventSubscriberInterface
             $entity = $event->getData()['schema'];
             $type = $event->getData()['type'];
 
-            $summaryConfigs = ConfigService::getConfig('summary');
+            $summaryConfigs = ConfigService::getConfig('summaryV2');
 
             $summaryConfigs = array_values(
                 array_filter(
