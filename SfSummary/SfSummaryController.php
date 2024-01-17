@@ -18,8 +18,12 @@ class SfSummaryController extends OaBaseController
     /**
      * @Route(path="/stat")
      */
-    public function summary(Request $request, UService $uService, PropertiesUtilsV3 $propertiesUtilsV3)
-    {
+    public function summary(
+        Request $request,
+        UService $uService,
+        PropertiesUtilsV3 $propertiesUtilsV3,
+        SfSummaryService $sfSummaryService,
+    ) {
         $request = $this->transformJsonBody($request);
 
         if (!($user = $this->findUser($request))) {
@@ -132,7 +136,7 @@ class SfSummaryController extends OaBaseController
         foreach ($config['rows'] as $rowKey => $row) {
             $rowValues[$rowKey] = [];
             foreach ($uListData['data'] as $el) {
-                $item = $this->getItemValueByPath($el, $row['key']);
+                $item = $sfSummaryService->getItemValueByPath($el, $row['key']);
                 $rowValues[$rowKey][$item] = 1;
             }
             $rowValues[$rowKey] = array_keys($rowValues[$rowKey]);
@@ -144,7 +148,7 @@ class SfSummaryController extends OaBaseController
         foreach ($config['columns'] as $columnKey => $col) {
             $columnValues[$columnKey] = [];
             foreach ($uListData['data'] as $el) {
-                $item = $this->getItemValueByPath($el, $col['key']);
+                $item = $sfSummaryService->getItemValueByPath($el, $col['key']);
                 $columnValues[$columnKey][$item] = 1;
             }
             $columnValues[$columnKey] = array_keys($columnValues[$columnKey]);
@@ -163,13 +167,13 @@ class SfSummaryController extends OaBaseController
             $outputKey = [];
 
             foreach ($config['rows'] as $rowKey => $row) {
-                $res = $this->getItemValueByPath($el, $row['key']);
+                $res = $sfSummaryService->getItemValueByPath($el, $row['key']);
                 $key = array_search($res, $rowValues[$rowKey]);
 
                 $outputKey[] = 'r' . $rowKey . ':' . $key . ':r' . $rowKey;
             }
             foreach ($config['columns'] as $columnKey => $col) {
-                $res = $this->getItemValueByPath($el, $col['key']);
+                $res = $sfSummaryService->getItemValueByPath($el, $col['key']);
                 $key = array_search($res, $columnValues[$columnKey]);
 
                 $outputKey[] = 'c' . $columnKey . ':' . $key . ':c' . $columnKey;
@@ -185,7 +189,7 @@ class SfSummaryController extends OaBaseController
                 if ($val['type'] === 'count') {
                     $output[$outputKey][$valKey]++;
                 } else if ($val['type'] === 'sum') {
-                    $res = $this->getItemValueByPath($el, $val['key']);
+                    $res = $sfSummaryService->getItemValueByPath($el, $val['key']);
                     $output[$outputKey][$valKey] += $res;
                 }
             }
@@ -209,39 +213,14 @@ class SfSummaryController extends OaBaseController
         ]);
     }
 
-    protected function sortArray(string $sort, array &$array)
-    {
-        if (mb_strtolower($sort) === 'asc') {
-            usort($array, function ($itemA, $itemB) {
-                return $itemA <=> $itemB;
-            });
-        } else {
-            usort($array, function ($itemA, $itemB) {
-                return $itemB <=> $itemA;
-            });
-        }
-    }
-
-    protected function getItemValueByPath(array $el, string $path)
-    {
-        $item = $el;
-
-        $pathArray = explode(".", $path);
-        foreach ($pathArray as $pathItem) {
-            if (isset($item[$pathItem])) {
-                $item = $item[$pathItem];
-            } else {
-                $item = '-';
-            }
-        }
-        return $item;
-    }
-
     /**
      * @Route(path="/statV2")
      */
-    public function summaryV2(Request $request, UService $uService, PropertiesUtilsV3 $propertiesUtilsV3)
-    {
+    public function summaryV2(
+        Request $request,
+        UService $uService,
+        SfSummaryService $sfSummaryService,
+    ) {
         $request = $this->transformJsonBody($request);
 
         if (!($user = $this->findUser($request))) {
@@ -249,150 +228,22 @@ class SfSummaryController extends OaBaseController
         }
         AuthService::getInstance()->setUser($user);
 
-        $summaryConfigs = ConfigService::getConfig('summaryV2');
-
         $cacheToken = $request->get('cacheToken', "");
         $configId = $request->get('configId', '');
 
-        $config = array_values(
-            array_filter(
-                $summaryConfigs,
-                function ($item) use ($configId) {
-                    return $item['id'] === $configId;
-                }
-            )
-        );
-
-        if (count($config) === 0) {
-            return $this->json(['success' => 0]);
-        }
-        $config = $config[0];
-
-        $availableConfigs = [];
-        if (isset($config['group'])) {
-            $availableConfigs = array_values(
-                array_filter(
-                    $summaryConfigs,
-                    function ($item) use ($config) {
-                        return isset($item['group']) && $item['group'] === $config['group'];
-                    }
-                )
-            );
-        }
-
         $cacheResult = json_decode(base64_decode($cacheToken), true);
         $fieldsToReturn = $cacheResult['fieldsToReturn'];
-
-        $outputConfig = [
-            'title' => $config['title'],
-            'cols' => [],
-            'values' => [],
-            'init' => [
-                'rows' => $config['initRows'],
-                'columns' => $config['initColumns'],
-                'values' => $config['initValues']
-            ]
-        ];
-
-        foreach ($config['cols'] as $row) {
-            if (!in_array($row['key'], $fieldsToReturn)) {
-                $fieldsToReturn[] = $row['key'];
-            }
-            $rowConfig = [
-                'title' => '',
-                'key' => $row['key']
-            ];
-            if (isset($row['title'])) {
-                $rowConfig['title'] = $row['title'];
-            } else if ($row['type'] === 'property') {
-                $prop = $propertiesUtilsV3->getPropertyForPath($config['schema'] . '.' . $row['key']);
-                if ($prop) {
-                    $rowConfig['title'] = $prop['title'];
-                }
-            }
-            $outputConfig['cols'][] = $rowConfig;
-        }
-
-        foreach ($config['values'] as $val) {
-            if (!in_array($val['key'], $fieldsToReturn)) {
-                $fieldsToReturn[] = $val['key'];
-            }
-
-            $valConfig = [
-                'title' => '',
-                'type' => $val['type'],
-                'field' => $val['field'],
-                'key' => $val['key'],
-            ];
-            if (isset($val['title'])) {
-                $valConfig['title'] = $val['title'];
-            }
-            $outputConfig['values'][] = $valConfig;
-        }
 
         $uListData = $uService->getListDataFromCacheToken($cacheToken, [
             'fieldsToReturn' => $fieldsToReturn
         ]);
 
-        $colValues = [];
+        $outData = $sfSummaryService->processConfigWithData(
+            $configId,
+            $uListData['data'],
+            $fieldsToReturn
+        );
 
-        $output = [];
-        foreach ($uListData['data'] as $el) {
-
-            $outputEl = [];
-
-            foreach ($config['cols'] as $col) {
-                $colKey = $col['key'];
-
-                if (!isset($colValues[$colKey])) {
-                    $colValues[$colKey] = [];
-                }
-
-                $item = $this->getItemValueByPath($el, $col['key']);
-                $colValues[$colKey][$item] = 1;
-
-                $outputEl[$colKey] = $item;
-            }
-            foreach ($config['values'] as $col) {
-                $colKey = $col['key'];
-
-                if (!isset($colValues[$colKey])) {
-                    $colValues[$colKey] = [];
-                }
-
-                $item = $this->getItemValueByPath($el, $col['key']);
-                $colValues[$colKey][$item] = 1;
-
-                $outputEl[$colKey] = $item;
-            }
-
-            $output[] = $outputEl;
-        }
-
-        foreach ($config['cols'] as $col) {
-            $colKey = $col['key'];
-
-            $colValues[$colKey] = array_keys($colValues[$colKey]);
-
-            if (isset($col['sort'])) {
-                $this->sortArray($col['sort'], $colValues[$colKey]);
-            }
-        }
-
-        return $this->json([
-            'success' => 1,
-            'config' => $outputConfig,
-            'data' => $output,
-            'colValues' => $colValues,
-            'availableSelections' => array_map(
-                function ($item) {
-                    return [
-                        'id' => $item['id'],
-                        'title' => $item['title']
-                    ];
-                },
-                $availableConfigs
-            )
-        ]);
+        return $this->json($outData);
     }
 }

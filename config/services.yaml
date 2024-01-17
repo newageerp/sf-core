@@ -8,6 +8,8 @@ services:
     arguments: [ ]
   Newageerp\SfSummary\SfSummaryController:
     arguments: [ ]
+  Newageerp\SfSummary\SfSummaryService:
+    arguments: [ ]
 
   Newageerp\SfAuth\Controller\AuthController:
     arguments: [ ]
