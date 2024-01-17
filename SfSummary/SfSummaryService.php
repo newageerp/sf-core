@@ -118,20 +118,14 @@ class SfSummaryService
                     $colValues[$colKey] = [];
                 }
 
-                $item = $this->getItemValueByPath($el, $col['key']);
+                $item = $this->getItemValueByPath($el, $colKey);
                 $colValues[$colKey][$item] = 1;
 
                 $outputEl[$colKey] = $item;
             }
             foreach ($config['values'] as $col) {
-                $colKey = $col['key'];
 
-                if (!isset($colValues[$colKey])) {
-                    $colValues[$colKey] = [];
-                }
-
-                $item = $this->getItemValueByPath($el, $col['key']);
-                $colValues[$colKey][$item] = 1;
+                $item = $this->getItemValueByPath($el, $colKey);
 
                 $outputEl[$colKey] = $item;
             }
