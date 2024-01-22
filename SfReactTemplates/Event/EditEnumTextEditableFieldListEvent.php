@@ -13,15 +13,19 @@ class EditEnumTextEditableFieldListEvent extends Event
 
     protected string $type = '';
 
+    protected string $fieldKey = '';
+
     protected array $options = [];
 
     public function __construct(
         string $schema,
         string $type,
+        string $fieldKey,
         array $options,
     ) {
         $this->schema = $schema;
         $this->type = $type;
+        $this->fieldKey = $fieldKey;
         $this->options = $options;
     }
 
@@ -94,6 +98,30 @@ class EditEnumTextEditableFieldListEvent extends Event
     public function setSchema(string $schema): self
     {
         $this->schema = $schema;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of fieldKey
+     *
+     * @return string
+     */
+    public function getFieldKey(): string
+    {
+        return $this->fieldKey;
+    }
+
+    /**
+     * Set the value of fieldKey
+     *
+     * @param string $fieldKey
+     *
+     * @return self
+     */
+    public function setFieldKey(string $fieldKey): self
+    {
+        $this->fieldKey = $fieldKey;
 
         return $this;
     }

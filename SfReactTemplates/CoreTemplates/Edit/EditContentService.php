@@ -286,7 +286,7 @@ class EditContentService
                                 if ($naeType === 'enum_text') {
                                     $enumProperties = $this->propertiesUtilsV3->getPropertyEnumsList($prop);
 
-                                    $event = new EditEnumTextEditableFieldListEvent($schema, $type, $enumProperties);
+                                    $event = new EditEnumTextEditableFieldListEvent($schema, $type, $pathArray[1], $enumProperties);
                                     $this->getEventDispatcher()->dispatch($event, EditEnumTextEditableFieldListEvent::NAME);
 
                                     $enumProperties = $event->getOptions();
