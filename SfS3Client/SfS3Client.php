@@ -2,11 +2,21 @@
 
 namespace Newageerp\SfS3Client;
 
+use Newageerp\SfConfig\Service\ConfigService;
+
 class SfS3Client
 {
+    public static function getHost() {
+        $config = ConfigService::getConfig('s3client');
+        if (isset($config['host'])) {
+            return $config['host'];
+        }
+        return 'http://s3client:3000';
+    }
+
     public static function fileExists(string $fileName)
     {
-        $host = 'http://s3client:3000';
+        $host = self::getHost();
         $url = $host . '/fileExists';
 
         $ch = curl_init($url);
@@ -32,7 +42,7 @@ class SfS3Client
 
     public static function saveFile(string $fileName, string $contents, string $acl)
     {
-        $host = 'http://s3client:3000';
+        $host = self::getHost();
         $url = $host . '/upload';
 
         $ch = curl_init($url);
@@ -60,7 +70,7 @@ class SfS3Client
 
     public static function saveBase64File(string $fileName, string $contents, string $acl)
     {
-        $host = 'http://s3client:3000';
+        $host = self::getHost();
         $url = $host . '/uploadBase64';
 
         $ch = curl_init($url);
