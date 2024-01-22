@@ -41,6 +41,7 @@ use Newageerp\SfReactTemplates\CoreTemplates\Form\Rows\Compact;
 use Newageerp\SfReactTemplates\CoreTemplates\Layout\FlexRow;
 use Newageerp\SfReactTemplates\CoreTemplates\Tabs\TabContainer;
 use Newageerp\SfReactTemplates\CoreTemplates\Tabs\TabContainerItem;
+use Newageerp\SfReactTemplates\Event\EditEnumTextEditableFieldListEvent;
 use Newageerp\SfReactTemplates\Event\LoadTemplateEvent;
 use Newageerp\SfReactTemplates\Event\StatusEditableOptionsEvent;
 use Newageerp\SfReactTemplates\Template\Placeholder;
@@ -283,10 +284,17 @@ class EditContentService
                                     );
                                 }
                                 if ($naeType === 'enum_text') {
+                                    $enumProperties = $this->propertiesUtilsV3->getPropertyEnumsList($prop);
+
+                                    $event = new EditEnumTextEditableFieldListEvent($schema, $type, $enumProperties);
+                                    $this->getEventDispatcher()->dispatch($event, EditEnumTextEditableFieldListEvent::NAME);
+
+                                    $enumProperties = $event->getOptions();
+
                                     $wideRow->getControlContent()->addTemplate(
                                         new EnumTextEditableField(
                                             $pathArray[1],
-                                            $this->propertiesUtilsV3->getPropertyEnumsList($prop),
+                                            $enumProperties,
                                         )
                                     );
                                 }
