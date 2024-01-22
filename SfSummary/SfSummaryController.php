@@ -234,14 +234,15 @@ class SfSummaryController extends OaBaseController
         $cacheResult = json_decode(base64_decode($cacheToken), true);
         $fieldsToReturn = $cacheResult['fieldsToReturn'];
 
-        $uListData = $uService->getListDataFromCacheToken($cacheToken, [
-            'fieldsToReturn' => $fieldsToReturn
-        ]);
-
         $outData = $sfSummaryService->processConfigWithData(
             $configId,
-            $uListData['data'],
-            $fieldsToReturn
+            function ($outputConfig, $fieldsToReturn) use ($uService, $cacheToken) {
+                $uListData = $uService->getListDataFromCacheToken($cacheToken, [
+                    'fieldsToReturn' => $fieldsToReturn
+                ]);
+                return $uListData['data'];
+            }, 
+            $fieldsToReturn,
         );
 
         return $this->json($outData);

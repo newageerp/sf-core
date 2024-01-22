@@ -144,14 +144,17 @@ class SfSummaryService
         }
     }
 
-    public function processConfigWithData(string $configId, array $data, array &$fieldsToReturn)
+    public function processConfigWithData(string $configId, $dataFunc, array $fieldsToReturn)
     {
         $config = $this->getConfig($configId);
         if (!$config) {
             return ['success' => 0];
         }
+
         $availableConfigs = $this->getAvailableConfigs($configId);
         $outputConfig = $this->getOutputConfig($config, $fieldsToReturn);
+
+        $data = $dataFunc($outputConfig, $fieldsToReturn);
 
         $colValues = [];
 
