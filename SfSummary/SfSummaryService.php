@@ -124,7 +124,8 @@ class SfSummaryService
                 $outputEl[$colKey] = $item;
             }
             foreach ($config['values'] as $col) {
-
+                $colKey = $col['key'];
+                
                 $item = $this->getItemValueByPath($el, $colKey);
 
                 $outputEl[$colKey] = $item;
@@ -144,7 +145,7 @@ class SfSummaryService
         }
     }
 
-    public function processConfigWithData(string $configId, $dataFunc, array $fieldsToReturn)
+    public function processConfigWithData(string $configId, $dataFunc, array &$fieldsToReturn)
     {
         $config = $this->getConfig($configId);
         if (!$config) {

@@ -241,7 +241,7 @@ class SfSummaryController extends OaBaseController
                     'fieldsToReturn' => $fieldsToReturn
                 ]);
                 return $uListData['data'];
-            }, 
+            },
             $fieldsToReturn,
         );
 
