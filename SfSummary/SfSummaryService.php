@@ -102,6 +102,12 @@ class SfSummaryService
             if (isset($val['sumKey'])) {
                 $valConfig['sumKey'] = $val['sumKey'];
             }
+            if (isset($val['skipGrand'])) {
+                $valConfig['skipGrand'] = $val['skipGrand'];
+            }
+            if (isset($val['slip100p'])) {
+                $valConfig['slip100p'] = $val['slip100p'];
+            }
             $outputConfig['values'][] = $valConfig;
         }
 
