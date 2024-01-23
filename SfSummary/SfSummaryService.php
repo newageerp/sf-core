@@ -99,6 +99,9 @@ class SfSummaryService
             if (isset($val['title'])) {
                 $valConfig['title'] = $val['title'];
             }
+            if (isset($val['sumKey'])) {
+                $valConfig['sumKey'] = $val['sumKey'];
+            }
             $outputConfig['values'][] = $valConfig;
         }
 
