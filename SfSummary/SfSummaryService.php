@@ -127,7 +127,7 @@ class SfSummaryService
                     $colValues[$colKey] = [];
                 }
 
-                $item = $this->getItemValueByPath($el, $colKey);
+                $item = (string)$this->getItemValueByPath($el, $colKey);
                 $colValues[$colKey][$item] = 1;
 
                 $outputEl[$colKey] = $item;
