@@ -44,6 +44,8 @@ services:
 
   Newageerp\SfConfig\Service\ConfigService:
     arguments: [ ]
+  Newageerp\SfConfig\Controller\SfConfigController:
+    arguments: [ ]
 
   Newageerp\SfControlpanel\Console\Maker\MakePluginWithServiceAndMessageHandler:
     tags:
