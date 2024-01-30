@@ -74,6 +74,11 @@ class SocketService
         $this->pool = [];
     }
 
+    public function sendToQueue(string $message, string $queueName) {
+        $msg = new AMQPMessage($message);
+        $this->getChannel()->basic_publish($msg, '', $queueName);
+    }
+
     public function sendPool()
     {
         if (!$this->getChannel()) {
@@ -82,8 +87,7 @@ class SocketService
         $count = count($this->pool);
 
         foreach ($this->pool as $el) {
-            $msg = new AMQPMessage(json_encode($el));
-            $this->getChannel()->basic_publish($msg, '', $this->queueName);
+            $this->sendToQueue(json_encode($el), $this->queueName);
         }
 
         $this->clearPool();
