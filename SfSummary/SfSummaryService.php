@@ -108,6 +108,13 @@ class SfSummaryService
             if (isset($val['slip100p'])) {
                 $valConfig['slip100p'] = $val['slip100p'];
             }
+            if (isset($val['events'])) {
+                $valConfig['events'] = $val['events'];
+            }
+            if (isset($val['extra'])) {
+                $valConfig['extra'] = $val['extra'];
+            }
+            
             $outputConfig['values'][] = $valConfig;
         }
 
