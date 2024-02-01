@@ -51,12 +51,72 @@ class AuthController extends OaBaseController
         $className = $this->className;
 
         $userOrm = new $className();
-        $userOrm->setId($user['id']);
-        $userOrm->setFirstName($user['firstName']);
-        $userOrm->setLastName($user['lastName']);
-        $userOrm->setPhone($user['phone']);
-        $userOrm->setEmail($user['email']);
-        $userOrm->setLogin($auth['username']);
+        if (method_exists($userOrm, 'setId')) {
+            $userOrm->setId($user['id']);
+        }
+        if (method_exists($userOrm, 'setFirstName')) {
+            $userOrm->setFirstName($user['firstName']);
+        }
+        if (method_exists($userOrm, 'setLastName')) {
+            $userOrm->setLastName($user['lastName']);
+        }
+        if (method_exists($userOrm, 'setPhone')) {
+            $userOrm->setPhone($user['phone']);
+        }
+        if (method_exists($userOrm, 'setEmail')) {
+            $userOrm->setEmail($user['email']);
+        }
+        if (method_exists($userOrm, 'setLogin')) {
+            $userOrm->setLogin($auth['username']);
+        }
+        if (method_exists($userOrm, 'setAuthSourceId')) {
+            $userOrm->setAuthSourceId($user['id']);
+        }
+        $this->getEm()->persist($userOrm);
+        $this->getEm()->flush();
+
+        return $this->json(['success' => 1]);
+    }
+
+    /**
+     * @Route(path="/sync-user")
+     */
+    public function syncUser(Request $request)
+    {
+        $request = $this->transformJsonBody($request);
+
+        $user = $request->get('user');
+
+        $className = $this->className;
+        $repo = $this->getEm()->getRepository($this->className);
+
+        if (method_exists($className, 'getAuthSourceId')) {
+            $userOrm = $repo->findOneBy(['authSourceId' => $user['id']]);
+        } else {
+            $userOrm = $repo->find($user['id']);
+        }
+
+        if (!$userOrm) {
+            $userOrm = new $className();
+        }
+        if (method_exists($userOrm, 'setId')) {
+            $userOrm->setId($user['id']);
+        }
+        if (method_exists($userOrm, 'setFirstName')) {
+            $userOrm->setFirstName($user['firstName']);
+        }
+        if (method_exists($userOrm, 'setLastName')) {
+            $userOrm->setLastName($user['lastName']);
+        }
+        if (method_exists($userOrm, 'setPhone')) {
+            $userOrm->setPhone($user['phone']);
+        }
+        if (method_exists($userOrm, 'setEmail')) {
+            $userOrm->setEmail($user['email']);
+        }
+        if (method_exists($userOrm, 'setAuthSourceId')) {
+            $userOrm->setAuthSourceId($user['id']);
+        }
         $this->getEm()->persist($userOrm);
         $this->getEm()->flush();
 

@@ -123,7 +123,8 @@ class OaBaseController extends AbstractController
      */
     public function findUser(Request $request): ?IUser
     {
-        if (!class_exists('App\Entity\User')) {
+        $className = 'App\Entity\User';
+        if (!class_exists($className)) {
             $user = new BaseUser();
             $user->setId(1);
             return $user;
@@ -147,6 +148,9 @@ class OaBaseController extends AbstractController
             curl_close($ch);
 
             if ($result && isset($result['id']) && isset($result['iat']) && ($result['iat'] + 86400) > time()) {
+                if (method_exists($className, 'getAuthSourceId')) {
+                    return $this->userRepository->findOneBy(['authSourceId' => $result['id']]);
+                }
                 return $this->userRepository->find($result['id']);
             }
         }
