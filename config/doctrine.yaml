@@ -18,7 +18,7 @@ doctrine:
                 type: annotation
             SfEntity:
                 is_bundle: false
-                dir: '../vendor/newageerp/sf-core/SfEntity/Entity'
+                dir: '%kernel.project_dir%/vendor/newageerp/sf-core/SfEntity/Entity'
                 prefix: 'Newageerp\SfEntity\Entity'
                 alias: SfEntity
                 type: annotation
