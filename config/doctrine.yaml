@@ -16,6 +16,12 @@ doctrine:
                 prefix: 'App\Entity'
                 alias: App
                 type: annotation
+            SfEntity:
+                is_bundle: false
+                dir: '../SfEntity/Entity'
+                prefix: 'Newageerp\SfEntity\Entity'
+                alias: SfEntity
+                type: annotation
         dql:
             string_functions:
                 JSON_EXTRACT: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonExtract
