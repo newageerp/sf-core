@@ -3,15 +3,15 @@
 namespace Newageerp\SfReactTemplates\CoreTemplates\MainMenu;
 
 use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
-use Newageerp\SfControlpanel\Console\TabsUtilsV3;
+use Newageerp\SfTabs\Service\SfTabsService;
 
 class MenuItemFactory
 {
     protected EntitiesUtilsV3 $entitiesUtilsV3;
 
-    protected TabsUtilsV3 $tabsUtilsV3;
+    protected SfTabsService $tabsUtilsV3;
 
-    public function __construct(EntitiesUtilsV3 $entitiesUtilsV3, TabsUtilsV3 $tabsUtilsV3)
+    public function __construct(EntitiesUtilsV3 $entitiesUtilsV3, SfTabsService $tabsUtilsV3)
     {
         $this->entitiesUtilsV3 = $entitiesUtilsV3;
         $this->tabsUtilsV3 = $tabsUtilsV3;

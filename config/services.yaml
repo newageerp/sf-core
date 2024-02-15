@@ -44,7 +44,7 @@ services:
     arguments: [ ]
   Newageerp\SfControlpanel\Console\EntitiesUtilsV3:
     arguments: [ ]
-  Newageerp\SfControlpanel\Console\TabsUtilsV3:
+  Newageerp\SfTabs\Service\SfTabsService:
     arguments: [ ]
   Newageerp\SfControlpanel\Console\EditFormsUtilsV3:
     arguments: [ ]

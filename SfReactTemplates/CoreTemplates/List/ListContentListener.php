@@ -3,10 +3,7 @@
 namespace Newageerp\SfReactTemplates\CoreTemplates\List;
 
 use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
-use Newageerp\SfControlpanel\Console\TabsUtilsV3;
-use Newageerp\SfReactTemplates\CoreTemplates\List\Toolbar\ToolbarDetailedSearch;
-use Newageerp\SfReactTemplates\CoreTemplates\List\Toolbar\ToolbarQs;
-use Newageerp\SfReactTemplates\CoreTemplates\List\Toolbar\ToolbarSort;
+use Newageerp\SfTabs\Service\SfTabsService;
 use Newageerp\SfReactTemplates\CoreTemplates\MainToolbar\MainToolbarTitle;
 use Newageerp\SfReactTemplates\CoreTemplates\Popup\PopupWindow;
 use Newageerp\SfReactTemplates\Event\LoadTemplateEvent;
@@ -21,7 +18,7 @@ class ListContentListener implements EventSubscriberInterface
 
     protected TableRowService $tableRowService;
 
-    protected TabsUtilsV3 $tabsUtilsV3;
+    protected SfTabsService $tabsUtilsV3;
 
     protected TableService $tableService;
 
@@ -31,7 +28,7 @@ class ListContentListener implements EventSubscriberInterface
         EntitiesUtilsV3 $entitiesUtilsV3,
         TableHeaderService $tableHeaderService,
         TableRowService $tableRowService,
-        TabsUtilsV3 $tabsUtilsV3,
+        SfTabsService $tabsUtilsV3,
         TableService $tableService,
         EventDispatcherInterface $eventDispatcher,
     ) {
@@ -190,9 +187,9 @@ class ListContentListener implements EventSubscriberInterface
     /**
      * Get the value of tabsUtilsV3
      *
-     * @return TabsUtilsV3
+     * @return SfTabsService
      */
-    public function getTabsUtilsV3(): TabsUtilsV3
+    public function getTabsUtilsV3(): SfTabsService
     {
         return $this->tabsUtilsV3;
     }
@@ -200,11 +197,11 @@ class ListContentListener implements EventSubscriberInterface
     /**
      * Set the value of tabsUtilsV3
      *
-     * @param TabsUtilsV3 $tabsUtilsV3
+     * @param SfTabsService $tabsUtilsV3
      *
      * @return self
      */
-    public function setTabsUtilsV3(TabsUtilsV3 $tabsUtilsV3): self
+    public function setTabsUtilsV3(SfTabsService $tabsUtilsV3): self
     {
         $this->tabsUtilsV3 = $tabsUtilsV3;
 

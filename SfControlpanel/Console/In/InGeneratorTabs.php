@@ -2,7 +2,7 @@
 
 namespace Newageerp\SfControlpanel\Console\In;
 
-use Newageerp\SfControlpanel\Console\TabsUtilsV3;
+use Newageerp\SfTabs\Service\SfTabsService;
 use Newageerp\SfControlpanel\Console\Utils;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -11,12 +11,12 @@ use Newageerp\SfControlpanel\Service\TemplateService;
 
 class InGeneratorTabs extends Command
 {
-    protected TabsUtilsV3 $tabsUtilsV3;
+    protected SfTabsService $tabsUtilsV3;
 
     protected static $defaultName = 'nae:localconfig:InGeneratorTabs';
 
     public function __construct(
-        TabsUtilsV3 $tabsUtilsV3
+        SfTabsService $tabsUtilsV3
     )
     {
         parent::__construct();

@@ -2,14 +2,9 @@
 
 namespace Newageerp\SfReactTemplates\CoreTemplates\List\EventListener;
 
-use Newageerp\SfAuth\Service\AuthService;
 use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
-use Newageerp\SfControlpanel\Console\TabsUtilsV3;
+use Newageerp\SfTabs\Service\SfTabsService;
 use Newageerp\SfReactTemplates\CoreTemplates\List\Toolbar\ToolbarDetailedSearch;
-use Newageerp\SfReactTemplates\CoreTemplates\List\Toolbar\ToolbarExport;
-use Newageerp\SfReactTemplates\CoreTemplates\List\Toolbar\ToolbarNewButton;
-use Newageerp\SfReactTemplates\CoreTemplates\List\Toolbar\ToolbarSort;
-use Newageerp\SfReactTemplates\Event\ListCreatableEvent;
 use Newageerp\SfReactTemplates\Event\LoadTemplateEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -19,12 +14,12 @@ class ToolbarRightDsListener implements EventSubscriberInterface
 
     protected EntitiesUtilsV3 $entitiesUtilsV3;
 
-    protected TabsUtilsV3 $tabsUtilsV3;
+    protected SfTabsService $tabsUtilsV3;
 
     protected EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
-        TabsUtilsV3 $tabsUtilsV3,
+        SfTabsService $tabsUtilsV3,
         EntitiesUtilsV3 $entitiesUtilsV3,
         EventDispatcherInterface $eventDispatcher,
     ) {
@@ -57,9 +52,9 @@ class ToolbarRightDsListener implements EventSubscriberInterface
     /**
      * Get the value of tabsUtilsV3
      *
-     * @return TabsUtilsV3
+     * @return SfTabsService
      */
-    public function getTabsUtilsV3(): TabsUtilsV3
+    public function getTabsUtilsV3(): SfTabsService
     {
         return $this->tabsUtilsV3;
     }
@@ -67,11 +62,11 @@ class ToolbarRightDsListener implements EventSubscriberInterface
     /**
      * Set the value of tabsUtilsV3
      *
-     * @param TabsUtilsV3 $tabsUtilsV3
+     * @param SfTabsService $tabsUtilsV3
      *
      * @return self
      */
-    public function setTabsUtilsV3(TabsUtilsV3 $tabsUtilsV3): self
+    public function setTabsUtilsV3(SfTabsService $tabsUtilsV3): self
     {
         $this->tabsUtilsV3 = $tabsUtilsV3;
 

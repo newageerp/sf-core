@@ -1,12 +1,13 @@
 <?php
 
-namespace Newageerp\SfControlpanel\Console;
+namespace Newageerp\SfTabs\Service;
 
 use Newageerp\SfConfig\Service\ConfigService;
+use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 use Newageerp\SfControlpanel\Event\GetTabConfigEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class TabsUtilsV3
+class SfTabsService
 {
     protected array $tabs = [];
 

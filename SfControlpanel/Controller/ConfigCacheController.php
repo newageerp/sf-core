@@ -4,7 +4,7 @@ namespace Newageerp\SfControlpanel\Controller;
 
 use Newageerp\SfConfig\Service\ConfigService;
 use Newageerp\SfControlpanel\Console\LocalConfigUtilsV3;
-use Newageerp\SfControlpanel\Console\TabsUtilsV3;
+use Newageerp\SfTabs\Service\SfTabsService;
 use Symfony\Component\Routing\Annotation\Route;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +18,7 @@ class ConfigCacheController extends ConfigBaseController
      * @Route(path="/getLocalConfig", methods={"GET"})
      * @OA\Post (operationId="NaeConfigLocalConfigList")
      */
-    public function getLocalConfig(Request $request, TabsUtilsV3 $tabsUtilsV3)
+    public function getLocalConfig(Request $request, SfTabsService $tabsUtilsV3)
     {
         $request = $this->transformJsonBody($request);
 

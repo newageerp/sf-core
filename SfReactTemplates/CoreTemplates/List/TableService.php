@@ -2,25 +2,15 @@
 
 namespace Newageerp\SfReactTemplates\CoreTemplates\List;
 
-use Newageerp\SfAuth\Service\AuthService;
 use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
-use Newageerp\SfControlpanel\Console\TabsUtilsV3;
+use Newageerp\SfTabs\Service\SfTabsService;
 use Newageerp\SfReactTemplates\CoreTemplates\Cards\WhiteCard;
-use Newageerp\SfReactTemplates\CoreTemplates\List\Toolbar\ToolbarBookmark;
-use Newageerp\SfReactTemplates\CoreTemplates\List\Toolbar\ToolbarDetailedSearch;
-use Newageerp\SfReactTemplates\CoreTemplates\List\Toolbar\ToolbarExport;
-use Newageerp\SfReactTemplates\CoreTemplates\List\Toolbar\ToolbarNewButton;
-use Newageerp\SfReactTemplates\CoreTemplates\List\Toolbar\ToolbarQs;
-use Newageerp\SfReactTemplates\CoreTemplates\List\Toolbar\ToolbarQuickFilters;
-use Newageerp\SfReactTemplates\CoreTemplates\List\Toolbar\ToolbarSort;
-use Newageerp\SfReactTemplates\CoreTemplates\List\Toolbar\ToolbarTabSwitch;
 use Newageerp\SfReactTemplates\Template\Placeholder;
 use Newageerp\SfReactTemplates\Template\Template;
 
 use Newageerp\SfReactTemplates\CoreTemplates\Tabs\TabContainer;
 use Newageerp\SfReactTemplates\CoreTemplates\Tabs\TabContainerItem;
-use Newageerp\SfReactTemplates\Event\ListCreatableEvent;
 use Newageerp\SfReactTemplates\Event\LoadTemplateEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -37,7 +27,7 @@ class TableService
 
     protected TableRowService $tableRowService;
 
-    protected TabsUtilsV3 $tabsUtilsV3;
+    protected SfTabsService $tabsUtilsV3;
 
     protected EntitiesUtilsV3 $entitiesUtilsV3;
 
@@ -48,7 +38,7 @@ class TableService
     public function __construct(
         TableHeaderService $tableHeaderService,
         TableRowService $tableRowService,
-        TabsUtilsV3 $tabsUtilsV3,
+        SfTabsService $tabsUtilsV3,
         EntitiesUtilsV3 $entitiesUtilsV3,
         PropertiesUtilsV3 $propertiesUtilsV3,
         EventDispatcherInterface $eventDispatcher,
@@ -304,9 +294,9 @@ class TableService
     /**
      * Get the value of tabsUtilsV3
      *
-     * @return TabsUtilsV3
+     * @return SfTabsService
      */
-    public function getTabsUtilsV3(): TabsUtilsV3
+    public function getTabsUtilsV3(): SfTabsService
     {
         return $this->tabsUtilsV3;
     }
@@ -314,11 +304,11 @@ class TableService
     /**
      * Set the value of tabsUtilsV3
      *
-     * @param TabsUtilsV3 $tabsUtilsV3
+     * @param SfTabsService $tabsUtilsV3
      *
      * @return self
      */
-    public function setTabsUtilsV3(TabsUtilsV3 $tabsUtilsV3): self
+    public function setTabsUtilsV3(SfTabsService $tabsUtilsV3): self
     {
         $this->tabsUtilsV3 = $tabsUtilsV3;
 
