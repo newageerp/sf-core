@@ -19,20 +19,20 @@ class SfKeyValueListener implements EventSubscriberInterface
             "config" => [
                 "columns" => [
                     [
-                        "path" => "sk-key-value.sfKey",
+                        "path" => "sf-key-value.sfKey",
                         "titlePath" => "",
                         "customTitle" => "",
                         "link" => 0
                     ],
                     [
-                        "path" => "sk-key-value.sfValue",
+                        "path" => "sf-key-value.sfValue",
                         "titlePath" => "",
                         "customTitle" => "",
                         "link" => 0
                     ]
                 ],
                 "disableCreate" => false,
-                "schema" => "sk-key-value",
+                "schema" => "sf-key-value",
                 "type" => "main",
                 "title" => "",
                 "tabGroup" => "",
