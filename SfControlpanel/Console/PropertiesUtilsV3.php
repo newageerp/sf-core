@@ -3,6 +3,8 @@
 namespace Newageerp\SfControlpanel\Console;
 
 use Newageerp\SfConfig\Service\ConfigService;
+use Newageerp\SfProperties\Event\InitPropertiesEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PropertiesUtilsV3
 {
@@ -14,13 +16,28 @@ class PropertiesUtilsV3
 
     protected EntitiesUtilsV3 $entitiesUtilsV3;
 
-    public function __construct(EntitiesUtilsV3 $entitiesUtilsV3)
-    {
-        $this->properties = ConfigService::getConfig('properties', true);
+    protected EventDispatcherInterface $eventDispatcher;
+
+    public function __construct(
+        EntitiesUtilsV3 $entitiesUtilsV3,
+        EventDispatcherInterface $eventDispatcher,
+    ) {
+        $this->eventDispatcher = $eventDispatcher;
+        
+        $this->initProperties();
         $this->enumsList = LocalConfigUtils::getCpConfigFileData('enums');
         $this->statuses = LocalConfigUtils::getCpConfigFileData('statuses');
 
         $this->entitiesUtilsV3 = $entitiesUtilsV3;
+    }
+
+    protected function initProperties()
+    {
+        $properties = ConfigService::getConfig('properties', true);
+        $ev = new InitPropertiesEvent($properties);
+        $this->getEventDispatcher()->dispatch($ev, InitPropertiesEvent::NAME);
+
+        $this->properties = $ev->getProperties();
     }
 
     public static function swapSchemaToI($path)
@@ -524,7 +541,18 @@ class PropertiesUtilsV3
         return $property ? $property['title'] : '';
     }
 
-    public function getProperties() {
+    public function getProperties()
+    {
         return $this->properties;
+    }
+
+    /**
+     * Get the value of eventDispatcher
+     *
+     * @return EventDispatcherInterface
+     */
+    public function getEventDispatcher(): EventDispatcherInterface
+    {
+        return $this->eventDispatcher;
     }
 }
