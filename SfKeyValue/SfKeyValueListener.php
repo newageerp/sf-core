@@ -7,7 +7,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class SfKeyValueListener implements EventSubscriberInterface
 {
-    
+
     public function onInit(InitTabsEvent $ev)
     {
         $tabs = $ev->getTabs();
@@ -42,6 +42,7 @@ class SfKeyValueListener implements EventSubscriberInterface
                 "sort" => ""
             ]
         ];
+        $ev->setTabs($tabs);
     }
 
     public static function getSubscribedEvents()
