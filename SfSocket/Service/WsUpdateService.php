@@ -3,6 +3,7 @@
 namespace Newageerp\SfSocket\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Newageerp\SfEntity\SfEntityService;
 use \Predis\Client;
 use Psr\Log\LoggerInterface;
 
@@ -88,7 +89,14 @@ class WsUpdateService
                         'action' => $key,
                         'body' => [
                             'id' => $entity->getId(),
-                            'class' => str_replace('App\Entity\\', '', $entity::class)
+                            'class' => str_replace(
+                                [
+                                    'App\Entity\\',
+                                    'Newageerp\SfEntity\Entity\\',
+                                ],
+                                '',
+                                $entity::class
+                            )
                         ]
                     ]
                 );
@@ -103,7 +111,7 @@ class WsUpdateService
     {
         $entityClass = implode('', array_map('ucfirst', explode("-", $schema)));
 
-        return 'App\Entity\\' . $entityClass;
+        return SfEntityService::entityByName($entityClass);
     }
 
     /**

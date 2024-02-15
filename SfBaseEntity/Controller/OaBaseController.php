@@ -7,6 +7,7 @@ use Doctrine\Persistence\ObjectRepository;
 use Newageerp\SfAuth\Service\AuthService;
 use Newageerp\SfBaseEntity\Interface\IUser;
 use Newageerp\SfBaseEntity\Object\BaseUser;
+use Newageerp\SfEntity\SfEntityService;
 use Newageerp\SfSocket\Service\SocketService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -66,7 +67,7 @@ class OaBaseController extends AbstractController
     {
         $entityClass = implode('', array_map('ucfirst', explode("-", $schema)));
 
-        return 'App\Entity\\' . $entityClass;
+        return SfEntityService::entityByName($entityClass);
     }
 
     /**

@@ -6,6 +6,7 @@ use App\Kernel;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Event\PostFlushEventArgs;
 use Newageerp\SfControlpanel\Console\LocalConfigUtilsV3;
+use Newageerp\SfEntity\SfEntityService;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -49,7 +50,7 @@ class OnFlushEventListener
                 if (isset($option['onDelete'])) {
                     $onCreates = is_array($option['onDelete']) ? $option['onDelete'] : [$option['onDelete']];
                     foreach ($onCreates as $entityName) {
-                        $className = 'App\Entity\\' . $entityName;
+                        $className = SfEntityService::entityByName($entityName);
 
                         if ($entity::class === $className || 'Proxies\__CG__\\' . $className === $entity::class) {
                             $callAble = explode("::", $option['call']);
@@ -74,7 +75,7 @@ class OnFlushEventListener
                 if (isset($option['onCreate'])) {
                     $onCreates = is_array($option['onCreate']) ? $option['onCreate'] : [$option['onCreate']];
                     foreach ($onCreates as $entityName) {
-                        $className = 'App\Entity\\' . $entityName;
+                        $className = SfEntityService::entityByName($entityName);
 
                         if ($entity::class === $className || 'Proxies\__CG__\\' . $className === $entity::class) {
                             $callAble = explode("::", $option['call']);
@@ -101,7 +102,7 @@ class OnFlushEventListener
                     $onChanges = is_array($option['onChange']) ? $option['onChange'] : [$option['onChange']];
                     foreach ($onChanges as $onChange) {
                         [$entityName, $field] = explode(".", $onChange);
-                        $className = 'App\Entity\\' . $entityName;
+                        $className = SfEntityService::entityByName($entityName);
 
                         if (($entity::class === $className || 'Proxies\__CG__\\' . $className === $entity::class) && isset($changes[$field])) {
                             $callAble = explode("::", $option['call']);
@@ -121,7 +122,7 @@ class OnFlushEventListener
                     $onChanges = is_array($option['onChangeWithParams']) ? $option['onChangeWithParams'] : [$option['onChangeWithParams']];
                     foreach ($onChanges as $onChange) {
                         [$entityName, $field] = explode(".", $onChange);
-                        $className = 'App\Entity\\' . $entityName;
+                        $className = SfEntityService::entityByName($entityName);
 
                         if (($entity::class === $className || 'Proxies\__CG__\\' . $className === $entity::class) && isset($changes[$field])) {
                             $callAble = explode("::", $option['call']);
@@ -158,7 +159,7 @@ class OnFlushEventListener
                 if (isset($option['afterCreate'])) {
                     $onCreates = is_array($option['afterCreate']) ? $option['afterCreate'] : [$option['afterCreate']];
                     foreach ($onCreates as $entityName) {
-                        $className = 'App\Entity\\' . $entityName;
+                        $className = SfEntityService::entityByName($entityName);
 
                         if ($entity::class === $className || 'Proxies\__CG__\\' . $className === $entity::class) {
                             $callAble = explode("::", $option['call']);
@@ -185,7 +186,7 @@ class OnFlushEventListener
                     $afterChanges = is_array($option['afterChange']) ? $option['afterChange'] : [$option['afterChange']];
                     foreach ($afterChanges as $afterChange) {
                         [$entityName, $field] = explode(".", $afterChange);
-                        $className = 'App\Entity\\' . $entityName;
+                        $className = SfEntityService::entityByName($entityName);
 
                         if ($entity::class === $className && isset($changes[$field])) {
                             $callAble = explode("::", $option['call']);
@@ -205,7 +206,7 @@ class OnFlushEventListener
                     $afterChanges = is_array($option['afterChangeWithParams']) ? $option['afterChangeWithParams'] : [$option['afterChangeWithParams']];
                     foreach ($afterChanges as $afterChange) {
                         [$entityName, $field] = explode(".", $afterChange);
-                        $className = 'App\Entity\\' . $entityName;
+                        $className = SfEntityService::entityByName($entityName);
 
                         if ($entity::class === $className && isset($changes[$field])) {
                             $callAble = explode("::", $option['call']);

@@ -16,6 +16,7 @@ use Newageerp\SfUservice\Events\UBeforeUpdateEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
 use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
+use Newageerp\SfEntity\SfEntityService;
 use Newageerp\SfUservice\Events\UOnSaveEvent;
 use Newageerp\SfUservice\Events\UPermissionsEvent;
 
@@ -59,7 +60,7 @@ class UService
     {
         $entityClass = implode('', array_map('ucfirst', explode("-", $schema)));
 
-        return 'App\Entity\\' . $entityClass;
+        return SfEntityService::entityByName($entityClass);
     }
 
     public function getGroupedListDataForSchema(
@@ -78,7 +79,9 @@ class UService
 
         if (!$skipPermissionsCheck) {
             $event = new UPermissionsEvent(
-                $user, $filters, $schema
+                $user,
+                $filters,
+                $schema
             );
             $this->eventDispatcher->dispatch($event, UPermissionsEvent::NAME);
             $filters = $event->getFilters();
@@ -284,7 +287,9 @@ class UService
 
         if (!$skipPermissionsCheck) {
             $event = new UPermissionsEvent(
-                $user, $filters, $schema
+                $user,
+                $filters,
+                $schema
             );
             $this->eventDispatcher->dispatch($event, UPermissionsEvent::NAME);
             $filters = $event->getFilters();
@@ -461,7 +466,7 @@ class UService
                     $skipParams = false;
 
                     $pureSql = false;
-                    
+
                     if (isset($st[1]) && $st[1] === 'IS_EMPTY') {
                         $op = '=';
                         $value = '';
@@ -840,7 +845,7 @@ class UService
 
                 if (method_exists($element, $method)) {
                     $asArray = explode(":", $as);
-                    $className = 'App\Entity\\' . ucfirst($asArray[1]);
+                    $className = SfEntityService::entityByName(ucfirst($asArray[1]));
                     $repo = $this->em->getRepository($className);
                     $methodGet = 'get' . ucfirst($asArray[2]);
                     if ($val) {
