@@ -1,13 +1,13 @@
 <?php
 
-namespace Newageerp\SfControlpanel\Event;
+namespace Newageerp\SfTabs\Event;
 
-use Newageerp\SfReactTemplates\Template\Placeholder;
 use Symfony\Contracts\EventDispatcher\Event;
 
 class GetTabConfigEvent extends Event
 {
-    public const NAME = 'sfcontrolpanel.GetTabConfigEvent';
+    
+    public const NAME = 'SfTabs.GetTabConfigEvent';
 
     protected array $tab;
 

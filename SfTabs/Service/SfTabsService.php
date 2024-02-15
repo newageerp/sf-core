@@ -4,7 +4,8 @@ namespace Newageerp\SfTabs\Service;
 
 use Newageerp\SfConfig\Service\ConfigService;
 use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
-use Newageerp\SfControlpanel\Event\GetTabConfigEvent;
+use Newageerp\SfTabs\Event\GetTabConfigEvent;
+use Newageerp\SfTabs\Event\InitTabsEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class SfTabsService
@@ -26,7 +27,11 @@ class SfTabsService
 
     protected function initTabs()
     {
-        $this->tabs = ConfigService::getConfig('tabs', true);
+        $tabs = ConfigService::getConfig('tabs', true);
+        $ev = new InitTabsEvent($tabs);
+        $this->getEventDispatcher()->dispatch($ev, InitTabsEvent::NAME);
+        
+        $this->tabs = $ev->getTabs();
     }
 
     public function getTabToolbarTitle(string $schema, string $type): string
