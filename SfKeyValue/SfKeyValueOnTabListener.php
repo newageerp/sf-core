@@ -5,7 +5,7 @@ namespace Newageerp\SfKeyValue;
 use Newageerp\SfTabs\Event\InitTabsEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class SfKeyValueListener implements EventSubscriberInterface
+class SfKeyValueOnTabListener implements EventSubscriberInterface
 {
 
     public function onInit(InitTabsEvent $ev)
@@ -13,26 +13,26 @@ class SfKeyValueListener implements EventSubscriberInterface
         $tabs = $ev->getTabs();
 
         $tabs[] = [
-            "id" => "sf-key-value-tab",
+            "id" => "sf-key-value-orm-tab",
             "tag" => "",
-            "title" => "sf-key-value-main",
+            "title" => "sf-key-value-orm-main",
             "config" => [
                 "columns" => [
                     [
-                        "path" => "sf-key-value.sfKey",
+                        "path" => "sf-key-value-orm.sfKey",
                         "titlePath" => "",
                         "customTitle" => "",
                         "link" => 0
                     ],
                     [
-                        "path" => "sf-key-value.sfValue",
+                        "path" => "sf-key-value-orm.sfValue",
                         "titlePath" => "",
                         "customTitle" => "",
                         "link" => 0
                     ]
                 ],
                 "disableCreate" => false,
-                "schema" => "sf-key-value",
+                "schema" => "sf-key-value-orm",
                 "type" => "main",
                 "title" => "",
                 "tabGroup" => "",
