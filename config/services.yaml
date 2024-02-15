@@ -9,6 +9,12 @@ services:
   Newageerp\SfShedulledTask\SfShedulledTaskLogTask:
     arguments: [ ]
 
+  # repo
+  Newageerp\SfEntity\Repository\:
+    resource: '../SfEntity/Repository/*'
+    arguments: [ ]
+  # repo end
+
   Newageerp\SfStatus\Service\StatusService:
     arguments: [ ]
   Newageerp\SfSummary\SfSummaryController:
