@@ -59,7 +59,7 @@ class InLocalConfigSyncFieldsConsole extends Command
         }
 
 
-        $propsData = $this->$this->propertiesUtilsV3->getProperties();
+        $propsData = $this->propertiesUtilsV3->getProperties();
 
         $properties = [];
         $propertiesKeys = [];
