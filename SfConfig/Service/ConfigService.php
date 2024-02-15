@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ConfigService
 {
-    public static function getConfig(string $config)
+    public static function getConfig(string $config, $createOnNotExists = false)
     {
         $file = $config . '.json';
 
@@ -24,6 +24,8 @@ class ConfigService
                 file_get_contents($localStorage . '/' . $file),
                 true
             );
+        } else if ($createOnNotExists) {
+            file_put_contents($file, json_encode([]));
         }
         if (file_exists($userStorage . '/' . $file)) {
             $data = array_merge(

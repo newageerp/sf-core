@@ -2,16 +2,26 @@
 
 namespace Newageerp\SfControlpanel\Console\In;
 
+use Newageerp\SfControlpanel\Console\TabsUtilsV3;
 use Newageerp\SfControlpanel\Console\Utils;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Newageerp\SfControlpanel\Console\LocalConfigUtils;
 use Newageerp\SfControlpanel\Service\TemplateService;
 
 class InGeneratorTabs extends Command
 {
+    protected TabsUtilsV3 $tabsUtilsV3;
+
     protected static $defaultName = 'nae:localconfig:InGeneratorTabs';
+
+    public function __construct(
+        TabsUtilsV3 $tabsUtilsV3
+    )
+    {
+        parent::__construct();
+        $this->tabsUtilsV3 = $tabsUtilsV3;
+    }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -24,7 +34,7 @@ class InGeneratorTabs extends Command
 
         $customEfFunctionTemplateMap = new TemplateService('v3/list/CustomListComponentsMap.html.twig');
 
-        $tabItems = LocalConfigUtils::getCpConfigFileData('tabs');
+        $tabItems = $this->tabsUtilsV3->getTabs();
 
         $tabCustomComponentsGeneratedPath = Utils::customFolderPath('tabs/components');
 
@@ -34,7 +44,6 @@ class InGeneratorTabs extends Command
             foreach ($tabItem['config']['columns'] as $column) {
                 if (isset($column['componentName']) && $column['componentName']) {
                     if (mb_strpos($column['componentName'], 'pdf:') === 0) {
-                        
                     } else {
 
                         $componentNameA = explode("/", $column['componentName']);
@@ -49,18 +58,15 @@ class InGeneratorTabs extends Command
 
                         $customComponents[$column['componentName']] = [
                             'componentName' => $column['componentName'],
-                            'name' => $customComponentName.mb_substr(md5($column['componentName']), 0, 5),
+                            'name' => $customComponentName . mb_substr(md5($column['componentName']), 0, 5),
                         ];
                     }
-
-                    
                 }
             }
-            
         }
 
         $customEfFunctionTemplateMap->writeToFileOnChanges(
-            Utils::customFolderPath('tabs').'/CustomListComponentsMap.ts',
+            Utils::customFolderPath('tabs') . '/CustomListComponentsMap.ts',
             ['templates' => array_values($customComponents),]
         );
 

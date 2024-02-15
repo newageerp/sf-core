@@ -2,6 +2,7 @@
 
 namespace Newageerp\SfControlpanel\Console;
 
+use Newageerp\SfConfig\Service\ConfigService;
 use Newageerp\SfControlpanel\Event\GetTabConfigEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -10,17 +11,21 @@ class TabsUtilsV3
     protected array $tabs = [];
 
     protected EntitiesUtilsV3 $entitiesUtilsV3;
-    
+
     protected EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
         EntitiesUtilsV3 $entitiesUtilsV3,
         EventDispatcherInterface $eventDispatcher,
-        )
-    {
+    ) {
         $this->eventDispatcher = $eventDispatcher;
         $this->entitiesUtilsV3 = $entitiesUtilsV3;
-        $this->tabs = LocalConfigUtils::getCpConfigFileData('tabs');
+        $this->initTabs();
+    }
+
+    protected function initTabs()
+    {
+        $this->tabs = ConfigService::getConfig('tabs', true);
     }
 
     public function getTabToolbarTitle(string $schema, string $type): string
@@ -44,7 +49,7 @@ class TabsUtilsV3
         );
         if (count($tabsF) > 0) {
             $tab =  reset($tabsF)['config'];
-            
+
             $ev = new GetTabConfigEvent($tab);
             $this->getEventDispatcher()->dispatch($ev, GetTabConfigEvent::NAME);
             $tab = $ev->getTab();

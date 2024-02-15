@@ -4,6 +4,7 @@ namespace Newageerp\SfControlpanel\Controller;
 
 use Newageerp\SfConfig\Service\ConfigService;
 use Newageerp\SfControlpanel\Console\LocalConfigUtilsV3;
+use Newageerp\SfControlpanel\Console\TabsUtilsV3;
 use Symfony\Component\Routing\Annotation\Route;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,19 +14,18 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class ConfigCacheController extends ConfigBaseController
 {
-
     /**
      * @Route(path="/getLocalConfig", methods={"GET"})
      * @OA\Post (operationId="NaeConfigLocalConfigList")
      */
-    public function getLocalConfig(Request $request)
+    public function getLocalConfig(Request $request, TabsUtilsV3 $tabsUtilsV3)
     {
         $request = $this->transformJsonBody($request);
 
         $config = [
             'widgets' => 'widgets.json',
             'builder' => 'builder.json',
-            'tabs' => 'tabs.json',
+            // 'tabs' => 'tabs.json',
             'defaults' => 'defaults.json',
             'edit' => 'edit.json',
             'view' => 'view.json',
@@ -54,6 +54,7 @@ class ConfigCacheController extends ConfigBaseController
                 }
                 $output['data'][$key] = $data;
             }
+            $output['data']['tabs'] = $tabsUtilsV3->getTabs();
             $output['data']['main'] = ConfigService::getConfig('main');
         } catch (\Exception $e) {
             $output['e'] = $e->getMessage();
