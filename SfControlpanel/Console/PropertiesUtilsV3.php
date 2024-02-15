@@ -2,6 +2,8 @@
 
 namespace Newageerp\SfControlpanel\Console;
 
+use Newageerp\SfConfig\Service\ConfigService;
+
 class PropertiesUtilsV3
 {
     protected array $properties = [];
@@ -14,7 +16,7 @@ class PropertiesUtilsV3
 
     public function __construct(EntitiesUtilsV3 $entitiesUtilsV3)
     {
-        $this->properties = LocalConfigUtils::getCpConfigFileData('properties');
+        $this->properties = ConfigService::getConfig('properties', true);
         $this->enumsList = LocalConfigUtils::getCpConfigFileData('enums');
         $this->statuses = LocalConfigUtils::getCpConfigFileData('statuses');
 
@@ -520,5 +522,9 @@ class PropertiesUtilsV3
     {
         $property = $this->getPropertyForPath($path);
         return $property ? $property['title'] : '';
+    }
+
+    public function getProperties() {
+        return $this->properties;
     }
 }

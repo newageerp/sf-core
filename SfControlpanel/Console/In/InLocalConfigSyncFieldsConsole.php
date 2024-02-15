@@ -59,7 +59,7 @@ class InLocalConfigSyncFieldsConsole extends Command
         }
 
 
-        $propsData = LocalConfigUtils::getCpConfigFileData('properties');
+        $propsData = $this->$this->propertiesUtilsV3->getProperties();
 
         $properties = [];
         $propertiesKeys = [];
@@ -189,7 +189,7 @@ export const NaeSDbKeys = ' . json_encode($dbFieldsAll, JSON_PRETTY_PRINT | JSON
             $configPath,
             $fileContent
         );
-        
+
         //        file_put_contents(
         //            $configJsonPath,
         //            json_encode($properties, JSON_PRETTY_PRINT)

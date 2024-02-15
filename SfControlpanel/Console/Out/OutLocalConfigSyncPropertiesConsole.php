@@ -4,6 +4,7 @@ namespace Newageerp\SfControlpanel\Console\Out;
 
 use Newageerp\SfControlpanel\Console\LocalConfigUtils;
 use Doctrine\ORM\EntityManagerInterface;
+use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
 use Newageerp\SfControlpanel\Service\DocsService;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Console\Command\Command;
@@ -15,17 +16,20 @@ class OutLocalConfigSyncPropertiesConsole extends Command
     protected static $defaultName = 'nae:localconfig:OutLocalConfigSyncProperties';
 
     protected EntityManagerInterface $em;
-    
+
     protected DocsService $docsService;
+
+    protected PropertiesUtilsV3 $propertiesUtilsV3;
 
     public function __construct(
         EntityManagerInterface $em,
         DocsService $docsService,
-    )
-    {
+        PropertiesUtilsV3 $propertiesUtilsV3,
+    ) {
         parent::__construct();
         $this->em = $em;
         $this->docsService = $docsService;
+        $this->propertiesUtilsV3 = $propertiesUtilsV3;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -42,7 +46,7 @@ class OutLocalConfigSyncPropertiesConsole extends Command
             $dbFieldsByTableColumn[$dbField['TABLE_NAME'] . "-" . $dbField['COLUMN_NAME']] = $dbField;
         }
 
-        $propertiesData = LocalConfigUtils::getCpConfigFileData('properties');
+        $propertiesData = $this->propertiesUtilsV3->getProperties();
 
         $dbPropertiesSlug = [];
 
@@ -162,7 +166,10 @@ class OutLocalConfigSyncPropertiesConsole extends Command
             }
         }
 
-        file_put_contents(LocalConfigUtils::getCpConfigFile('properties'), json_encode($propertiesData, JSON_UNESCAPED_UNICODE));
+        file_put_contents(
+            LocalConfigUtils::getCpConfigFile('properties'),
+            json_encode($propertiesData, JSON_UNESCAPED_UNICODE)
+        );
 
         return Command::SUCCESS;
     }
