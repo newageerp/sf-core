@@ -47,6 +47,8 @@ services:
     arguments: [ ]
   Newageerp\SfTabs\Service\SfTabsService:
     arguments: [ ]
+  Newageerp\SfDefaults\Service\SfDefaultsService:
+    arguments: [ ]
   Newageerp\SfControlpanel\Console\EditFormsUtilsV3:
     arguments: [ ]
   Newageerp\SfControlpanel\Console\ViewFormsUtilsV3:
