@@ -54,6 +54,9 @@ services:
   Newageerp\SfEntities\:
     resource: '../SfEntities/*'
     arguments: [ ]
+  Newageerp\SfDevMenu\:
+    resource: '../SfDevMenu/*'
+    arguments: [ ]
   Newageerp\SfControlpanel\Console\EditFormsUtilsV3:
     arguments: [ ]
   Newageerp\SfControlpanel\Console\ViewFormsUtilsV3:
