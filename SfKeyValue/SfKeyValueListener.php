@@ -2,6 +2,7 @@
 
 namespace Newageerp\SfKeyValue;
 
+use Newageerp\SfDefaults\Event\InitDefaultsEvent;
 use Newageerp\SfProperties\Event\InitPropertiesEvent;
 use Newageerp\SfTabs\Event\InitTabsEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -95,11 +96,35 @@ class SfKeyValueListener implements EventSubscriberInterface
         $ev->setProperties($properies);
     }
 
+    public function onDefaultsInit(InitDefaultsEvent $ev)
+    {
+        $defaults = $ev->getDefaults();
+
+        $defaults[] = [
+            "id" => "sf-key-value-orm",
+            "tag" => "",
+            "title" => "sf-key-value-orm",
+            "config" => [
+                "defaultPath" => "i.sfKey",
+                "defaultQuickSearch" => json_encode(['i.sfKey', 'i.sfValue']),
+                "defaultSort" => json_encode([[
+                    'key' => 'i.sfKey',
+                    'value' => 'ASC'
+                ]]),
+                "fields" => [],
+                "schema" => "sf-key-value-orm"
+            ]
+        ];
+
+        $ev->setDefaults($defaults);
+    }
+
     public static function getSubscribedEvents()
     {
         return [
             InitTabsEvent::NAME => 'onTabsInit',
             InitPropertiesEvent::NAME => 'onPropertiesInit',
+            InitDefaultsEvent::NAME => 'onDefaultsInit',
         ];
     }
 }

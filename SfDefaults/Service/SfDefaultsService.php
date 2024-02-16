@@ -1,16 +1,32 @@
 <?php
 
-namespace Newageerp\SfControlpanel\Service\Defaults;
+namespace Newageerp\SfDefaults\Service;
 
-use Newageerp\SfControlpanel\Console\LocalConfigUtils;
+use Newageerp\SfConfig\Service\ConfigService;
+use Newageerp\SfDefaults\Event\InitDefaultsEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class DefaultsService
+class SfDefaultsService
 {
+    protected EventDispatcherInterface $eventDispatcher;
+
     protected array $defaults = [];
 
-    public function __construct()
+    public function __construct(
+        EventDispatcherInterface $eventDispatcher
+    )
     {
-        $this->defaults = LocalConfigUtils::getCpConfigFileData('defaults');
+        $this->eventDispatcher = $eventDispatcher;
+        $this->initDefaults();
+    }
+
+    protected function initDefaults()
+    {
+        $defaults = ConfigService::getConfig('defaults', true);
+        $ev = new InitDefaultsEvent($defaults);
+        $this->eventDispatcher->dispatch($ev, InitDefaultsEvent::NAME);
+        
+        $this->defaults = $ev->getDefaults();
     }
 
 
@@ -63,5 +79,15 @@ class DefaultsService
             }
         );
         return count($founded) > 0;
+    }
+
+    /**
+     * Get the value of defaults
+     *
+     * @return array
+     */
+    public function getDefaults(): array
+    {
+        return $this->defaults;
     }
 }

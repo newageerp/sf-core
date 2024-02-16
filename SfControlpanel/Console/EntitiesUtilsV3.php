@@ -2,16 +2,18 @@
 
 namespace Newageerp\SfControlpanel\Console;
 
+use Newageerp\SfDefaults\Service\SfDefaultsService;
+
 class EntitiesUtilsV3
 {
     protected array $entities = [];
 
     protected array $defaults = [];
 
-    public function __construct()
+    public function __construct(SfDefaultsService $sfDefaultsService)
     {
         $this->entities = LocalConfigUtils::getCpConfigFileData('entities');
-        $this->defaults = LocalConfigUtils::getCpConfigFileData('defaults');
+        $this->defaults = $sfDefaultsService->getDefaults();
     }
 
     public function getRequiredBySlug(string $slug)
