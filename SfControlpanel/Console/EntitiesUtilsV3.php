@@ -4,6 +4,8 @@ namespace Newageerp\SfControlpanel\Console;
 
 use Newageerp\SfConfig\Service\ConfigService;
 use Newageerp\SfDefaults\Service\SfDefaultsService;
+use Newageerp\SfEntities\Event\InitEntitiesEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class EntitiesUtilsV3
 {
@@ -11,10 +13,24 @@ class EntitiesUtilsV3
 
     protected array $defaults = [];
 
-    public function __construct(SfDefaultsService $sfDefaultsService)
-    {
-        $this->entities = ConfigService::getConfig('entities', true);
+    protected EventDispatcherInterface $eventDispatcher;
+
+    public function __construct(
+        SfDefaultsService $sfDefaultsService,
+        EventDispatcherInterface $eventDispatcher,
+    ) {
+        $this->eventDispatcher = $eventDispatcher;
+        $this->initEntities();
         $this->defaults = $sfDefaultsService->getDefaults();
+    }
+
+    protected function initEntities()
+    {
+        $entities = ConfigService::getConfig('entities', true);
+        $ev = new InitEntitiesEvent($entities);
+        $this->eventDispatcher->dispatch($ev, InitEntitiesEvent::NAME);
+
+        $this->entities = $ev->getEntities();
     }
 
     public function getRequiredBySlug(string $slug)
