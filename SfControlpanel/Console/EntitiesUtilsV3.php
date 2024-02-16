@@ -2,6 +2,7 @@
 
 namespace Newageerp\SfControlpanel\Console;
 
+use Newageerp\SfConfig\Service\ConfigService;
 use Newageerp\SfDefaults\Service\SfDefaultsService;
 
 class EntitiesUtilsV3
@@ -12,7 +13,7 @@ class EntitiesUtilsV3
 
     public function __construct(SfDefaultsService $sfDefaultsService)
     {
-        $this->entities = LocalConfigUtils::getCpConfigFileData('entities');
+        $this->entities = ConfigService::getConfig('entities', true);
         $this->defaults = $sfDefaultsService->getDefaults();
     }
 

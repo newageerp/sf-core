@@ -2,13 +2,12 @@
 
 namespace Newageerp\SfControlpanel\Console\In;
 
-use Newageerp\SfControlpanel\Console\LocalConfigUtils;
 use Doctrine\ORM\EntityManagerInterface;
+use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 use Newageerp\SfControlpanel\Console\Utils;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Finder\Finder;
 
 class InLocalConfigSyncEntitiesConsole extends Command
 {
@@ -16,12 +15,15 @@ class InLocalConfigSyncEntitiesConsole extends Command
 
     protected EntityManagerInterface $em;
 
+    protected EntitiesUtilsV3 $entitiesUtilsV3;
+
     public function __construct(
-        EntityManagerInterface $em
-    )
-    {
+        EntityManagerInterface $em,
+        EntitiesUtilsV3 $entitiesUtilsV3,
+    ) {
         parent::__construct();
         $this->em = $em;
+        $this->entitiesUtilsV3 = $entitiesUtilsV3;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -31,7 +33,7 @@ class InLocalConfigSyncEntitiesConsole extends Command
         $fileContent = 'import { INaeSchema } from "@newageerp/v3.app.main-bundle"
 ';
 
-        $entityData = LocalConfigUtils::getCpConfigFileData('entities');
+        $entityData = $this->entitiesUtilsV3->getEntities();
 
         $entities = [];
         $entitiesMap = [];

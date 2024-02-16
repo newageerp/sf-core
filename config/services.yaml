@@ -45,9 +45,14 @@ services:
     arguments: [ ]
   Newageerp\SfControlpanel\Console\EntitiesUtilsV3:
     arguments: [ ]
-  Newageerp\SfTabs\Service\SfTabsService:
+  Newageerp\SfTabs\:
+    resource: '../SfTabs/*'
     arguments: [ ]
-  Newageerp\SfDefaults\Service\SfDefaultsService:
+  Newageerp\SfDefaults\:
+    resource: '../SfDefaults/*'
+    arguments: [ ]
+  Newageerp\SfEntities\:
+    resource: '../SfEntities/*'
     arguments: [ ]
   Newageerp\SfControlpanel\Console\EditFormsUtilsV3:
     arguments: [ ]

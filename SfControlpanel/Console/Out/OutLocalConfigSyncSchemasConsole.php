@@ -2,6 +2,7 @@
 
 namespace Newageerp\SfControlpanel\Console\Out;
 
+use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 use Newageerp\SfControlpanel\Console\LocalConfigUtils;
 use Newageerp\SfControlpanel\Service\DocsService;
 use Ramsey\Uuid\Uuid;
@@ -15,15 +16,20 @@ class OutLocalConfigSyncSchemasConsole extends Command
 
     protected DocsService $docsService;
 
-    public function __construct(DocsService $docsService)
-    {
+    protected EntitiesUtilsV3 $entitiesUtilsV3;
+
+    public function __construct(
+        DocsService $docsService,
+        EntitiesUtilsV3 $entitiesUtilsV3,
+    ) {
         parent::__construct();
         $this->docsService = $docsService;
+        $this->entitiesUtilsV3 = $entitiesUtilsV3;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $entityData = LocalConfigUtils::getCpConfigFileData('entities');
+        $entityData = $this->entitiesUtilsV3->getEntities();
 
         $schemasDb = [];
         foreach ($entityData as $entity) {
@@ -63,11 +69,14 @@ class OutLocalConfigSyncSchemasConsole extends Command
                     ]
                 ];
 
-                $output->writeln("SCHEMA ADDED ". $schemasClass . ' - ' . $normalizeSchemaClass);
+                $output->writeln("SCHEMA ADDED " . $schemasClass . ' - ' . $normalizeSchemaClass);
             }
         }
 
-        file_put_contents(LocalConfigUtils::getCpConfigFile('entities'), json_encode($entityData, JSON_UNESCAPED_UNICODE));
+        file_put_contents(
+            LocalConfigUtils::getCpConfigFile('entities'),
+            json_encode($entityData, JSON_UNESCAPED_UNICODE)
+        );
 
         return Command::SUCCESS;
     }
