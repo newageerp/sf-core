@@ -3,6 +3,7 @@
 namespace Newageerp\SfDevMenu;
 
 use Newageerp\SfAuth\Service\AuthService;
+use Newageerp\SfReactTemplates\CoreTemplates\MainMenu\MenuItem;
 use Newageerp\SfReactTemplates\CoreTemplates\MainMenu\MenuItemFactory;
 use Newageerp\SfReactTemplates\Event\LoadTemplateEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -29,6 +30,10 @@ class LeftMenuTemplateEvt implements EventSubscriberInterface
             // DEV menu
             $menuTitle = new MenuTitle('DEV menu');
             $event->getPlaceholder()->addTemplate($menuTitle);
+
+            $event->getPlaceholder()->addTemplate(
+                new MenuItem('Config', '/c/config')
+            );
 
             $event->getPlaceholder()->addTemplate(
                 $this->menuItemFactory->linkForTab('sf-key-value-orm')
