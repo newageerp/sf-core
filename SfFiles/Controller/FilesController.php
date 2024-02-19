@@ -121,7 +121,7 @@ class FilesController extends OaBaseController
             $path = $this->fileService->getLocalStorage() . '/' . ltrim($file['path'], '/');
 
             if (!file_exists($path) && isset($_ENV['FILES_FALLBACK_PATH'])) {
-                $tpath = $_ENV['FILES_FALLBACK_PATH'] . '/' . ltrim($file['path']);
+                $tpath = $_ENV['FILES_FALLBACK_PATH'] . '/?url=' . urlencode(ltrim($file['path']));
                 $path = sys_get_temp_dir().'/'.md5($tpath);
                 file_put_contents(
                     $path,
@@ -214,7 +214,7 @@ class FilesController extends OaBaseController
             $path = $this->fileService->getLocalStorage() . '/' . ltrim($file->getPath(), '/');
 
             if (!file_exists($path) && isset($_ENV['FILES_FALLBACK_PATH'])) {
-                $tpath = $_ENV['FILES_FALLBACK_PATH'] . '/' . ltrim($file->getPath());
+                $tpath = $_ENV['FILES_FALLBACK_PATH'] . '/?url=' . urlencode(ltrim($file->getPath()));
                 $path = sys_get_temp_dir().'/'.md5($tpath);
                 file_put_contents(
                     $path,
