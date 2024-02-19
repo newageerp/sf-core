@@ -55,6 +55,20 @@ class SfConfigController extends ConfigBaseController
     }
 
     /**
+     * @Route(path="/createUserConfig/{config}")
+     */
+    public function createUserConfig(Request $request)
+    {
+        $request = $this->transformJsonBody($request);
+
+        $conf = $request->get('config');
+
+        ConfigService::updateUserConfig($conf, []);
+
+        return $this->json(['success' => true]);
+    }
+
+    /**
      * @Route(path="/list")
      */
     public function listConfigs()
