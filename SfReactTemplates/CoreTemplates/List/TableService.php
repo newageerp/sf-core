@@ -129,6 +129,56 @@ class TableService
         return $listDataSource;
     }
 
+    public function buildListDataSourceForFilter(
+        string $schema,
+        string $type,
+        string $targetKey,
+        int | string $targetValue,
+        ?int $wrapWithCard = self::NOWRAP,
+    ): Template {
+        $listDataSource = $this->buildListDataSourceWithToolbar(
+            $schema,
+            $type,
+            [
+                // 'relElementId' => $elementId,
+                'relTargetKey' => $targetKey,
+                'addTitle' => ($wrapWithCard >= self::WRAPWITHCARDANDTITLE),
+                'isCompact' => true,
+            ]
+        );
+        $listDataSource->setHidePageSelectionSelect(true);
+        $filters = $listDataSource->getExtraFilters();
+        $filters[] = [
+            'and' => [
+                ['i.' . $targetKey, '=', $targetValue, true]
+            ]
+        ];
+        $listDataSource->setExtraFilters($filters);
+        
+        $listDataSource->setSocketData([
+            'id' => $targetKey . '.' . $schema . '.' . $type . '.rel',
+            'data' => [
+                $schema . '.' . $targetKey => $targetValue,
+            ]
+        ]);
+
+        if ($wrapWithCard >= self::WRAPWITHCARD) {
+            $whiteCard = new WhiteCard();
+            if ($wrapWithCard === self::WRAPWITHCARDCOMPACT) {
+                $whiteCard->setIsCompact(true);
+            }
+            if ($wrapWithCard >= self::WRAPWITHCARDANDTITLE) {
+                if ($wrapWithCard === self::WRAPWITHCARDANDTITLECOMPACT) {
+                    $whiteCard->setIsCompact(true);
+                }
+            }
+            $whiteCard->getChildren()->addTemplate($listDataSource);
+            return $whiteCard;
+        }
+
+        return $listDataSource;
+    }
+
     public function buildListDataSourceForRel(
         string $schema,
         string $type,
