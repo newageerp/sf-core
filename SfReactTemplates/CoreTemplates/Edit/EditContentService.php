@@ -112,7 +112,7 @@ class EditContentService
                 $flexRow = null;
                 if (count($fields) > 1) {
                     $flexRow = new FlexRow();
-                    $flexRow->setClassName('tw3-gap-2');
+                    $flexRow->setClassName('gap-2');
                 }
 
                 foreach ($fields as $field) {
@@ -133,7 +133,7 @@ class EditContentService
                     } else if ($field['type'] === 'label') {
                         $formLabel = new FormLabel($field['text']);
                         if ($fieldIndex === 0) {
-                            $formLabel->setPaddingTop('tw3-pt-0');
+                            $formLabel->setPaddingTop('pt-0');
                         }
 
                         $wideRow = new WideRow();
@@ -201,7 +201,7 @@ class EditContentService
                         if (!$hideLabel) {
                             $label = new FormFieldLabel($title);
                             if ($isCompact) {
-                                $label->setWidth('tw3-w-full');
+                                $label->setWidth('w-full');
                             }
                             if (in_array($pathArray[1], $required) || (isset($field['required']) && $field['required'])) {
                                 $label->setIsRequired(true);
@@ -213,7 +213,7 @@ class EditContentService
                             $wideRow->getLabelContent()->addTemplate($label);
                         } else if ($isCompact) {
                             $label = new FormFieldLabel("-");
-                            $label->setWidth('tw3-w-full tw3-invisible');
+                            $label->setWidth('w-full invisible');
                             $wideRow->getLabelContent()->addTemplate($label);
                         }
 

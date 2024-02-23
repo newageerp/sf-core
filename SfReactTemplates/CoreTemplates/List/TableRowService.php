@@ -101,7 +101,7 @@ class TableRowService
 
                     if ($prop) {
                         $alignment = $this->getPropertiesUtilsV3()->getPropertyTableAlignment($filterProp, $col);
-                        if ($alignment !== 'tw3-text-left') {
+                        if ($alignment !== 'text-left') {
                             $td->setTextAlignment($alignment);
                         }
 
@@ -135,7 +135,7 @@ class TableRowService
                         }
                         if ($naeType === 'date') {
                             $tpl = new DateColumn($pathArray[1]);
-                            $td->setClassName('tw3-whitespace-nowrap');
+                            $td->setClassName('whitespace-nowrap');
                         }
                         if ($naeType === 'datetime') {
                             $tpl = new DateTimeColumn($pathArray[1]);

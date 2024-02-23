@@ -70,7 +70,7 @@ class TableHeaderService
 
                 if ($prop) {
                     $alignment = $this->getPropertiesUtilsV3()->getPropertyTableAlignment($prop, $col);
-                    if ($alignment !== 'tw3-text-left') {
+                    if ($alignment !== 'text-left') {
                         $th->setTextAlignment($alignment);
                     }
 

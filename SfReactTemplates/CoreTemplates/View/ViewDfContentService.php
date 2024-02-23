@@ -55,7 +55,7 @@ class ViewDfContentService
     public function fillFormContent(int $id, string $schema, string $type, ViewFormContent $roContent, bool $isCompact = false)
     {
         $editableForm = new Wide();
-        $editableForm->setClassName('tw3-text-sm');
+        $editableForm->setClassName('text-sm');
 
         $viewForm = $this->viewFormsUtilsV3->getViewFormBySchemaAndType($schema, $type);
 
@@ -72,7 +72,7 @@ class ViewDfContentService
             $flexRow = null;
             if (count($fields) > 1) {
                 $flexRow = new FlexRow();
-                $classNames = ['tw3-gap-2'];
+                $classNames = ['gap-2'];
                 if (isset($viewForm['lineClasses'])) {
                     foreach ($viewForm['lineClasses'] as $lineClass) {
                         if ($lineClass['lineKey'] === $lineGroup) {
@@ -100,7 +100,7 @@ class ViewDfContentService
                 } else if ($field['type'] === 'label') {
                     $formLabel = new FormLabel($field['text']);
                     if ($fieldIndex === 0) {
-                        $formLabel->setPaddingTop('tw3-pt-0');
+                        $formLabel->setPaddingTop('pt-0');
                     }
 
                     $wideRow = new WideRow();
@@ -159,7 +159,7 @@ class ViewDfContentService
                     if (!$hideLabel) {
                         $label = new FormFieldLabel($title);
                         if ($isCompact) {
-                            $label->setWidth('tw3-w-full');
+                            $label->setWidth('w-full');
                         }
                         $wideRow->getLabelContent()->addTemplate($label);
                     }
