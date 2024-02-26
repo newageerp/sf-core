@@ -27,6 +27,8 @@ doctrine:
                 JSON_EXTRACT: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonExtract
                 JSON_SEARCH: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonSearch
                 JSON_CONTAINS: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonContains
+                JSON_KEYS: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonKeys
+                JSON_OVERLAPS: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonOverlaps
 
 when@test:
     doctrine:
