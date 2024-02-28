@@ -20,8 +20,8 @@ class SfPublicController extends AbstractController
     {
         $content = '0';
         $projectDir = $this->getParameter('kernel.project_dir');
-        if (file_exists($projectDir.'/version.txt')) {
-            $content = file_get_contents($projectDir.'/version.txt');
+        if (file_exists($projectDir.'/public/version.txt')) {
+            $content = file_get_contents($projectDir.'/public/version.txt');
         }
 
         $textResponse = new Response($content , 200);
