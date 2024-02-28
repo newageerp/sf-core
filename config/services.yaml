@@ -16,6 +16,9 @@ services:
     arguments: [ ]
   # repo end
 
+  Newageerp\SfPublic\SfPublicController:
+    arguments: [ ]
+
   Newageerp\SfStatus\Service\StatusService:
     arguments: [ ]
   Newageerp\SfSummary\SfSummaryController:
