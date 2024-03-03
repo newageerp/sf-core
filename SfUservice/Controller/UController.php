@@ -443,21 +443,30 @@ class UController extends UControllerBase
             $id = $request->get('id');
             $schema = $request->get('schema');
             $className = $this->convertSchemaToEntity($schema);
-            /**
-             * @var ObjectRepository $repository
-             */
-            $repository = $entityManager->getRepository($className);
 
-            $element = $repository->find($id);
 
             try {
+                /**
+                 * @var ObjectRepository $repository
+                 */
+                $repository = $entityManager->getRepository($className);
+
+                $element = $repository->find($id);
+
                 if ($element) {
                     $entityManager->remove($element);
                 }
                 $entityManager->flush();
             } catch (\Exception $e) {
                 $entityManager = $registry->resetManager();
-                
+
+                /**
+                 * @var ObjectRepository $repository
+                 */
+                $repository = $entityManager->getRepository($className);
+
+                $element = $repository->find($id);
+
                 if (mb_strpos($e->getMessage(), 'SQLSTATE[23000]') !== false) {
                     if (method_exists($element, 'setSoftRemoved')) {
                         $element->setSoftRemoved(true);
