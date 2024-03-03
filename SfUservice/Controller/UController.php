@@ -449,11 +449,19 @@ class UController extends UControllerBase
 
             $element = $repository->find($id);
 
-            if ($element) {
-                $entityManager->remove($element);
+            try {
+                if ($element) {
+                    $entityManager->remove($element);
+                }
+                $entityManager->flush();
+            } catch (\Exception $e) {
+                if (mb_strpos($e->getMessage(), 'SQLSTATE[23000]') !== false) {
+                    if (method_exists($element, 'setSoftRemoved')) {
+                        $element->setSoftRemoved(true);
+                        $entityManager->flush();
+                    }
+                }
             }
-
-            $entityManager->flush();
 
             $this->sendSocketPool();
 
