@@ -11,6 +11,7 @@ use Exception;
 use Newageerp\SfUservice\Service\UService;
 use Newageerp\SfSerializer\Serializer\ObjectSerializer;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Newageerp\SfAuth\Service\AuthService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -429,7 +430,7 @@ class UController extends UControllerBase
      * @return JsonResponse
      * @OA\Post (operationId="NAEURemove")
      */
-    public function URemove(Request $request, EntityManagerInterface $entityManager): JsonResponse
+    public function URemove(Request $request, EntityManagerInterface $entityManager, ManagerRegistry $registry): JsonResponse
     {
         try {
             $request = $this->transformJsonBody($request);
@@ -455,6 +456,8 @@ class UController extends UControllerBase
                 }
                 $entityManager->flush();
             } catch (\Exception $e) {
+                $entityManager = $registry->resetManager();
+                
                 if (mb_strpos($e->getMessage(), 'SQLSTATE[23000]') !== false) {
                     if (method_exists($element, 'setSoftRemoved')) {
                         $element->setSoftRemoved(true);
