@@ -285,6 +285,12 @@ class UService
 
         $className = $this->convertSchemaToEntity($schema);
 
+        if (method_exists($className, 'getSoftRemoved')) {
+            $filters[] = ['and' => [
+                ['i.softRemoved', '=', false, true]
+            ]];
+        }
+
         if (!$skipPermissionsCheck) {
             $event = new UPermissionsEvent(
                 $user,
