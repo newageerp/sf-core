@@ -476,7 +476,7 @@ class UService
                     if (isset($st[1]) && $st[1] === 'IS_EMPTY') {
                         $op = '=';
                         $value = '';
-                        $skipParams = true;
+                        // $skipParams = true;
                     } else if (isset($st[1]) && $st[1] === 'contains') {
                         $op = 'like';
                         $value = '%' . $st[2] . '%';
