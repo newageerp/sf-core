@@ -23,7 +23,7 @@ class ConfigCacheController extends ConfigBaseController
     public function getLocalConfig(
         Request $request, 
         SfTabsService $tabsUtilsV3,
-        SfDefaultsService $defaultsService
+        SfDefaultsService $defaultsService,
         EntitiesUtilsV3 $entitiesUtilsV3,
     )
     {
