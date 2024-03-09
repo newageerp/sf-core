@@ -3,6 +3,7 @@
 namespace Newageerp\SfControlpanel\Controller;
 
 use Newageerp\SfConfig\Service\ConfigService;
+use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 use Newageerp\SfControlpanel\Console\LocalConfigUtilsV3;
 use Newageerp\SfDefaults\Service\SfDefaultsService;
 use Newageerp\SfTabs\Service\SfTabsService;
@@ -23,6 +24,7 @@ class ConfigCacheController extends ConfigBaseController
         Request $request, 
         SfTabsService $tabsUtilsV3,
         SfDefaultsService $defaultsService
+        EntitiesUtilsV3 $entitiesUtilsV3,
     )
     {
         $request = $this->transformJsonBody($request);
@@ -34,7 +36,8 @@ class ConfigCacheController extends ConfigBaseController
             // 'defaults' => 'defaults.json',
             'edit' => 'edit.json',
             'view' => 'view.json',
-            'settings' => 'settings.json'
+            'settings' => 'settings.json',
+            // 'entities' => 'entities.json'
         ];
 
         $output = ['data' => []];
@@ -60,6 +63,7 @@ class ConfigCacheController extends ConfigBaseController
                 $output['data'][$key] = $data;
             }
             $output['data']['tabs'] = $tabsUtilsV3->getTabs();
+            $output['data']['entities'] = $entitiesUtilsV3->getEntities();
             $output['data']['defaults'] = $defaultsService->getDefaults();
             $output['data']['main'] = ConfigService::getConfig('main');
         } catch (\Exception $e) {
