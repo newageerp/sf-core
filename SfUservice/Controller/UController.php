@@ -549,4 +549,41 @@ class UController extends UControllerBase
             return $response;
         }
     }
+
+    /**
+     * @Route ("/find/{schema}/{key}/{value}", methods={"GET"})
+     */
+    public function find(Request $request, UService $uService)
+    {
+        $schema = $request->get('schema');
+        $key = $request->get('key');
+        $value = $request->get('value');
+
+        $res = $uService->getListDataForSchema(
+            $schema,
+            1,
+            1,
+            ['id'],
+            [
+                [
+                    "and" => [
+                        [
+                            'i.' . $key,
+                            '=',
+                            $value,
+                            true
+                        ]
+                    ]
+                ]
+            ],
+            [],
+            [],
+            [],
+            true
+        );
+        if (count($res['data']) === 0) {
+            return $this->redirect('/');
+        }
+        return $this->redirect('/u/' . $schema . '/main/view/' . $res['data'][0]['id']);
+    }
 }
