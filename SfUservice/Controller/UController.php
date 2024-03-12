@@ -555,6 +555,10 @@ class UController extends UControllerBase
      */
     public function find(Request $request, UService $uService)
     {
+        $baseUser = new \Newageerp\SfBaseEntity\Object\BaseUser();
+        $baseUser->setId(1);
+
+        AuthService::getInstance()->setUser($baseUser);
         $schema = $request->get('schema');
         $key = $request->get('key');
         $value = $request->get('value');
