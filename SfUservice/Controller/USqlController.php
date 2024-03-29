@@ -18,8 +18,7 @@ class USqlController extends UControllerBase
 {
 
     /**
-     * @Route(path="/get/{schema}", methods={"POST"})
-     * @OA\Post (operationId="NAEUList")
+     * @Route(path="/get", methods={"POST"})
      */
     public function getList(
         Request  $request,
