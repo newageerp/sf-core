@@ -32,12 +32,11 @@ class USqlController extends UControllerBase
             }
             AuthService::getInstance()->setUser($user);
 
-            $data = $request->get('data');
             $sql = $request->get('sql');
             $countSql = $request->get('countSql');
 
-            $page = $data['page'] ?? 1;
-            $pageSize = $data['pageSize'] ?? 20;
+            $page = $request->get('page', 1);
+            $pageSize = $request->get('pageSize', 20);
 
             $limitStart = ($page - 1) * $pageSize;
             $sql .= ' LIMIT ' . $limitStart . ',' . $pageSize;
