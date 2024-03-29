@@ -44,6 +44,7 @@ class USqlController extends UControllerBase
             $stmt = $this->getEm()->getConnection()->prepare($sql);
             $result = $stmt->executeQuery()->fetchAllAssociative();
 
+            $resultCount = 0;
             if ($countSql) {
                 $stmt = $this->getEm()->getConnection()->prepare($countSql);
                 $resultCount = $stmt->executeQuery()->fetchFirstColumn();
