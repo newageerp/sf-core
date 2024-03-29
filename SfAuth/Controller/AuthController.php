@@ -132,7 +132,7 @@ class AuthController extends OaBaseController
 
         $token = $request->get('token') ? $request->get('token') : $request->headers->get('Authorization');
         if ($token) {
-            $url = $authService->getBackendUrl() . '/generate-update-token';
+            $url = $authService->getBackendUrl() . '/api/generate-update-token';
 
             $ppData = [
                 'data' => [

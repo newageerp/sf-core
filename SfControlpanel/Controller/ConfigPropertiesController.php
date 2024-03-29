@@ -449,4 +449,30 @@ class ConfigPropertiesController extends ConfigBaseController
 
         return $schemaProperties;
     }
+
+    /**
+     * @Route ("/getAvailableColumns/{schema}", methods={"GET"})
+     */
+    public function getAvailableColumns(Request $request, PropertiesUtilsV3 $propertiesUtilsV3)
+    {
+        $properties = $propertiesUtilsV3->getPropertiesForEntitySlug($request->get('schema'));
+
+        $data = [];
+        foreach ($properties as $prop) {
+            $el = [
+                'id' => $prop['config']['entity'] . '.' . $prop['config']['key'],
+                'head' => [
+                    'title' => $prop['config']['title'] ?? $prop['config']['key']
+                ],
+                'body' => [
+                    'template' => $prop['config']['type'],
+                    'dataKey' => $prop['config']['key']
+                ]
+
+            ];
+            $data[] = $el;
+        }
+
+        return $this->json($data);
+    }
 }
