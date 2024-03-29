@@ -173,6 +173,8 @@ services:
     arguments: [ ]
   Newageerp\SfUservice\Controller\UController:
     arguments: [ ]
+  Newageerp\SfUservice\Controller\USqlController:
+    arguments: [ ]
   Newageerp\SfUservice\EventListener\OnFlushEventListener:
     arguments: [ ]
     tags:
