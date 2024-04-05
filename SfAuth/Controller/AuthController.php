@@ -117,6 +117,9 @@ class AuthController extends OaBaseController
         if (method_exists($userOrm, 'setAuthSourceId')) {
             $userOrm->setAuthSourceId($user['id']);
         }
+        if (method_exists($userOrm, 'setPermissionGroup')) {
+            $userOrm->setPermissionGroup('none');
+        }
         $this->getEm()->persist($userOrm);
         $this->getEm()->flush();
 
