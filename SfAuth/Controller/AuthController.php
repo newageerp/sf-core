@@ -96,8 +96,10 @@ class AuthController extends OaBaseController
             $userOrm = $repo->find($user['id']);
         }
 
+        $isNew = false;
         if (!$userOrm) {
             $userOrm = new $className();
+            $isNew = true;
         }
         if (method_exists($userOrm, 'setId')) {
             $userOrm->setId($user['id']);
@@ -117,7 +119,7 @@ class AuthController extends OaBaseController
         if (method_exists($userOrm, 'setAuthSourceId')) {
             $userOrm->setAuthSourceId($user['id']);
         }
-        if (method_exists($userOrm, 'setPermissionGroup')) {
+        if (method_exists($userOrm, 'setPermissionGroup') && $isNew) {
             $userOrm->setPermissionGroup('none');
         }
         $this->getEm()->persist($userOrm);
