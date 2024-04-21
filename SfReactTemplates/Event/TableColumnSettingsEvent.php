@@ -2,12 +2,11 @@
 
 namespace Newageerp\SfReactTemplates\Event;
 
-use Newageerp\SfReactTemplates\Template\Placeholder;
 use Symfony\Contracts\EventDispatcher\Event;
 
 class TableColumnSettingsEvent extends Event
 {
-    public const NAME = 'sfreacttemplates.TableColumnParseEvent';
+    public const NAME = 'sfreacttemplates.TableColumnSettingsEvent';
 
     protected array $col = [];
 
