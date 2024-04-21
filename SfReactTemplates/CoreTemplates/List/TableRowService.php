@@ -86,6 +86,7 @@ class TableRowService
 
                 $event = new TableColumnSettingsEvent($col, $tab);
                 $this->eventDispatcher->dispatch($event, TableColumnSettingsEvent::NAME);
+                $col = $event->getCol();
 
                 $pathArray = explode(".", $col['path']);
                 $level1Path = $pathArray[0] . '.' . $pathArray[1];
