@@ -267,6 +267,15 @@ class TableRowService
                             }
                         }
 
+                        if (isset($col['templateOptions'])) {
+                            foreach ($col['templateOptions'] as $opt) {
+                                $optMethod = 'set'.ucfirst($opt['prop']);
+                                if (method_exists($tpl, $optMethod)) {
+                                    $tpl->$optMethod($opt['value']);
+                                }
+                            }
+                        }
+
                         if ($tpl) {
                             if (isset($col['link']) && $col['link'] > 0 && $naeType !== 'object') {
                                 $rsButton = new RsButton($prop['entity'], 'tData.element.id');
