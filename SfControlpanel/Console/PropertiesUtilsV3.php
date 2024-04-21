@@ -248,6 +248,10 @@ class PropertiesUtilsV3
             $column['type'] = '';
         }
 
+        if (isset($column['naeType'])) {
+            return $column['naeType'];
+        }
+
         $fieldAs = $property['customAs'] ? $property['customAs'] : $property['as'];
 
         $isHtmlEditor = $fieldAs === 'html-editor';
