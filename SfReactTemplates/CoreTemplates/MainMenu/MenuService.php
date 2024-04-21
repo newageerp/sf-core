@@ -61,6 +61,9 @@ class MenuService
     public function parseVirtualFolderContent(array $content, Placeholder $placeholder)
     {
         foreach ($content as $item) {
+            if (!isset($item['Icon'])) {
+                $item['Icon'] = null;
+            }
             if ($item['__component'] === 'menu.folder') {
                 if ($item['menu_folder']['data']['attributes']['Design'] === 'Virtual') {
                     $this->parseVirtualFolderContent(
