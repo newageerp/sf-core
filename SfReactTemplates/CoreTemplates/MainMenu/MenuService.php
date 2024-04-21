@@ -45,7 +45,7 @@ class MenuService
         $item = json_decode(file_get_contents($fileName), true);
 
         if ($item && $item['design'] === 'Virtual') {
-            $this->parseVirtualFolderContent($item['Content'], $placeholder);
+            $this->parseVirtualFolderContentV2($item['Content'], $placeholder);
         }
     }
 
@@ -55,6 +55,62 @@ class MenuService
 
         if ($item && $item['design'] === 'Virtual') {
             $this->parseVirtualFolderContent($item['Content'], $placeholder);
+        }
+    }
+
+
+    public function parseVirtualFolderContentV2(array $content, Placeholder $placeholder)
+    {
+        foreach ($content as $item) {
+            if (!isset($item['Icon'])) {
+                $item['Icon'] = null;
+            }
+            if ($item['__component'] === 'menu.folder') {
+                if ($item['menu_folder']['Design'] === 'Virtual') {
+                    $this->parseVirtualFolderContentV2(
+                        $item['menu_folder']['Content'],
+                        $placeholder
+                    );
+                } else {
+                    if (isset($item['menu_folder']['Content'])) {
+                        $placeholder->addTemplate(
+                            $this->folderFactory($item['menu_folder'], 0)
+                        );
+                    }
+                }
+            }
+            if ($item['__component'] === 'menu.title') {
+                $menuTitle = new MenuTitle($item['Title']);
+                $placeholder->addTemplate($menuTitle);
+            }
+            if ($item['__component'] === 'menu.menu-item') {
+                $menuItem = new MenuItem(
+                    $item['Title'],
+                    $item['Link'],
+                    $item['Icon']
+                );
+
+                $placeholder->addTemplate($menuItem);
+            }
+            if ($item['__component'] === 'menu.menu-item-tab') {
+                $event = new MenuItemTabParseEvent($item['Scheme'], $item['Type'], $item['Icon']);
+                $this->eventDispatcher->dispatch($event, MenuItemTabParseEvent::NAME);
+
+                if ($event->getEnable()) {
+                    $placeholder->addTemplate(
+                        $this->menuItemFactory->linkForTab(
+                            $event->getSchema(),
+                            $event->getType(),
+                            $event->getIcon(),
+                        )
+                    );
+                }
+            }
+            if ($item['__component'] === 'menu.divider') {
+                $placeholder->addTemplate(
+                    new MenuDivider()
+                );
+            }
         }
     }
 
