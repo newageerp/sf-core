@@ -37,6 +37,7 @@ use Newageerp\SfReactTemplates\CoreTemplates\Table\TableTr;
 use Newageerp\SfReactTemplates\Event\TableTdRenderEvent;
 use Newageerp\SfUservice\Service\UService;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Newageerp\SfReactTemplates\Event\TableColumnSettingsEvent;
 
 class TableRowService
 {
@@ -82,6 +83,9 @@ class TableRowService
             foreach ($tab['columns'] as $col) {
 
                 $td = new TableTd();
+
+                $event = new TableColumnSettingsEvent($col, $tab);
+                $this->eventDispatcher->dispatch($event, TableColumnSettingsEvent::NAME);
 
                 $pathArray = explode(".", $col['path']);
                 $level1Path = $pathArray[0] . '.' . $pathArray[1];
