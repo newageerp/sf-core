@@ -9,12 +9,15 @@ class StringArrayColumn extends ListBaseColumn {
 
     protected bool $initShowAll = false;
 
+    protected string $expandIn = 'inline';
+    
     public function getProps(): array
     {
         $props = parent::getProps();
 
         $props['initRows'] = $this->getInitRows();
         $props['initShowAll'] = $this->getInitShowAll();
+        $props['expandIn'] = $this->getExpandIn();
 
         return $props;
     }
@@ -69,6 +72,30 @@ class StringArrayColumn extends ListBaseColumn {
     public function setInitShowAll(bool $initShowAll): self
     {
         $this->initShowAll = $initShowAll;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of expandIn
+     *
+     * @return string
+     */
+    public function getExpandIn(): string
+    {
+        return $this->expandIn;
+    }
+
+    /**
+     * Set the value of expandIn
+     *
+     * @param string $expandIn
+     *
+     * @return self
+     */
+    public function setExpandIn(string $expandIn): self
+    {
+        $this->expandIn = $expandIn;
 
         return $this;
     }
