@@ -214,7 +214,7 @@ class MenuService
                 );
             }
             if ($item['__component'] === 'menu.folder') {
-                $contentFolder = $item['menu_folder']['Content'];
+                $contentFolder = $item['menu_folder'];
 
                 if ($contentFolder && isset($contentFolder['Content'])) {
                     if (!isset($contentFolder['Icon']) || !$contentFolder['Icon']) {
