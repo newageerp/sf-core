@@ -13,6 +13,10 @@ class MenuService
 
     protected EventDispatcherInterface $eventDispatcher;
 
+    protected array $data = [];
+
+    protected int $folderId = 0;
+
     public function __construct(
         MenuItemFactory $menuItemFactory,
         EventDispatcherInterface $eventDispatcher,
@@ -74,7 +78,7 @@ class MenuService
                 } else {
                     if (isset($item['menu_folder']['Content'])) {
                         $placeholder->addTemplate(
-                            $this->folderFactory($item['menu_folder'], 0)
+                            $this->folderFactoryV2($item['menu_folder'])
                         );
                     }
                 }
@@ -167,6 +171,65 @@ class MenuService
                 );
             }
         }
+    }
+
+    public function folderFactoryV2(array $data): MenuFolder
+    {
+        $folder = new MenuFolder(
+            $data['Title'],
+            $data['Icon'],
+        );
+        $this->folderId++;
+        $folder->setMenuFolderId('folder-' . $this->folderId);
+        $folder->setContentClassName('pl-2');
+
+        foreach ($data['Content'] as $item) {
+            if ($item['__component'] === 'menu.menu-item') {
+                $menuItem = new MenuItem(
+                    $item['Title'],
+                    $item['Link'],
+                    $item['Icon']
+                );
+
+                $folder->addItem($menuItem);
+            }
+
+            if ($item['__component'] === 'menu.menu-item-tab') {
+                $event = new MenuItemTabParseEvent($item['Scheme'], $item['Type'], $item['Icon']);
+                $this->eventDispatcher->dispatch($event, MenuItemTabParseEvent::NAME);
+
+                if ($event->getEnable()) {
+                    $folder->addItem(
+                        $this->menuItemFactory->linkForTab(
+                            $event->getSchema(),
+                            $event->getType(),
+                            $event->getIcon()
+                        )
+                    );
+                }
+            }
+            if ($item['__component'] === 'menu.divider') {
+                $folder->addItem(
+                    new MenuDivider()
+                );
+            }
+            if ($item['__component'] === 'menu.folder') {
+                $contentFolder = $item['menu_folder']['Content'];
+
+                if ($contentFolder && isset($contentFolder['Content'])) {
+                    if (!isset($contentFolder['Icon']) || !$contentFolder['Icon']) {
+                        $contentFolder['Icon'] = 'folder';
+                    }
+
+                    $subFolder = $this->folderFactoryV2(
+                        $contentFolder
+                    );
+                    $folder->addItem($subFolder);
+                }
+            }
+        }
+
+        return $folder;
     }
 
     public function folderFactory(array $data, ?int $id): MenuFolder
