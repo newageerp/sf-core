@@ -40,6 +40,15 @@ class MenuService
         }
     }
 
+    public function parseFile(string $fileName, Placeholder $placeholder)
+    {
+        $item = json_decode(file_get_contents($fileName), true);
+
+        if ($item && $item['design'] === 'Virtual') {
+            $this->parseVirtualFolderContent($item['Content'], $placeholder);
+        }
+    }
+
     public function parseFolder(string $slug, Placeholder $placeholder)
     {
         $item = $this->findFolderBySlug($slug);
