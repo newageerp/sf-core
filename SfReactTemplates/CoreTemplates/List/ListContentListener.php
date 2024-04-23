@@ -9,6 +9,7 @@ use Newageerp\SfReactTemplates\CoreTemplates\Popup\PopupWindow;
 use Newageerp\SfReactTemplates\Event\LoadTemplateEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Newageerp\SfReactTemplates\Template\Placeholder;
 
 class ListContentListener implements EventSubscriberInterface
 {
@@ -78,9 +79,6 @@ class ListContentListener implements EventSubscriberInterface
         if ($event->isTemplateForAnyEntity('PageInlineList')) {
             $addToolbar = isset($event->getData()['addToolbar']) && $event->getData()['addToolbar'];
 
-            $schema = $event->getData()['schema'];
-            $type = $event->getData()['type'];
-
             $listContent = new ListContent(
                 $event->getData()['schema'],
                 $event->getData()['type'],
@@ -97,63 +95,17 @@ class ListContentListener implements EventSubscriberInterface
                 );
             }
             if ($addToolbar) {
-                $eventData = $event->getData();
+                $templatesEventData = [
+                    'listDataSource' => $listDataSource,
+                    ...$event->getData(),
+                ];
                 
-                // TOOLBAR LEFT
                 $templateEvent = new LoadTemplateEvent(
-                    $listDataSource->getToolbar()->getToolbarLeft(),
-                    'TableService.ToolbarLeft',
-                    $eventData
+                    new Placeholder(),
+                    'TableService.Toolbar',
+                    $templatesEventData
                 );
                 $this->eventDispatcher->dispatch($templateEvent, LoadTemplateEvent::NAME);
-
-                // TOOLBAR RIGHT
-                $templateEvent = new LoadTemplateEvent(
-                    $listDataSource->getToolbar()->getToolbarRight(),
-                    'TableService.ToolbarRight',
-                    $eventData
-                );
-                $this->eventDispatcher->dispatch($templateEvent, LoadTemplateEvent::NAME);
-
-                $templateEvent = new LoadTemplateEvent(
-                    $listDataSource->getToolbar()->getToolbarRight(),
-                    'TableService.ToolbarRight.' . $eventData['schema'],
-                    $eventData
-                );
-                $this->eventDispatcher->dispatch($templateEvent, LoadTemplateEvent::NAME);
-                // // toolbar
-                // $tab = $this->getTabsUtilsV3()->getTabBySchemaAndType(
-                //     $schema,
-                //     $type,
-                // );
-                // if ($tab) {
-                //     // QS
-                //     $qsFields = $this->getTabsUtilsV3()->getTabQsFields(
-                //         $schema,
-                //         $type,
-                //     );
-                //     if (count($qsFields) > 0) {
-                //         $listDataSource->getToolbar()->getToolbarLeft()->addTemplate(
-                //             new ToolbarQs($qsFields)
-                //         );
-                //     }
-
-                //     // SORT
-                //     $sort = $this->getTabsUtilsV3()->getTabSort(
-                //         $schema,
-                //         $type,
-                //     );
-                //     if (count($sort) > 0) {
-                //         $listDataSource->getToolbar()->getToolbarRight()->addTemplate(
-                //             new ToolbarSort($schema, $sort)
-                //         );
-                //     }
-
-                //     // DETAILED SEARCH
-                //     $listDataSource->getToolbar()->getToolbarRight()->addTemplate(
-                //         new ToolbarDetailedSearch($schema)
-                //     );
-                // }
             }
             $listTable = $this->getTableService()->buildTableData(
                 $event->getData()['schema'],
