@@ -23,9 +23,6 @@ class RoutePointMainView implements EventSubscriberInterface
     public function onTemplate(LoadTemplateEvent $event)
     {
         if ($event->isTemplateForAnyEntity('RoutePointMainView')) {
-            $toolbarTitle = new MainToolbarTitle($this->entitiesUtilsV3->getTitleBySlug($event->getData()['schema']));
-            $event->getPlaceholder()->addTemplate($toolbarTitle);
-
             $wEvent = new LoadTemplateEvent(
                 $event->getPlaceholder(),
                 'PageMainView',

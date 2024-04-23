@@ -65,14 +65,6 @@ class ListContentListener implements EventSubscriberInterface
                 $event->getPlaceholder()->addTemplate($popupWindow);
             } else {
                 $event->getPlaceholder()->addTemplate($listContent);
-
-                // $toolbarTitle = new MainToolbarTitle(
-                //     $this->tabsUtilsV3->getTabToolbarTitle(
-                //         $event->getData()['schema'],
-                //         $event->getData()['type'],
-                //     )
-                // );
-                // $event->getPlaceholder()->addTemplate($toolbarTitle);
             }
         }
 
