@@ -20,12 +20,14 @@ class MainHeaderTitleListener implements EventSubscriberInterface
     public function onTemplate(MainHeaderTitleEvent $event)
     {
         $eventData = $event->getEventData();
-        if (isset($eventData['schema']) && isset($eventData['type'])) {
-            $title = $this->tabsService->getTabToolbarTitle(
-                $eventData['schema'],
-                $eventData['type'],
-            );
-            $event->setTitle($title);
+        if (isset($eventData['schema']) && isset($eventData['type']) && isset($eventData['page'])) {
+            if ($eventData['page'] === 'list') {
+                $title = $this->tabsService->getTabToolbarTitle(
+                    $eventData['schema'],
+                    $eventData['type'],
+                );
+                $event->setTitle($title);
+            }
         }
     }
 
