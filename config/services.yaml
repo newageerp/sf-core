@@ -156,6 +156,14 @@ services:
     resource: '../SfReactTemplates/Controller/*'
     arguments: [ ]
 
+
+  Newageerp\SfReactTemplates\AppTemplates\:
+    resource: '../SfReactTemplates/AppTemplates/*'
+    arguments: [ ]
+  Newageerp\SfReactTemplates\UListTemplates\:
+    resource: '../SfReactTemplates/UListTemplates/*'
+    arguments: [ ]
+
   Newageerp\SfSerialNumber\Service\SerialNumberService:
     arguments: [ ]
 
