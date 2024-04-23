@@ -18,6 +18,8 @@ class FilesWidgetItem
 
     protected array $actions = ['view', 'download'];
 
+    protected int $truncateLength = 0;
+
     public function __construct(string $title, string $entity, string $folder, int $elementId)
     {
         $this->title = $title;
@@ -34,6 +36,7 @@ class FilesWidgetItem
             'hint' => $this->getHint(),
             'disableUpload' => !$this->getAllowUpload(),
             'actions' => $this->getActions(),
+            'truncateLength' => $this->getTruncateLength(),
         ];
     }
 
@@ -201,6 +204,30 @@ class FilesWidgetItem
     public function setActions(array $actions): self
     {
         $this->actions = $actions;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of truncateLength
+     *
+     * @return int
+     */
+    public function getTruncateLength(): int
+    {
+        return $this->truncateLength;
+    }
+
+    /**
+     * Set the value of truncateLength
+     *
+     * @param int $truncateLength
+     *
+     * @return self
+     */
+    public function setTruncateLength(int $truncateLength): self
+    {
+        $this->truncateLength = $truncateLength;
 
         return $this;
     }
