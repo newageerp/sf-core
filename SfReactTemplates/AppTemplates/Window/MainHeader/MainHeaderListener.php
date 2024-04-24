@@ -20,7 +20,7 @@ class MainHeaderListener implements EventSubscriberInterface
     public function onTemplate(LoadTemplateEvent $event)
     {
         if ($event->isTemplateForAnyEntity('App-Window-MainHeader')) {
-            $title = 'XXX';
+            $title = '';
 
             $mainHeaderTitleEvent = new MainHeaderTitleEvent(
                 $title,
