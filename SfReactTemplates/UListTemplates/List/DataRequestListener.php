@@ -20,7 +20,7 @@ class DataRequestListener implements EventSubscriberInterface
         $this->uService = $uService;
     }
 
-    public function onTemplate(DataRequestEvent $event)
+    public function onDataRequest(DataRequestEvent $event)
     {
         $tab = $this->tabsService->getTabBySchemaAndType($event->getSchema(), $event->getType());
         if ($tab) {
