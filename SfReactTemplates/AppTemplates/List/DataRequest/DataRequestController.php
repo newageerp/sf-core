@@ -44,7 +44,7 @@ class DataRequestController extends OaBaseController
         $dataRequestParamsEvent->setRequestExtraData($extraData);
         $dataRequestParamsEvent->setRequestSort($sort);
         $dataRequestParamsEvent->setRequestMetrics($totals);
-        $this->eventDispatcher->dispatch($dataRequestParamsEvent, DataRequestEvent::NAME);
+        $this->eventDispatcher->dispatch($dataRequestParamsEvent, DataRequestParamsEvent::NAME);
         
         $page = $dataRequestParamsEvent->getRequestPage();
         $pageSize = $dataRequestParamsEvent->getRequestPageSize();
