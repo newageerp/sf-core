@@ -3,13 +3,9 @@
 namespace Newageerp\SfReactTemplates\AppTemplates\List\DataRequest;
 
 use Newageerp\SfBaseEntity\Controller\OaBaseController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use OpenApi\Annotations as OA;
 use Newageerp\SfAuth\Service\AuthService;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @Route(path="/app/data-request")
@@ -19,10 +15,7 @@ class DataRequestController extends OaBaseController
     /**
      * @Route(path="/get/{schema}/{type}", methods={"POST"})
      */
-    public function getData(
-        Request $request,
-        EventDispatcherInterface $eventDispatcher,
-    ) {
+    public function getData(Request $request) {
         $request = $this->transformJsonBody($request);
 
         $user = $this->findUser($request);

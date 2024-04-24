@@ -26,7 +26,7 @@ class DataRequestEvent extends Event
 
     public function __construct(
         string $schema,
-        array $type,
+        string $type,
     ) {
         $this->schema = $schema;
         $this->type = $type;
