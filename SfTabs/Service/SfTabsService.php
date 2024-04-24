@@ -30,7 +30,7 @@ class SfTabsService
         $tabs = ConfigService::getConfig('tabs', true);
         $ev = new InitTabsEvent($tabs);
         $this->getEventDispatcher()->dispatch($ev, InitTabsEvent::NAME);
-        
+
         $this->tabs = $ev->getTabs();
     }
 
@@ -123,6 +123,29 @@ class SfTabsService
             return $tab['totals'];
         }
         return [];
+    }
+
+    public function getTabFieldsToReturn(string $schema, string $type)
+    {
+        $fields = ["scopes", "_viewTitle"];
+        $tab = $this->getTabBySchemaAndType($schema, $type);
+        if (!$tab) {
+            return [];
+        }
+        foreach ($tab['columns'] as $f) {
+            if ($f['path']) {
+                $pArray = explode(".", $f['path']);
+                array_shift($pArray);
+                $fields[] = implode(".", $pArray);
+            }
+            if (isset($f['extraFieldsToReturn'])) {
+                $fields = array_merge(
+                    $fields,
+                    json_decode($f['extraFieldsToReturn'], true)
+                );
+            }
+        }
+        return $fields;
     }
 
     public function getTabsSwitchOptions(string $schema, string $type): array

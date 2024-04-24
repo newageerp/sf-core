@@ -35,10 +35,26 @@ class DataRequestController extends OaBaseController
         $sort = $request->get('sort') ? $request->get('sort') : [];
         $totals = $request->get('totals') ? $request->get('totals') : [];
 
-        // TODO EVENTS FOR REQUEST PARAMS
+        // EVENTS FOR REQUEST PARAMS
+        $dataRequestParamsEvent = new DataRequestParamsEvent($schema, $type);
+        $dataRequestParamsEvent->setRequestPage($page);
+        $dataRequestParamsEvent->setRequestPageSize($pageSize);
+        $dataRequestParamsEvent->setRequestFieldsToReturn($fieldsToReturn);
+        $dataRequestParamsEvent->setRequestFilters($filters);
+        $dataRequestParamsEvent->setRequestExtraData($extraData);
+        $dataRequestParamsEvent->setRequestSort($sort);
+        $dataRequestParamsEvent->setRequestMetrics($totals);
+        $this->eventDispatcher->dispatch($dataRequestParamsEvent, DataRequestEvent::NAME);
+        
+        $page = $dataRequestParamsEvent->getRequestPage();
+        $pageSize = $dataRequestParamsEvent->getRequestPageSize();
+        $fieldsToReturn = $dataRequestParamsEvent->getRequestFieldsToReturn();
+        $filters = $dataRequestParamsEvent->getRequestFilters();
+        $extraData = $dataRequestParamsEvent->getRequestExtraData();
+        $sort = $dataRequestParamsEvent->getRequestSort();
+        $totals = $dataRequestParamsEvent->getRequestMetrics();
 
-
-        // TODO EVENTS FOR DATA
+        // EVENTS FOR DATA
         $dataRequestEvent = new DataRequestEvent($schema, $type);
         $dataRequestEvent->setRequestPage($page);
         $dataRequestEvent->setRequestPageSize($pageSize);

@@ -4,6 +4,7 @@ namespace Newageerp\SfReactTemplates\UListTemplates\List;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Newageerp\SfReactTemplates\AppTemplates\List\DataRequest\DataRequestEvent;
+use Newageerp\SfReactTemplates\AppTemplates\List\DataRequest\DataRequestParamsEvent;
 use Newageerp\SfTabs\Service\SfTabsService;
 use Newageerp\SfUservice\Service\UService;
 
@@ -41,10 +42,23 @@ class DataRequestListener implements EventSubscriberInterface
         }
     }
 
+    public function onParamsRequest(DataRequestParamsEvent $event)
+    {
+        $tab = $this->tabsService->getTabBySchemaAndType($event->getSchema(), $event->getType());
+        if ($tab) {
+            $fieldsToReturn = $this->tabsService->getTabFieldsToReturn($event->getSchema(), $event->getType());
+            $event->setRequestFieldsToReturn($fieldsToReturn);
+
+            $metrics = $this->tabsService->getTabTotals($event->getSchema(), $event->getType());
+            $event->setRequestMetrics($metrics);
+        }
+    }
+
     public static function getSubscribedEvents()
     {
         return [
-            DataRequestEvent::NAME => 'onDataRequest'
+            DataRequestEvent::NAME => 'onDataRequest',
+            DataRequestParamsEvent::NAME => 'onParamsRequest'
         ];
     }
 }

@@ -14,7 +14,6 @@ class ListDataSource extends Template
 
     protected bool $hidePaging = false;
     protected array $sort = [];
-    protected array $totals = [];
 
     protected string $schema = '';
     protected string $type = '';
@@ -71,8 +70,6 @@ class ListDataSource extends Template
 
             'toolbar' => $toolbar,
             'toolbarLine2' => $toolbarLine2,
-
-            'totals' => $this->getTotals(),
 
             'hidePageSelectionSelect' => $this->getHidePageSelectionSelect(),
 
@@ -322,30 +319,6 @@ class ListDataSource extends Template
     public function setToolbar(ListToolbar $toolbar): self
     {
         $this->toolbar = $toolbar;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of totals
-     *
-     * @return array
-     */
-    public function getTotals(): array
-    {
-        return $this->totals;
-    }
-
-    /**
-     * Set the value of totals
-     *
-     * @param array $totals
-     *
-     * @return self
-     */
-    public function setTotals(array $totals): self
-    {
-        $this->totals = $totals;
 
         return $this;
     }
