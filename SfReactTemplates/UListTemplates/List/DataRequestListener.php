@@ -5,10 +5,9 @@ namespace Newageerp\SfReactTemplates\UListTemplates\List;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Newageerp\SfReactTemplates\AppTemplates\List\DataRequest\DataRequestEvent;
 use Newageerp\SfTabs\Service\SfTabsService;
-use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 use Newageerp\SfUservice\Service\UService;
 
-class MainHeaderTitleListener implements EventSubscriberInterface
+class DataRequestListener implements EventSubscriberInterface
 {
     protected SfTabsService $tabsService;
     protected UService $uService;
