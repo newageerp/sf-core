@@ -39,16 +39,29 @@ class TableHeaderService
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    public function buildSimpleHeaderRow(array $columns) {
+    public function getColAlignment(string $type): string
+    {
+        if ($type === 'float' || $type === 'float4' || $type === 'number' || $type === 'seconds-to-time') {
+            return 'text-right';
+        }
+
+        return 'text-left';
+    }
+
+    public function buildSimpleHeaderRow(array $columns)
+    {
         $tr = new TableTr();
 
         foreach ($columns as $col) {
+            $type = isset($col['type']) ? $col['type'] : 'string';
 
             $str = new DataString($col['title']);
             $th = new TableTh();
 
-            if (isset($col['alignment']) && $col['alignment'] !== 'text-left') {
-                $th->setTextAlignment($col['alignment']);
+            $alignment = isset($col['alignment']) ? $col['alignment'] : $this->getColAlignment($type);
+
+            if ($alignment !== 'text-left') {
+                $th->setTextAlignment($alignment);
             }
 
             $th->getContents()->addTemplate($str);
@@ -82,7 +95,7 @@ class TableHeaderService
                 }
 
                 if ($prop['isDb'] && $col['title']) {
-                    
+
                     $th->setFilter([
                         'id' => PropertiesUtilsV3::swapSchemaToI($col['_filterPropPath']),
                         'title' => $col['title'],
