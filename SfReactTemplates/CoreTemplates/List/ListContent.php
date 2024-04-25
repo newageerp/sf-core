@@ -7,24 +7,17 @@ use Newageerp\SfReactTemplates\Template\Template;
 
 class ListContent extends Template
 {
-    protected string $schema = '';
-
-    protected string $type = '';
 
     protected Placeholder $children;
 
-    public function __construct(string $schema, string $type)
+    public function __construct()
     {
-        $this->schema = $schema;
-        $this->type = $type;
         $this->children = new Placeholder();
     }
 
     public function getProps(): array
     {
         return [
-            'schema' => $this->getSchema(),
-            'type' => $this->getType(),
             'children' => $this->getChildren()->toArray(),
         ];
     }
@@ -33,55 +26,6 @@ class ListContent extends Template
     {
         return '_.AppBundle.ListContent';
     }
-
-    /**
-     * Get the value of schema
-     *
-     * @return string
-     */
-    public function getSchema(): string
-    {
-        return $this->schema;
-    }
-
-    /**
-     * Set the value of schema
-     *
-     * @param string $schema
-     *
-     * @return self
-     */
-    public function setSchema(string $schema): self
-    {
-        $this->schema = $schema;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of type
-     *
-     * @return string
-     */
-    public function getType(): string
-    {
-        return $this->type;
-    }
-
-    /**
-     * Set the value of type
-     *
-     * @param string $type
-     *
-     * @return self
-     */
-    public function setType(string $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
 
     /**
      * Get the value of children

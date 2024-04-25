@@ -274,9 +274,10 @@ class TableService
     public function buildListDataSource(string $schema, string $type): ListDataSource
     {
         $tab = $this->tabsUtilsV3->getTabBySchemaAndType($schema, $type);
-        $tabSort = $this->tabsUtilsV3->getTabSort($schema, $type);
 
         $listDataSource = new ListDataSource($schema, $type);
+        
+        $tabSort = $this->tabsUtilsV3->getTabSort($schema, $type);
         $listDataSource->setSort($tabSort);
         if (isset($tab['pageSize']) && $tab['pageSize']) {
             $listDataSource->setPageSize($tab['pageSize']);

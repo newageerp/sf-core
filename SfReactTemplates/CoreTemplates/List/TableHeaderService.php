@@ -39,9 +39,8 @@ class TableHeaderService
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    public function buildHeaderRow(string $schema, string $type, ?bool $addSelectButton = false): TableTr
+    public function buildHeaderRowForColumns(array $columns, bool $addSelectButton)
     {
-        // BUILD TR/TH
         $tr = new TableTr();
 
         if ($addSelectButton) {
@@ -49,9 +48,61 @@ class TableHeaderService
             $tr->getContents()->addTemplate($td);
         }
 
+
+        foreach ($columns as $col) {
+
+            $str = new DataString($col['title']);
+            $th = new TableTh();
+
+            $prop = $this->getPropertiesUtilsV3()->getPropertyForPath($col['_filterPropPath']);
+
+            if ($prop) {
+                $alignment = $this->getPropertiesUtilsV3()->getPropertyTableAlignment($prop, $col);
+                if ($alignment !== 'text-left') {
+                    $th->setTextAlignment($alignment);
+                }
+
+                if ($prop['isDb'] && $col['title']) {
+                    
+                    $th->setFilter([
+                        'id' => PropertiesUtilsV3::swapSchemaToI($col['_filterPropPath']),
+                        'title' => $col['title'],
+                        'type' => $this->getPropertiesUtilsV3()->getDefaultPropertySearchComparison($prop, $col),
+                        'options' => $col['filterEnums']
+                    ]);
+                }
+            }
+
+            if (isset($col['_sortPath']) && $col['_sortPath']) {
+                $th->setSort([
+                    [
+                        'key' => $col['_sortPath']['asc'],
+                        'value' => 'ASC'
+                    ],
+                    [
+                        'key' => $col['_sortPath']['desc'],
+                        'value' => 'DESC'
+                    ]
+                ]);
+            }
+
+            $th->getContents()->addTemplate($str);
+
+            $tr->getContents()->addTemplate($th);
+        }
+        return $tr;
+    }
+
+    public function buildHeaderRow(string $schema, string $type, ?bool $addSelectButton = false): TableTr
+    {
+        // BUILD TR/TH
+        $columns = [];
+
+
         $tab = $this->getTabsUtilsV3()->getTabBySchemaAndType($schema, $type);
         if ($tab) {
-            foreach ($tab['columns'] as $col) {
+            $columns = array_map(function (array $col) use ($schema, $type) {
+                // TITLE
                 $title = '';
                 if (isset($col['customTitle']) && $col['customTitle']) {
                     $title = $col['customTitle'];
@@ -62,87 +113,66 @@ class TableHeaderService
                         $title = $propTitle['title'];
                     }
                 }
-                $str = new DataString($title);
-                $th = new TableTh();
+                $col['title'] = $title;
 
+                // FILTER
                 $filterPath = isset($col['filterPath']) && $col['filterPath'] ? str_replace('i.', $schema . '.', $col['filterPath']) : $col['path'];
-                $prop = $this->getPropertiesUtilsV3()->getPropertyForPath($filterPath);
+                $filterProp = $this->getPropertiesUtilsV3()->getPropertyForPath($filterPath);
 
-                if ($prop) {
-                    $alignment = $this->getPropertiesUtilsV3()->getPropertyTableAlignment($prop, $col);
-                    if ($alignment !== 'text-left') {
-                        $th->setTextAlignment($alignment);
-                    }
-
-                    if ($prop['isDb'] && $title) {
-                        $enums = $this->getPropertiesUtilsV3()->getDefaultPropertySearchOptions($prop, $col);
-
-                        $propNaeType = $this->getPropertiesUtilsV3()->getPropertyNaeType($prop, $col);
-                        if ($propNaeType === 'object') {
-                            $selectSchema = $prop['typeFormat'];
-
-                            $filters = [];
-                            $event = new TableHeaderFilterQueryEvent($filters, $prop, $schema, $type);
-                            $this->eventDispatcher->dispatch($event, TableHeaderFilterQueryEvent::NAME);
-
-                            $data = $this->getUservice()->getListDataForSchema(
-                                $selectSchema,
-                                1,
-                                200,
-                                ['id', '_viewTitle'],
-                                $event->getFilters(),
-                                [],
-                                $this->getEntitiesUtilsV3()->getDefaultSortForSchema($selectSchema),
-                                [],
-                                false
-                            );
-                            $enums = array_map(
-                                function ($item) {
-                                    return [
-                                        'value' => $item['id'],
-                                        'label' => isset($item['_viewTitle']) ? $item['_viewTitle'] : $item['id'],
-                                    ];
-                                },
-                                $data['data'],
-                            );
-                        }
-
-                        $event = new TableHeaderFilterEnumEvent($enums, $prop, $schema, $type);
-                        $this->eventDispatcher->dispatch($event, TableHeaderFilterEnumEvent::NAME);
-
-                        $enums = $event->getEnums();
-
-                        $th->setFilter([
-                            'id' => PropertiesUtilsV3::swapSchemaToI($filterPath),
-                            'title' => $title,
-                            'type' => $this->getPropertiesUtilsV3()->getDefaultPropertySearchComparison($prop, $col),
-                            'options' => $enums
-                        ]);
-                    }
+                $col['_filterPropPath'] = $filterPath;
+                if ($filterProp['isDb'] && $col['title']) {
                 }
+                // FILTER ENUMS
+                $enums = $this->getPropertiesUtilsV3()->getDefaultPropertySearchOptions($filterProp, $col);
+                $filterPropNaeType = $this->getPropertiesUtilsV3()->getPropertyNaeType($filterProp, $col);
+                if ($filterPropNaeType === 'object') {
+                    $selectSchema = $filterProp['typeFormat'];
 
+                    $filters = [];
+                    $event = new TableHeaderFilterQueryEvent($filters, $filterProp, $schema, $type);
+                    $this->eventDispatcher->dispatch($event, TableHeaderFilterQueryEvent::NAME);
+
+                    $data = $this->getUservice()->getListDataForSchema(
+                        $selectSchema,
+                        1,
+                        200,
+                        ['id', '_viewTitle'],
+                        $event->getFilters(),
+                        [],
+                        $this->getEntitiesUtilsV3()->getDefaultSortForSchema($selectSchema),
+                        [],
+                        false
+                    );
+                    $enums = array_map(
+                        function ($item) {
+                            return [
+                                'value' => $item['id'],
+                                'label' => isset($item['_viewTitle']) ? $item['_viewTitle'] : $item['id'],
+                            ];
+                        },
+                        $data['data'],
+                    );
+                }
+                $event = new TableHeaderFilterEnumEvent($enums, $filterProp, $schema, $type);
+                $this->eventDispatcher->dispatch($event, TableHeaderFilterEnumEvent::NAME);
+                $enums = $event->getEnums();
+                $col['filterEnums'] = $enums;
+
+                // SORT
                 $sortPath = isset($col['sortPath']) && $col['sortPath'] ? str_replace('i.', $schema . '.', $col['sortPath']) : $col['path'];
-                $prop = $this->getPropertiesUtilsV3()->getPropertyForPath($sortPath);
+                $sortProp = $this->getPropertiesUtilsV3()->getPropertyForPath($sortPath);
 
-                if ($prop && $prop['isDb']) {
-                    $th->setSort([
-                        [
-                            'key' => str_replace($schema . '.', 'i.', $sortPath),
-                            'value' => 'ASC'
-                        ],
-                        [
-                            'key' => str_replace($schema . '.', 'i.', $sortPath),
-                            'value' => 'DESC'
-                        ]
-                    ]);
+                if ($sortProp && $sortProp['isDb']) {
+                    $col['_sortPath'] = [
+                        'asc' => str_replace($schema . '.', 'i.', $sortPath),
+                        'desc' => str_replace($schema . '.', 'i.', $sortPath)
+                    ];
                 }
 
-                $th->getContents()->addTemplate($str);
-
-                $tr->getContents()->addTemplate($th);
-            }
+                return $col;
+            }, $tab['columns']);
         }
-        return $tr;
+        return $this->buildHeaderRowForColumns($columns, $addSelectButton);
     }
 
     /**
