@@ -65,13 +65,23 @@ class TableRowService
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    public function buildSimpleDataRow(array $columns) {
+    public function buildSimpleDataRow(array $columns)
+    {
         $tr = new TableTr();
         foreach ($columns as $col) {
             $pathArray = explode(".", $col['path']);
 
+            $type = isset($col['type']) ? $col['type'] : 'string';
+
             $td = new TableTd();
-            $tpl = new StringColumn($pathArray[1]);
+
+            if ($type === 'number') {
+                $tpl = new NumberColumn($pathArray[1]);
+            } else if ($type === 'float2') {
+                $tpl = new FloatColumn($pathArray[1]);
+            } else {
+                $tpl = new StringColumn($pathArray[1]);
+            }
             $td->getContents()->addTemplate($tpl);
 
             $tr->getContents()->addTemplate($td);
@@ -284,7 +294,7 @@ class TableRowService
 
                         if (isset($col['templateOptions'])) {
                             foreach ($col['templateOptions'] as $opt) {
-                                $optMethod = 'set'.ucfirst($opt['prop']);
+                                $optMethod = 'set' . ucfirst($opt['prop']);
                                 if (method_exists($tpl, $optMethod)) {
                                     $tpl->$optMethod($opt['value']);
                                 }
