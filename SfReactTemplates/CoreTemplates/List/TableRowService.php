@@ -65,6 +65,15 @@ class TableRowService
         $this->eventDispatcher = $eventDispatcher;
     }
 
+    public function getColAlignment(string $type): string
+    {
+        if ($type === 'float' || $type === 'float4' || $type === 'number' || $type === 'seconds-to-time') {
+            return 'text-right';
+        }
+
+        return 'text-left';
+    }
+
     public function buildSimpleDataRow(array $columns)
     {
         $tr = new TableTr();
@@ -74,6 +83,12 @@ class TableRowService
             $type = isset($col['type']) ? $col['type'] : 'string';
 
             $td = new TableTd();
+
+            $alignment = isset($col['alignment']) ? $col['alignment'] : $this->getColAlignment($type);
+
+            if ($alignment !== 'text-left') {
+                $td->setTextAlignment($col['alignment']);
+            }
 
             if ($type === 'number') {
                 $tpl = new NumberColumn($pathArray[1]);
