@@ -41,7 +41,7 @@ class TableHeaderService
 
     public function getColAlignment(string $type): string
     {
-        if ($type === 'float' || $type === 'float4' || $type === 'number' || $type === 'seconds-to-time') {
+        if (mb_strpos($type, 'float') === 0 || $type === 'number' || $type === 'seconds-to-time') {
             return 'text-right';
         }
 
