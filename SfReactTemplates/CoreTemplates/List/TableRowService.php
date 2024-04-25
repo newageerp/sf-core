@@ -87,7 +87,7 @@ class TableRowService
             $alignment = isset($col['alignment']) ? $col['alignment'] : $this->getColAlignment($type);
 
             if ($alignment !== 'text-left') {
-                $td->setTextAlignment($col['alignment']);
+                $td->setTextAlignment($alignment);
             }
 
             if ($type === 'number') {
