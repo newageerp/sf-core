@@ -295,6 +295,21 @@ class TableService
         return $listDataSource;
     }
 
+    public function buildSimpleTable(array $columns) {
+        $thead = $this->tableHeaderService->buildSimpleHeaderRow(
+            $columns,
+        );
+        $tbody = $this->tableRowService->buildSimpleDataRow(
+            $columns,
+        );
+
+        $tableData = new ListDataTable();
+        $tableData->getHeader()->addTemplate($thead);
+        $tableData->getRow()->addTemplate($tbody);
+
+        return $tableData;
+    }
+
     public function buildTableData(string $schema, string $type, ?bool $addSelectButton = false): ListDataTable
     {
 

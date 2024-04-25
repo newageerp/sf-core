@@ -39,6 +39,25 @@ class TableHeaderService
         $this->eventDispatcher = $eventDispatcher;
     }
 
+    public function buildSimpleHeaderRow(array $columns) {
+        $tr = new TableTr();
+
+        foreach ($columns as $col) {
+
+            $str = new DataString($col['title']);
+            $th = new TableTh();
+
+            if (isset($col['alignment']) && $col['alignment'] !== 'text-left') {
+                $th->setTextAlignment($col['alignment']);
+            }
+
+            $th->getContents()->addTemplate($str);
+
+            $tr->getContents()->addTemplate($th);
+        }
+        return $tr;
+    }
+
     public function buildHeaderRowForColumns(array $columns, bool $addSelectButton)
     {
         $tr = new TableTr();

@@ -65,6 +65,20 @@ class TableRowService
         $this->eventDispatcher = $eventDispatcher;
     }
 
+    public function buildSimpleDataRow(array $columns) {
+        $tr = new TableTr();
+        foreach ($columns as $col) {
+            $pathArray = explode(".", $col['path']);
+
+            $td = new TableTd();
+            $tpl = new StringColumn($pathArray[1]);
+            $td->getContents()->addTemplate($tpl);
+
+            $tr->getContents()->addTemplate($td);
+        }
+        return $tr;
+    }
+
     public function buildDataRow(string $schema, string $type, ?bool $addSelectButton = false): TableTr
     {
         $forcePopup = $addSelectButton;
