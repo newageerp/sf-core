@@ -24,7 +24,7 @@ class SfKeyValueListener implements EventSubscriberInterface
             $tabs
         );
 
-        if (!in_array('sf-key-value-orm.sfKey', $ids)) {
+        if (!in_array('sf-key-value-orm-tab', $ids)) {
             $tabs[] = [
                 "id" => "sf-key-value-orm-tab",
                 "tag" => "",
@@ -35,7 +35,7 @@ class SfKeyValueListener implements EventSubscriberInterface
                             "path" => "sf-key-value-orm.sfKey",
                             "titlePath" => "",
                             "customTitle" => "",
-                            "link" => 0
+                            "link" => 10
                         ],
                         [
                             "path" => "sf-key-value-orm.sfValue",
