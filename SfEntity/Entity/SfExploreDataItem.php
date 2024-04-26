@@ -4,12 +4,12 @@ namespace Newageerp\SfEntity\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use OpenApi\Annotations as OA;
-use Newageerp\SfEntity\Repository\SfExporeDataItemRepository;
+use Newageerp\SfEntity\Repository\SfExploreDataItemRepository;
 
 /**
- * @ORM\Entity(repositoryClass=SfExporeDataItemRepository::class)
+ * @ORM\Entity(repositoryClass=SfExploreDataItemRepository::class)
  */
-class SfExporeDataItem
+class SfExploreDataItem
 {
     /**
      * @ORM\Id
@@ -42,9 +42,9 @@ class SfExporeDataItem
     protected array $columns = [];
 
     /**
-     * @ORM\ManyToOne (targetEntity="SfExporeDataFolder")
+     * @ORM\ManyToOne (targetEntity="SfExploreDataFolder")
      */
-    protected ?SfExporeDataFolder $folder = null;
+    protected ?SfExploreDataFolder $folder = null;
 
     public function getId(): ?int
     {
@@ -55,9 +55,9 @@ class SfExporeDataItem
     /**
      * Get the value of folder
      *
-     * @return ?SfExporeDataFolder
+     * @return ?SfExploreDataFolder
      */
-    public function getFolder(): ?SfExporeDataFolder
+    public function getFolder(): ?SfExploreDataFolder
     {
         return $this->folder;
     }
@@ -65,11 +65,11 @@ class SfExporeDataItem
     /**
      * Set the value of folder
      *
-     * @param ?SfExporeDataFolder $folder
+     * @param ?SfExploreDataFolder $folder
      *
      * @return self
      */
-    public function setFolder(?SfExporeDataFolder $folder): self
+    public function setFolder(?SfExploreDataFolder $folder): self
     {
         $this->folder = $folder;
 

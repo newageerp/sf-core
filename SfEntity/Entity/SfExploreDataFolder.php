@@ -4,12 +4,12 @@ namespace Newageerp\SfEntity\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use OpenApi\Annotations as OA;
-use Newageerp\SfEntity\Repository\SfExporeDataFolderRepository;
+use Newageerp\SfEntity\Repository\SfExploreDataFolderRepository;
 
 /**
- * @ORM\Entity(repositoryClass=SfExporeDataFolderRepository::class)
+ * @ORM\Entity(repositoryClass=SfExploreDataFolderRepository::class)
  */
-class SfExporeDataFolder
+class SfExploreDataFolder
 {
     /**
      * @ORM\Id

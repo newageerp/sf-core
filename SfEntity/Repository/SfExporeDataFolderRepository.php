@@ -2,26 +2,26 @@
 
 namespace Newageerp\SfEntity\Repository;
 
-use Newageerp\SfEntity\Entity\SfExporeDataFolder;
+use Newageerp\SfEntity\Entity\SfExploreDataFolder;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<SfExporeDataFolder>
+ * @extends ServiceEntityRepository<SfExploreDataFolder>
  *
- * @method SfExporeDataFolder|null find($id, $lockMode = null, $lockVersion = null)
- * @method SfExporeDataFolder|null findOneBy(array $criteria, array $orderBy = null)
- * @method SfExporeDataFolder[]    findAll()
- * @method SfExporeDataFolder[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method SfExploreDataFolder|null find($id, $lockMode = null, $lockVersion = null)
+ * @method SfExploreDataFolder|null findOneBy(array $criteria, array $orderBy = null)
+ * @method SfExploreDataFolder[]    findAll()
+ * @method SfExploreDataFolder[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class SfExporeDataFolderRepository extends ServiceEntityRepository
+class SfExploreDataFolderRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, SfExporeDataFolder::class);
+        parent::__construct($registry, SfExploreDataFolder::class);
     }
 
-    public function add(SfExporeDataFolder $entity, bool $flush = false): void
+    public function add(SfExploreDataFolder $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class SfExporeDataFolderRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(SfExporeDataFolder $entity, bool $flush = false): void
+    public function remove(SfExploreDataFolder $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class SfExporeDataFolderRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return SfExporeDataFolder[] Returns an array of SfExporeDataFolder objects
+//     * @return SfExploreDataFolder[] Returns an array of SfExploreDataFolder objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class SfExporeDataFolderRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?SfExporeDataFolder
+//    public function findOneBySomeField($value): ?SfExploreDataFolder
 //    {
 //        return $this->createQueryBuilder('f')
 //            ->andWhere('f.exampleField = :val')

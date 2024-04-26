@@ -304,7 +304,7 @@ class SfExploreDataListener implements EventSubscriberInterface
                 "tag" => "",
                 "title" => "",
                 "config" => [
-                    "className" => "SfExporeDataItem",
+                    "className" => "SfExploreDataItem",
                     "slug" => "sf-explore-data-item",
                     "titleSingle" => "Explore data",
                     "titlePlural" => "Explore data",
@@ -319,7 +319,7 @@ class SfExploreDataListener implements EventSubscriberInterface
                 "tag" => "",
                 "title" => "",
                 "config" => [
-                    "className" => "SfExporeDataFolder",
+                    "className" => "SfExploreDataFolder",
                     "slug" => "sf-explore-data-folder",
                     "titleSingle" => "Explore data folder",
                     "titlePlural" => "Explore data folder",
