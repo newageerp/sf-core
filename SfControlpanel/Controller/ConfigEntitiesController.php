@@ -7,6 +7,7 @@ use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Finder\Finder;
+use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 
 /**
  * @Route(path="/app/nae-core/config-entities")
@@ -22,7 +23,8 @@ class ConfigEntitiesController extends ConfigBaseController
         return $file;
     }
 
-    protected function saveBuilder($data) {
+    protected function saveBuilder($data)
+    {
         file_put_contents(
             $this->getLocalStorageFile(),
             json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT)
@@ -32,17 +34,14 @@ class ConfigEntitiesController extends ConfigBaseController
     /**
      * @Route(path="/listConfig", methods={"POST"})
      */
-    public function listConfig(Request $request)
+    public function listConfig(Request $request, EntitiesUtilsV3 $entitiesUtilsV3)
     {
         $request = $this->transformJsonBody($request);
 
         $output = ['data' => []];
 
         try {
-            $data = json_decode(
-                file_get_contents($this->getLocalStorageFile()),
-                true
-            );
+            $data = $entitiesUtilsV3->getEntities();
 
             if ($request->get('id')) {
                 $data = array_filter(
