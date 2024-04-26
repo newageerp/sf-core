@@ -1,6 +1,6 @@
 <?php
 
-namespace Newageerp\SfKeyValue;
+namespace Newageerp\SfExploreData;
 
 use Newageerp\SfDefaults\Event\InitDefaultsEvent;
 use Newageerp\SfEntities\Event\InitEntitiesEvent;

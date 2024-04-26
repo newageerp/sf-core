@@ -3,6 +3,7 @@
 namespace Newageerp\SfDevMenu;
 
 use Newageerp\SfAuth\Service\AuthService;
+use Newageerp\SfReactTemplates\CoreTemplates\MainMenu\MenuDivider;
 use Newageerp\SfReactTemplates\CoreTemplates\MainMenu\MenuItem;
 use Newageerp\SfReactTemplates\CoreTemplates\MainMenu\MenuItemFactory;
 use Newageerp\SfReactTemplates\Event\LoadTemplateEvent;
@@ -37,6 +38,16 @@ class LeftMenuTemplateEvt implements EventSubscriberInterface
 
             $event->getPlaceholder()->addTemplate(
                 $this->menuItemFactory->linkForTab('sf-key-value-orm')
+            );
+
+            $event->getPlaceholder()->addTemplate(new MenuDivider());
+
+            $event->getPlaceholder()->addTemplate(
+                $this->menuItemFactory->linkForTab('sf-explore-data-folder')
+            );
+
+            $event->getPlaceholder()->addTemplate(
+                $this->menuItemFactory->linkForTab('sf-explore-data-item')
             );
         }
     }
