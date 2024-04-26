@@ -2,13 +2,28 @@
 
 namespace Newageerp\SfControlpanel\Console;
 
+use Newageerp\SfConfig\Service\ConfigService;
+use Newageerp\SfViewForms\Event\InitViewFormsEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+
 class ViewFormsUtilsV3
 {
     protected array $viewForms = [];
+    protected EventDispatcherInterface $eventDispatcher;
 
-    public function __construct()
+    public function __construct(EventDispatcherInterface $eventDispatcher)
     {
-        $this->viewForms = LocalConfigUtils::getCpConfigFileData('view');
+        $this->eventDispatcher = $eventDispatcher;
+        $this->initViewForms();
+    }
+
+    protected function initViewForms()
+    {
+        $editForms = ConfigService::getConfig('edit', true);
+        $ev = new InitViewFormsEvent($editForms);
+        $this->eventDispatcher->dispatch($ev, InitViewFormsEvent::NAME);
+
+        $this->viewForms = $ev->getViewForms();
     }
 
     /**
