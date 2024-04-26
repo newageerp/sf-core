@@ -23,6 +23,11 @@ class SfExploreDataFolder
      */
     protected string $title = '';
 
+    /**
+     * @ORM\Column(type="number")
+     */
+    protected int $sort = 0;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -49,6 +54,30 @@ class SfExploreDataFolder
     public function setTitle(string $title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of sort
+     *
+     * @return int
+     */
+    public function getSort(): int
+    {
+        return $this->sort;
+    }
+
+    /**
+     * Set the value of sort
+     *
+     * @param int $sort
+     *
+     * @return self
+     */
+    public function setSort(int $sort): self
+    {
+        $this->sort = $sort;
 
         return $this;
     }

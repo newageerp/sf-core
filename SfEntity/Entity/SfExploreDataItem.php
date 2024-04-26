@@ -21,7 +21,7 @@ class SfExploreDataItem
     /**
      * @ORM\Column(type="string")
      */
-    protected string $explodeId = '';
+    protected string $exploreId = '';
 
     /**
      * @ORM\Column(type="text")
@@ -125,30 +125,6 @@ class SfExploreDataItem
     }
 
     /**
-     * Get the value of explodeId
-     *
-     * @return string
-     */
-    public function getExplodeId(): string
-    {
-        return $this->explodeId;
-    }
-
-    /**
-     * Set the value of explodeId
-     *
-     * @param string $explodeId
-     *
-     * @return self
-     */
-    public function setExplodeId(string $explodeId): self
-    {
-        $this->explodeId = $explodeId;
-
-        return $this;
-    }
-
-    /**
      * Get the value of columns
      *
      * @return array
@@ -168,6 +144,30 @@ class SfExploreDataItem
     public function setColumns(array $columns): self
     {
         $this->columns = $columns;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of exploreId
+     *
+     * @return string
+     */
+    public function getExploreId(): string
+    {
+        return $this->exploreId;
+    }
+
+    /**
+     * Set the value of exploreId
+     *
+     * @param string $exploreId
+     *
+     * @return self
+     */
+    public function setExploreId(string $exploreId): self
+    {
+        $this->exploreId = $exploreId;
 
         return $this;
     }

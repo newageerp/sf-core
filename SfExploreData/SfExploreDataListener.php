@@ -36,6 +36,12 @@ class SfExploreDataListener implements EventSubscriberInterface
                             "titlePath" => "",
                             "customTitle" => "",
                             "link" => 10
+                        ],
+                        [
+                            "path" => "sf-explore-data-folder.sort",
+                            "titlePath" => "",
+                            "customTitle" => "",
+                            "link" => 0
                         ]
                     ],
                     "disableCreate" => false,
@@ -255,10 +261,10 @@ class SfExploreDataListener implements EventSubscriberInterface
                 "tag" => "",
                 "title" => "sf-explore-data-item",
                 "config" => [
-                    "defaultPath" => "i.explodeId",
-                    "defaultQuickSearch" => json_encode(['i.explodeId', 'i.folder.title']),
+                    "defaultPath" => "i.exploreId",
+                    "defaultQuickSearch" => json_encode(['i.exploreId', 'i.folder.title']),
                     "defaultSort" => json_encode([[
-                        'key' => 'i.explodeId',
+                        'key' => 'i.exploreId',
                         'value' => 'ASC'
                     ]]),
                     "fields" => [],
@@ -274,10 +280,16 @@ class SfExploreDataListener implements EventSubscriberInterface
                 "config" => [
                     "defaultPath" => "i.title",
                     "defaultQuickSearch" => json_encode(['i.title']),
-                    "defaultSort" => json_encode([[
-                        'key' => 'i.title',
-                        'value' => 'ASC'
-                    ]]),
+                    "defaultSort" => json_encode([
+                        [
+                            'key' => 'i.sort',
+                            'value' => 'ASC'
+                        ],
+                        [
+                            'key' => 'i.title',
+                            'value' => 'ASC'
+                        ]
+                    ]),
                     "fields" => [],
                     "schema" => "sf-explore-data-folder"
                 ]
@@ -409,7 +421,9 @@ class SfExploreDataListener implements EventSubscriberInterface
                             "hideLabel" => false,
                             "type" => "field",
                             "text" => "",
-                            "lineGroup" => ""
+                            "lineGroup" => "",
+                            "_naeType" => "string_array",
+                            "componentName" => "EditFields\/JsonField"
                         ],
                         [
                             "path" => "sf-explore-data-item.folder.title",
@@ -490,15 +504,6 @@ class SfExploreDataListener implements EventSubscriberInterface
                         ],
                         [
                             "path" => "sf-explore-data-item.sqlCount",
-                            "titlePath" => "",
-                            "customTitle" => "",
-                            "hideLabel" => false,
-                            "type" => "field",
-                            "text" => "",
-                            "lineGroup" => ""
-                        ],
-                        [
-                            "path" => "sf-explore-data-item.columns",
                             "titlePath" => "",
                             "customTitle" => "",
                             "hideLabel" => false,
