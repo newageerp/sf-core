@@ -24,7 +24,7 @@ class SfExploreDataFolder
     protected string $title = '';
 
     /**
-     * @ORM\Column(type="number")
+     * @ORM\Column(type="integer")
      */
     protected int $sort = 0;
 
