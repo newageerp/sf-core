@@ -2,6 +2,7 @@
 
 namespace Newageerp\SfControlpanel\Controller;
 
+use Newageerp\SfControlpanel\Console\ViewFormsUtilsV3;
 use Symfony\Component\Routing\Annotation\Route;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,17 +34,14 @@ class ConfigViewController extends ConfigBaseController
      * @Route(path="/listConfig", methods={"POST"})
      * @OA\Post (operationId="NaeConfigViewList")
      */
-    public function listConfig(Request $request)
+    public function listConfig(Request $request, ViewFormsUtilsV3 $viewFormsUtilsV3)
     {
         $request = $this->transformJsonBody($request);
 
         $output = ['data' => []];
 
         try {
-            $data = json_decode(
-                file_get_contents($this->getLocalStorageFile()),
-                true
-            );
+            $data = $viewFormsUtilsV3->getViewForms();
 
             if ($request->get('id')) {
                 $data = array_filter(
