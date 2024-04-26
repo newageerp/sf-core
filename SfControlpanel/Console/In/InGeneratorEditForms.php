@@ -2,6 +2,7 @@
 
 namespace Newageerp\SfControlpanel\Console\In;
 
+use Newageerp\SfControlpanel\Console\EditFormsUtilsV3;
 use Newageerp\SfControlpanel\Console\LocalConfigUtilsV3;
 use Newageerp\SfControlpanel\Console\Utils;
 use Symfony\Component\Console\Command\Command;
@@ -11,11 +12,14 @@ use Newageerp\SfControlpanel\Service\TemplateService;
 
 class InGeneratorEditForms extends Command
 {
+    protected EditFormsUtilsV3 $editFormsUtilsV3;
+
     protected static $defaultName = 'nae:localconfig:InGeneratorEditForms';
 
-    public function __construct()
+    public function __construct(EditFormsUtilsV3 $editFormsUtilsV3)
     {
         parent::__construct();
+        $this->editFormsUtilsV3 = $editFormsUtilsV3;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -24,14 +28,7 @@ class InGeneratorEditForms extends Command
         $customEfFunctionTemplate = new TemplateService('v3/edit/CustomFieldFunction.html.twig');
         $customEfFunctionTemplateMap = new TemplateService('v3/edit/CustomEditComponentsMap.html.twig');
 
-        $editsFile = LocalConfigUtilsV3::getNaeSfsCpStoragePath() . '/edit.json';
-        $editItems = [];
-        if (file_exists($editsFile)) {
-            $editItems = json_decode(
-                file_get_contents($editsFile),
-                true
-            );
-        }
+        $editItems = $this->editFormsUtilsV3->getEditForms();
 
         $customComponents = [];
 

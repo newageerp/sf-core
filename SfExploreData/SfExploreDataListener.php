@@ -423,7 +423,7 @@ class SfExploreDataListener implements EventSubscriberInterface
                             "text" => "",
                             "lineGroup" => "",
                             "_naeType" => "string_array",
-                            "componentName" => "EditFields\/JsonField"
+                            "componentName" => "DataExplore/Columns"
                         ],
                         [
                             "path" => "sf-explore-data-item.folder.title",
