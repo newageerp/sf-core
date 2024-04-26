@@ -223,6 +223,7 @@ class SfKeyValueListener implements EventSubscriberInterface
                 ]
             ];
         }
+        $ev->setEditForms($editForms);
     }
     public function onViewFormsInit(InitViewFormsEvent $ev)
     {
@@ -266,6 +267,7 @@ class SfKeyValueListener implements EventSubscriberInterface
                 ]
             ];
         }
+        $ev->setViewForms($viewForms);
     }
 
     public static function getSubscribedEvents()

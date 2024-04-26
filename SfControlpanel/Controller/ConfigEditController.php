@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Newageerp\SfSocket\Service\SocketService;
+use Newageerp\SfControlpanel\Console\EditFormsUtilsV3;
 
 /**
  * @Route(path="/app/nae-core/config-edit")
@@ -47,17 +48,14 @@ class ConfigEditController extends ConfigBaseController
      * @Route(path="/listConfig", methods={"POST"})
      * @OA\Post (operationId="NaeConfigEditList")
      */
-    public function listConfig(Request $request)
+    public function listConfig(Request $request, EditFormsUtilsV3 $editFormsUtilsV3)
     {
         $request = $this->transformJsonBody($request);
 
         $output = ['data' => []];
 
         try {
-            $data = json_decode(
-                file_get_contents($this->getLocalStorageFile()),
-                true
-            );
+            $data = $editFormsUtilsV3->getEditForms();
 
             if ($request->get('schema')) {
                 $data = array_values(
