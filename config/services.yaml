@@ -7,6 +7,9 @@ services:
   Newageerp\SfKeyValue\:
     resource: '../SfKeyValue/*'
     arguments: [ ]
+  Newageerp\SfExploreData\:
+    resource: '../SfExploreData/*'
+    arguments: [ ]
   Newageerp\SfShedulledTask\SfShedulledTaskLogTask:
     arguments: [ ]
 
