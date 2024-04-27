@@ -9,14 +9,23 @@ use Newageerp\SfReactTemplates\CoreTemplates\MainMenu\MenuItemFactory;
 use Newageerp\SfReactTemplates\Event\LoadTemplateEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Newageerp\SfReactTemplates\CoreTemplates\MainMenu\MenuTitle;
+use Newageerp\SfEntity\Repository\SfExploreDataFolderRepository;
+use Newageerp\SfEntity\Repository\SfExploreDataItemRepository;
 
 class LeftMenuTemplateEvt implements EventSubscriberInterface
 {
     protected MenuItemFactory $menuItemFactory;
+    protected SfExploreDataFolderRepository $exploreDataFolderRepo;
+    protected SfExploreDataItemRepository $exploreDataItemRepo;
 
-    public function __construct(MenuItemFactory $menuItemFactory)
-    {
+    public function __construct(
+        MenuItemFactory $menuItemFactory,
+        SfExploreDataFolderRepository $exploreDataFolderRepo,
+        SfExploreDataItemRepository $exploreDataItemRepo,
+    ) {
         $this->menuItemFactory = $menuItemFactory;
+        $this->exploreDataFolderRepo = $exploreDataFolderRepo;
+        $this->exploreDataItemRepo = $exploreDataItemRepo;
     }
 
     public function onTemplate(LoadTemplateEvent $event)
@@ -28,6 +37,31 @@ class LeftMenuTemplateEvt implements EventSubscriberInterface
             $_COOKIE['DEV_MENU'] === 'true' &&
             $event->isTemplateForAnyEntity('App.UserSpaceWrapper.LeftMenu')
         ) {
+            $exploreFolders = $this->exploreDataFolderRepo->findBy([], ['sort' => 'ASC', 'title' => 'ASC']);
+
+            if (count($exploreFolders) > 0) {
+                // EXPLORE DATA
+                $menuTitle = new MenuTitle('Explore');
+                $event->getPlaceholder()->addTemplate($menuTitle);
+
+                foreach ($exploreFolders as $f) {
+                    /**
+                     * @var SfExploreDataItem[] $items
+                     */
+                    $items = $this->exploreDataItemRepo->findBy(['folder' => $f], ['sort' => 'ASC', 'title' => 'ASC']);
+                    $folder = new MenuFolder($f->getTitle());
+                    foreach ($items as $it) {
+                        $folder->addItem(
+                            new MenuItem(
+                                $it->getTitle(),
+                                '/u/explore/' . $it->getExploreId() . '/list'
+                            )
+                        );
+                    }
+                    $event->getPlaceholder()->addTemplate($folder);
+                }
+            }
+
             // DEV menu
             $menuTitle = new MenuTitle('DEV menu');
             $event->getPlaceholder()->addTemplate($menuTitle);
