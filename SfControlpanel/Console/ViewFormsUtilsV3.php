@@ -19,7 +19,7 @@ class ViewFormsUtilsV3
 
     protected function initViewForms()
     {
-        $editForms = ConfigService::getConfig('edit', true);
+        $editForms = ConfigService::getConfig('view', true);
         $ev = new InitViewFormsEvent($editForms);
         $this->eventDispatcher->dispatch($ev, InitViewFormsEvent::NAME);
 
