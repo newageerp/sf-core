@@ -21,6 +21,16 @@ class SfExploreDataItem
     /**
      * @ORM\Column(type="string")
      */
+    protected string $title = '';
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected int $sort = 0;
+
+    /**
+     * @ORM\Column(type="string")
+     */
     protected string $exploreId = '';
 
     /**
@@ -168,6 +178,54 @@ class SfExploreDataItem
     public function setExploreId(string $exploreId): self
     {
         $this->exploreId = $exploreId;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of title
+     *
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set the value of title
+     *
+     * @param string $title
+     *
+     * @return self
+     */
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of sort
+     *
+     * @return int
+     */
+    public function getSort(): int
+    {
+        return $this->sort;
+    }
+
+    /**
+     * Set the value of sort
+     *
+     * @param int $sort
+     *
+     * @return self
+     */
+    public function setSort(int $sort): self
+    {
+        $this->sort = $sort;
 
         return $this;
     }

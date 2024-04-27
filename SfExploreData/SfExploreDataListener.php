@@ -64,6 +64,12 @@ class SfExploreDataListener implements EventSubscriberInterface
                 "config" => [
                     "columns" => [
                         [
+                            "path" => "sf-explore-data-item.title",
+                            "titlePath" => "",
+                            "customTitle" => "",
+                            "link" => 10
+                        ],
+                        [
                             "path" => "sf-explore-data-item.exploreId",
                             "titlePath" => "",
                             "customTitle" => "",
@@ -118,10 +124,63 @@ class SfExploreDataListener implements EventSubscriberInterface
                     "title" => "Title",
                     "type" => "string",
                     "typeFormat" => "",
-                    "available_sort" => 0,
-                    "available_filter" => 0,
-                    "available_group" => 0,
-                    "available_total" => 0
+                ]
+            ];
+        }
+        if (!in_array('sf-explore-data-folder.sort', $ids)) {
+            $properies[] = [
+                "id" => "sf-explore-data-folder.sort",
+                "tag" => "",
+                "title" => "",
+                "config" => [
+                    "additionalProperties" => "[]",
+                    "as" => "",
+                    "dbType" => "int",
+                    "description" => "",
+                    "entity" => "sf-explore-data-folder",
+                    "isDb" => true,
+                    "key" => "sort",
+                    "title" => "Sort",
+                    "type" => "number",
+                    "typeFormat" => "",
+                ]
+            ];
+        }
+        if (!in_array('sf-explore-data-item.sort', $ids)) {
+            $properies[] = [
+                "id" => "sf-explore-data-item.sort",
+                "tag" => "",
+                "title" => "",
+                "config" => [
+                    "additionalProperties" => "[]",
+                    "as" => "",
+                    "dbType" => "int",
+                    "description" => "",
+                    "entity" => "sf-explore-data-item",
+                    "isDb" => true,
+                    "key" => "sort",
+                    "title" => "Sort",
+                    "type" => "number",
+                    "typeFormat" => "",
+                ]
+            ];
+        }
+        if (!in_array('sf-explore-data-item.title', $ids)) {
+            $properies[] = [
+                "id" => "sf-explore-data-item.title",
+                "tag" => "",
+                "title" => "",
+                "config" => [
+                    "additionalProperties" => "[]",
+                    "as" => "",
+                    "dbType" => "varchar",
+                    "description" => "",
+                    "entity" => "sf-explore-data-item",
+                    "isDb" => true,
+                    "key" => "title",
+                    "title" => "title",
+                    "type" => "string",
+                    "typeFormat" => "",
                 ]
             ];
         }
@@ -141,10 +200,6 @@ class SfExploreDataListener implements EventSubscriberInterface
                     "title" => "exploreId",
                     "type" => "string",
                     "typeFormat" => "",
-                    "available_sort" => 0,
-                    "available_filter" => 0,
-                    "available_group" => 0,
-                    "available_total" => 0
                 ]
             ];
         }
@@ -164,10 +219,6 @@ class SfExploreDataListener implements EventSubscriberInterface
                     "title" => "sqlData",
                     "type" => "string",
                     "typeFormat" => "text",
-                    "available_sort" => 0,
-                    "available_filter" => 0,
-                    "available_group" => 0,
-                    "available_total" => 0
                 ]
             ];
         }
@@ -187,10 +238,6 @@ class SfExploreDataListener implements EventSubscriberInterface
                     "title" => "sqlCount",
                     "type" => "string",
                     "typeFormat" => "text",
-                    "available_sort" => 0,
-                    "available_filter" => 0,
-                    "available_group" => 0,
-                    "available_total" => 0
                 ]
             ];
         }
@@ -210,10 +257,6 @@ class SfExploreDataListener implements EventSubscriberInterface
                     "title" => "columns",
                     "type" => "string",
                     "typeFormat" => "text",
-                    "available_sort" => 0,
-                    "available_filter" => 0,
-                    "available_group" => 0,
-                    "available_total" => 0
                 ]
             ];
         }
@@ -233,10 +276,6 @@ class SfExploreDataListener implements EventSubscriberInterface
                     "title" => "Folder",
                     "type" => "rel",
                     "typeFormat" => "sf-explore-data-folder",
-                    "available_sort" => 0,
-                    "available_filter" => 0,
-                    "available_group" => 0,
-                    "available_total" => 0
                 ]
             ];
         }
@@ -264,7 +303,12 @@ class SfExploreDataListener implements EventSubscriberInterface
                     "defaultPath" => "i.exploreId",
                     "defaultQuickSearch" => json_encode(['i.exploreId', 'i.folder.title']),
                     "defaultSort" => json_encode([[
-                        'key' => 'i.exploreId',
+                        'key' => 'i.sort',
+                        'value' => 'ASC'
+                    ]
+                    ,
+                    [
+                        'key' => 'i.title',
                         'value' => 'ASC'
                     ]]),
                     "fields" => [],
@@ -372,6 +416,15 @@ class SfExploreDataListener implements EventSubscriberInterface
                             "type" => "field",
                             "text" => "",
                             "lineGroup" => ""
+                        ],
+                        [
+                            "path" => "sf-explore-data-folder.sort",
+                            "titlePath" => "",
+                            "customTitle" => "",
+                            "hideLabel" => false,
+                            "type" => "field",
+                            "text" => "",
+                            "lineGroup" => ""
                         ]
                     ]
                 ]
@@ -388,7 +441,25 @@ class SfExploreDataListener implements EventSubscriberInterface
                     "title" => "",
                     "fields" => [
                         [
+                            "path" => "sf-explore-data-item.title",
+                            "titlePath" => "",
+                            "customTitle" => "",
+                            "hideLabel" => false,
+                            "type" => "field",
+                            "text" => "",
+                            "lineGroup" => ""
+                        ],
+                        [
                             "path" => "sf-explore-data-item.exploreId",
+                            "titlePath" => "",
+                            "customTitle" => "",
+                            "hideLabel" => false,
+                            "type" => "field",
+                            "text" => "",
+                            "lineGroup" => ""
+                        ],
+                        [
+                            "path" => "sf-explore-data-item.sort",
                             "titlePath" => "",
                             "customTitle" => "",
                             "hideLabel" => false,
