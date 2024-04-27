@@ -540,7 +540,16 @@ class SfExploreDataListener implements EventSubscriberInterface
                             "type" => "field",
                             "text" => "",
                             "lineGroup" => ""
-                        ]
+                        ],
+                        [
+                            "path" => "sf-explore-data-folder.sort",
+                            "titlePath" => "",
+                            "customTitle" => "",
+                            "hideLabel" => false,
+                            "type" => "field",
+                            "text" => "",
+                            "lineGroup" => ""
+                        ],
                     ]
                 ]
             ];
@@ -556,7 +565,25 @@ class SfExploreDataListener implements EventSubscriberInterface
                     "title" => "",
                     "fields" => [
                         [
+                            "path" => "sf-explore-data-item.title",
+                            "titlePath" => "",
+                            "customTitle" => "",
+                            "hideLabel" => false,
+                            "type" => "field",
+                            "text" => "",
+                            "lineGroup" => ""
+                        ],
+                        [
                             "path" => "sf-explore-data-item.exploreId",
+                            "titlePath" => "",
+                            "customTitle" => "",
+                            "hideLabel" => false,
+                            "type" => "field",
+                            "text" => "",
+                            "lineGroup" => ""
+                        ],
+                        [
+                            "path" => "sf-explore-data-item.sort",
                             "titlePath" => "",
                             "customTitle" => "",
                             "hideLabel" => false,
