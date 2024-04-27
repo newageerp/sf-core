@@ -5,6 +5,7 @@ namespace Newageerp\SfDevMenu;
 use Newageerp\SfAuth\Service\AuthService;
 use Newageerp\SfReactTemplates\CoreTemplates\MainMenu\MenuDivider;
 use Newageerp\SfReactTemplates\CoreTemplates\MainMenu\MenuItem;
+use Newageerp\SfReactTemplates\CoreTemplates\MainMenu\MenuFolder;
 use Newageerp\SfReactTemplates\CoreTemplates\MainMenu\MenuItemFactory;
 use Newageerp\SfReactTemplates\Event\LoadTemplateEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
