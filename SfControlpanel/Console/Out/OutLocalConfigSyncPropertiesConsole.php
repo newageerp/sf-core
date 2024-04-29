@@ -152,11 +152,6 @@ class OutLocalConfigSyncPropertiesConsole extends Command
                                 'title' => $propTitle,
                                 'type' => $type,
                                 'typeFormat' => $format,
-
-                                'available_sort' => 0,
-                                'available_filter' => 0,
-                                'available_group' => 0,
-                                'available_total' => 0,
                             ]
                         ];
 

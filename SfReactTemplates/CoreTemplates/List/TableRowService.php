@@ -4,6 +4,7 @@ namespace Newageerp\SfReactTemplates\CoreTemplates\List;
 
 use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
+use Newageerp\SfReactTemplates\CoreTemplates\Buttons\FindButton;
 use Newageerp\SfTabs\Service\SfTabsService;
 use Newageerp\SfReactTemplates\CoreTemplates\Buttons\RsButton;
 use Newageerp\SfReactTemplates\CoreTemplates\Buttons\RsButtonTemplate;
@@ -97,6 +98,17 @@ class TableRowService
             } else {
                 $tpl = new StringColumn($pathArray[1]);
             }
+
+            if (isset($col['link']) && is_array($col['link'])) {
+                $tplTmp = $tpl;
+                $tpl = new FindButton(
+                    $col['link']['entity'],
+                    $col['link']['field'],
+                    $col['link']['value'],
+                );
+                $tpl->getChildren()->addTemplate($tplTmp);
+            }
+
             $td->getContents()->addTemplate($tpl);
 
             $tr->getContents()->addTemplate($td);
