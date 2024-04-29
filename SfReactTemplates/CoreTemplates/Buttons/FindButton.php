@@ -35,7 +35,7 @@ class FindButton extends Template
 
     public function getTemplateName(): string
     {
-        return '_.ButtonsBundle.FindButton';
+        return 'list.table.find-button';
     }
 
     /**
