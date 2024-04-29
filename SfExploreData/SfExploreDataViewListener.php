@@ -51,12 +51,10 @@ class SfExploreDataViewListener implements EventSubscriberInterface
 
     public function onTab(DataViewTabContainerEvent $event)
     {
-       
     }
 
     public function onToolbarExtraTemplateEvent(LoadTemplateEvent $event)
     {
-        
     }
 
     public function onDataTab(DataViewDataTabEvent $event)
@@ -82,7 +80,12 @@ class SfExploreDataViewListener implements EventSubscriberInterface
                 $sql = $item->getSqlData();
                 $sql .= ' LIMIT ' . (($page - 1) * $pageSize) . ',' . $pageSize;
 
-                $stmt = $this->em->getConnection()->prepare($item->getSqlCount());
+                $sqlCount = $item->getSqlCount();
+                if (!$sqlCount) {
+                    $sqlCount = 'select count(*) as c from (' . $item->getSqlData() . ') as d';
+                }
+
+                $stmt = $this->em->getConnection()->prepare($sqlCount);
                 $resultCount = $stmt->executeQuery()->fetchFirstColumn();
 
 
