@@ -1,6 +1,6 @@
 <?php
 
-namespace Newageerp\SfSocket\Service;
+namespace Newageerp\SfRabbitMq;
 
 use Newageerp\SfConfig\Service\ConfigService;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
@@ -10,6 +10,8 @@ use Psr\Log\LoggerInterface;
 
 class SocketService
 {
+    protected array $config = [];
+
     protected LoggerInterface $ajLogger;
 
     protected ?AMQPStreamConnection $connection = null;
@@ -25,30 +27,26 @@ class SocketService
         $this->ajLogger = $ajLogger;
     }
 
-    public function getChannel()
+    public function parseConfig($configName)
     {
-        if (!$this->channel) {
-            $timeStart = microtime(true);
-            $config = ConfigService::getConfig('mq');
-            if (isset($config['host'])) {
-                $this->connection = new AMQPStreamConnection(
-                    $config['host'],
-                    $config['port'],
-                    $config['user'],
-                    $config['password']
-                );
-                $this->channel = $this->connection->channel();
-
-                $this->queueName = $config['queue'];
-            }
-            $timeFinish = microtime(true);
-            $this->ajLogger->warning('AMQP connect' . number_format($timeFinish - $timeStart, 5));
+        $config = ConfigService::getConfig($configName);
+        if (isset($config['host'])) {
+            $this->config = $config;
         }
-        return $this->channel;
     }
 
-    public function __destruct()
+    public function reconnect()
     {
+        $this->connection = new AMQPStreamConnection(
+            $this->config['host'],
+            $this->config['port'],
+            $this->config['user'],
+            $this->config['password']
+        );
+        $this->channel = $this->connection->channel();
+    }
+
+    public function closeConnection() {
         if ($this->channel) {
             $this->channel->close();
         }
@@ -57,18 +55,22 @@ class SocketService
         }
     }
 
-    public function sendTo($room, $action, $data)
+    public function getChannel()
     {
-        $this->client->emit(
-            'send',
-            [
-                'room' => $room,
-                'payload' => [
-                    'action' => $action,
-                    'data' => $data
-                ]
-            ]
-        );
+        if (!$this->channel) {
+            if (isset($this->config['host'])) {
+                $this->reconnect();
+            }
+            if (isset($config['queue'])) {
+                $this->queueName = $config['queue'];
+            }
+        }
+        return $this->channel;
+    }
+
+    public function __destruct()
+    {
+        $this->closeConnection();
     }
 
     public function addToPool($data)

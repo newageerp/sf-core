@@ -10,6 +10,9 @@ services:
   Newageerp\SfExploreData\:
     resource: '../SfExploreData/*'
     arguments: [ ]
+  Newageerp\SfRabbitMq\:
+    resource: '../SfRabbitMq/*'
+    arguments: [ ]
   Newageerp\SfShedulledTask\SfShedulledTaskLogTask:
     arguments: [ ]
 
