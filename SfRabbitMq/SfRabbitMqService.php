@@ -106,4 +106,28 @@ class SfRabbitMqService
         $this->clearPool();
         return $count;
     }
+
+    /**
+     * Get the value of config
+     *
+     * @return array
+     */
+    public function getConfig(): array
+    {
+        return $this->config;
+    }
+
+    /**
+     * Set the value of config
+     *
+     * @param array $config
+     *
+     * @return self
+     */
+    public function setConfig(array $config): self
+    {
+        $this->config = $config;
+
+        return $this;
+    }
 }
