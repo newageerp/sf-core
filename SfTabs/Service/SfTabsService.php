@@ -138,7 +138,7 @@ class SfTabsService
                 array_shift($pArray);
                 $fields[] = implode(".", $pArray);
             }
-            if (isset($f['extraFieldsToReturn'])) {
+            if (isset($f['extraFieldsToReturn']) && $f['extraFieldsToReturn']) {
                 $fields = array_merge(
                     $fields,
                     json_decode($f['extraFieldsToReturn'], true)

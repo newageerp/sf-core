@@ -42,7 +42,7 @@ class SocketService
                 $this->queueName = $config['queue'];
             }
             $timeFinish = microtime(true);
-            $this->ajLogger->warning('AMQP connect' . number_format($timeFinish - $timeStart, 5));
+            // $this->ajLogger->warning('AMQP connect' . number_format($timeFinish - $timeStart, 5));
         }
         return $this->channel;
     }
