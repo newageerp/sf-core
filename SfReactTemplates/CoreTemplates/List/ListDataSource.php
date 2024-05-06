@@ -20,7 +20,7 @@ class ListDataSource extends Template
 
     protected array $extraFilters = [];
 
-    protected bool $scrollToHeaderOnLoad = true;
+    protected bool $scrollToHeaderOnLoad = false;
 
     protected ?array $socketData = null;
 
