@@ -152,8 +152,7 @@ class TableHeaderService
                 $filterProp = $this->getPropertiesUtilsV3()->getPropertyForPath($filterPath);
 
                 $col['_filterPropPath'] = $filterPath;
-                if ($filterProp['isDb'] && $col['title']) {
-                }
+                
                 // FILTER ENUMS
                 $enums = $this->getPropertiesUtilsV3()->getDefaultPropertySearchOptions($filterProp, $col);
                 $filterPropNaeType = $this->getPropertiesUtilsV3()->getPropertyNaeType($filterProp, $col);
