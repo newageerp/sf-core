@@ -7,7 +7,6 @@ import '@newageerp/v3.app.main-bundle/dist/main-bundle.css'
 import { PluginsMap } from "../../../Plugins/PluginsMap";
 
 import { store } from "../../_custom/models/ormstore";
-import i18n from "../../_custom/lang/i18";
 import { cacheData } from "../../_custom/hooks/DataCacheProviderCacheData";
 import { getDataCacheForSchema } from '../../_custom/hooks/DataCacheSocketMap';
 import { NaePathsMap } from "../../_custom/config/NaePaths";
@@ -31,7 +30,6 @@ function App() {
                 templatesMap={templatesComponentsMap}
                 pluginsMap={PluginsMap}
                 store={store}
-                i18n={i18n}
                 dataCache={{
                     cacheData: cacheData,
                     getDataCacheForSchema: getDataCacheForSchema,
