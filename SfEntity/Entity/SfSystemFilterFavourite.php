@@ -3,14 +3,13 @@
 namespace Newageerp\SfEntity\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Newageerp\SfBaseEntity\Object\BaseEntity;
 use OpenApi\Annotations as OA;
 use Newageerp\SfEntity\Repository\SfSystemFilterFavouriteRepository;
 
 /**
  * @ORM\Entity(repositoryClass=SfSystemFilterFavouriteRepository::class)
  */
-class SfSystemFilterFavourite extends BaseEntity
+class SfSystemFilterFavourite
 {
     /**
      * @ORM\Id
@@ -29,6 +28,11 @@ class SfSystemFilterFavourite extends BaseEntity
      * @OA\Property(type="array", @OA\Items(type="string"))
      */
     protected array $filter = [];
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected int $userId = 0;
 
     public function getId(): ?int
     {
@@ -80,6 +84,30 @@ class SfSystemFilterFavourite extends BaseEntity
     public function setFilter(array $filter): self
     {
         $this->filter = $filter;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of userId
+     *
+     * @return int
+     */
+    public function getUserId(): int
+    {
+        return $this->userId;
+    }
+
+    /**
+     * Set the value of userId
+     *
+     * @param int $userId
+     *
+     * @return self
+     */
+    public function setUserId(int $userId): self
+    {
+        $this->userId = $userId;
 
         return $this;
     }
