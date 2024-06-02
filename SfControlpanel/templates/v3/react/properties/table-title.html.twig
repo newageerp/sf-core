@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react'
-import { useTranslation } from '@newageerp/v3.templates.templates-core';
 import { Th } from '@newageerp/ui.table.base.table'
 
 {% set textAlignment = 'text-left' %}
@@ -8,7 +7,5 @@ import { Th } from '@newageerp/ui.table.base.table'
 {% endif %}
 
 export const {{ compName }} = () => {
-    const {t} = useTranslation();
-
-    return <Th textAlignment="{{textAlignment}}">{t('{{ property.title }}')}</Th>
+    return <Th textAlignment="{{textAlignment}}">{'{{ property.title }}'}</Th>
 }

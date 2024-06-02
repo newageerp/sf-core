@@ -1,9 +1,6 @@
 import React, { Fragment } from 'react'
 import { Label } from '@newageerp/ui.form.base.label'
-import { useTranslation } from '@newageerp/v3.templates.templates-core';
 
 export const {{ compName }} = () => {
-    const {t} = useTranslation();
-
-    return <Label>{t('{{ property.title }}')}</Label>
+    return <Label>{'{{ property.title }}'}</Label>
 }
