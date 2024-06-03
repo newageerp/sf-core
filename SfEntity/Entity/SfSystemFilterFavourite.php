@@ -21,7 +21,7 @@ class SfSystemFilterFavourite
     /**
      * @ORM\Column(type="string")
      */
-    protected string $schema = '';
+    protected string $filterSchema = '';
 
     /**
      * @ORM\Column (type="json")
@@ -37,31 +37,6 @@ class SfSystemFilterFavourite
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-
-    /**
-     * Get the value of schema
-     *
-     * @return string
-     */
-    public function getSchema(): string
-    {
-        return $this->schema;
-    }
-
-    /**
-     * Set the value of schema
-     *
-     * @param string $schema
-     *
-     * @return self
-     */
-    public function setSchema(string $schema): self
-    {
-        $this->schema = $schema;
-
-        return $this;
     }
 
     /**
@@ -108,6 +83,30 @@ class SfSystemFilterFavourite
     public function setUserId(int $userId): self
     {
         $this->userId = $userId;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of filterSchema
+     *
+     * @return string
+     */
+    public function getFilterSchema(): string
+    {
+        return $this->filterSchema;
+    }
+
+    /**
+     * Set the value of filterSchema
+     *
+     * @param string $filterSchema
+     *
+     * @return self
+     */
+    public function setFilterSchema(string $filterSchema): self
+    {
+        $this->filterSchema = $filterSchema;
 
         return $this;
     }
