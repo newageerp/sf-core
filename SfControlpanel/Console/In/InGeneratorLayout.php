@@ -55,7 +55,7 @@ class InGeneratorLayout extends Command
             'config/fields/onEditElementUpdate.html.twig' => ['fields', 'onEditElementUpdate'],
             'config/fields/fieldDependencies.html.twig' => ['fields', 'fieldDependencies'],
             'config/fields/fieldVisibility.html.twig' => ['fields', 'fieldVisibility'],
-            'config/lang/i18.html.twig' => ['lang', 'i18'],
+            // 'config/lang/i18.html.twig' => ['lang', 'i18'],
         ];
         foreach ($templates as $template => $target) {
             $fileName = Utils::customFolderPath($target[0]) . '/' . $target[1] . '.tsx';
