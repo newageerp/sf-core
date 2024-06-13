@@ -25,7 +25,7 @@ class SfLogsController extends OaBaseController
         $html = '';
 
         foreach ($list as $el) {
-            $html .= '<p>' . $el . ' ('.ceil(filesize('/var/www/symfony/var/log/'.$el)/1024).' KB)  <a href="/app/nae-core/sf-logs/view/' . $el . '">view</a> | <a href="/app/nae-core/sf-logs/clear/' . $el . '">clear</a></p>';
+            $html .= '<p>' . $el . ' (' . ceil(filesize('/var/www/symfony/var/log/' . $el) / 1024) . ' KB)  <a href="/app/nae-core/sf-logs/view/' . $el . '">view</a> | <a href="/app/nae-core/sf-logs/clear/' . $el . '">clear</a></p>';
         }
 
         return new Response($html, 200, ['Content-Type' => 'text/html']);
@@ -39,7 +39,7 @@ class SfLogsController extends OaBaseController
     {
         $fileContent = file_get_contents('/var/www/symfony/var/log/' . str_replace('.log', '', $request->get('f')) . '.log');
 
-        return new Response($fileContent);
+        return new Response('<pre>' . $fileContent . '</pre>', 200, ['Content-Type' => 'text/html']);
     }
 
     /**
