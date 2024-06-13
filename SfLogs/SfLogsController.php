@@ -1,4 +1,5 @@
 <?php
+
 namespace Newageerp\SfLogs;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -11,7 +12,8 @@ use Newageerp\SfFiles\Service\FilesHelperService;
 /**
  * @Route(path="/app/nae-core/sf-logs")
  */
-class SfLogsController extends OaBaseController {
+class SfLogsController extends OaBaseController
+{
 
     /**
      * @Route ("/list", methods={"GET"})
@@ -20,7 +22,33 @@ class SfLogsController extends OaBaseController {
     {
         $list = FilesHelperService::scanDirFiles('/var/www/symfony/var/log');
 
-        return $this->json(['success' => 1, 'data' => $list]);
+        $html = '';
+
+        foreach ($list as $el) {
+            $html .= '<p>' . $el . ' ('.ceil(filesize('/var/www/symfony/var/log/'.$el)/1024).' KB)  <a href="/app/nae-core/sf-logs/view/' . $el . '">view</a> | <a href="/app/nae-core/sf-logs/clear/' . $el . '">clear</a></p>';
+        }
+
+        return new Response($html, 200, ['Content-Type' => 'text/html']);
     }
 
+
+    /**
+     * @Route ("/view/:f", methods={"GET"})
+     */
+    public function view(Request $request): JsonResponse
+    {
+        $fileContent = file_get_contents('/var/www/symfony/var/log/' . str_replace('.log', '', $request->get('f')) . '.log');
+
+        return new Response($fileContent);
+    }
+
+    /**
+     * @Route ("/clear/:f", methods={"GET"})
+     */
+    public function clear(Request $request): JsonResponse
+    {
+        file_put_contents('/var/www/symfony/var/log/' . str_replace('.log', '', $request->get('f')) . '.log', '');
+
+        return new Response('OK');
+    }
 }
