@@ -13,6 +13,9 @@ services:
   Newageerp\SfRabbitMq\:
     resource: '../SfRabbitMq/*'
     arguments: [ ]
+  Newageerp\SfLogs\:
+    resource: '../SfLogs/*'
+    arguments: [ ]
   Newageerp\SfShedulledTask\SfShedulledTaskLogTask:
     arguments: [ ]
 
