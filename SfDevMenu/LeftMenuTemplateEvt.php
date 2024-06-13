@@ -67,8 +67,12 @@ class LeftMenuTemplateEvt implements EventSubscriberInterface
             $menuTitle = new MenuTitle('DEV menu');
             $event->getPlaceholder()->addTemplate($menuTitle);
 
+            $logsMenuItem = new MenuItem('Config', '/app/nae-core/sf-logs/list');
+            $logsMenuItem->setNewWindow(true);
+            $event->getPlaceholder()->addTemplate($logsMenuItem);
+
             $event->getPlaceholder()->addTemplate(
-                new MenuItem('Config', '/c/config')
+                new MenuItem('Logs', '/c/config')
             );
 
             $event->getPlaceholder()->addTemplate(
