@@ -18,7 +18,7 @@ class SfLogsController extends OaBaseController {
      */
     public function list(): JsonResponse
     {
-        $list = FilesHelperService::scanDirFiles('/var/log');
+        $list = FilesHelperService::scanDirFiles('/var/www/symfony/var/log');
 
         return $this->json(['success' => 1, 'data' => $list]);
     }
