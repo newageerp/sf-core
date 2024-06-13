@@ -33,7 +33,7 @@ class SfLogsController extends OaBaseController
 
 
     /**
-     * @Route ("/view/:f", methods={"GET"})
+     * @Route ("/view/{f}", methods={"GET"})
      */
     public function view(Request $request): Response
     {
@@ -43,7 +43,7 @@ class SfLogsController extends OaBaseController
     }
 
     /**
-     * @Route ("/clear/:f", methods={"GET"})
+     * @Route ("/clear/{f}", methods={"GET"})
      */
     public function clear(Request $request): Response
     {
