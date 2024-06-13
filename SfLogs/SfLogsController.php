@@ -18,7 +18,7 @@ class SfLogsController extends OaBaseController
     /**
      * @Route ("/list", methods={"GET"})
      */
-    public function list(): JsonResponse
+    public function list(): Response
     {
         $list = FilesHelperService::scanDirFiles('/var/www/symfony/var/log');
 
@@ -35,7 +35,7 @@ class SfLogsController extends OaBaseController
     /**
      * @Route ("/view/:f", methods={"GET"})
      */
-    public function view(Request $request): JsonResponse
+    public function view(Request $request): Response
     {
         $fileContent = file_get_contents('/var/www/symfony/var/log/' . str_replace('.log', '', $request->get('f')) . '.log');
 
@@ -45,7 +45,7 @@ class SfLogsController extends OaBaseController
     /**
      * @Route ("/clear/:f", methods={"GET"})
      */
-    public function clear(Request $request): JsonResponse
+    public function clear(Request $request): Response
     {
         file_put_contents('/var/www/symfony/var/log/' . str_replace('.log', '', $request->get('f')) . '.log', '');
 
