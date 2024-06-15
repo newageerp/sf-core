@@ -186,7 +186,8 @@ services:
     arguments: [ ]
 
 
-  Newageerp\SfUservice\Service\UService:
+  Newageerp\SfUservice\Service\:
+    resource: '../SfUservice/Service/*'
     arguments: [ ]
   Newageerp\SfUservice\Controller\UController:
     arguments: [ ]
