@@ -6,6 +6,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Newageerp\SfReactTemplates\AppTemplates\List\DataView\DataViewListDataSourceEvent;
 use Newageerp\SfReactTemplates\AppTemplates\List\DataView\DataViewTabContainerEvent;
 use Newageerp\SfReactTemplates\AppTemplates\List\DataView\DataViewDataTabEvent;
+use Newageerp\SfReactTemplates\CoreTemplates\CustomPluginTemplate;
 use Newageerp\SfTabs\Service\SfTabsService;
 use Newageerp\SfUservice\Service\UService;
 use Newageerp\SfReactTemplates\CoreTemplates\Tabs\TabContainerItem;
@@ -67,6 +68,23 @@ class DataViewListener implements EventSubscriberInterface
                 $listDataSummary = new ListDataSummary($event->getSchema(), $tab['summary']);
                 $tabContainerItem->getContent()->addTemplate($listDataSummary);
             }
+
+            if (isset($tab['tab-charts'])) {
+                foreach ($tab['tab-charts'] as $tabChart) {
+                    $tabContainerItem = new TabContainerItem($tabChart['title']);
+                    $event->getTabContainer()->addItem($tabContainerItem);
+
+                    $chartEl = new CustomPluginTemplate(
+                        'plugins.tmp.report',
+                        [
+                            'id' => $tabChart['id'],
+                            'table' => isset($tabChart['table']) ? $tabChart['table'] : [],
+                            'charts' => isset($tabChart['charts']) ? $tabChart['charts'] : [],
+                        ]
+                    );
+                    $tabContainerItem->getContent()->addTemplate($chartEl);
+                }
+            }
         }
     }
 
@@ -87,7 +105,8 @@ class DataViewListener implements EventSubscriberInterface
         }
     }
 
-    public function onDataTab(DataViewDataTabEvent $event) {
+    public function onDataTab(DataViewDataTabEvent $event)
+    {
         $tab = $this->tabsService->getTabBySchemaAndType($event->getSchema(), $event->getType());
         if ($tab) {
             $addSelectButton = isset($event->getEventData()['addSelectButton']) && $event->getEventData()['addSelectButton'];

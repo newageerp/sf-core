@@ -6,7 +6,6 @@ use Doctrine\Persistence\ObjectRepository;
 use Newageerp\SfUservice\Events\UConvertEvent;
 use Newageerp\SfAuth\Service\AuthService;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\Uuid;
 use Newageerp\SfSerializer\Serializer\ObjectSerializer;
 use Newageerp\SfUservice\Events\UBeforeCreateAfterSetEvent;
@@ -26,6 +25,8 @@ class UService
 
     protected EventDispatcherInterface $eventDispatcher;
 
+    protected UServiceFilter $uServiceFilter;
+    protected UServiceStatements $uServiceStatements;
 
     protected PropertiesUtilsV3 $propertiesUtilsV3;
     protected EntitiesUtilsV3 $entitiesUtilsV3;
@@ -37,11 +38,15 @@ class UService
         EventDispatcherInterface $eventDispatcher,
         PropertiesUtilsV3 $propertiesUtilsV3,
         EntitiesUtilsV3 $entitiesUtilsV3,
+        UServiceFilter $uServiceFilter,
+        UServiceStatements $uServiceStatements,
     ) {
         $this->em = $em;
         $this->eventDispatcher = $eventDispatcher;
         $this->propertiesUtilsV3 = $propertiesUtilsV3;
         $this->entitiesUtilsV3 = $entitiesUtilsV3;
+        $this->uServiceFilter = $uServiceFilter;
+        $this->uServiceStatements = $uServiceStatements;
     }
 
     public function getEntityFromSchemaAndId(string $schema, int $id)
@@ -107,34 +112,15 @@ class UService
             ->select($alias)
             ->from($className, $alias, null);
 
-        $params = [];
-        $joins = [];
+        $this->uServiceFilter->addQueryFilter(
+            $qb,
+            $filters,
+            $className,
+            $classicMode,
+            false
+        );
 
-        $debug = false;
-
-        foreach ($filters as $filter) {
-            $statements = $this->getStatementsFromFilters($qb, $className, $filter, $debug, $joins, $params, $classicMode);
-            if ($statements && !$debug) {
-                $qb->andWhere($statements);
-            }
-        }
-
-        foreach ($params as $key => $val) {
-            $qb->setParameter($key, $val);
-        }
-
-        foreach ($joins as $join => $alias) {
-            $qb->leftJoin($join, $alias);
-        }
-
-        foreach ($sort as $sortEl) {
-            [$subJoins, $mainAlias, $alias, $fieldKey, $uuid] = $this->joinsByKey($sortEl['key']);
-
-            $qb->addOrderBy($alias . '.' . $fieldKey, $sortEl['value']);
-            foreach ($subJoins as $join => $alias) {
-                $qb->leftJoin($join, $alias);
-            }
-        }
+        $this->uServiceFilter->addQueryOrder($qb, $sort);
 
         $query = $qb->getQuery();
 
@@ -361,35 +347,17 @@ class UService
                 ->select($alias)
                 ->from($className, $alias, null);
 
-            $params = [];
-            $joins = [];
-
-            foreach ($filters as $filter) {
-                $statements = $this->getStatementsFromFilters($qb, $className, $filter, false, $joins, $params, $classicMode);
-                if ($statements) {
-                    $qb->andWhere($statements);
-                }
-            }
-
-
-            foreach ($params as $key => $val) {
-                $qb->setParameter($key, $val);
-            }
-
-            foreach ($joins as $join => $alias) {
-                $qb->leftJoin($join, $alias);
-            }
-
-            foreach ($sort as $sortEl) {
-                [$subJoins,, $alias, $fieldKey,] = $this->joinsByKey($sortEl['key']);
-
-                $qb->addOrderBy($alias . '.' . $fieldKey, $sortEl['value']);
-                foreach ($subJoins as $join => $alias) {
-                    $qb->leftJoin($join, $alias);
-                }
-            }
+            $this->uServiceFilter->addQueryFilter(
+                $qb,
+                $filters,
+                $className,
+                $classicMode,
+                false,
+            );
 
             $pagingQb = clone $qb;
+
+            $this->uServiceFilter->addQueryOrder($qb, $sort);
 
             if ($page > 0) {
                 $firstResult = ($page - 1) * $pageSize;
@@ -432,269 +400,6 @@ class UService
             'cl' => $classicMode,
             'cacheRequest' => base64_encode(json_encode($cacheRequest)),
         ];
-    }
-
-
-    protected function getStatementsFromFilters(
-        QueryBuilder $qb,
-        $className,
-        array        $filter,
-        bool         $debug,
-        &$joins,
-        &$params,
-        $classicMode = false
-    ) {
-        $statements = null;
-        $loopKey = '';
-        if (isset($filter['and'])) {
-            $statements = $qb->expr()->andX();
-            $loopKey = 'and';
-        } else if (isset($filter['or'])) {
-            $statements = $qb->expr()->orX();
-            $loopKey = 'or';
-        }
-
-        if ($statements) {
-            foreach ($filter[$loopKey] as $st) {
-                if (isset($st['or']) || isset($st['and'])) {
-                    $subStatements = $this->getStatementsFromFilters($qb, $className, $st, $debug, $joins, $params, $classicMode);
-                    $statements->add($subStatements);
-                } else {
-                    $fieldDirectSelect = isset($st[3]) ? $st[3] : $classicMode;
-
-                    $value = $st[2];
-                    if ($value === 'CURRENT_USER' && AuthService::getInstance()->getUser()) {
-                        $value = AuthService::getInstance()->getUser()->getId();
-                    }
-                    $op = '';
-                    $opIsNot = false;
-                    $needBrackets = false;
-                    $skipParams = false;
-
-                    $pureSql = false;
-
-                    if (isset($st[1]) && $st[1] === 'IS_EMPTY') {
-                        $op = '=';
-                        $value = '';
-                        // $skipParams = true;
-                    } else if (isset($st[1]) && $st[1] === 'contains') {
-                        $op = 'like';
-                        $value = '%' . $st[2] . '%';
-                    } else if (isset($st[1]) && ($st[1] === 'eq' || $st[1] === 'equal' || $st[1] === 'equals')) {
-                        $op = 'like';
-                        $value = $st[2];
-                    } else if (isset($st[1]) && $st[1] === 'start') {
-                        $op = 'like';
-                        $value = $st[2] . '%';
-                    } else if (isset($st[1]) && $st[1] === 'end') {
-                        $op = 'like';
-                        $value = '%' . $st[2];
-                    } else if (isset($st[1]) && $st[1] === 'not_contains') {
-                        if ($fieldDirectSelect) {
-                            $op = 'not like';
-                            $value = '%' . $st[2] . '%';
-                        } else {
-                            $op = 'like';
-                            $opIsNot = true;
-                            $value = '%' . $st[2] . '%';
-                        }
-                    } else if (isset($st[1]) && $st[1] === 'not_eq') {
-                        if ($fieldDirectSelect) {
-                            $op = 'not like';
-                            $value = $st[2];
-                        } else {
-                            $op = 'like';
-                            $opIsNot = true;
-                            $value = $st[2];
-                        }
-                    } else if (isset($st[1]) && $st[1] === 'not_start') {
-                        if ($fieldDirectSelect) {
-                            $op = 'not like';
-                            $value = $st[2] . '%';
-                        } else {
-                            $op = 'like';
-                            $opIsNot = true;
-                            $value = $st[2] . '%';
-                        }
-                    } else if (isset($st[1]) && $st[1] === 'not_end') {
-                        if ($fieldDirectSelect) {
-                            $op = 'not like';
-                            $value = '%' . $st[2];
-                        } else {
-                            $op = 'like';
-                            $value = '%' . $st[2];
-                            $opIsNot = true;
-                        }
-                    } else if (isset($st[1]) && ($st[1] === 'num_eq' || $st[1] === '=')) {
-                        $op = '=';
-                    } else if (isset($st[1]) && ($st[1] === 'num_not_eq' || $st[1] === '!=')) {
-                        $op = '!=';
-                    } else if (isset($st[1]) && ($st[1] === 'gt' || $st[1] === '>')) {
-                        $op = '>';
-                    } else if (isset($st[1]) && ($st[1] === 'gte' || $st[1] === '>=')) {
-                        $op = '>=';
-                    } else if (isset($st[1]) && ($st[1] === 'lt' || $st[1] === '<')) {
-                        $op = '<';
-                    } else if (isset($st[1]) && ($st[1] === 'lte' || $st[1] === '<=')) {
-                        $op = '<=';
-                    } else if (isset($st[1]) && $st[1] === 'dgt') {
-                        $op = '>';
-                        $value = new \DateTime($st[2] . ' 00:00:00');
-                    } else if (isset($st[1]) && $st[1] === 'dgte') {
-                        $op = '>=';
-                        $value = new \DateTime($st[2] . ' 00:00:00');
-                    } else if (isset($st[1]) && $st[1] === 'dlt') {
-                        $op = '<';
-                        $value = new \DateTime($st[2] . ' 00:00:00');
-                    } else if (isset($st[1]) && $st[1] === 'dlte') {
-                        $op = '<=';
-                        $value = new \DateTime($st[2] . ' 23:59:59');
-                    } else if (isset($st[1]) && $st[1] === 'deq') {
-                        $op = '=';
-                        $value = new \DateTime($st[2]);
-                        $skipParams = true;
-                    } else if (isset($st[1]) && $st[1] === 'not_deq') {
-                        if ($fieldDirectSelect) {
-                            $op = '!=';
-                            $value = new \DateTime($st[2]);
-                        } else {
-                            $op = '=';
-                            $opIsNot = true;
-                            $value = new \DateTime($st[2]);
-                        }
-                    } else if (isset($st[1]) && $st[1] === 'in') {
-                        $op = 'in';
-                        $needBrackets = true;
-                    } else if (isset($st[1]) && $st[1] === 'not_in') {
-                        if ($fieldDirectSelect) {
-                            $op = 'not in';
-                            $needBrackets = true;
-                        } else {
-                            $op = 'in';
-                            $opIsNot = true;
-                            $needBrackets = true;
-                        }
-                    } else if (isset($st[1]) && ($st[1] === 'JSON_EXTRACT' || $st[1] === 'JSON_SEARCH' || $st[1] === 'JSON_CONTAINS' || $st[1] === 'JSON_NOT_CONTAINS' || $st[1] === 'IS_NOT_NULL' || $st[1] === 'IS_NULL')) {
-                        $op = 'CUSTOM';
-                        if ($st[1] === 'IS_NOT_NULL' || $st[1] === 'IS_NULL') {
-                            $skipParams = true;
-                        }
-                    }
-
-                    if ($op) {
-                        $extraKey = null;
-                        if (isset($st[1]) && $st[1] === 'JSON_EXTRACT') {
-                            $fA = explode(".", $st[0]);
-                            array_shift($fA);
-                            $st[0] = 'i.' . $fA[0];
-                            array_shift($fA);
-                            $extraKey = implode(".", $fA);
-                        }
-                        [$subJoins, $mainAlias, $alias, $fieldKey, $uuid] = $this->joinsByKey($st[0]);
-
-                        if (!$skipParams) {
-                            $params[$uuid] = $value;
-                        }
-
-                        $subQ = $this->em->createQueryBuilder()
-                            ->select($mainAlias)
-                            ->from($className, $mainAlias, null);
-
-                        // PURE SQL
-                        $statement = '';
-
-                        if (isset($st[1]) && $st[1] === 'IS_NULL') {
-                            $statement = $qb->expr()->isNull($alias . '.' . $fieldKey);
-                        } else if (isset($st[1]) && $st[1] === 'IS_NOT_NULL') {
-                            $statement = $qb->expr()->isNotNull($alias . '.' . $fieldKey);
-                        } else if (isset($st[1]) && $st[1] === 'JSON_EXTRACT') {
-                            $statement = "JSON_EXTRACT(" . $alias . '.' . $fieldKey . ", '$." . $extraKey . "') = :" . $uuid . "";
-                        } else if (isset($st[1]) && $st[1] === 'JSON_CONTAINS') {
-                            $statement = "JSON_CONTAINS(" . $alias . '.' . $fieldKey . ", :" . $uuid . ", '$') = 1";
-                        } else if (isset($st[1]) && $st[1] === 'JSON_NOT_CONTAINS') {
-                            $statement = "JSON_CONTAINS(" . $alias . '.' . $fieldKey . ", :" . $uuid . ", '$') != 1";
-                        } else if (isset($st[1]) && $st[1] === 'JSON_SEARCH') {
-                            $statement = "JSON_SEARCH(" . $alias . '.' . $fieldKey . ", 'one', :" . $uuid . ") IS NOT NULL";
-                        } else if (isset($st[1]) && $st[1] === 'deq') {
-
-                            $valueG = new \DateTime($st[2] . ' 00:00:00');
-                            $valueL = new \DateTime($st[2] . ' 23:59:59');
-
-
-                            $params[$uuid . 'Min'] = $valueG;
-                            $params[$uuid . 'Max'] = $valueL;
-
-                            $statement = '' . $alias . '.' . $fieldKey . ' BETWEEN :' . $uuid . 'Min AND :' . $uuid . 'Max';
-                        } else {
-                            $statement = $alias . '.' . $fieldKey . ' ' . $op . ' ';
-                            if ($needBrackets) {
-                                $statement .= '(';
-                            }
-                            $statement .= ':' . $uuid;
-                            if ($needBrackets) {
-                                $statement .= ')';
-                            }
-                        }
-
-
-                        // foreach ($subParams as $key => $val) {
-                        //     $subQ->setParameter($key, $val);
-                        // }
-                        // $this->ajLogger->warning('SUB JOIN open');
-                        foreach ($subJoins as $join => $alias) {
-                            if ($fieldDirectSelect) {
-                                $qb->leftJoin($join, $alias);
-                            } else {
-                                $subQ->leftJoin($join, $alias);
-                            }
-                            // $this->ajLogger->warning('SUB JOIN ' . $join . ' ' . $alias);
-                        }
-
-
-                        if (!$debug) {
-                            if ($fieldDirectSelect) {
-                                if ($opIsNot) {
-                                    $statements->add($qb->expr()->not($statement));
-                                } else {
-                                    $statements->add($statement);
-                                }
-                            } else {
-                                $subQ->andWhere($statement);
-                            }
-                        }
-
-                        if (!$fieldDirectSelect) {
-                            if ($opIsNot) {
-                                $statements->add($qb->expr()->not($qb->expr()->exists($subQ->getDQL())));
-                            } else {
-                                $statements->add($qb->expr()->exists($subQ->getDQL()));
-                            }
-                        }
-
-                        $log['f'][] = $statement;
-                    }
-                }
-            }
-        }
-        return $statements;
-    }
-
-    protected function joinsByKey($key)
-    {
-        $uuid = 'P' . str_replace('-', '', Uuid::uuid4()->toString());
-        $mainAlias = 'A' . str_replace('-', '', Uuid::uuid4()->toString());
-
-        $tmp = explode(".", $key);
-        $alias = $tmp[0];
-        $fieldKey = $tmp[count($tmp) - 1];
-        $subJoins = [];
-        for ($i = 1; $i < count($tmp) - 1; $i++) {
-            $alias = implode("", array_slice($tmp, 0, $i + 1)) . $mainAlias;
-            $join = implode("", array_slice($tmp, 0, $i)) . ($i > 1 ? $mainAlias : '') . '.' . $tmp[$i];
-            $subJoins[$join] = $alias;
-        }
-
-        return [$subJoins, $mainAlias, $alias, $fieldKey, $uuid];
     }
 
     /**
