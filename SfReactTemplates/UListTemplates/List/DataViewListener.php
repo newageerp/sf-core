@@ -78,8 +78,7 @@ class DataViewListener implements EventSubscriberInterface
                         'plugins.tmp.report',
                         [
                             'id' => $tabChart['id'],
-                            'table' => isset($tabChart['table']) ? $tabChart['table'] : [],
-                            'charts' => isset($tabChart['charts']) ? $tabChart['charts'] : [],
+                            'charts' => $tabChart['charts'],
                         ]
                     );
                     $tabContainerItem->getContent()->addTemplate($chartEl);

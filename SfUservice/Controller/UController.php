@@ -247,6 +247,48 @@ class UController extends UControllerBase
         }
     }
 
+
+    /**
+     * @Route(path="/getTabChartData", methods={"POST"})
+     */
+    public function getTabChartData(
+        Request  $request,
+        UService $uService,
+    ): Response {
+        try {
+            $request = $this->transformJsonBody($request);
+
+            $user = $this->findUser($request);
+            if (!$user) {
+                throw new Exception('Invalid user');
+            }
+            AuthService::getInstance()->setUser($user);
+
+            $token = $request->get('cacheToken');
+            $override = $request->get('over');
+
+            $cacheResult = json_decode(base64_decode($token), true);
+
+            return $this->json(
+                $uService->getTabChartDataForSchema(
+                    isset($override['schema']) ? $override['schema'] : $cacheResult['schema'],
+                    isset($override['filters']) ? $override['filters'] : $cacheResult['filters'],
+                    $request->get('sql'),
+                    isset($override['skipPermissionsCheck']) ? $override['skipPermissionsCheck'] : $cacheResult['skipPermissionsCheck'],
+                )
+            );
+        } catch (Exception $e) {
+            $response = $this->json([
+                'description' => $e->getMessage(),
+                'f' => $e->getFile(),
+                'l' => $e->getLine()
+
+            ]);
+            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+            return $response;
+        }
+    }
+
     /**
      * @Route(path="/get/{schema}", methods={"POST"})
      * @OA\Post (operationId="NAEUList")

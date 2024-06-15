@@ -252,6 +252,85 @@ class UService
         );
     }
 
+    protected function checkForClassicMode(array $filters)
+    {
+        $classicMode = false;
+        if (isset($filters[0]['classicMode'])) {
+            $classicMode = $filters[0]['classicMode'];
+            unset($filters[0]['classicMode']);
+        }
+        if (isset($filters[1]['classicMode'])) {
+            $classicMode = $filters[1]['classicMode'];
+            unset($filters[1]['classicMode']);
+        }
+        if (isset($filters[2]['classicMode'])) {
+            $classicMode = $filters[2]['classicMode'];
+            unset($filters[2]['classicMode']);
+        }
+        return $classicMode;
+    }
+
+    protected function checkForPermissions(array $filters, string $schema)
+    {
+        $user = AuthService::getInstance()->getUser();
+
+        $event = new UPermissionsEvent(
+            $user,
+            $filters,
+            $schema
+        );
+        $this->eventDispatcher->dispatch($event, UPermissionsEvent::NAME);
+        return $event->getFilters();
+    }
+
+    public function getTabChartDataForSchema(
+        string $schema,
+        array  $filters,
+        string $chartSql,
+        bool   $skipPermissionsCheck = false,
+    ) {
+        $user = AuthService::getInstance()->getUser();
+        if (!$user) {
+            throw new \Exception('Invalid user');
+        }
+
+        $className = $this->convertSchemaToEntity($schema);
+
+        if (method_exists($className, 'getSoftRemoved')) {
+            $filters[] = ['and' => [
+                ['i.softRemoved', '=', false, true]
+            ]];
+        }
+
+        if (!$skipPermissionsCheck) {
+            $filters = $this->checkForPermissions($filters, $schema);
+        }
+
+        $classicMode = $this->checkForClassicMode($filters);
+
+        $alias = 'i';
+
+        $qb = $this->em->createQueryBuilder()
+            ->select($alias . '.id')
+            ->from($className, $alias, null);
+
+        $this->uServiceFilter->addQueryFilter(
+            $qb,
+            $filters,
+            $className,
+            $classicMode,
+            false,
+        );
+
+        $query = $qb->getQuery();
+
+        $chartSql = str_replace('IDS_SQL', $query->getSQL(), $chartSql);
+
+        $stmt = $this->em->getConnection()->prepare($chartSql);
+        $result = $stmt->executeQuery()->fetchAllAssociative();
+
+        return $result;
+    }
 
     public function getListDataForSchema(
         string $schema,
@@ -278,28 +357,10 @@ class UService
         }
 
         if (!$skipPermissionsCheck) {
-            $event = new UPermissionsEvent(
-                $user,
-                $filters,
-                $schema
-            );
-            $this->eventDispatcher->dispatch($event, UPermissionsEvent::NAME);
-            $filters = $event->getFilters();
+            $filters = $this->checkForPermissions($filters, $schema);
         }
 
-        $classicMode = false;
-        if (isset($filters[0]['classicMode'])) {
-            $classicMode = $filters[0]['classicMode'];
-            unset($filters[0]['classicMode']);
-        }
-        if (isset($filters[1]['classicMode'])) {
-            $classicMode = $filters[1]['classicMode'];
-            unset($filters[1]['classicMode']);
-        }
-        if (isset($filters[2]['classicMode'])) {
-            $classicMode = $filters[2]['classicMode'];
-            unset($filters[2]['classicMode']);
-        }
+        $classicMode = $this->checkForClassicMode($filters);
 
         $cacheRequest = [
             'schema' => $schema,
