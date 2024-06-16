@@ -75,7 +75,7 @@ class DataViewListener implements EventSubscriberInterface
                     $event->getTabContainer()->addItem($tabContainerItem);
 
                     $chartEl = new CustomPluginTemplate(
-                        'plugins.tmp.report',
+                        '_.AppBundle.ListDataChart',
                         [
                             'id' => $tabChart['id'],
                             'charts' => $tabChart['charts'],
