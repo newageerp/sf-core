@@ -245,4 +245,9 @@ class SfExploreDataItem
             'folder' => $this->getFolder() ? $this->getFolder()->getTitle() : ''
         ];
     }
+
+    public function get_ViewTitle(): string
+    {
+        return $this->getTitle() . ' (' . $this->getExploreId() . ')';
+    }
 }
