@@ -229,4 +229,17 @@ class SfExploreDataItem
 
         return $this;
     }
+
+    public function toArray()
+    {
+        return [
+            'title' => $this->getTitle(),
+            'sort' => $this->getSort(),
+            'exploreId' => $this->getExploreId(),
+            'sqlData' => $this->getSqlData(),
+            'sqlCount' => $this->getSqlCount(),
+            'columns' => $this->getColumns(),
+            'folder' => $this->getFolder() ? $this->getFolder()->getTitle() : ''
+        ];
+    }
 }
