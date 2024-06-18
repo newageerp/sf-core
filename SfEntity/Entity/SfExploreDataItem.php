@@ -230,6 +230,9 @@ class SfExploreDataItem
         return $this;
     }
 
+    /**
+     * @OA\Property(type="array", @OA\Items(type="string"))
+     */
     public function toArray()
     {
         return [
