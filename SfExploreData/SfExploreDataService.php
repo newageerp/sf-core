@@ -18,13 +18,16 @@ class SfExploreDataService
         $this->em = $em;
     }
 
-    public function getDataForReport(string $reportId, ?string $limit = null)
+    public function getDataForReport(string $reportId, ?string $limit = null, ?string $extraSql = null)
     {
         $item = $this->itemRepo->findOneBy(['exploreId' => $reportId]);
         if (!$item) {
             return [];
         }
         $sql = $item->getSqlData();
+        if ($extraSql) {
+            $sql .= $extraSql;
+        }
         if ($limit) {
             $sql .= ' LIMIT ' . $limit;
         }
