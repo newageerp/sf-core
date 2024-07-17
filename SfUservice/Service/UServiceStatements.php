@@ -2,6 +2,7 @@
 
 namespace Newageerp\SfUservice\Service;
 
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Newageerp\SfAuth\Service\AuthService;
@@ -64,6 +65,15 @@ class UServiceStatements
                     $value = $st[2];
                     if ($value === 'CURRENT_USER' && AuthService::getInstance()->getUser()) {
                         $value = AuthService::getInstance()->getUser()->getId();
+                    }
+                    if ($value === 'now_dt') {
+                        $value = date('Y-m-d');
+                    }
+                    if (mb_strpos($value, 'now_sub_') === 0) {
+                        $dt = new DateTime('now');
+                        $dtSubPeriod = str_replace('now_sub_p_', '', $value);
+                        $dt->sub(new \DateInterval($dtSubPeriod));
+                        $value = $dt->format('Y-m-d');
                     }
                     $op = '';
                     $opIsNot = false;
