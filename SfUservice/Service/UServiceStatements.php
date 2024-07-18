@@ -69,7 +69,7 @@ class UServiceStatements
                     if ($value === 'now_dt') {
                         $value = $st[2] = date('Y-m-d');
                     }
-                    if (mb_strpos($value, 'now_sub_') === 0) {
+                    if (is_string($value) && mb_strpos($value, 'now_sub_') === 0) {
                         $dt = new DateTime('now');
                         $dtSubPeriod = str_replace('now_sub_', '', $value);
                         $dt->sub(new \DateInterval($dtSubPeriod));
