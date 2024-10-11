@@ -16,6 +16,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
 use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 use Newageerp\SfEntity\SfEntityService;
+use Newageerp\SfUservice\Events\UListCalcRecordsAndTotalsEvent;
 use Newageerp\SfUservice\Events\UOnSaveEvent;
 use Newageerp\SfUservice\Events\UPermissionsEvent;
 
@@ -429,20 +430,36 @@ class UService
             $query = $qb->getQuery();
 
             $data = $query->getResult();
-            $pagingQb
-                ->select('count(i.id) as c');
-            foreach ($totals as $total) {
-                if ($total['type'] === 'count') {
-                    $pagingQb->addSelect('count(' . $total['path'] . ') as ' . $total['field'] . '');
-                } else {
-                    $pagingQb->addSelect('sum(' . $total['path'] . ') as ' . $total['field'] . '');
-                }
-            }
-            $pagingData = $pagingQb->getQuery()
-                ->getSingleResult();
 
-            foreach ($totals as $total) {
-                $totalData[$total['field']] = isset($pagingData[$total['field']]) ? round((float)$pagingData[$total['field']], 2) : 0;
+            $calcRecordsAndTotals = true;
+
+
+            $ev = new UListCalcRecordsAndTotalsEvent($schema, $calcRecordsAndTotals, $user);
+            $this->eventDispatcher->dispatch($ev, UListCalcRecordsAndTotalsEvent::NAME);
+
+            $calcRecordsAndTotals = $ev->getCalcRecordsAndTotals();
+
+            if ($calcRecordsAndTotals) {
+                $pagingQb
+                    ->select('count(i.id) as c');
+                foreach ($totals as $total) {
+                    if ($total['type'] === 'count') {
+                        $pagingQb->addSelect('count(' . $total['path'] . ') as ' . $total['field'] . '');
+                    } else {
+                        $pagingQb->addSelect('sum(' . $total['path'] . ') as ' . $total['field'] . '');
+                    }
+                }
+                $pagingData = $pagingQb->getQuery()->getSingleResult();
+
+                foreach ($totals as $total) {
+                    $totalData[$total['field']] = isset($pagingData[$total['field']]) ? round((float)$pagingData[$total['field']], 2) : 0;
+                }
+            } else {
+                $pagingData = ['c' => 100000000];
+
+                foreach ($totals as $total) {
+                    $totalData[$total['field']] = 0;
+                }
             }
         }
         $jsonContent = array_map(function ($item) use ($fieldsToReturn) {
