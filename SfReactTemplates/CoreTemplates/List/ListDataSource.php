@@ -37,7 +37,7 @@ class ListDataSource extends Template
         $this->schema = $schema;
         $this->type = $type;
         $this->children = new Placeholder();
-        $this->toolbar = new ListToolbar();
+        $this->toolbar = new ListToolbar($schema);
 
         $this->toolbarLine2 = new FlexRow();
         $this->toolbarLine2->setClassName('flex-wrap gap-4');

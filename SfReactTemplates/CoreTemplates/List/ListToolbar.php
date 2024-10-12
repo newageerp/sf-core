@@ -13,8 +13,12 @@ class ListToolbar extends Template
 
     protected Placeholder $toolbarMiddle;
 
-    public function __construct()
+    protected string $dataSource = '';
+
+    public function __construct(string $dataSource)
     {
+        $this->dataSource = $dataSource;
+
         $this->toolbarLeft = new Placeholder();
         $this->toolbarRight = new Placeholder();
         $this->toolbarMiddle = new Placeholder();
@@ -33,6 +37,7 @@ class ListToolbar extends Template
             'toolbarLeft' => $this->getToolbarLeft()->toArray(),
             'toolbarRight' => $this->getToolbarRight()->toArray(),
             'toolbarMiddle' => $this->getToolbarMiddle()->toArray(),
+            'dataSource' => $this->getDataSource(),
         ];
     }
 
@@ -109,6 +114,30 @@ class ListToolbar extends Template
     public function setToolbarMiddle(Placeholder $toolbarMiddle): self
     {
         $this->toolbarMiddle = $toolbarMiddle;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of dataSource
+     *
+     * @return string
+     */
+    public function getDataSource(): string
+    {
+        return $this->dataSource;
+    }
+
+    /**
+     * Set the value of dataSource
+     *
+     * @param string $dataSource
+     *
+     * @return self
+     */
+    public function setDataSource(string $dataSource): self
+    {
+        $this->dataSource = $dataSource;
 
         return $this;
     }
