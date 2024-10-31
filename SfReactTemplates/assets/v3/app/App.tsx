@@ -9,7 +9,6 @@ import { PluginsMap } from "../../../Plugins/PluginsMap";
 import { store } from "../../_custom/models/ormstore";
 import { cacheData } from "../../_custom/hooks/DataCacheProviderCacheData";
 import { getDataCacheForSchema } from '../../_custom/hooks/DataCacheSocketMap';
-import { NaePathsMap } from "../../_custom/config/NaePaths";
 import { selectorBySchemaClassName, selectorBySchemaSlug } from "../../_custom/models/ormSelectors";
 
 import { getDepenciesForField } from "../../_custom/fields/fieldDependencies";
@@ -34,7 +33,6 @@ function App() {
                     cacheData: cacheData,
                     getDataCacheForSchema: getDataCacheForSchema,
                 }}
-                pathMap={NaePathsMap}
                 orm={{
                     selectorBySchemaClassName: selectorBySchemaClassName,
                     selectorBySchemaSlug: selectorBySchemaSlug,
