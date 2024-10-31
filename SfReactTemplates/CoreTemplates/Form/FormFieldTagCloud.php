@@ -8,19 +8,19 @@ use Newageerp\SfReactTemplates\Template\Template;
 class FormFieldTagCloud extends Template
 {
     protected string $field = '';
-    protected string $action = '';
+    protected string $url = '';
 
-    public function __construct(string $field, string $action)
+    public function __construct(string $field, string $url)
     {
         $this->field = $field;
-        $this->action = $action;
+        $this->url = $url;
     }
 
     public function getProps(): array
     {
         return [
             'field' => $this->getField(),
-            'action' => $this->getAction(),
+            'url' => $this->getUrl(),
         ];
     }
 
@@ -54,25 +54,25 @@ class FormFieldTagCloud extends Template
     }
 
     /**
-     * Get the value of action
+     * Get the value of url
      *
      * @return string
      */
-    public function getAction(): string
+    public function getUrl(): string
     {
-        return $this->action;
+        return $this->url;
     }
 
     /**
-     * Set the value of action
+     * Set the value of url
      *
-     * @param string $action
+     * @param string $url
      *
      * @return self
      */
-    public function setAction(string $action): self
+    public function setUrl(string $url): self
     {
-        $this->action = $action;
+        $this->url = $url;
 
         return $this;
     }
