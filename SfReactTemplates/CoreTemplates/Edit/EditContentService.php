@@ -221,6 +221,7 @@ class EditContentService
                             $wideRow->getControlContent()->addTemplate(
                                 new CustomField(
                                     $pathArray[1],
+                                    $pathArray[0],
                                     $field['componentName']
                                 )
                             );

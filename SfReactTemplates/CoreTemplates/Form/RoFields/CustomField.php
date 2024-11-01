@@ -10,16 +10,27 @@ class CustomField extends FormBaseField
 {
     protected string $componentName = '';
 
-    public function __construct(string $key, string $componentName)
+    protected string $schema = '';
+
+    public function __construct(string $key, string $schema, string $componentName)
     {
         parent::__construct($key);
 
+        $this->schema = $schema;
         $this->componentName = $componentName;
     }
 
     public function getProps(): array
     {
-        $props = parent::getProps();
+        $props = [
+            'key' => 'window.view.form',
+            'position' => 'customField',
+            'options' => [
+                'dataSource' => $this->schema,
+                'fieldKey' => $this->key,
+                'name' => $this->componentName,
+            ],
+        ];
 
 
         return $props;
@@ -27,7 +38,7 @@ class CustomField extends FormBaseField
 
     public function getTemplateName(): string
     {
-        return 'customview.' . $this->getComponentName();
+        return 'ui.templates.resolver';
     }
 
 
@@ -54,4 +65,29 @@ class CustomField extends FormBaseField
 
         return $this;
     }
+
+    /**
+     * Get the value of schema
+     *
+     * @return string
+     */
+    public function getSchema(): string
+    {
+        return $this->schema;
+    }
+
+    /**
+     * Set the value of schema
+     *
+     * @param string $schema
+     *
+     * @return self
+     */
+    public function setSchema(string $schema): self
+    {
+        $this->schema = $schema;
+
+        return $this;
+    }
+
 }

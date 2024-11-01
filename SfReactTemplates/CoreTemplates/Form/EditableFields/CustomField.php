@@ -10,16 +10,27 @@ class CustomField extends FormBaseField
 {
     protected string $componentName = '';
 
-    public function __construct(string $key, string $componentName)
+    protected string $schema = '';
+
+    public function __construct(string $key, string $schema, string $componentName)
     {
         parent::__construct($key);
 
+        $this->schema = $schema;
         $this->componentName = $componentName;
     }
 
     public function getProps(): array
     {
-        $props = parent::getProps();
+        $props = [
+            'key' => 'window.edit.form',
+            'position' => 'customField',
+            'options' => [
+                'dataSource' => $this->schema,
+                'fieldKey' => $this->key,
+                'name' => $this->componentName,
+            ],
+        ];
 
 
         return $props;
@@ -27,7 +38,7 @@ class CustomField extends FormBaseField
 
     public function getTemplateName(): string
     {
-        return 'customedit.' . $this->getComponentName();
+        return 'ui.templates.resolver';
     }
 
 
