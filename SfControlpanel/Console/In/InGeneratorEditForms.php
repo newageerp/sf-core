@@ -24,42 +24,42 @@ class InGeneratorEditForms extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $efCustomComponentsGeneratedPath = Utils::customFolderPath('edit/components');
-        $customEfFunctionTemplate = new TemplateService('v3/edit/CustomFieldFunction.html.twig');
-        $customEfFunctionTemplateMap = new TemplateService('v3/edit/CustomEditComponentsMap.html.twig');
+        // $efCustomComponentsGeneratedPath = Utils::customFolderPath('edit/components');
+        // $customEfFunctionTemplate = new TemplateService('v3/edit/CustomFieldFunction.html.twig');
+        // $customEfFunctionTemplateMap = new TemplateService('v3/edit/CustomEditComponentsMap.html.twig');
 
-        $editItems = $this->editFormsUtilsV3->getEditForms();
+        // $editItems = $this->editFormsUtilsV3->getEditForms();
 
-        $customComponents = [];
+        // $customComponents = [];
 
-        foreach ($editItems as $editItem) {
-            foreach ($editItem['config']['fields'] as $fieldIndex => $field) {
-                if (isset($field['componentName']) && $field['componentName']) {
-                    $componentNameA = explode("/", $field['componentName']);
-                    $customComponentName = end($componentNameA);
-                    $componentNamePath = $efCustomComponentsGeneratedPath . '/' . $field['componentName'] . '.tsx';
-                    if (!file_exists($componentNamePath)) {
-                        Utils::customFolderPath('edit/components/' . implode("/", array_slice($componentNameA, 0, -1)));
+        // foreach ($editItems as $editItem) {
+        //     foreach ($editItem['config']['fields'] as $fieldIndex => $field) {
+        //         if (isset($field['componentName']) && $field['componentName']) {
+        //             $componentNameA = explode("/", $field['componentName']);
+        //             $customComponentName = end($componentNameA);
+        //             $componentNamePath = $efCustomComponentsGeneratedPath . '/' . $field['componentName'] . '.tsx';
+        //             if (!file_exists($componentNamePath)) {
+        //                 Utils::customFolderPath('edit/components/' . implode("/", array_slice($componentNameA, 0, -1)));
 
-                        $customEfFunctionTemplate->writeIfNotExists(
-                            $componentNamePath,
-                            ['compName' => $customComponentName]
-                        );
-                    }
+        //                 $customEfFunctionTemplate->writeIfNotExists(
+        //                     $componentNamePath,
+        //                     ['compName' => $customComponentName]
+        //                 );
+        //             }
 
-                    $k = $customComponentName . mb_substr(md5($field['componentName']), 0, 5);
-                    $customComponents[$k] = [
-                        'componentName' => $field['componentName'],
-                        'name' => $k,
-                    ];
-                }
-            }
-        }
+        //             $k = $customComponentName . mb_substr(md5($field['componentName']), 0, 5);
+        //             $customComponents[$k] = [
+        //                 'componentName' => $field['componentName'],
+        //                 'name' => $k,
+        //             ];
+        //         }
+        //     }
+        // }
 
-        $customEfFunctionTemplateMap->writeToFileOnChanges(
-            Utils::customFolderPath('edit') . '/CustomEditComponentsMap.ts',
-            ['templates' => array_values($customComponents),]
-        );
+        // $customEfFunctionTemplateMap->writeToFileOnChanges(
+        //     Utils::customFolderPath('edit') . '/CustomEditComponentsMap.ts',
+        //     ['templates' => array_values($customComponents),]
+        // );
 
         return Command::SUCCESS;
     }

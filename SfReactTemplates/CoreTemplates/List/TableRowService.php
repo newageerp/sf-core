@@ -146,6 +146,7 @@ class TableRowService
                     $td->getContents()->addTemplate(
                         new CustomColumn(
                             $pathArray[1],
+                            $pathArray[0],
                             $col['componentName']
                         )
                     );

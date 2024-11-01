@@ -7,16 +7,27 @@ use Newageerp\SfReactTemplates\CoreTemplates\List\ListBaseColumn;
 class CustomColumn extends ListBaseColumn {
     protected string $componentName = '';
 
-    public function __construct(string $key, string $componentName)
+    protected string $schema = '';
+
+    public function __construct(string $key, string $schema, string $componentName)
     {
         parent::__construct($key);
 
+        $this->schema = $schema;
         $this->componentName = $componentName;
     }
 
     public function getProps(): array
     {
-        $props = parent::getProps();
+        $props = [
+            'templateKey' => 'window.list.row',
+            'position' => 'customField',
+            'options' => [
+                'dataSource' => $this->schema,
+                'fieldKey' => $this->key,
+                'name' => $this->componentName,
+            ],
+        ];
 
 
         return $props;
@@ -24,7 +35,7 @@ class CustomColumn extends ListBaseColumn {
 
     public function getTemplateName(): string
     {
-        return 'customlist.' . $this->getComponentName();
+        return 'ui.templates.resolver';
     }
 
 
@@ -48,6 +59,30 @@ class CustomColumn extends ListBaseColumn {
     public function setComponentName(string $componentName): self
     {
         $this->componentName = $componentName;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of schema
+     *
+     * @return string
+     */
+    public function getSchema(): string
+    {
+        return $this->schema;
+    }
+
+    /**
+     * Set the value of schema
+     *
+     * @param string $schema
+     *
+     * @return self
+     */
+    public function setSchema(string $schema): self
+    {
+        $this->schema = $schema;
 
         return $this;
     }

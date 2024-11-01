@@ -19,48 +19,48 @@ class InGeneratorViewForms extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $efCustomComponentsGeneratedPath = Utils::customFolderPath('view/components');
-        $customEfFunctionTemplate = new TemplateService('v3/view/CustomFieldFunction.html.twig');
-        $customEfFunctionTemplateMap = new TemplateService('v3/view/CustomViewComponentsMap.html.twig');
+        // $efCustomComponentsGeneratedPath = Utils::customFolderPath('view/components');
+        // $customEfFunctionTemplate = new TemplateService('v3/view/CustomFieldFunction.html.twig');
+        // $customEfFunctionTemplateMap = new TemplateService('v3/view/CustomViewComponentsMap.html.twig');
 
-        $editsFile = LocalConfigUtilsV3::getNaeSfsCpStoragePath() . '/view.json';
-        $editItems = [];
-        if (file_exists($editsFile)) {
-            $editItems = json_decode(
-                file_get_contents($editsFile),
-                true
-            );
-        }
+        // $editsFile = LocalConfigUtilsV3::getNaeSfsCpStoragePath() . '/view.json';
+        // $editItems = [];
+        // if (file_exists($editsFile)) {
+        //     $editItems = json_decode(
+        //         file_get_contents($editsFile),
+        //         true
+        //     );
+        // }
 
-        $customComponents = [];
+        // $customComponents = [];
 
-        foreach ($editItems as $editItem) {
-            foreach ($editItem['config']['fields'] as $fieldIndex => $field) {
-                if (isset($field['componentName']) && $field['componentName']) {
-                    $componentNameA = explode("/", $field['componentName']);
-                    $customComponentName = end($componentNameA);
-                    $componentNamePath = $efCustomComponentsGeneratedPath . '/' . $field['componentName'] . '.tsx';
-                    if (!file_exists($componentNamePath)) {
-                        Utils::customFolderPath('view/components/' . implode("/", array_slice($componentNameA, 0, -1)));
+        // foreach ($editItems as $editItem) {
+        //     foreach ($editItem['config']['fields'] as $fieldIndex => $field) {
+        //         if (isset($field['componentName']) && $field['componentName']) {
+        //             $componentNameA = explode("/", $field['componentName']);
+        //             $customComponentName = end($componentNameA);
+        //             $componentNamePath = $efCustomComponentsGeneratedPath . '/' . $field['componentName'] . '.tsx';
+        //             if (!file_exists($componentNamePath)) {
+        //                 Utils::customFolderPath('view/components/' . implode("/", array_slice($componentNameA, 0, -1)));
 
-                        $customEfFunctionTemplate->writeIfNotExists(
-                            $componentNamePath,
-                            ['compName' => $customComponentName]
-                        );
-                    }
+        //                 $customEfFunctionTemplate->writeIfNotExists(
+        //                     $componentNamePath,
+        //                     ['compName' => $customComponentName]
+        //                 );
+        //             }
 
-                    $customComponents[$field['componentName']] = [
-                        'componentName' => $field['componentName'],
-                        'name' => $customComponentName.mb_substr(md5($field['componentName']), 0, 5),
-                    ];
-                }
-            }
-        }
+        //             $customComponents[$field['componentName']] = [
+        //                 'componentName' => $field['componentName'],
+        //                 'name' => $customComponentName.mb_substr(md5($field['componentName']), 0, 5),
+        //             ];
+        //         }
+        //     }
+        // }
 
-        $customEfFunctionTemplateMap->writeToFileOnChanges(
-            Utils::customFolderPath('view').'/CustomViewComponentsMap.ts',
-            ['templates' => array_values($customComponents),]
-        );
+        // $customEfFunctionTemplateMap->writeToFileOnChanges(
+        //     Utils::customFolderPath('view').'/CustomViewComponentsMap.ts',
+        //     ['templates' => array_values($customComponents),]
+        // );
 
         return Command::SUCCESS;
     }
