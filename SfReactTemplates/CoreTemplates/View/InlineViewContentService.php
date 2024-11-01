@@ -39,6 +39,7 @@ class InlineViewContentService
             $type,
             $id,
         );
+        $requestRecordProvider->setAutoReload(30);
 
         $formContent = new ViewFormContent(
             $schema,

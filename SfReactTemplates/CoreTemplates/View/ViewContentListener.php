@@ -54,6 +54,7 @@ class ViewContentListener implements EventSubscriberInterface
                 $event->getData()['type'],
                 $event->getData()['id'],
             );
+            $requestRecordProvider->setAutoReload(30);
 
             $entity = $this->uservice->getEntityFromSchemaAndId(
                 $event->getData()['schema'],

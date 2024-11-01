@@ -17,6 +17,8 @@ class RequestRecordProvider extends Template
 
     protected ?int $defaultViewIndex = null;
 
+    protected ?int $autoReload = null;
+
     protected Placeholder $children;
 
     public function __construct(string $schema, string $viewType, string $id)
@@ -37,6 +39,7 @@ class RequestRecordProvider extends Template
             'showOnEmpty' => $this->getShowOnEmpty(),
             'defaultViewIndex' => $this->getDefaultViewIndex(),
             'children' => $this->getChildren()->toArray(),
+            'autoReload' => $this->getAutoReload(),
         ];
     }
 
@@ -186,6 +189,30 @@ class RequestRecordProvider extends Template
     public function setChildren(Placeholder $children): self
     {
         $this->children = $children;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of autoReload
+     *
+     * @return ?int
+     */
+    public function getAutoReload(): ?int
+    {
+        return $this->autoReload;
+    }
+
+    /**
+     * Set the value of autoReload
+     *
+     * @param ?int $autoReload
+     *
+     * @return self
+     */
+    public function setAutoReload(?int $autoReload): self
+    {
+        $this->autoReload = $autoReload;
 
         return $this;
     }
