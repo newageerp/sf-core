@@ -23,7 +23,7 @@ class CustomField extends FormBaseField
     public function getProps(): array
     {
         $props = [
-            'key' => 'window.view.form',
+            'templateKey' => 'window.view.form',
             'position' => 'customField',
             'options' => [
                 'dataSource' => $this->schema,
