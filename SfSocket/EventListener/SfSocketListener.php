@@ -37,6 +37,7 @@ class SfSocketListener
         $entity = $args->getObject();
         $class = str_replace('\\', '', $entity::class);
         $class = str_replace(['AppEntity', 'Proxies__CG__'], '', $class);
+        $classSchema = $this->entitiesUtilsV3->getSlugByClassName($class);
 
         if ($class === 'Note') {
             if ($entity->getNotify()) {
@@ -55,7 +56,7 @@ class SfSocketListener
         $this->socketService->addToPool(
             [
                 'room' => 'all',
-                'action' => 'entity-' . $class . '-0',
+                'action' => 'entity-' . $classSchema . '-0',
                 'body' => time()
             ]
         );
@@ -65,7 +66,8 @@ class SfSocketListener
                 'action' => 'data-update-all',
                 'body' => [
                     'id' => $entity->getId(),
-                    'schema' => $class
+                    'schema' => $class,
+                    'slug' => $classSchema,
                 ]
 
             ]
