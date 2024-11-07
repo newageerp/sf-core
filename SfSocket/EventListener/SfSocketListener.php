@@ -94,7 +94,7 @@ class SfSocketListener
                 'body' => [
                     'id' => $entity->getId(),
                     'schema' => $class,
-                    'slub' => $this->entitiesUtilsV3->getSlugByClassName($class),
+                    'slug' => $this->entitiesUtilsV3->getSlugByClassName($class),
                 ]
 
             ]
