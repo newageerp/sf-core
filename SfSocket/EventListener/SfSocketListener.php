@@ -5,16 +5,24 @@ namespace Newageerp\SfSocket\EventListener;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Newageerp\SfSocket\Service\SocketService;
 use Psr\Log\LoggerInterface;
+use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
+
 
 class SfSocketListener
 {
     protected SocketService $socketService;
 
+    protected EntitiesUtilsV3 $entitiesUtilsV3;
+
     protected LoggerInterface $ajLogger;
 
-    public function __construct(SocketService $socketService, LoggerInterface $ajLogger)
+    public function __construct(
+        SocketService $socketService, 
+        EntitiesUtilsV3 $entitiesUtilsV3,
+        LoggerInterface $ajLogger)
     {
         $this->socketService = $socketService;
+        $this->entitiesUtilsV3 = $entitiesUtilsV3;
         $this->ajLogger = $ajLogger;
     }
 
@@ -85,7 +93,8 @@ class SfSocketListener
                 'action' => 'data-update-all',
                 'body' => [
                     'id' => $entity->getId(),
-                    'schema' => $class
+                    'schema' => $class,
+                    'slub' => $this->entitiesUtilsV3->getSlugByClassName($class),
                 ]
 
             ]
