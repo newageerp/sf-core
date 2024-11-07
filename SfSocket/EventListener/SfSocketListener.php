@@ -79,11 +79,19 @@ class SfSocketListener
         // $entity = $args->getObject();
         $class = str_replace('\\', '', $entity::class);
         $class = str_replace(['AppEntity', 'Proxies__CG__'], '', $class);
+        $classSchema = $this->entitiesUtilsV3->getSlugByClassName($class);
 
+        // $this->socketService->addToPool(
+        //     [
+        //         'room' => 'all',
+        //         'action' => 'entity-' . $class . '-' . $entity->getId(),
+        //         'body' => time()
+        //     ]
+        // );
         $this->socketService->addToPool(
             [
                 'room' => 'all',
-                'action' => 'entity-' . $class . '-' . $entity->getId(),
+                'action' => 'entity-' . $classSchema . '-' . $entity->getId(),
                 'body' => time()
             ]
         );
@@ -94,7 +102,7 @@ class SfSocketListener
                 'body' => [
                     'id' => $entity->getId(),
                     'schema' => $class,
-                    'slug' => $this->entitiesUtilsV3->getSlugByClassName($class),
+                    'slug' => $classSchema,
                 ]
 
             ]
