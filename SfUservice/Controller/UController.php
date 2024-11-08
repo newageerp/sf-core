@@ -70,7 +70,7 @@ class UController extends UControllerBase
                     $data['schema'],
                     $data['page'] ?? 1,
                     $data['pageSize'] ?? 20,
-                    isset($modelFields[$data['schema']]) ? $modelFields[$data['schema']] : ['id'],
+                    (isset($data['fields']) && $data['fields']) ? $data['fields'] : (isset($modelFields[$data['schema']]) ? $modelFields[$data['schema']] : ['id']),
                     $data['filters'] ?? [],
                     $data['extraData'] ?? [],
                     $data['sort'] ?? [],
