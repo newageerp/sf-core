@@ -9,6 +9,7 @@ use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 use Newageerp\SfControlpanel\Console\LocalConfigUtilsV3;
 use Newageerp\SfControlpanel\Console\ViewFormsUtilsV3;
 use Newageerp\SfDefaults\Service\SfDefaultsService;
+use Newageerp\SfEntity\SfEntityService;
 use Newageerp\SfTabs\Service\SfTabsService;
 use Symfony\Component\Routing\Annotation\Route;
 use OpenApi\Annotations as OA;
@@ -90,9 +91,10 @@ class ConfigCacheController extends ConfigBaseController
 
         $entites = $entitiesUtilsV3->getEntities();
         $entites = array_map(function ($item) use ($em) {
+            $className = SfEntityService::entityByName($item['config']['className']);
             return [
                 'slug' => $item['config']['slug'],
-                'db' => $em->getClassMetadata('App\Entity\\' . $item['config']['className']),
+                'db' => $em->getClassMetadata($className)->getTableName(),
                 'title' => [
                     'single' => $item['config']['titleSingle'],
                     'plural' => $item['config']['titlePlural']
