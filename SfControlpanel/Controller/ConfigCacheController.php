@@ -2,6 +2,7 @@
 
 namespace Newageerp\SfControlpanel\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Newageerp\SfConfig\Service\ConfigService;
 use Newageerp\SfControlpanel\Console\EditFormsUtilsV3;
 use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
@@ -23,14 +24,13 @@ class ConfigCacheController extends ConfigBaseController
      * @OA\Post (operationId="NaeConfigLocalConfigList")
      */
     public function getLocalConfig(
-        Request $request, 
+        Request $request,
         SfTabsService $tabsUtilsV3,
         SfDefaultsService $defaultsService,
         EntitiesUtilsV3 $entitiesUtilsV3,
         ViewFormsUtilsV3 $viewFormsUtilsV3,
         EditFormsUtilsV3 $editFormsUtilsV3,
-    )
-    {
+    ) {
         $request = $this->transformJsonBody($request);
 
         $config = [
@@ -76,5 +76,32 @@ class ConfigCacheController extends ConfigBaseController
             $output['e'] = $e->getMessage();
         }
         return $this->json($output);
+    }
+
+    /**
+     * @Route(path="/getCache", methods={"GET"})
+     */
+    public function getConfig(
+        Request $request,
+        EntitiesUtilsV3 $entitiesUtilsV3,
+        EntityManagerInterface $em,
+    ) {
+        $request = $this->transformJsonBody($request);
+
+        $entites = $entitiesUtilsV3->getEntities();
+        $entites = array_map(function ($item) use ($em) {
+            return [
+                'slug' => $item['config']['slug'],
+                'db' => $em->getClassMetadata('App\Entity\\' . $item['config']['className']),
+                'title' => [
+                    'single' => $item['config']['titleSingle'],
+                    'plural' => $item['config']['titlePlural']
+                ]
+            ];
+        }, $entites);
+
+        return $this->json([
+            'entities' => $entites,
+        ]);
     }
 }
