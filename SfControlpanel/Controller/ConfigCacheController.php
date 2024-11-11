@@ -94,7 +94,7 @@ class ConfigCacheController extends ConfigBaseController
             $className = SfEntityService::entityByName($item['config']['className']);
             return [
                 'slug' => $item['config']['slug'],
-                'db' => class_exists($className) ? $em->getClassMetadata($className)->getTableName() : '',
+                'db' => class_exists($className) && SfEntityService::isEntity($em, $className) ? $em->getClassMetadata($className)->getTableName() : '',
                 'title' => [
                     'single' => $item['config']['titleSingle'],
                     'plural' => $item['config']['titlePlural']
