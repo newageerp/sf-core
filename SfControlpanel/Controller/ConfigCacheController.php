@@ -118,7 +118,7 @@ class ConfigCacheController extends ConfigBaseController
         }, $editForms);
 
         // view
-        $viewForms = $editFormsUtilsV3->getEditForms();
+        $viewForms = $viewFormsUtilsV3->getViewForms();
         $viewForms = array_map(function (array $item) use ($fieldsToReturnService) {
             return [
                 'entity' => $item['config']['schema'],
