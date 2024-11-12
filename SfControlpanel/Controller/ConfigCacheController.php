@@ -10,6 +10,7 @@ use Newageerp\SfControlpanel\Console\LocalConfigUtilsV3;
 use Newageerp\SfControlpanel\Console\ViewFormsUtilsV3;
 use Newageerp\SfDefaults\Service\SfDefaultsService;
 use Newageerp\SfEntity\SfEntityService;
+use Newageerp\SfProperties\Service\FieldsToReturnService;
 use Newageerp\SfTabs\Service\SfTabsService;
 use Symfony\Component\Routing\Annotation\Route;
 use OpenApi\Annotations as OA;
@@ -85,10 +86,14 @@ class ConfigCacheController extends ConfigBaseController
     public function getConfig(
         Request $request,
         EntitiesUtilsV3 $entitiesUtilsV3,
+        FieldsToReturnService $fieldsToReturnService,
+        ViewFormsUtilsV3 $viewFormsUtilsV3,
+        EditFormsUtilsV3 $editFormsUtilsV3,
         EntityManagerInterface $em,
     ) {
         $request = $this->transformJsonBody($request);
 
+        // entities
         $entites = $entitiesUtilsV3->getEntities();
         $entites = array_map(function ($item) use ($em) {
             $className = SfEntityService::entityByName($item['config']['className']);
@@ -102,8 +107,30 @@ class ConfigCacheController extends ConfigBaseController
             ];
         }, $entites);
 
+        // edit
+        $editForms = $editFormsUtilsV3->getEditForms();
+        $editForms = array_map(function (array $item) use ($fieldsToReturnService) {
+            return [
+                'entity' => $item['config']['schema'],
+                'type' => $item['config']['type'],
+                'fields' => $fieldsToReturnService->generateFieldsToReturn($item['config'])
+            ];
+        }, $editForms);
+
+        // view
+        $viewForms = $editFormsUtilsV3->getEditForms();
+        $viewForms = array_map(function (array $item) use ($fieldsToReturnService) {
+            return [
+                'entity' => $item['config']['schema'],
+                'type' => $item['config']['type'],
+                'fields' => $fieldsToReturnService->generateFieldsToReturn($item['config'])
+            ];
+        }, $viewForms);
+        
         return $this->json([
             'entities' => $entites,
+            'editForms' => $editForms,
+            'viewForms' => $viewForms,
         ]);
     }
 }
