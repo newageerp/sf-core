@@ -48,6 +48,9 @@ services:
   Newageerp\SfControlpanel\Controller\:
     resource: '../SfControlpanel/Controller/*'
     arguments: [ ]
+  Newageerp\SfProperties\:
+    resource: '../SfProperties/*'
+    arguments: [ ]
   Newageerp\SfControlpanel\Service\:
     resource: '../SfControlpanel/Service/*'
     arguments: [ ]
