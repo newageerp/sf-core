@@ -14,7 +14,7 @@ class FieldsToReturnService
         $this->sfTabsService = $sfTabsService;
     }
 
-    public function generateFieldsToReturn(array $formConfig)
+    public function fieldsToReturnForForm(array $formConfig)
     {
         $fieldsToReturn = [
             'id',
@@ -72,6 +72,45 @@ class FieldsToReturnService
 
         if (isset($formConfig['fieldsToReturn'])) {
             $fieldsToReturn = array_merge($fieldsToReturn, $formConfig['fieldsToReturn']);
+        }
+
+        return $fieldsToReturn;
+    }
+
+    public function fieldsToReturnForTab(array $tabConfig)
+    {
+        $fieldsToReturn = [
+            'id',
+            'scopes',
+            '_viewTitle',
+        ];
+
+        $fields = $tabConfig['columns'];
+
+        foreach ($fields as $field) {
+                $pathArray = explode(".", $field['path']);
+                array_shift($pathArray);
+                $fieldPath = implode(".", $pathArray);
+
+                $fieldsToReturn[] = $fieldPath;
+
+                if (isset($field['extraFieldsToReturn'])) {
+                    $extraFields = json_decode($field['extraFieldsToReturn'], true);
+                    if ($extraFields) {
+                        $fieldsToReturn = array_merge($fieldsToReturn, $extraFields);
+                    }
+                }
+                if (isset($field['relKeyExtraSelect'])) {
+                    $extraFields = explode(",", $field['relKeyExtraSelect']);
+                    if ($extraFields) {
+                        $fieldsToReturn = array_merge($fieldsToReturn, $extraFields);
+                    }
+                }
+                // dependencies
+        }
+
+        if (isset($tabConfig['fieldsToReturn'])) {
+            $fieldsToReturn = array_merge($fieldsToReturn, $tabConfig['fieldsToReturn']);
         }
 
         return $fieldsToReturn;

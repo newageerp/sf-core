@@ -27,52 +27,14 @@ class ConfigCacheController extends ConfigBaseController
      */
     public function getLocalConfig(
         Request $request,
-        SfTabsService $tabsUtilsV3,
-        SfDefaultsService $defaultsService,
-        EntitiesUtilsV3 $entitiesUtilsV3,
-        ViewFormsUtilsV3 $viewFormsUtilsV3,
-        EditFormsUtilsV3 $editFormsUtilsV3,
     ) {
         $request = $this->transformJsonBody($request);
-
-        $config = [
-            'widgets' => 'widgets.json',
-            'builder' => 'builder.json',
-            // 'tabs' => 'tabs.json',
-            // 'defaults' => 'defaults.json',
-            // 'edit' => 'edit.json',
-            // 'view' => 'view.json',
-            'settings' => 'settings.json',
-            // 'entities' => 'entities.json'
-        ];
 
         $output = ['data' => []];
 
         try {
-            foreach ($config as $key => $file) {
-                $data = [];
-                if (file_exists($this->getLocalStorage() . '/' . $file)) {
-                    $data = json_decode(
-                        file_get_contents($this->getLocalStorage() . '/' . $file),
-                        true
-                    );
-                }
-                if (file_exists(LocalConfigUtilsV3::getUserStoragePath() . '/' . $file)) {
-                    $data = array_merge(
-                        $data,
-                        json_decode(
-                            file_get_contents(LocalConfigUtilsV3::getUserStoragePath() . '/' . $file),
-                            true
-                        )
-                    );
-                }
-                $output['data'][$key] = $data;
-            }
-            $output['data']['tabs'] = $tabsUtilsV3->getTabs();
-            $output['data']['entities'] = $entitiesUtilsV3->getEntities();
-            $output['data']['defaults'] = $defaultsService->getDefaults();
-            $output['data']['edit'] = $editFormsUtilsV3->getEditForms();
-            $output['data']['view'] = $viewFormsUtilsV3->getViewForms();
+            
+            $output['data']['settings'] = ConfigService::getConfig('settings');
             $output['data']['main'] = ConfigService::getConfig('main');
         } catch (\Exception $e) {
             $output['e'] = $e->getMessage();
@@ -89,6 +51,7 @@ class ConfigCacheController extends ConfigBaseController
         FieldsToReturnService $fieldsToReturnService,
         ViewFormsUtilsV3 $viewFormsUtilsV3,
         EditFormsUtilsV3 $editFormsUtilsV3,
+        SfTabsService $tabsUtilsV3,
         EntityManagerInterface $em,
     ) {
         $request = $this->transformJsonBody($request);
@@ -113,7 +76,7 @@ class ConfigCacheController extends ConfigBaseController
             return [
                 'entity' => $item['config']['schema'],
                 'type' => $item['config']['type'],
-                'fields' => $fieldsToReturnService->generateFieldsToReturn($item['config'])
+                'fields' => $fieldsToReturnService->fieldsToReturnForForm($item['config'])
             ];
         }, $editForms);
 
@@ -123,15 +86,32 @@ class ConfigCacheController extends ConfigBaseController
             return [
                 'entity' => $item['config']['schema'],
                 'type' => $item['config']['type'],
-                'fields' => $fieldsToReturnService->generateFieldsToReturn($item['config'])
+                'fields' => $fieldsToReturnService->fieldsToReturnForForm($item['config'])
             ];
         }, $viewForms);
+
+        // tabs
+        $tabs = $tabsUtilsV3->getTabs();
+        $tabs = array_map(function (array $item) use ($fieldsToReturnService, $tabsUtilsV3) {
+            return [
+                'entity' => $item['config']['schema'],
+                'type' => $item['config']['type'],
+                'fields' => $fieldsToReturnService->fieldsToReturnForTab($item['config']),
+                'sort' => $tabsUtilsV3->getTabSort($item['config']['schema'], $item['config']['type'])
+            ];
+        }, $tabs);
 
         return $this->json([
             'data' => [
                 'entities' => $entites,
                 'editForms' => $editForms,
                 'viewForms' => $viewForms,
+
+                'settings' => ConfigService::getConfig('settings'),
+                
+                'config' => [
+                    'main' => ConfigService::getConfig('main'),
+                ]
             ]
         ]);
     }
