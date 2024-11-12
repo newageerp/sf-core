@@ -71,7 +71,7 @@ class FieldsToReturnService
         }
 
         if (isset($formConfig['fieldsToReturn'])) {
-            $fieldsToReturn = array_merge($fieldsToReturn, $fieldToReturn);
+            $fieldsToReturn = array_merge($fieldsToReturn, $formConfig['fieldsToReturn']);
         }
 
         return $fieldsToReturn;
