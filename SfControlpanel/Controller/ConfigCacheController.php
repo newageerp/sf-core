@@ -126,11 +126,13 @@ class ConfigCacheController extends ConfigBaseController
                 'fields' => $fieldsToReturnService->generateFieldsToReturn($item['config'])
             ];
         }, $viewForms);
-        
+
         return $this->json([
-            'entities' => $entites,
-            'editForms' => $editForms,
-            'viewForms' => $viewForms,
+            'data' => [
+                'entities' => $entites,
+                'editForms' => $editForms,
+                'viewForms' => $viewForms,
+            ]
         ]);
     }
 }
