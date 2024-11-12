@@ -32,7 +32,7 @@ class FieldsToReturnService
 
         foreach ($fields as $field) {
             if (isset($field['type']) && $field['type'] === 'field') {
-                $pathArray = explode(".", $field['type']);
+                $pathArray = explode(".", $field['path']);
                 array_shift($pathArray);
                 $fieldPath = implode(".", $pathArray);
 
