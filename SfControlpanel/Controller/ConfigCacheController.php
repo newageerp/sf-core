@@ -7,6 +7,7 @@ use Newageerp\SfConfig\Service\ConfigService;
 use Newageerp\SfControlpanel\Console\EditFormsUtilsV3;
 use Newageerp\SfControlpanel\Console\EntitiesUtilsV3;
 use Newageerp\SfControlpanel\Console\LocalConfigUtilsV3;
+use Newageerp\SfControlpanel\Console\PropertiesUtilsV3;
 use Newageerp\SfControlpanel\Console\ViewFormsUtilsV3;
 use Newageerp\SfDefaults\Service\SfDefaultsService;
 use Newageerp\SfEntity\SfEntityService;
@@ -15,6 +16,7 @@ use Newageerp\SfTabs\Service\SfTabsService;
 use Symfony\Component\Routing\Annotation\Route;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
+use Newageerp\SfControlpanel\Console\LocalConfigUtils;
 
 /**
  * @Route(path="/app/nae-core/config-cache")
@@ -33,7 +35,7 @@ class ConfigCacheController extends ConfigBaseController
         $output = ['data' => []];
 
         try {
-            
+
             $output['data']['settings'] = ConfigService::getConfig('settings');
             $output['data']['main'] = ConfigService::getConfig('main');
         } catch (\Exception $e) {
@@ -51,6 +53,7 @@ class ConfigCacheController extends ConfigBaseController
         FieldsToReturnService $fieldsToReturnService,
         ViewFormsUtilsV3 $viewFormsUtilsV3,
         EditFormsUtilsV3 $editFormsUtilsV3,
+        PropertiesUtilsV3 $propertiesUtilsV3,
         SfTabsService $tabsUtilsV3,
         EntityManagerInterface $em,
     ) {
@@ -101,14 +104,83 @@ class ConfigCacheController extends ConfigBaseController
             ];
         }, $tabs);
 
+        // properties
+        $enumsList = LocalConfigUtils::getCpConfigFileData('enums');
+
+        $properties = $propertiesUtilsV3->getProperties();
+        $properties = array_map(function ($item) use ($enumsList, $propertiesUtilsV3) {
+            $enums = array_map(
+                function ($item) {
+                    return [
+                        'sort' => $item['config']['sort'],
+                        'title' => $item['config']['title'],
+                        'value' => $item['config']['value'],
+                        'color' => isset($item['config']['badgeVariant']) && $item['config']['badgeVariant'] ? $item['config']['badgeVariant'] : 'slate',
+                    ];
+                },
+                array_filter(
+                    $enumsList,
+                    function ($enum) use ($item) {
+                        return $enum['config']['entity'] === $item['config']['entity'] && $enum['config']['property'] === $item['config']['key'];
+                    }
+                )
+            );
+            if (count($enums) > 0) {
+                usort($enums, function ($pdfA, $pdfB) {
+                    if ($pdfA['sort'] < $pdfB['sort']) {
+                        return -1;
+                    }
+                    if ($pdfA['sort'] > $pdfB['sort']) {
+                        return 1;
+                    }
+                    if ($pdfA['title'] < $pdfB['title']) {
+                        return -1;
+                    }
+                    if ($pdfA['title'] > $pdfB['title']) {
+                        return 1;
+                    }
+                    return 0;
+                });
+
+                $enums = array_map(
+                    function ($en) use ($item) {
+                        $isInt = $item['config']['type'] === 'integer' || $item['config']['type'] === 'int' || $item['config']['type'] === 'number';
+                        return [
+                            'label' => $en['title'],
+                            'value' => $isInt ? ((int)$en['value']) : $en['value'],
+                            'color' => $en['color'],
+                        ];
+                    },
+                    $enums
+                );
+            }
+
+            if (isset($item['config']['customAs']) && $item['config']['customAs']) {
+                $propAs = $item['config']['customAs'];
+            } else if ($item['config']['as']) {
+                $propAs = $item['config']['as'];
+            }
+            $type = $propAs ? $propAs : $propertiesUtilsV3->getOldPropertyNaeType($item, []);
+
+
+            return [
+                'entity' => $item['config']['entity'],
+                'key' => $item['config']['key'],
+                'rel' => $item['config']['typeFormat'],
+                'enums' => $enums,
+                'type' => $type
+            ];
+        }, $properties);
+
         return $this->json([
             'data' => [
                 'entities' => $entites,
+                'properties' => $properties,
                 'editForms' => $editForms,
                 'viewForms' => $viewForms,
 
                 'settings' => ConfigService::getConfig('settings'),
-                
+
                 'config' => [
                     'main' => ConfigService::getConfig('main'),
                 ]
