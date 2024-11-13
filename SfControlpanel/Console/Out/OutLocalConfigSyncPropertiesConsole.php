@@ -109,7 +109,7 @@ class OutLocalConfigSyncPropertiesConsole extends Command
                     if (isset($dbFieldsByTableColumn[$dbName . "-" . $dbPropKey])) {
                         $isDb = true;
                         $dbType = $dbFieldsByTableColumn[$dbName . "-" . $dbPropKey]['DATA_TYPE'];
-                        $dbKey = $dbField['COLUMN_NAME'];
+                        $dbKey = $dbFieldsByTableColumn[$dbName . "-" . $dbPropKey]['COLUMN_NAME'];
                     }
 
                     $propAdditionalProperties = isset($prop['additionalProperties']) ? $prop['additionalProperties'] : [];
@@ -136,6 +136,19 @@ class OutLocalConfigSyncPropertiesConsole extends Command
                                 $propToChange['config']['dbKey'] = $dbKey;
                                 $propToChange['config']['as'] = $as;
                                 $propToChange['config']['additionalProperties'] = json_encode($propAdditionalProperties);
+
+                                if (isset($propToChange['config']['available_filter'])) {
+                                    unset($propToChange['config']['available_filter']);
+                                }
+                                if (isset($propToChange['config']['available_sort'])) {
+                                    unset($propToChange['config']['available_sort']);
+                                }
+                                if (isset($propToChange['config']['available_group'])) {
+                                    unset($propToChange['config']['available_group']);
+                                }
+                                if (isset($propToChange['config']['available_total'])) {
+                                    unset($propToChange['config']['available_total']);
+                                }
                             }
                         }
                     } else {
