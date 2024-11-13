@@ -161,7 +161,7 @@ class ConfigCacheController extends ConfigBaseController
             } else if ($item['config']['as']) {
                 $propAs = $item['config']['as'];
             }
-            $type = $propAs ? $propAs : $propertiesUtilsV3->getOldPropertyNaeType($item, []);
+            $type = $propAs ? $propAs : $propertiesUtilsV3->getOldPropertyNaeType($item['config'], []);
 
 
             return [
