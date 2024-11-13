@@ -155,6 +155,7 @@ class ConfigCacheController extends ConfigBaseController
                 );
             }
 
+            $propAs = null;
             if (isset($item['config']['customAs']) && $item['config']['customAs']) {
                 $propAs = $item['config']['customAs'];
             } else if ($item['config']['as']) {
