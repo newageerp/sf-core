@@ -104,10 +104,12 @@ class OutLocalConfigSyncPropertiesConsole extends Command
 
                     $isDb = false;
                     $dbType = '';
+                    $dbKey = '';
 
                     if (isset($dbFieldsByTableColumn[$dbName . "-" . $dbPropKey])) {
                         $isDb = true;
                         $dbType = $dbFieldsByTableColumn[$dbName . "-" . $dbPropKey]['DATA_TYPE'];
+                        $dbKey = $dbField['COLUMN_NAME'];
                     }
 
                     $propAdditionalProperties = isset($prop['additionalProperties']) ? $prop['additionalProperties'] : [];
@@ -131,6 +133,7 @@ class OutLocalConfigSyncPropertiesConsole extends Command
                                 $propToChange['config']['typeFormat'] = $format;
                                 $propToChange['config']['isDb'] = $isDb;
                                 $propToChange['config']['dbType'] = $dbType;
+                                $propToChange['config']['dbKey'] = $dbKey;
                                 $propToChange['config']['as'] = $as;
                                 $propToChange['config']['additionalProperties'] = json_encode($propAdditionalProperties);
                             }
@@ -144,6 +147,7 @@ class OutLocalConfigSyncPropertiesConsole extends Command
                                 'additionalProperties' => json_encode($propAdditionalProperties),
                                 'as' => $as,
                                 'dbType' => $dbType,
+                                'dbKey' => $dbKey,
                                 'description' => $propDescription,
                                 'entity' => $_schemaId,
 
