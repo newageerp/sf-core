@@ -163,8 +163,8 @@ class ConfigCacheController extends ConfigBaseController
             }
             $itemForType = $item['config'];
             $itemForType['format'] = $itemForType['typeFormat'];
+            $itemForType['enum'] = $enums;
             $type = $propAs ? $propAs : $propertiesUtilsV3->getOldPropertyNaeType($itemForType, []);
-
 
             return [
                 'entity' => $item['config']['entity'],
