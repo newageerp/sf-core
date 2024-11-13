@@ -20,18 +20,18 @@ class InRunAll extends Command
     {
         $commands = [
             'nae:localconfig:InLocalConfigSyncVariables',
-            'nae:localconfig:InLocalConfigSyncFields',
-            'nae:localconfig:InLocalConfigSyncEntities',
+            // 'nae:localconfig:InLocalConfigSyncFields',
+            // 'nae:localconfig:InLocalConfigSyncEntities',
             // 'nae:localconfig:InLocalConfigSyncUsersPermissions',
             // 'nae:localconfig:InPathMap',
             // 'nae:localconfig:InGeneratorTabs',
             'nae:localconfig:InGeneratorBadges',
             // 'nae:localconfig:InGeneratorEditForms',
             // 'nae:localconfig:InGeneratorViewForms',
-            'nae:localconfig:InFillModels',
+            // 'nae:localconfig:InFillModels',
             'nae:localconfig:InGeneratorRoutes',
             'nae:localconfig:InGeneratorFileWidgets',
-            'nae:localconfig:InGeneratorLayout',
+            // 'nae:localconfig:InGeneratorLayout',
         ];
 
         shell_exec('rm -rf /tmp/*');

@@ -28,63 +28,6 @@ class InLocalConfigSyncEntitiesConsole extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $configPath = Utils::customFolderPath('config') . '/NaeSSchema.tsx';
-
-        $fileContent = 'import { INaeSchema } from "@newageerp/v3.app.main-bundle"
-';
-
-        $entityData = $this->entitiesUtilsV3->getEntities();
-
-        $entities = [];
-        $entitiesMap = [];
-        foreach ($entityData as $entity) {
-            $status = [
-                'className' => $entity['config']['className'],
-                'schema' => $entity['config']['slug'],
-                'title' => $entity['config']['titleSingle'],
-                'titlePlural' => $entity['config']['titlePlural'],
-            ];
-
-            if ($entity['config']['required']) {
-                $status['required'] = json_decode(
-                    $entity['config']['required'],
-                    true
-                );
-            }
-            if ($entity['config']['scopes']) {
-                $status['scopes'] = json_decode(
-                    $entity['config']['scopes'],
-                    true
-                );
-            }
-
-            $entities[] = $status;
-
-            $entitiesMap[$entity['config']['className']] = [
-                'className' => $entity['config']['className'],
-                'schema' => $entity['config']['slug']
-            ];
-        }
-
-        usort($entities, function ($pdfA, $pdfB) {
-            if ($pdfA['schema'] < $pdfB['schema']) {
-                return -1;
-            }
-            if ($pdfA['schema'] > $pdfB['schema']) {
-                return 1;
-            }
-            return 0;
-        });
-
-        $fileContent .= 'export const NaeSSchema: INaeSchema[] = ' . json_encode($entities, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-
-        $fileContent .= '
-        export const NaeSSchemaMap = ' . json_encode($entitiesMap, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-
-        file_put_contents(
-            $configPath,
-            $fileContent
-        );
 
         return Command::SUCCESS;
     }
