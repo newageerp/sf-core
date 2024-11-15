@@ -177,6 +177,47 @@ class ConfigPropertiesController extends ConfigBaseController
     }
 
     /**
+     * @Route(path="/list", methods={"POST"})
+     */
+    public function listProperties(Request $request, PropertiesUtilsV3 $propertiesUtilsV3, EntitiesUtilsV3 $entitiesUtilsV3)
+    {
+        $request = $this->transformJsonBody($request);
+
+        $schema = $request->get('schema');
+
+        $properties = $propertiesUtilsV3->getProperties();
+        $properties = array_filter(
+            $properties,
+            function ($item) use ($schema) {
+                return $item['config']['entity'] === $schema;
+            }
+        );
+
+        if ($request->get('db') !== null) {
+            $dbF = $request->get('db');
+            $properties = array_filter(
+                $properties,
+                function ($item) use ($dbF) {
+                    return $item['config']['isDb'] === $dbF;
+                }
+            );
+        }
+
+        $properties = array_map(
+            function ($item) {
+                return [
+                    'title' => $item['config']['title'],
+                    'key' => $item['config']['key'],
+                    'type' => isset($item['config']['naeType']) ? $item['config']['naeType'] : 'NA',
+                ];
+            },
+            $properties
+        );
+
+        return $this->json(['success' => 1, 'data' => $properties]);
+    }
+
+    /**
      * @Route(path="/for-filter", methods={"POST"})
      */
     public function getPropertiesForFilter(Request $request, PropertiesUtilsV3 $propertiesUtilsV3, EntitiesUtilsV3 $entitiesUtilsV3)

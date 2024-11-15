@@ -23,7 +23,7 @@ class PropertiesUtilsV3
         EventDispatcherInterface $eventDispatcher,
     ) {
         $this->eventDispatcher = $eventDispatcher;
-        
+
         $this->initProperties();
         $this->enumsList = LocalConfigUtils::getCpConfigFileData('enums');
         $this->statuses = LocalConfigUtils::getCpConfigFileData('statuses');
@@ -331,6 +331,25 @@ class PropertiesUtilsV3
             return 'array';
         }
         return 'string';
+    }
+
+    public function getOldPropertyNaeTypeFromProperty(array $item, ?array $enums = null): string
+    {
+        $propAs = null;
+        if (isset($item['config']['customAs']) && $item['config']['customAs']) {
+            $propAs = $item['config']['customAs'];
+        } else if ($item['config']['as']) {
+            $propAs = $item['config']['as'];
+        }
+        if ($propAs) {
+            return $propAs;
+        }
+        $itemForType = $item['config'];
+        $itemForType['format'] = $itemForType['typeFormat'];
+        if ($enums) {
+            $itemForType['enum'] = $enums;
+        }
+        return $this->getOldPropertyNaeType($itemForType, []);
     }
 
     public function getOldPropertyNaeType(array $property, array $column): string

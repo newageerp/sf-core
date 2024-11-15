@@ -34,6 +34,15 @@ class OutLocalConfigSyncPropertiesConsole extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $enumsList = LocalConfigUtils::getCpConfigFileData('enums');
+        $groupedEnums = [];
+        foreach ($enumsList as $enum) {
+            if (!isset($groupedEnums[$enum['config']['entity']])) {
+                $groupedEnums[$enum['config']['entity']] = [];
+            }
+            $groupedEnums[$enum['config']['entity']][] = $enum;
+        }
+
         $conn = $this->em->getConnection();
         $sql = 'select TABLE_NAME, COLUMN_NAME, DATA_TYPE from information_schema.columns
         where table_schema = DATABASE()
@@ -149,10 +158,14 @@ class OutLocalConfigSyncPropertiesConsole extends Command
                                 if (isset($propToChange['config']['available_total'])) {
                                     unset($propToChange['config']['available_total']);
                                 }
+                                $propToChange['config']['naeType'] = $this->propertiesUtilsV3->getOldPropertyNaeTypeFromProperty(
+                                    $propToChange,
+                                    isset($groupedEnums[$_schemaId]) ? $groupedEnums[$_schemaId] : null
+                                );
                             }
                         }
                     } else {
-                        $propertiesData[] = [
+                        $propToSet = [
                             'id' => Uuid::uuid4()->toString(),
                             'tag' => '',
                             'title' => '',
@@ -171,6 +184,12 @@ class OutLocalConfigSyncPropertiesConsole extends Command
                                 'typeFormat' => $format,
                             ]
                         ];
+                        $propToSet['config']['naeType'] = $this->propertiesUtilsV3->getOldPropertyNaeTypeFromProperty(
+                            $propToSet,
+                            isset($groupedEnums[$_schemaId]) ? $groupedEnums[$_schemaId] : null,
+                        );
+
+                        $propertiesData[] = $propToSet;
 
                         $output->writeln("PROPERTY ADDED " . $schemasClass . ' - ' . $propKey);
                     }
