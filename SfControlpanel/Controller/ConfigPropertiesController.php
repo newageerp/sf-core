@@ -214,7 +214,7 @@ class ConfigPropertiesController extends ConfigBaseController
             $properties
         );
 
-        return $this->json(['success' => 1, 'data' => $properties]);
+        return $this->json(['success' => 1, 'data' => array_values($properties)]);
     }
 
     /**
