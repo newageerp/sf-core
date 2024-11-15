@@ -290,6 +290,45 @@ class UController extends UControllerBase
     }
 
     /**
+     * @Route(path="/getListDistinctColumn/{schema}", methods={"GET"})
+     */
+    public function getListDistinctColumn(
+        Request  $request,
+        UService $uService,
+    ): Response {
+        try {
+            $request = $this->transformJsonBody($request);
+
+            $user = $this->findUser($request);
+            if (!$user) {
+                throw new Exception('Invalid user');
+            }
+            AuthService::getInstance()->setUser($user);
+
+            $schema = $request->get('schema');
+            $field = $request->get('field') ? $request->get('field') : '_';
+            $filters = $request->get('filters') ? $request->get('filters') : [];
+
+            return $this->json(
+                $uService->getListDistinctColumn(
+                    $schema,
+                    $field,
+                    $filters,
+                )
+            );
+        } catch (Exception $e) {
+            $response = $this->json([
+                'description' => $e->getMessage(),
+                'f' => $e->getFile(),
+                'l' => $e->getLine()
+
+            ]);
+            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+            return $response;
+        }
+    }
+
+    /**
      * @Route(path="/get/{schema}", methods={"POST"})
      * @OA\Post (operationId="NAEUList")
      */

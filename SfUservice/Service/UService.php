@@ -333,6 +333,54 @@ class UService
         return $result;
     }
 
+    public function getListDistinctColumn(
+        string $schema,
+        string $field,
+        array  $filters,
+        bool   $skipPermissionsCheck = false,
+    ) {
+        $user = AuthService::getInstance()->getUser();
+        if (!$user) {
+            throw new \Exception('Invalid user');
+        }
+
+        $className = $this->convertSchemaToEntity($schema);
+
+        if (method_exists($className, 'getSoftRemoved')) {
+            $filters[] = ['and' => [
+                ['i.softRemoved', '=', false, true]
+            ]];
+        }
+
+        if (!$skipPermissionsCheck) {
+            $filters = $this->checkForPermissions($filters, $schema);
+        }
+
+        $classicMode = $this->checkForClassicMode($filters);
+
+        $alias = 'i';
+
+        $fieldKey = $alias . '.' . $field;
+
+        $qb = $this->em->createQueryBuilder()
+            ->select('distinct ' . $fieldKey.' as value')
+            ->from($className, $alias, null);
+
+        $this->uServiceFilter->addQueryFilter(
+            $qb,
+            $filters,
+            $className,
+            $classicMode,
+            false,
+        );
+
+        $query = $qb->getQuery();
+
+        $data = $query->getResult();
+
+        return ['data' => $data];
+    }
+
     public function getListDataForSchema(
         string $schema,
         int    $page,

@@ -169,6 +169,7 @@ class ConfigCacheController extends ConfigBaseController
             return [
                 'entity' => $item['config']['entity'],
                 'key' => $item['config']['key'],
+                'dbKey' => $item['config']['dbKey'],
                 'rel' => $item['config']['typeFormat'],
                 'enums' => $enums,
                 'type' => $type
