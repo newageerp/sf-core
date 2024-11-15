@@ -86,6 +86,7 @@ class SfKeyValueListener implements EventSubscriberInterface
                     "title" => "sfKey",
                     "type" => "string",
                     "typeFormat" => "",
+                    "dbKey" => "sf_key"
                 ]
             ];
         }
@@ -105,6 +106,7 @@ class SfKeyValueListener implements EventSubscriberInterface
                     "title" => "sfValue",
                     "type" => "string",
                     "typeFormat" => "",
+                    "dbKey" => "sf_value",
                 ]
             ];
         }

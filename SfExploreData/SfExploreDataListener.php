@@ -162,6 +162,7 @@ class SfExploreDataListener implements EventSubscriberInterface
                     "title" => "Sort",
                     "type" => "number",
                     "typeFormat" => "",
+                    "dbKey" => "sort"
                 ]
             ];
         }
@@ -181,6 +182,7 @@ class SfExploreDataListener implements EventSubscriberInterface
                     "title" => "title",
                     "type" => "string",
                     "typeFormat" => "",
+                    "dbKey" => "title",
                 ]
             ];
         }
@@ -200,6 +202,7 @@ class SfExploreDataListener implements EventSubscriberInterface
                     "title" => "exploreId",
                     "type" => "string",
                     "typeFormat" => "",
+                    "dbKey" => "explore_id",
                 ]
             ];
         }
@@ -219,6 +222,7 @@ class SfExploreDataListener implements EventSubscriberInterface
                     "title" => "sqlData",
                     "type" => "string",
                     "typeFormat" => "text",
+                    "dbKey" => "sql_data",
                 ]
             ];
         }
@@ -238,6 +242,7 @@ class SfExploreDataListener implements EventSubscriberInterface
                     "title" => "sqlCount",
                     "type" => "string",
                     "typeFormat" => "text",
+                    "dbKey" => "sql_count",
                 ]
             ];
         }
@@ -257,6 +262,7 @@ class SfExploreDataListener implements EventSubscriberInterface
                     "title" => "columns",
                     "type" => "string",
                     "typeFormat" => "text",
+                    "dbKey" => "columns",
                 ]
             ];
         }
@@ -276,6 +282,7 @@ class SfExploreDataListener implements EventSubscriberInterface
                     "title" => "Folder",
                     "type" => "rel",
                     "typeFormat" => "sf-explore-data-folder",
+                    "dbKey" => "folder",
                 ]
             ];
         }

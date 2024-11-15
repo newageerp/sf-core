@@ -290,7 +290,7 @@ class UController extends UControllerBase
     }
 
     /**
-     * @Route(path="/getListDistinctColumn/{schema}", methods={"GET"})
+     * @Route(path="/getListDistinctColumn/{schema}", methods={"GET", "POST"})
      */
     public function getListDistinctColumn(
         Request  $request,
