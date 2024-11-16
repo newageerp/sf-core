@@ -377,7 +377,7 @@ class PropertiesUtilsV3
         $isBoolean = $property['type'] === 'bool' || $property['type'] === 'boolean';
         $isDate = $property['type'] === 'string' && $property['format'] === 'date';
 
-        $isDateTime = $property['type'] === 'string' && $property['format'] === 'datetime';
+        $isDateTime = $property['type'] === 'string' && ($property['format'] === 'datetime' || $property['format'] === 'date-time');
 
         $isLargeText = $property['type'] === 'string' && $property['format'] === 'text';
 
