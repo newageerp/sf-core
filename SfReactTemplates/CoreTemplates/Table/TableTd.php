@@ -13,6 +13,8 @@ class TableTd extends Template
 
     protected ?string $className = null;
 
+    protected ?string $dataType = null;
+
 
     public function __construct(?Placeholder $contents = null)
     {
@@ -30,6 +32,7 @@ class TableTd extends Template
             'children' => $this->getContents()->toArray(),
             'textAlignment' => $this->getTextAlignment(),
             'className' => $this->getClassName(),
+            'dataType' => $this->getDataType(),
         ];
     }
 
@@ -102,6 +105,30 @@ class TableTd extends Template
     public function setClassName(?string $className): self
     {
         $this->className = $className;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of dataType
+     *
+     * @return ?string
+     */
+    public function getDataType(): ?string
+    {
+        return $this->dataType;
+    }
+
+    /**
+     * Set the value of dataType
+     *
+     * @param ?string $dataType
+     *
+     * @return self
+     */
+    public function setDataType(?string $dataType): self
+    {
+        $this->dataType = $dataType;
 
         return $this;
     }

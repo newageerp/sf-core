@@ -17,6 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Newageerp\SfControlpanel\Console\LocalConfigUtils;
+use Newageerp\SfStatus\Service\StatusService;
 
 /**
  * @Route(path="/app/nae-core/config-cache")
@@ -55,6 +56,7 @@ class ConfigCacheController extends ConfigBaseController
         EditFormsUtilsV3 $editFormsUtilsV3,
         PropertiesUtilsV3 $propertiesUtilsV3,
         SfTabsService $tabsUtilsV3,
+        StatusService $statusService,
         EntityManagerInterface $em,
     ) {
         $request = $this->transformJsonBody($request);
@@ -182,6 +184,7 @@ class ConfigCacheController extends ConfigBaseController
                 'properties' => $properties,
                 'editForms' => $editForms,
                 'viewForms' => $viewForms,
+                'statuses' => $statusService->getStatusesV2(),
 
                 'settings' => ConfigService::getConfig('settings'),
 

@@ -40,4 +40,37 @@ class StatusService
         });
         return $statuses;
     }
+
+    public function getStatusesV2()
+    {
+        $statusData = LocalConfigUtils::getCpConfigFileData('statuses');
+
+        $statuses = [];
+        foreach ($statusData as $status) {
+            $statuses[] = [
+                'entity' => $status['config']['entity'],
+                'key' => $status['config']['type'],
+                'label' => $status['config']['text'],
+                'value' => (int)$status['config']['status'],
+                'color' => isset($status['config']['badgeVariant']) ? $status['config']['badgeVariant'] : 'blue',
+            ];
+        }
+
+        usort($statuses, function ($pdfA, $pdfB) {
+            if ($pdfA['entity'] < $pdfB['entity']) {
+                return -1;
+            }
+            if ($pdfA['entity'] > $pdfB['entity']) {
+                return 1;
+            }
+            if ($pdfA['value'] < $pdfB['value']) {
+                return -1;
+            }
+            if ($pdfA['value'] > $pdfB['value']) {
+                return 1;
+            }
+            return 0;
+        });
+        return $statuses;
+    }
 }
