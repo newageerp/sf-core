@@ -199,8 +199,8 @@ class TableRowService
                     }
                 }
 
-                $event = new TableTdRenderEvent($schema, $type, $td, $col);
-                $this->eventDispatcher->dispatch($event, TableTdRenderEvent::NAME);
+                // $event = new TableTdRenderEvent($schema, $type, $td, $col);
+                // $this->eventDispatcher->dispatch($event, TableTdRenderEvent::NAME);
 
                 $tr->getContents()->addTemplate($td);
             }
