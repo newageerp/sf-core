@@ -40,7 +40,10 @@ class OutLocalConfigSyncPropertiesConsole extends Command
             if (!isset($groupedEnums[$enum['config']['entity']])) {
                 $groupedEnums[$enum['config']['entity']] = [];
             }
-            $groupedEnums[$enum['config']['entity']][] = $enum;
+            if (!isset($groupedEnums[$enum['config']['entity']][$enum['config']['property']])) {
+                $groupedEnums[$enum['config']['entity']][$enum['config']['property']] = [];
+            }
+            $groupedEnums[$enum['config']['entity']][$enum['config']['property']][] = $enum;
         }
 
         $conn = $this->em->getConnection();
@@ -160,7 +163,7 @@ class OutLocalConfigSyncPropertiesConsole extends Command
                                 }
                                 $propToChange['config']['naeType'] = $this->propertiesUtilsV3->getOldPropertyNaeTypeFromProperty(
                                     $propToChange,
-                                    isset($groupedEnums[$_schemaId]) ? $groupedEnums[$_schemaId] : null
+                                    isset($groupedEnums[$_schemaId][$propKey]) ? $groupedEnums[$_schemaId][$propKey] : null
                                 );
                             }
                         }
