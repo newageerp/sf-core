@@ -173,6 +173,8 @@ class TableRowService
                             ]);
                         }
 
+                        $td->setStyle($styleArray);
+
                         // if (isset($col['templateOptions'])) {
                         //     foreach ($col['templateOptions'] as $opt) {
                         //         $optMethod = 'set' . ucfirst($opt['prop']);
