@@ -178,6 +178,19 @@ class ConfigCacheController extends ConfigBaseController
             ];
         }, $properties);
 
+        // Config
+        $settings = ConfigService::getConfig('settings');
+
+        $frontConfig = [
+            'main' => ConfigService::getConfig('main')
+        ];
+
+        if (isset($settings['config']) && $settings['config']) {
+            foreach ($settings['config'] as $configName) {
+                $frontConfig[$configName] = ConfigService::getConfig($configName);
+            }
+        }
+
         return $this->json([
             'data' => [
                 'entities' => $entites,
@@ -186,11 +199,9 @@ class ConfigCacheController extends ConfigBaseController
                 'viewForms' => $viewForms,
                 'statuses' => $statusService->getStatusesV2(),
 
-                'settings' => ConfigService::getConfig('settings'),
+                'settings' => $settings,
 
-                'config' => [
-                    'main' => ConfigService::getConfig('main'),
-                ]
+                'config' => $frontConfig
             ]
         ]);
     }
