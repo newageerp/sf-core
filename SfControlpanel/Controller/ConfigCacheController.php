@@ -198,7 +198,7 @@ class ConfigCacheController extends ConfigBaseController
                 'editForms' => $editForms,
                 'viewForms' => $viewForms,
                 'statuses' => $statusService->getStatusesV2(),
-
+                'tabs' => $tabs,
                 'settings' => $settings,
 
                 'config' => $frontConfig
