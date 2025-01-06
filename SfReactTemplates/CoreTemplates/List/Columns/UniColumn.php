@@ -37,7 +37,7 @@ class UniColumn extends ListBaseColumn
 
     public function getTemplateName(): string
     {
-        return '_.AppBundle.UniRoColumn';
+        return 'bit-UniRoColumn';
     }
 
     /**
